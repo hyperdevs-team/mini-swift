@@ -10,6 +10,7 @@
 		F236610B224BB59A00F393C4 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2366101224BB59A00F393C4 /* Mini.framework */; };
 		F2366110224BB59A00F393C4 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236610F224BB59A00F393C4 /* MiniTests.swift */; };
 		F2366112224BB59A00F393C4 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = F2366104224BB59A00F393C4 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F236611C224BBF2A00F393C4 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236611B224BBF2A00F393C4 /* Mini.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		F236610A224BB59A00F393C4 /* MiniTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F236610F224BB59A00F393C4 /* MiniTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniTests.swift; sourceTree = "<group>"; };
 		F2366111224BB59A00F393C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F236611B224BBF2A00F393C4 /* Mini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				F2366104224BB59A00F393C4 /* Mini.h */,
 				F2366105224BB59A00F393C4 /* Info.plist */,
+				F236611B224BBF2A00F393C4 /* Mini.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					F2366100224BB59A00F393C4 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					F2366109224BB59A00F393C4 = {
 						CreatedOnToolsVersion = 10.1;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F236611C224BBF2A00F393C4 /* Mini.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +346,7 @@
 		F2366116224BB59A00F393C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -357,6 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,6 +372,7 @@
 		F2366117224BB59A00F393C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +397,7 @@
 		F2366119224BB59A00F393C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +415,7 @@
 		F236611A224BB59A00F393C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
