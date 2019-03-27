@@ -1,0 +1,44 @@
+#FILE HELPERS
+gitfiles = (git.modified_files + git.added_files).uniq
+has_code_changes = !gitfiles.grep(/^Source/).empty?
+has_tests_changes = !gitfiles.grep(/^Tests/).empty?
+
+build_reports = []
+test_reports = []
+Find.find("./output") do |path|
+	build_reports << path if path =~ /xcpretty.*\.json$/
+	test_reports << path if path =~ /.*TestSummaries.xml$/
+end
+
+#BASIC CHECKS:
+warn 'This PR is a WIP! 🦑' if github.pr_title.include? '[WIP]'
+warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
+fail 'This PR don\'t have a description 😒' if github.pr_body.length < 5
+fail 'This PR don\'t have any user assigned 😙' if github.pr_json["assignees"].count == 0
+fail 'This PR don\'t have any user reviewers 😙' if github.pr_json["requested_reviewers"].count == 0
+
+#BUILD PARSE:
+build_reports.each do |path|
+	path = Pathname(path)
+	xcode_summary.report path.to_s
+end
+
+#JUNIT PARSE:
+test_reports.each do |path|
+	path = Pathname(path)
+	junit.parse path.to_s
+	junit.report
+
+	all_test = junit.tests.map(&:attributes)
+	slowest_test = all_test.sort_by { |attributes| attributes[:time].to_f }.last
+	message "Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds"
+end
+
+#SWIFTLINT
+swiftlint.lint_all_files = true
+swiftlint.lint_files fail_on_error: true
+
+#TEST EVOLUTION CHECK:
+if has_code_changes 
+	warn('You have changes in code but there is no changes in any test... do you sleep well at night? 🤨') if !has_tests_changes
+end

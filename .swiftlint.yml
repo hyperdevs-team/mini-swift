@@ -1,0 +1,87 @@
+disabled_rules:
+  - todo
+  - conditional_returns_on_newline
+  - unused_optional_binding
+opt_in_rules: 
+  #lint
+  - prohibited_super_call
+  - overridden_super_call
+  - yoda_condition
+  #style
+  - unneeded_parentheses_in_closure_argument
+  - operator_usage_whitespace
+  - number_separator
+  - closure_spacing
+  - closure_end_indentation
+  - attributes
+  - file_header
+  #idiomatic
+  - redundant_nil_coalescing
+  - nimble_operator
+  - explicit_init
+  #performance 
+  - empty_count
+  - contains_over_first_not_nil
+  - empty_string
+  - first_where
+  - sorted_first_last
+included:
+  - Source
+  - Tests
+closure_end_indentation:
+  severity: error
+force_cast: 
+  severity: error
+force_try:
+  severity: error
+function_body_length: 
+  warning: 60
+  error: 100
+cyclomatic_complexity:
+  warning: 60
+  error: 60
+type_body_length:
+  warning: 400
+  error: 500 
+line_length:
+  warning: 250
+  error: 400
+file_length:
+  warning: 700
+  error: 1200
+type_name:
+  min_length: 3
+  max_length: 40
+  excluded:
+    - iPhone
+    - my
+    - BO
+    - bo
+  severity: error
+identifier_name:
+  min_length: 3
+  max_length: 40
+  excluded: 
+    - i
+    - to
+    - x
+    - y
+    - z
+    - a
+    - b
+    - rx
+    - map
+    - app
+    - id
+    - URL
+    - GlobalAPIKey
+    - bo
+    - BO
+  severity: error
+attributes:
+  always_on_same_line:
+      - "@IBOutlet"
+      - "@IBAction"
+      - "@NSManaged"
+      - "@testable"
+reporter: "xcode"

@@ -2,6 +2,6 @@ language: swift
 script:
 - set -o pipefail
 - swift --version
-- xcodebuild clean build test -project Mini.xcodeproj -scheme Mini -destination "platform=iOS Simulator,name=iPhone 7" | xcpretty -f `xcpretty-travis-formatter`
-- swiftlint lint
+- bundle exec fastlane pass_tests
 - pod lib lint
+- bundle exec danger

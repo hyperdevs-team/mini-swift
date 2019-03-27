@@ -1,0 +1,22 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Pass all test for main target"
+  lane :pass_tests do
+  	scheme = "Mini"
+  	configuration = "Debug"
+
+  	ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "./output/xcpretty-#{scheme}-#{configuration}.json"
+   	scan(
+		scheme: scheme,
+		configuration: configuration,
+		disable_concurrent_testing: true,
+	    max_concurrent_simulators: 1,
+	    buildlog_path: "./output",
+	    output_directory: "./output",
+	    formatter: 'xcpretty-json-formatter',
+	    skip_slack: true
+	)
+	trainer(output_directory: "./output")
+  end
+end
