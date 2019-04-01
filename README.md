@@ -20,12 +20,14 @@ it, simply add the following line to your Podfile:
 pod 'Mini-Swift'
 ```
 
-## Authors
+## Authors & Collaborators
 
-Raúl Pedraza León
-Edilberto Lopez Torregrosa
-Jorge Revuelta
-Sebastián Varela
+* **[Edilberto Lopez Torregrosa](https://github.com/ediLT)**
+* **[Raúl Pedraza León](https://github.com/r-pedraza)**
+* **[Jorge Revuelta](https://github.com/minuscorp)**
+* **[Francisco García Sierra](https://github.com/FrangSierra)**
+* **[Pablo Orgaz](https://github.com/pabloogc)**
+* **[Sebastián Varela](https://github.com/sebastianvarela)**
 
 ## License
 
