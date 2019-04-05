@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/bq/danger-bq_helpers
+  revision: 8127d3f68d8ca7774725b8103f2183654193013c
+  specs:
+    danger-bq_helpers (1.0.0)
+      danger-plugin-api (~> 1.0)
+
+GIT
+  remote: https://github.com/bq/fastlane-plugin-test_scheme
+  revision: 468e47e1d218bafa6ba607a8f0eea807640bb82b
+  specs:
+    fastlane-plugin-test_scheme (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -17,7 +30,7 @@ GEM
       highline (~> 1.7.2)
     cork (0.3.0)
       colored2 (~> 3.1)
-    danger (6.0.1)
+    danger (6.0.2)
       claide (~> 1.0)
       claide-plugins (>= 0.9.2)
       colored2 (~> 3.1)
@@ -141,7 +154,7 @@ GEM
     memoist (0.16.0)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2018.0812)
+    mime-types-data (3.2019.0331)
     mini_magick (4.5.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
@@ -150,7 +163,7 @@ GEM
     nap (1.1.0)
     naturally (2.2.0)
     no_proxy_fix (0.1.2)
-    octokit (4.13.0)
+    octokit (4.14.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     open4 (1.3.4)
     os (1.0.0)
@@ -219,12 +232,14 @@ PLATFORMS
 
 DEPENDENCIES
   danger
+  danger-bq_helpers!
   danger-junit
   danger-swiftlint
   danger-xcode_summary
   danger-xcodebuild
   danger-xcov
   fastlane
+  fastlane-plugin-test_scheme!
   fastlane-plugin-trainer
   trainer
   xcpretty-json-formatter

@@ -6,7 +6,7 @@
 //  Copyright © 2019 BQ. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Mini.
 FOUNDATION_EXPORT double MiniVersionNumber;
