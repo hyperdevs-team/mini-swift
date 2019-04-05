@@ -7,185 +7,489 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F236610B224BB59A00F393C4 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2366101224BB59A00F393C4 /* Mini.framework */; };
-		F2366110224BB59A00F393C4 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236610F224BB59A00F393C4 /* MiniTests.swift */; };
-		F2366112224BB59A00F393C4 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = F2366104224BB59A00F393C4 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F236611C224BBF2A00F393C4 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236611B224BBF2A00F393C4 /* Mini.swift */; };
+		E23E36F9212191CE00A81C2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23E36F8212191CD00A81C2A /* UIKit.framework */; };
+		E26053F82121880000D013B5 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26053EE212187FF00D013B5 /* Mini.framework */; };
+		E26053FF2121880000D013B5 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E28123E02122C2CB00E4F6D0 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28123D72122C2CB00E4F6D0 /* Mini.framework */; };
+		E28123EE2122C36600E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28124322122CC4C00E4F6D0 /* Mini.framework */; };
+		E28124562122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E28124572122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28C312021494B4300DE964B /* SystemConfiguration.framework */; };
+		F26C3AF422537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
+		F26C3AF522537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
+		F26C3AF622537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
+		F26C3AF822537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
+		F26C3AF922537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
+		F26C3AFA22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
+		F26C3AFB22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F236610C224BB59A00F393C4 /* PBXContainerItemProxy */ = {
+		E26053F92121880000D013B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F23660F8224BB59A00F393C4 /* Project object */;
+			containerPortal = E26053E5212187FF00D013B5 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F2366100224BB59A00F393C4;
+			remoteGlobalIDString = E26053ED212187FF00D013B5;
 			remoteInfo = Mini;
+		};
+		E28123E12122C2CB00E4F6D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26053E5212187FF00D013B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E28123D62122C2CB00E4F6D0;
+			remoteInfo = "Mini-macOS";
+		};
+		E281243C2122CC4C00E4F6D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26053E5212187FF00D013B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E28124312122CC4C00E4F6D0;
+			remoteInfo = "Mini-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F2366101224BB59A00F393C4 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2366104224BB59A00F393C4 /* Mini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mini.h; sourceTree = "<group>"; };
-		F2366105224BB59A00F393C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F236610A224BB59A00F393C4 /* MiniTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F236610F224BB59A00F393C4 /* MiniTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniTests.swift; sourceTree = "<group>"; };
-		F2366111224BB59A00F393C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F236611B224BBF2A00F393C4 /* Mini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
+		E23E36F8212191CD00A81C2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E26053EE212187FF00D013B5 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26053F12121880000D013B5 /* Mini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mini.h; sourceTree = "<group>"; };
+		E26053F22121880000D013B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E26053F72121880000D013B5 /* Mini-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26053FE2121880000D013B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E28123D72122C2CB00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E28123DF2122C2CB00E4F6D0 /* Mini-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E28124322122CC4C00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E281244E2122CC5B00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E28C312021494B4300DE964B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F26C3AF322537A3500189D28 /* MiniTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniTests.swift; sourceTree = "<group>"; };
+		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F23660FE224BB59A00F393C4 /* Frameworks */ = {
+		E26053EA212187FF00D013B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E23E36F9212191CE00A81C2A /* UIKit.framework in Frameworks */,
+				E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26053F42121880000D013B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26053F82121880000D013B5 /* Mini.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123D32122C2CB00E4F6D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2366107224BB59A00F393C4 /* Frameworks */ = {
+		E28123DC2122C2CB00E4F6D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F236610B224BB59A00F393C4 /* Mini.framework in Frameworks */,
+				E28123E02122C2CB00E4F6D0 /* Mini.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281242E2122CC4C00E4F6D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28124372122CC4C00E4F6D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281244A2122CC5B00E4F6D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F23660F7224BB59A00F393C4 = {
+		E23E37012121936000A81C2A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F2366103224BB59A00F393C4 /* Source */,
-				F236610E224BB59A00F393C4 /* Tests */,
-				F2366102224BB59A00F393C4 /* Products */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E26053E4212187FF00D013B5 = {
+			isa = PBXGroup;
+			children = (
+				E26053F02121880000D013B5 /* Source */,
+				E26053FB2121880000D013B5 /* Tests */,
+				E28124592122CD2500E4F6D0 /* Frameworks */,
+				E26053EF212187FF00D013B5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		F2366102224BB59A00F393C4 /* Products */ = {
+		E26053EF212187FF00D013B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2366101224BB59A00F393C4 /* Mini.framework */,
-				F236610A224BB59A00F393C4 /* MiniTests.xctest */,
+				E26053EE212187FF00D013B5 /* Mini.framework */,
+				E26053F72121880000D013B5 /* Mini-iOSTests.xctest */,
+				E28123D72122C2CB00E4F6D0 /* Mini.framework */,
+				E28123DF2122C2CB00E4F6D0 /* Mini-macOSTests.xctest */,
+				E28124322122CC4C00E4F6D0 /* Mini.framework */,
+				E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */,
+				E281244E2122CC5B00E4F6D0 /* Mini.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F2366103224BB59A00F393C4 /* Source */ = {
+		E26053F02121880000D013B5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				F2366104224BB59A00F393C4 /* Mini.h */,
-				F2366105224BB59A00F393C4 /* Info.plist */,
-				F236611B224BBF2A00F393C4 /* Mini.swift */,
+				F26C3AF722537A4600189D28 /* Mini.swift */,
+				E26053F12121880000D013B5 /* Mini.h */,
+				E26053F22121880000D013B5 /* Info.plist */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		F236610E224BB59A00F393C4 /* Tests */ = {
+		E26053FB2121880000D013B5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F236610F224BB59A00F393C4 /* MiniTests.swift */,
-				F2366111224BB59A00F393C4 /* Info.plist */,
+				E23E37012121936000A81C2A /* Resources */,
+				F26C3AF322537A3500189D28 /* MiniTests.swift */,
+				E26053FE2121880000D013B5 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		E260546121218DE800D013B5 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E28C312021494B4300DE964B /* SystemConfiguration.framework */,
+				E23E36F8212191CD00A81C2A /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		E28124592122CD2500E4F6D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E2FE59D72122CD9700A38D7A /* watchOS */,
+				E281245B2122CD3600E4F6D0 /* tvOS */,
+				E281245A2122CD2F00E4F6D0 /* macOS */,
+				E260546121218DE800D013B5 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E281245A2122CD2F00E4F6D0 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		E281245B2122CD3600E4F6D0 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
+		E2FE59D72122CD9700A38D7A /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = watchOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		F23660FC224BB59A00F393C4 /* Headers */ = {
+		E26053EB212187FF00D013B5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2366112224BB59A00F393C4 /* Mini.h in Headers */,
+				E26053FF2121880000D013B5 /* Mini.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123D42122C2CB00E4F6D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E28123EE2122C36600E4F6D0 /* Mini.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281242F2122CC4C00E4F6D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E28124562122CCE300E4F6D0 /* Mini.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281244B2122CC5B00E4F6D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E28124572122CCE300E4F6D0 /* Mini.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F2366100224BB59A00F393C4 /* Mini */ = {
+		E26053ED212187FF00D013B5 /* Mini-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2366115224BB59A00F393C4 /* Build configuration list for PBXNativeTarget "Mini" */;
+			buildConfigurationList = E26054022121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOS" */;
 			buildPhases = (
-				F23660FC224BB59A00F393C4 /* Headers */,
-				F23660FD224BB59A00F393C4 /* Sources */,
-				F23660FE224BB59A00F393C4 /* Frameworks */,
-				F23660FF224BB59A00F393C4 /* Resources */,
-				F236611D224E62A400F393C4 /* Swiftlint */,
+				E260540821218AF400D013B5 /* Swiftlint */,
+				E26053E9212187FF00D013B5 /* Sources */,
+				E26053EA212187FF00D013B5 /* Frameworks */,
+				E26053EB212187FF00D013B5 /* Headers */,
+				E26053EC212187FF00D013B5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Mini;
+			name = "Mini-iOS";
 			productName = Mini;
-			productReference = F2366101224BB59A00F393C4 /* Mini.framework */;
+			productReference = E26053EE212187FF00D013B5 /* Mini.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		F2366109224BB59A00F393C4 /* MiniTests */ = {
+		E26053F62121880000D013B5 /* Mini-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2366118224BB59A00F393C4 /* Build configuration list for PBXNativeTarget "MiniTests" */;
+			buildConfigurationList = E26054052121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOSTests" */;
 			buildPhases = (
-				F2366106224BB59A00F393C4 /* Sources */,
-				F2366107224BB59A00F393C4 /* Frameworks */,
-				F2366108224BB59A00F393C4 /* Resources */,
+				E26053F32121880000D013B5 /* Sources */,
+				E26053F42121880000D013B5 /* Frameworks */,
+				E26053F52121880000D013B5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F236610D224BB59A00F393C4 /* PBXTargetDependency */,
+				E26053FA2121880000D013B5 /* PBXTargetDependency */,
 			);
-			name = MiniTests;
+			name = "Mini-iOSTests";
 			productName = MiniTests;
-			productReference = F236610A224BB59A00F393C4 /* MiniTests.xctest */;
+			productReference = E26053F72121880000D013B5 /* Mini-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E28123D62122C2CB00E4F6D0 /* Mini-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28123EC2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOS" */;
+			buildPhases = (
+				E20BA60521389BE0005BA13B /* Swiftlint */,
+				E28123D22122C2CB00E4F6D0 /* Sources */,
+				E28123D32122C2CB00E4F6D0 /* Frameworks */,
+				E28123D42122C2CB00E4F6D0 /* Headers */,
+				E28123D52122C2CB00E4F6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mini-macOS";
+			productName = "Mini-macOS";
+			productReference = E28123D72122C2CB00E4F6D0 /* Mini.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E28123DE2122C2CB00E4F6D0 /* Mini-macOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28123ED2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOSTests" */;
+			buildPhases = (
+				E28123DB2122C2CB00E4F6D0 /* Sources */,
+				E28123DC2122C2CB00E4F6D0 /* Frameworks */,
+				E28123DD2122C2CB00E4F6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E28123E22122C2CB00E4F6D0 /* PBXTargetDependency */,
+			);
+			name = "Mini-macOSTests";
+			productName = "Mini-macOSTests";
+			productReference = E28123DF2122C2CB00E4F6D0 /* Mini-macOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E28124312122CC4C00E4F6D0 /* Mini-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28124432122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOS" */;
+			buildPhases = (
+				E20BA60621389BF7005BA13B /* Swiftlint */,
+				E281242D2122CC4C00E4F6D0 /* Sources */,
+				E281242E2122CC4C00E4F6D0 /* Frameworks */,
+				E281242F2122CC4C00E4F6D0 /* Headers */,
+				E28124302122CC4C00E4F6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mini-tvOS";
+			productName = "Mini-tvOS";
+			productReference = E28124322122CC4C00E4F6D0 /* Mini.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E28124392122CC4C00E4F6D0 /* Mini-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28124462122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOSTests" */;
+			buildPhases = (
+				E28124362122CC4C00E4F6D0 /* Sources */,
+				E28124372122CC4C00E4F6D0 /* Frameworks */,
+				E28124382122CC4C00E4F6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E281243D2122CC4C00E4F6D0 /* PBXTargetDependency */,
+			);
+			name = "Mini-tvOSTests";
+			productName = "Mini-tvOSTests";
+			productReference = E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E281244D2122CC5B00E4F6D0 /* Mini-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E28124532122CC5C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-watchOS" */;
+			buildPhases = (
+				E28124492122CC5B00E4F6D0 /* Sources */,
+				E281244A2122CC5B00E4F6D0 /* Frameworks */,
+				E281244B2122CC5B00E4F6D0 /* Headers */,
+				E281244C2122CC5B00E4F6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mini-watchOS";
+			productName = "Mini-watchOS";
+			productReference = E281244E2122CC5B00E4F6D0 /* Mini.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		F23660F8224BB59A00F393C4 /* Project object */ = {
+		E26053E5212187FF00D013B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = BQ;
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = S3BA;
 				TargetAttributes = {
-					F2366100224BB59A00F393C4 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+					E26053ED212187FF00D013B5 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
-					F2366109224BB59A00F393C4 = {
-						CreatedOnToolsVersion = 10.1;
+					E26053F62121880000D013B5 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+					};
+					E28123D62122C2CB00E4F6D0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+					};
+					E28123DE2122C2CB00E4F6D0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+					};
+					E28124312122CC4C00E4F6D0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+					};
+					E28124392122CC4C00E4F6D0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
+					};
+					E281244D2122CC5B00E4F6D0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
-			buildConfigurationList = F23660FB224BB59A00F393C4 /* Build configuration list for PBXProject "Mini" */;
+			buildConfigurationList = E26053E8212187FF00D013B5 /* Build configuration list for PBXProject "Mini" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = F23660F7224BB59A00F393C4;
-			productRefGroup = F2366102224BB59A00F393C4 /* Products */;
+			mainGroup = E26053E4212187FF00D013B5;
+			productRefGroup = E26053EF212187FF00D013B5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F2366100224BB59A00F393C4 /* Mini */,
-				F2366109224BB59A00F393C4 /* MiniTests */,
+				E26053ED212187FF00D013B5 /* Mini-iOS */,
+				E26053F62121880000D013B5 /* Mini-iOSTests */,
+				E28123D62122C2CB00E4F6D0 /* Mini-macOS */,
+				E28123DE2122C2CB00E4F6D0 /* Mini-macOSTests */,
+				E28124312122CC4C00E4F6D0 /* Mini-tvOS */,
+				E28124392122CC4C00E4F6D0 /* Mini-tvOSTests */,
+				E281244D2122CC5B00E4F6D0 /* Mini-watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F23660FF224BB59A00F393C4 /* Resources */ = {
+		E26053EC212187FF00D013B5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2366108224BB59A00F393C4 /* Resources */ = {
+		E26053F52121880000D013B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123D52122C2CB00E4F6D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123DD2122C2CB00E4F6D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28124302122CC4C00E4F6D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28124382122CC4C00E4F6D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281244C2122CC5B00E4F6D0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -195,55 +499,129 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F236611D224E62A400F393C4 /* Swiftlint */ = {
+		E20BA60521389BE0005BA13B /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
 			name = Swiftlint;
-			outputFileListPaths = (
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi";
+		};
+		E20BA60621389BF7005BA13B /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi";
+		};
+		E260540821218AF400D013B5 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F23660FD224BB59A00F393C4 /* Sources */ = {
+		E26053E9212187FF00D013B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F236611C224BBF2A00F393C4 /* Mini.swift in Sources */,
+				F26C3AF822537A4600189D28 /* Mini.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2366106224BB59A00F393C4 /* Sources */ = {
+		E26053F32121880000D013B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2366110224BB59A00F393C4 /* MiniTests.swift in Sources */,
+				F26C3AF422537A3600189D28 /* MiniTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123D22122C2CB00E4F6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C3AF922537A4600189D28 /* Mini.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28123DB2122C2CB00E4F6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C3AF522537A3600189D28 /* MiniTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E281242D2122CC4C00E4F6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C3AFA22537A4600189D28 /* Mini.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28124362122CC4C00E4F6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C3AF622537A3600189D28 /* MiniTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E28124492122CC5B00E4F6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C3AFB22537A4600189D28 /* Mini.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F236610D224BB59A00F393C4 /* PBXTargetDependency */ = {
+		E26053FA2121880000D013B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F2366100224BB59A00F393C4 /* Mini */;
-			targetProxy = F236610C224BB59A00F393C4 /* PBXContainerItemProxy */;
+			target = E26053ED212187FF00D013B5 /* Mini-iOS */;
+			targetProxy = E26053F92121880000D013B5 /* PBXContainerItemProxy */;
+		};
+		E28123E22122C2CB00E4F6D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E28123D62122C2CB00E4F6D0 /* Mini-macOS */;
+			targetProxy = E28123E12122C2CB00E4F6D0 /* PBXContainerItemProxy */;
+		};
+		E281243D2122CC4C00E4F6D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E28124312122CC4C00E4F6D0 /* Mini-tvOS */;
+			targetProxy = E281243C2122CC4C00E4F6D0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		F2366113224BB59A00F393C4 /* Debug */ = {
+		E26054002121880000D013B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -295,19 +673,20 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Mini;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		F2366114224BB59A00F393C4 /* Release */ = {
+		E26054012121880000D013B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -353,28 +732,31 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = Mini;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		F2366116224BB59A00F393C4 /* Debug */ = {
+		E26054032121880000D013B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -383,24 +765,25 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		F2366117224BB59A00F393C4 /* Release */ = {
+		E26054042121880000D013B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -409,80 +792,380 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		F2366119224BB59A00F393C4 /* Debug */ = {
+		E26054062121880000D013B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T4VVB5R8J8;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bq.MiniTests;
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		F236611A224BB59A00F393C4 /* Release */ = {
+		E26054072121880000D013B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T4VVB5R8J8;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bq.MiniTests;
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E28123E82122C2CB00E4F6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E28123E92122C2CB00E4F6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E28123EA2122C2CB00E4F6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E28123EB2122C2CB00E4F6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E28124442122CC4C00E4F6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		E28124452122CC4C00E4F6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		E28124472122CC4C00E4F6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		E28124482122CC4C00E4F6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		E28124542122CC5C00E4F6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+			};
+			name = Debug;
+		};
+		E28124552122CC5C00E4F6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F23660FB224BB59A00F393C4 /* Build configuration list for PBXProject "Mini" */ = {
+		E26053E8212187FF00D013B5 /* Build configuration list for PBXProject "Mini" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F2366113224BB59A00F393C4 /* Debug */,
-				F2366114224BB59A00F393C4 /* Release */,
+				E26054002121880000D013B5 /* Debug */,
+				E26054012121880000D013B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2366115224BB59A00F393C4 /* Build configuration list for PBXNativeTarget "Mini" */ = {
+		E26054022121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F2366116224BB59A00F393C4 /* Debug */,
-				F2366117224BB59A00F393C4 /* Release */,
+				E26054032121880000D013B5 /* Debug */,
+				E26054042121880000D013B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2366118224BB59A00F393C4 /* Build configuration list for PBXNativeTarget "MiniTests" */ = {
+		E26054052121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F2366119224BB59A00F393C4 /* Debug */,
-				F236611A224BB59A00F393C4 /* Release */,
+				E26054062121880000D013B5 /* Debug */,
+				E26054072121880000D013B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28123EC2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28123E82122C2CB00E4F6D0 /* Debug */,
+				E28123E92122C2CB00E4F6D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28123ED2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28123EA2122C2CB00E4F6D0 /* Debug */,
+				E28123EB2122C2CB00E4F6D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28124432122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28124442122CC4C00E4F6D0 /* Debug */,
+				E28124452122CC4C00E4F6D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28124462122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28124472122CC4C00E4F6D0 /* Debug */,
+				E28124482122CC4C00E4F6D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E28124532122CC5C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E28124542122CC5C00E4F6D0 /* Debug */,
+				E28124552122CC5C00E4F6D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = F23660F8224BB59A00F393C4 /* Project object */;
+	rootObject = E26053E5212187FF00D013B5 /* Project object */;
 }
