@@ -1,7 +1,10 @@
 language: swift
+osx_image: xcode10.2
+
 addons:
   homebrew:
     brewfile: true
+
 script:
 - set -o pipefail
 - swift --version
