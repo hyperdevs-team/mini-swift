@@ -1,7 +1,11 @@
 language: swift
+addons:
+  homebrew:
+    brewfile: true
 script:
 - set -o pipefail
 - swift --version
+- carthage bootstrap --no-use-binaries
 - bundle exec fastlane pass_tests
 - pod lib lint
 - bundle exec danger
