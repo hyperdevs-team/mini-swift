@@ -6,11 +6,7 @@ has_tests_changes = !gitfiles.grep(/^Tests/).empty?
 bq_helpers.scan_files
 
 #BASIC CHECKS:
-warn 'This PR is a WIP! 🦑' if github.pr_title.include? '[WIP]'
 warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
-fail 'This PR don\'t have a description 😒' if github.pr_body.length < 5
-fail 'This PR don\'t have any user assigned 😙' if github.pr_json["assignees"].count == 0
-fail 'This PR don\'t have any user reviewers 😙' if github.pr_json["requested_reviewers"].count == 0
 
 #BUILD PARSE:
 bq_helpers.build_reports.each do |path|
@@ -26,7 +22,7 @@ bq_helpers.test_reports.each do |path|
 
 	all_test = junit.tests.map(&:attributes)
 	slowest_test = all_test.sort_by { |attributes| attributes[:time].to_f }.last
-	message "**[#{bq_helpers.read_platform_from_file(path: path)}]** Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds"
+	message "⌛️ **[#{bq_helpers.read_platform_from_file(path: path)}]** Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds"
 end
 
 #SWIFTLINT
