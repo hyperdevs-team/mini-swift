@@ -16,6 +16,27 @@
 		E28124562122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E28124572122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28C312021494B4300DE964B /* SystemConfiguration.framework */; };
+		F22A384B227890750012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3848227890750012C010 /* RxBlocking.framework */; };
+		F22A384C227890750012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3848227890750012C010 /* RxBlocking.framework */; };
+		F22A384D227890750012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3849227890750012C010 /* RxCocoa.framework */; };
+		F22A384E227890750012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3849227890750012C010 /* RxCocoa.framework */; };
+		F22A384F227890750012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A384A227890750012C010 /* RxSwift.framework */; };
+		F22A3850227890750012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A384A227890750012C010 /* RxSwift.framework */; };
+		F22A3854227890870012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3851227890870012C010 /* RxBlocking.framework */; };
+		F22A3855227890870012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3851227890870012C010 /* RxBlocking.framework */; };
+		F22A3856227890870012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3852227890870012C010 /* RxCocoa.framework */; };
+		F22A3857227890870012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3852227890870012C010 /* RxCocoa.framework */; };
+		F22A3858227890870012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3853227890870012C010 /* RxSwift.framework */; };
+		F22A3859227890870012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3853227890870012C010 /* RxSwift.framework */; };
+		F22A3863227890B00012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3860227890B00012C010 /* RxBlocking.framework */; };
+		F22A3864227890B00012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3860227890B00012C010 /* RxBlocking.framework */; };
+		F22A3865227890B00012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3861227890B00012C010 /* RxCocoa.framework */; };
+		F22A3866227890B00012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3861227890B00012C010 /* RxCocoa.framework */; };
+		F22A3867227890B00012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3862227890B00012C010 /* RxSwift.framework */; };
+		F22A3868227890B00012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3862227890B00012C010 /* RxSwift.framework */; };
+		F22A386C227890BE0012C010 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A3869227890BE0012C010 /* RxBlocking.framework */; };
+		F22A386D227890BE0012C010 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A386A227890BE0012C010 /* RxSwift.framework */; };
+		F22A386E227890BE0012C010 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F22A386B227890BE0012C010 /* RxCocoa.framework */; };
 		F26C3AF422537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
 		F26C3AF522537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
 		F26C3AF622537A3600189D28 /* MiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF322537A3500189D28 /* MiniTests.swift */; };
@@ -62,6 +83,18 @@
 		E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281244E2122CC5B00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28C312021494B4300DE964B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F22A3848227890750012C010 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
+		F22A3849227890750012C010 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		F22A384A227890750012C010 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		F22A3851227890870012C010 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/Mac/RxBlocking.framework; sourceTree = "<group>"; };
+		F22A3852227890870012C010 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
+		F22A3853227890870012C010 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		F22A3860227890B00012C010 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/tvOS/RxBlocking.framework; sourceTree = "<group>"; };
+		F22A3861227890B00012C010 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/tvOS/RxCocoa.framework; sourceTree = "<group>"; };
+		F22A3862227890B00012C010 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
+		F22A3869227890BE0012C010 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/watchOS/RxBlocking.framework; sourceTree = "<group>"; };
+		F22A386A227890BE0012C010 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
+		F22A386B227890BE0012C010 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/watchOS/RxCocoa.framework; sourceTree = "<group>"; };
 		F26C3AF322537A3500189D28 /* MiniTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniTests.swift; sourceTree = "<group>"; };
 		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,8 +104,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A384F227890750012C010 /* RxSwift.framework in Frameworks */,
+				F22A384D227890750012C010 /* RxCocoa.framework in Frameworks */,
 				E23E36F9212191CE00A81C2A /* UIKit.framework in Frameworks */,
 				E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */,
+				F22A384B227890750012C010 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +116,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A3850227890750012C010 /* RxSwift.framework in Frameworks */,
+				F22A384E227890750012C010 /* RxCocoa.framework in Frameworks */,
 				E26053F82121880000D013B5 /* Mini.framework in Frameworks */,
+				F22A384C227890750012C010 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +127,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A3856227890870012C010 /* RxCocoa.framework in Frameworks */,
+				F22A3854227890870012C010 /* RxBlocking.framework in Frameworks */,
+				F22A3858227890870012C010 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +137,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A3859227890870012C010 /* RxSwift.framework in Frameworks */,
+				F22A3857227890870012C010 /* RxCocoa.framework in Frameworks */,
 				E28123E02122C2CB00E4F6D0 /* Mini.framework in Frameworks */,
+				F22A3855227890870012C010 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +148,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A3865227890B00012C010 /* RxCocoa.framework in Frameworks */,
+				F22A3863227890B00012C010 /* RxBlocking.framework in Frameworks */,
+				F22A3867227890B00012C010 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +158,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A3868227890B00012C010 /* RxSwift.framework in Frameworks */,
+				F22A3866227890B00012C010 /* RxCocoa.framework in Frameworks */,
 				E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */,
+				F22A3864227890B00012C010 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +169,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F22A386E227890BE0012C010 /* RxCocoa.framework in Frameworks */,
+				F22A386D227890BE0012C010 /* RxSwift.framework in Frameworks */,
+				F22A386C227890BE0012C010 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +232,9 @@
 		E260546121218DE800D013B5 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F22A3848227890750012C010 /* RxBlocking.framework */,
+				F22A3849227890750012C010 /* RxCocoa.framework */,
+				F22A384A227890750012C010 /* RxSwift.framework */,
 				E28C312021494B4300DE964B /* SystemConfiguration.framework */,
 				E23E36F8212191CD00A81C2A /* UIKit.framework */,
 			);
@@ -198,6 +255,9 @@
 		E281245A2122CD2F00E4F6D0 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				F22A3851227890870012C010 /* RxBlocking.framework */,
+				F22A3852227890870012C010 /* RxCocoa.framework */,
+				F22A3853227890870012C010 /* RxSwift.framework */,
 			);
 			name = macOS;
 			sourceTree = "<group>";
@@ -205,6 +265,9 @@
 		E281245B2122CD3600E4F6D0 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
+				F22A3860227890B00012C010 /* RxBlocking.framework */,
+				F22A3861227890B00012C010 /* RxCocoa.framework */,
+				F22A3862227890B00012C010 /* RxSwift.framework */,
 			);
 			name = tvOS;
 			sourceTree = "<group>";
@@ -212,6 +275,9 @@
 		E2FE59D72122CD9700A38D7A /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
+				F22A3869227890BE0012C010 /* RxBlocking.framework */,
+				F22A386B227890BE0012C010 /* RxCocoa.framework */,
+				F22A386A227890BE0012C010 /* RxSwift.framework */,
 			);
 			name = watchOS;
 			sourceTree = "<group>";
@@ -429,6 +495,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = E26053E4212187FF00D013B5;
 			productRefGroup = E26053EF212187FF00D013B5 /* Products */;
@@ -756,13 +823,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -783,13 +854,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -805,12 +880,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T4VVB5R8J8;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -826,12 +905,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T4VVB5R8J8;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -850,7 +933,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -858,6 +944,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
@@ -878,7 +965,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -886,6 +976,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
@@ -902,12 +993,16 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
@@ -925,12 +1020,16 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
@@ -949,13 +1048,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				SDKROOT = appletvos;
@@ -976,13 +1079,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				SDKROOT = appletvos;
@@ -998,12 +1105,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1020,12 +1131,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.s3ba.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1046,13 +1161,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				SDKROOT = watchos;
@@ -1074,13 +1194,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bq.Mini;
 				SDKROOT = watchos;
