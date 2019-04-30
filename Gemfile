@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "fastlane"
 gem "trainer"
+gem "overcommit"
 gem "xcpretty-json-formatter"
 gem "danger"
 gem "danger-xcodebuild"
