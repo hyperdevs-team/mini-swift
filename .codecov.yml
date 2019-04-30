@@ -1,0 +1,13 @@
+coverage:
+  range: 70..100
+  round: down
+  precision: 2
+  ignore:
+  - Tests/*
+  status:
+    project:
+      default: false
+      framework:
+        target: auto
+        paths: "Source/"
+    patch: off
