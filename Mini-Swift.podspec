@@ -20,6 +20,6 @@ Dependencies: RxSwift
   s.source_files  = "Source", "Source/**/*.{swift}"
 
   s.frameworks = 'Foundation'
-  #s.dependency 'RxSwift', '~> 4.3'
-  
+  s.dependency 'RxSwift', '~> 4.3'
+  s.dependency 'MagicPills'
 end
