@@ -1,23 +1,25 @@
 # Mini-Swift
+The re-imagined Re-Flux architecture for Swift.
 
+[![Release Version](https://img.shields.io/github/release/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases) 
+[![Release Date](https://img.shields.io/github/release-date/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases)
 [![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=master)](https://travis-ci.org/bq/mini-swift)
-[![Version](https://img.shields.io/cocoapods/v/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-[![License](https://img.shields.io/cocoapods/l/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-[![Platform](https://img.shields.io/cocoapods/p/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+[![codecov](https://codecov.io/gh/bq/mini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/bq/mini-swift)
+[![GitHub](https://img.shields.io/github/license/bq/mini-swift.svg)](https://github.com/bq/mini-swift/blob/master/LICENSE)
 
 ## Requirements
 
 ## Installation
 
-Mini-Swift is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Mini-Swift is available through [CocoaPods](https://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage). 
 
+To install it, simply add the following line to your `Podfile`:
 ```ruby
 pod 'Mini-Swift'
+```
+or this into your `Cartfile`:
+```ogdl
+github "bq/mini-swift" 
 ```
 
 ## Authors & Collaborators
