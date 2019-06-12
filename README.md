@@ -12,6 +12,11 @@ The re-imagined Re-Flux architecture for Swift.
 
 ## Requirements
 
+* Xcode 10.2
+* Swift 5.0
+
+For Xcode 10.1 and below, [use Mono-Swift 0.1.1](https://github.com/bq/mini-swift/tree/v0.1.1).
+
 ## Installation
 
 Mini-Swift is available through [CocoaPods](https://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage). 
