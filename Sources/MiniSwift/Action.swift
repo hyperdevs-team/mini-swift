@@ -1,20 +1,23 @@
+//
+//  Action.swift
+//  
+//
+//  Created by Jorge Revuelta on 01/07/2019.
+//
+
 import Foundation
 
-/**
- Common interface for all actions.
- Tags must be names or custom tags related with the types that this action implements.
- */
 public protocol Action {
-	  func isEqualTo(_ other: Action) -> Bool
+    func isEqualTo(_ other: Action) -> Bool
 }
 
-public extension Action {
+extension Action {
     /// String used as tag of the given Action based on his name.
     /// - Returns: The name of the action as a String.
-    var innerTag: String {
+    public var innerTag: String {
         return String(describing: type(of: self))
     }
-
+    
     /**
      Static method to retrieve the name of the action as a tag.action.
      
@@ -23,7 +26,6 @@ public extension Action {
      */
     static var tag: String {
         let tag = String(describing: type(of: self))
-        var splitTag = tag.components(separatedBy: ".")
-        return splitTag[0]
+        return tag.components(separatedBy: ".")[0]
     }
 }

@@ -1,7 +1,13 @@
+//
+//  State.swift
+//  
+//
+//  Created by Jorge Revuelta on 01/07/2019.
+//
+
 import Foundation
 
-/// Represents a State of a Store.
-public protocol State: Changeable {
+public protocol State {
     func isEqualTo(_ other: State) -> Bool
 }
 
@@ -12,8 +18,3 @@ public extension State where Self: Equatable {
     }
 }
 
-public extension State {
-    var innerTag: String {
-        return String(describing: type(of: self))
-    }
-}
