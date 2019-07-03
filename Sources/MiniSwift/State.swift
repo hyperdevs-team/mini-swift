@@ -8,11 +8,11 @@
 import Foundation
 
 public protocol State {
-    func isEqualTo(_ other: State) -> Bool
+    func isEqual(to other: State) -> Bool
 }
 
 public extension State where Self: Equatable {
-    func isEqualTo(_ other: State) -> Bool {
+    func isEqual(to other: State) -> Bool {
         guard let other = other as? Self else { return false }
         return self == other
     }

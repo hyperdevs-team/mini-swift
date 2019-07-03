@@ -16,10 +16,11 @@ final public class Store<S: State>: BindableObject {
     private var _initialState: S
     private var _state: S
     private let dispatcher: Dispatcher
+    private var disposable = [AnyCancellable]()
     
     private(set) public var state: S {
         set {
-            if !newValue.isEqualTo(state) {
+            if !newValue.isEqual(to: state) {
                 _state = newValue
                 didChange.send(newValue)
             }
@@ -28,6 +29,23 @@ final public class Store<S: State>: BindableObject {
             _state
         }
     }
+    /**
+     Property responsible of reduce the `State` given a certain `Action` being triggered.
+    ```
+     @DelayedImmutable public var reducerGroup: ReducerGroup {
+        ReducerGroup {
+         ActionReducer(dispatcher: dispatcher, action: SomeAction.self) { (action: SomeAction)
+            self.state = myCoolNewState
+         }
+         ActionReducer(dispatcher: dispatcher, action: OtherAction.self) { (action: OtherAction)
+         self.state = myCoolNewState
+         }
+        }
+     }
+    ```
+     - Note : As the property being annotated with `@DelayedImmutable`, it is not required at initialization time, but it will crash if either the group is not defined but used or mutated once the group is defined.
+     */
+    @DelayedImmutable public var reducerGroup: ReducerGroup
     
     public var initialState: S {
         _initialState
