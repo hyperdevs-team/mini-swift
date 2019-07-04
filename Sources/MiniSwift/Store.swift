@@ -16,7 +16,6 @@ final public class Store<S: State>: BindableObject {
     private var _initialState: S
     private var _state: S
     private let dispatcher: Dispatcher
-    private var disposable = [AnyCancellable]()
     
     private(set) public var state: S {
         set {
@@ -38,7 +37,8 @@ final public class Store<S: State>: BindableObject {
             self.state = myCoolNewState
          }
          ActionReducer(dispatcher: dispatcher, action: OtherAction.self) { (action: OtherAction)
-         self.state = myCoolNewState
+            // Needed work
+            self.state = myAnotherState
          }
         }
      }

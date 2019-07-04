@@ -9,16 +9,16 @@ import Foundation
 
 /// Action for testing purposes.
 public class TestOnlyAction: Action {
-    public func isEqualTo(_ other: Action) -> Bool {
+    public func isEqual(to other: Action) -> Bool {
         return true
     }
 }
 
 /// Interceptor class for testing purposes which mute all the received actions.
-public class TestInterceptor {
-    var interceptedActions: [Action] = []
+public class TestMiddleware {
+    private var interceptedActions: [Action] = []
     
-    //Replace all actions with dummy ones
+    /// Replace all actions with dummy ones
     func invoque(action: Action, chain: Chain) -> Action {
         interceptedActions.append(action)
         return TestOnlyAction()
@@ -30,7 +30,7 @@ public class TestInterceptor {
     /// - Returns: returns true if an action with the same params have been intercepted before.
     func containsAction(action: Action) -> Bool {
         return interceptedActions.contains(where: { interceptedAction -> Bool in
-            return action.isEqualTo(interceptedAction)
+            return action.isEqual(to: interceptedAction)
         })
     }
     

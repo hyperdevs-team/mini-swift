@@ -9,24 +9,29 @@ import Foundation
 import Combine
 
 public protocol Group {
-    var cancellables: [DispatcherSubscription] { get set }
+    var cancellableBag: CancellableBag { get }
 }
 
 public struct ReducerGroup: Group {
-    public var cancellables: [DispatcherSubscription]
+    public let cancellableBag = CancellableBag()
     
-    init(@ActionReducerBuilder builder: () -> [DispatcherSubscription]) {
-        self.cancellables = builder()
+    init(@ActionReducerBuilder builder: () -> [Cancellable]) {
+        let cancellables = builder()
+        cancellables.forEach {
+            $0.cancelled(by: cancellableBag)
+        }
     }
 }
 
 @_functionBuilder
 public final class ActionReducerBuilder {
 
-    public static func buildBlock(_ reducers: ActionReducer...) -> [DispatcherSubscription] {
+    public static func buildBlock(_ reducers: ActionReducer...) -> [Cancellable] {
         reducers
             .compactMap { reducer in
-                reducer.dispatcher.subscribe(tag: reducer.action.tag) { reducer.reducer($0) }
+                reducer.dispatcher
+                    .subscribe(tag: reducer.action.tag) { reducer.reducer($0) }
+                
         }
     }
 }

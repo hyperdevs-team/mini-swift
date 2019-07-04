@@ -152,7 +152,7 @@ final public class Dispatcher {
     }
 }
 
-public final class DispatcherSubscription: Comparable {
+public final class DispatcherSubscription: Comparable, Cancellable {
     
     private let dispatcher: Dispatcher
     public let id: Int
@@ -171,6 +171,10 @@ public final class DispatcherSubscription: Comparable {
         self.priority = priority
         self.tag = tag
         self.completion = completion
+    }
+    
+    public func cancel() {
+        dispatcher.unregisterInternal(subscription: self)
     }
     
     public func on(_ action: Action) {

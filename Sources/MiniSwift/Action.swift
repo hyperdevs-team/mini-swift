@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol Action {
-    func isEqualTo(_ other: Action) -> Bool
+    func isEqual(to other: Action) -> Bool
 }
 
 extension Action {
