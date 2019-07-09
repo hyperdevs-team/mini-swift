@@ -15,17 +15,18 @@ public protocol Chain {
 }
 
 public struct MiddlewareWrapper: Equatable {
-    public let id: Int
+
+    public let id: UUID
     // swiftlint:disable:next identifier_name
     public let `do`: Middleware
 
-    public init(id: Int, middleware: @escaping Middleware) {
+    public init(id: UUID = UUID(), middleware: @escaping Middleware) {
         self.id = id
         self.do = middleware
     }
 
     public static func == (lhs: MiddlewareWrapper, rhs: MiddlewareWrapper) -> Bool {
-        return lhs.id == lhs.id
+        lhs.id == lhs.id
     }
 }
 
@@ -33,9 +34,8 @@ public final class ForwardingChain: Chain {
 
     private let next: Next
 
-    public var proceed: Next {
-        return { action in
-            return self.next(action)
+    public var proceed: Next { { action in
+            self.next(action)
         }
     }
 
@@ -48,8 +48,7 @@ public final class RootChain: Chain {
 
     private let map: SubscriptionMap
 
-    public var proceed: Next {
-        return { action in
+    public var proceed: Next { { action in
             if let set = self.map[action.innerTag] {
                 set?.forEach { sub in
                     sub.on(action)

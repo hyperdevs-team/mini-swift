@@ -16,18 +16,18 @@ public class SharedDictionary<Key: Hashable, Value> {
     }
 
     public func getOrPut(_ key: Key, defaultValue: @autoclosure () -> Value) -> Value {
-        return self[key, orPut: defaultValue()]
+        self[key, orPut: defaultValue()]
     }
 
     public func get(withKey key: Key) -> Value? {
-        return self[key]
+        self[key]
     }
 
     public subscript (_ key: Key, orPut defaultValue:  @autoclosure () -> Value) -> Value {
-        return innerDictionary[key, orPut: defaultValue()]
+        innerDictionary[key, orPut: defaultValue()]
     }
 
     public subscript (_ key: Key) -> Value? {
-        return innerDictionary[key]
+        innerDictionary[key]
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 /// Action for testing purposes.
 public class TestOnlyAction: Action {
     public func isEqual(to other: Action) -> Bool {
-        return true
+        true
     }
 }
 
@@ -28,9 +28,9 @@ public class TestMiddleware {
     ///
     /// - Parameter action: action to be checked
     /// - Returns: returns true if an action with the same params have been intercepted before.
-    func containsAction(action: Action) -> Bool {
-        return interceptedActions.contains(where: { interceptedAction -> Bool in
-            return action.isEqual(to: interceptedAction)
+    func contains(action: Action) -> Bool {
+        interceptedActions.contains(where: {
+            action.isEqual(to: $0)
         })
     }
 

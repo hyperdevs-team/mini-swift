@@ -15,7 +15,7 @@ extension Action {
     /// String used as tag of the given Action based on his name.
     /// - Returns: The name of the action as a String.
     public var innerTag: String {
-        return String(describing: type(of: self))
+        String(describing: type(of: self))
     }
 
     /**
