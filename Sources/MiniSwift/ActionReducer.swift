@@ -8,26 +8,11 @@
 import Foundation
 import Combine
 
-public struct ActionReducer {
-    private var action: Action.Type
-
-    private var dispatcher: Dispatcher
-    private var reducer: (Action) -> Void
-
-    private init(dispatcher: Dispatcher, action: Action.Type, reducer: @escaping (Action) -> Void) {
-        self.dispatcher = dispatcher
-        self.action = action
-        self.reducer = reducer
-    }
-
-    public static func reduce(dispatcher: Dispatcher, action: Action.Type, reducer: @escaping (Action) -> Void) -> [Cancellable] {
-        Self(dispatcher: dispatcher, action: action, reducer: reducer).build()
-    }
-
-    public func build() -> [Cancellable] {
-        [
-            self.dispatcher
-                .subscribe(tag: self.action.tag) { self.reducer($0) }
-        ]
-    }
+// swiftlint:disable:next identifier_name
+public func Reduce<T: Action>(dispatcher: Dispatcher, action: T.Type, reducer: @escaping (T) -> Void) -> [Cancellable] {
+    [
+        dispatcher.subscribe { (action: T) -> Void in
+            reducer(action)
+        }
+    ]
 }

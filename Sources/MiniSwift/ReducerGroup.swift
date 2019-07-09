@@ -19,17 +19,10 @@ public struct ReducerGroup: Group {
     init(@ActionReducerBuilder builder: () -> [Cancellable]) {
         let cancellables = builder()
         cancellables.forEach {
-            $0.cancelled(by: cancellableBag)
+            $0.cancelled(by: self.cancellableBag)
         }
     }
 }
 
 @_functionBuilder
-public final class ActionReducerBuilder {
-
-    public typealias Component = [Cancellable]
-
-    public static func buildBlock(_ children: Component...) -> Component {
-        children.flatMap { $0 }
-    }
-}
+public final class ActionReducerBuilder { }

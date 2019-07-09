@@ -43,8 +43,8 @@ final public class Dispatcher {
     }
 
     private func build() -> Chain {
-        return middleware.reduce(root, { (chain: Chain, middleware: Middleware) -> Chain in
-            return ForwardingChain { action in
+        middleware.reduce(root, { (chain: Chain, middleware: Middleware) -> Chain in
+            ForwardingChain { action in
                 middleware.perform(action, chain)
             }
         })
@@ -98,13 +98,13 @@ final public class Dispatcher {
     }
 
     public func subscribe<T: Action>(completion: @escaping (T) -> Void) -> DispatcherSubscription {
-        return subscribe(tag: T.tag, completion: { (action: T) -> Void in
+        subscribe(tag: T.tag, completion: { (action: T) -> Void in
             completion(action)
         })
     }
 
     public func subscribe<T: Action>(tag: String, completion: @escaping (T) -> Void) -> DispatcherSubscription {
-        return subscribe(tag: tag, completion: { object in
+        subscribe(tag: tag, completion: { object in
             if let action = object as? T {
                 completion(action)
             } else {
@@ -114,7 +114,7 @@ final public class Dispatcher {
     }
 
     public func subscribe(tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
-        return subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
+        subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
     }
 
     public func dispatch(_ action: Action, mode: Dispatcher.DispatchMode.UI) {

@@ -50,7 +50,7 @@ public class Store<S: State>: BindableObject, ReducerGroupType {
      - Note : As the property being annotated with `@DelayedImmutable`, it is not required at initialization time, but it will crash if either the group is not defined but used or mutated once the group is defined.
      */
     public var reducerGroup: ReducerGroup {
-        ReducerGroup { [AnyCancellable { }] }
+        ReducerGroup { [] }
     }
 
     @DelayedImmutable private var _reducerGroup: ReducerGroup
