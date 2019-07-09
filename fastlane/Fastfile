@@ -5,34 +5,7 @@ default_platform(:ios)
 platform :ios do
   desc 'Pass all test for main target'
   lane :pass_tests do
-    output = 'output'
-    name = 'Mini'
-	output_directory = "#{File.expand_path('..', Dir.pwd)}/output"
-	puts output_directory
-
-    ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "#{output}/#{name}.build-report.json"
-
-    clear_derived_data
-
-    scan_options = {}
-    scan_options[:project] = "#{File.expand_path('..', Dir.pwd)}/MiniSwift.xcodeproj"
-    scan_options[:disable_concurrent_testing] = true
-    scan_options[:max_concurrent_simulators] = 1
-    scan_options[:buildlog_path] = output_directory
-    scan_options[:output_directory] = output_directory
-    scan_options[:formatter] = 'xcpretty-json-formatter'
-    scan_options[:skip_slack] = true
-    config = FastlaneCore::Configuration.create(Fastlane::Actions::ScanAction.available_options, scan_options)
-    Fastlane::Actions::ScanAction.run(config)
-    begin
-      trainer_options = {}
-      trainer_options[:output_directory] = output_directory
-      config = FastlaneCore::Configuration.create(Fastlane::Actions::TrainerAction.available_options, trainer_options)
-      report = Actions::TrainerAction.run(config)
-      report_path, report_finished = report.first
-      report_desired_path = "#{output_directory}/#{name}.test-report.xml"
-    rescue StandardError
-      puts 'Trainer finished with errors'
-    end
+	sh 'xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test'
+	sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
   end
 end

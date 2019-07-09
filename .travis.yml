@@ -1,5 +1,6 @@
-language: swift
+language: objective-c
 osx_image: xcode11
+xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 8
 
 script:
 - set -o pipefail
