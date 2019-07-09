@@ -31,7 +31,7 @@ final public class Dispatcher {
 
     private let internalQueue = DispatchQueue(label: "MiniSwift", qos: .userInitiated)
     private var subscriptionMap = SubscriptionMap()
-    private var middleware = [MiddlewareWrapper]()
+    private var middleware = [Middleware]()
     private let root: RootChain
     private var chain: Chain
     private var dispatching: Bool = false
@@ -43,23 +43,23 @@ final public class Dispatcher {
     }
 
     private func build() -> Chain {
-        return middleware.reduce(root, { (chain: Chain, middleware: MiddlewareWrapper) -> Chain in
+        return middleware.reduce(root, { (chain: Chain, middleware: Middleware) -> Chain in
             return ForwardingChain { action in
-                middleware.do(action, chain)
+                middleware.perform(action, chain)
             }
         })
     }
 
-    func add(middleware: MiddlewareWrapper) {
+    func add(middleware: Middleware) {
         internalQueue.sync {
             self.middleware.append(middleware)
             self.chain = build()
         }
     }
 
-    func remove(middleware: MiddlewareWrapper) {
+    func remove(middleware: Middleware) {
         internalQueue.sync {
-            if let index = self.middleware.firstIndex(of: middleware) {
+            if let index = self.middleware.firstIndex(where: { middleware.id == $0.id }) {
                 self.middleware.remove(at: index)
             }
             chain = build()

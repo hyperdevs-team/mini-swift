@@ -15,13 +15,16 @@ public class TestOnlyAction: Action {
 }
 
 /// Interceptor class for testing purposes which mute all the received actions.
-public class TestMiddleware {
+public class TestMiddleware: Middleware {
+
+    public var id: UUID = UUID()
+
     private var interceptedActions: [Action] = []
 
-    /// Replace all actions with dummy ones
-    func invoque(action: Action, chain: Chain) -> Action {
-        interceptedActions.append(action)
-        return TestOnlyAction()
+    public var perform: MiddlewareChain { { action, _ -> Action in
+            self.interceptedActions.append(action)
+            return TestOnlyAction()
+        }
     }
 
     /// Check if a given action have been intercepted before for the TestInterceptor.

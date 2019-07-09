@@ -7,27 +7,16 @@
 
 import Foundation
 
-public typealias Middleware = (Action, Chain) -> Action
+public typealias MiddlewareChain = (Action, Chain) -> Action
 public typealias Next = (Action) -> Action
 
 public protocol Chain {
     var proceed: Next { get }
 }
 
-public struct MiddlewareWrapper: Equatable {
-
-    public let id: UUID
-    // swiftlint:disable:next identifier_name
-    public let `do`: Middleware
-
-    public init(id: UUID = UUID(), middleware: @escaping Middleware) {
-        self.id = id
-        self.do = middleware
-    }
-
-    public static func == (lhs: MiddlewareWrapper, rhs: MiddlewareWrapper) -> Bool {
-        lhs.id == lhs.id
-    }
+public protocol Middleware {
+    var id: UUID { get }
+    var perform: MiddlewareChain { get }
 }
 
 public final class ForwardingChain: Chain {
