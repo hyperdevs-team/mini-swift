@@ -6,5 +6,6 @@ script:
 - set -o pipefail
 - swift --version
 - rake
-- bundle exec fastlane pass_tests
+- xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test
+- curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'
 - bundle exec danger
