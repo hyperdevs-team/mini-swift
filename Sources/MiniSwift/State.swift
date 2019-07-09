@@ -17,4 +17,3 @@ public extension State where Self: Equatable {
         return self == other
     }
 }
-

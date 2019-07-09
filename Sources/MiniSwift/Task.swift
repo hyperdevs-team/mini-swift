@@ -18,13 +18,13 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         case success
         case failure
     }
-    
+
     public enum Expiration {
         case immediately
         case short
         case long
         case custom(TimeInterval)
-        
+
         public var value: TimeInterval {
             switch self {
             case .immediately: return 0
@@ -34,14 +34,14 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
             }
         }
     }
-    
+
     public let status: Status
     public let started: Date
     public let expiration: Expiration
     public let data: T?
     public let progress: Decimal?
     public let error: Error?
-    
+
     public required init(status: Status = .idle,
                          started: Date = Date(),
                          expiration: Expiration = .long,
@@ -55,39 +55,39 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         self.progress = progress
         self.error = error
     }
-    
+
     public var isRunning: Bool {
         status == .running
     }
-    
+
     public var isRecentlySucceeded: Bool {
         status == .success && started.timeIntervalSinceNow + expiration.value >= 0
     }
-    
+
     public var isTerminal: Bool {
         status == .success || status == .failure
     }
-    
+
     public var isSuccessful: Bool {
         status == .success
     }
-    
+
     public var isFailure: Bool {
         status == .failure
     }
-    
+
     public static func requestRunning() -> Task {
         Task(status: .running)
     }
-    
+
     public static func requestSuccess(expiration: Task.Expiration = .long) -> Task {
         Task(status: .success, expiration: expiration)
     }
-    
+
     public static func requestFailure(withError error: Error) -> Task {
         Task(status: .failure, error: error)
     }
-    
+
     // MARK: - CustomDebugStringConvertible
     public var debugDescription: String {
         """

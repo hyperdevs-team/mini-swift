@@ -17,13 +17,13 @@ public class TestOnlyAction: Action {
 /// Interceptor class for testing purposes which mute all the received actions.
 public class TestMiddleware {
     private var interceptedActions: [Action] = []
-    
+
     /// Replace all actions with dummy ones
     func invoque(action: Action, chain: Chain) -> Action {
         interceptedActions.append(action)
         return TestOnlyAction()
     }
-    
+
     /// Check if a given action have been intercepted before for the TestInterceptor.
     ///
     /// - Parameter action: action to be checked
@@ -33,7 +33,7 @@ public class TestMiddleware {
             return action.isEqual(to: interceptedAction)
         })
     }
-    
+
     /// Check for actions of certain type being intercepted.
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
@@ -41,7 +41,7 @@ public class TestMiddleware {
     func actions<T: Action>(of kind: T.Type) -> [T] {
         return interceptedActions.compactMap { $0 as? T }
     }
-    
+
     /// Clear all the intercepted actions
     func clear() {
         interceptedActions.removeAll()

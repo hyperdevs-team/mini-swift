@@ -13,7 +13,7 @@ public extension DispatchQueue {
         DispatchQueue.main.setSpecific(key: key, value: ())
         return key
     }()
-    
+
     static var isMain: Bool {
         return DispatchQueue.getSpecific(key: token) != nil
     }

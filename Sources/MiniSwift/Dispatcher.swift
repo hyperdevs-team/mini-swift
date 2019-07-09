@@ -8,29 +8,29 @@
 import Foundation
 import Combine
 
-
-public typealias SubscriptionMap = [String: OrderedSet<DispatcherSubscription>?]
+public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
 final public class Dispatcher {
-    
+
     public struct DispatchMode {
+        // swiftlint:disable:next type_name nesting
         public enum UI {
             case sync, async
         }
     }
-    
+
     public var subscriptionCount: Int {
-        subscriptionMap.mapValues { set -> Int in
+        subscriptionMap.innerDictionary.mapValues { set -> Int in
             guard let setValue = set else { return 0 }
             return setValue.count
         }
         .reduce(0, { $0 + $1.value })
     }
-    
+
     public static let defaultPriority = 100
 
     private let internalQueue = DispatchQueue(label: "MiniSwift", qos: .userInitiated)
-    private var subscriptionMap = [String: OrderedSet<DispatcherSubscription>?]()
+    private var subscriptionMap = SubscriptionMap()
     private var middleware = [MiddlewareWrapper]()
     private let root: RootChain
     private var chain: Chain
@@ -41,7 +41,7 @@ final public class Dispatcher {
         root = RootChain(map: subscriptionMap)
         chain = root
     }
-    
+
     private func build() -> Chain {
         return middleware.reduce(root, { (chain: Chain, middleware: MiddlewareWrapper) -> Chain in
             return ForwardingChain { action in
@@ -49,14 +49,14 @@ final public class Dispatcher {
             }
         })
     }
-    
+
     func add(middleware: MiddlewareWrapper) {
         internalQueue.sync {
             self.middleware.append(middleware)
             self.chain = build()
         }
     }
-    
+
     func remove(middleware: MiddlewareWrapper) {
         internalQueue.sync {
             if let index = self.middleware.firstIndex(of: middleware) {
@@ -65,7 +65,7 @@ final public class Dispatcher {
             chain = build()
         }
     }
-    
+
     public func subscribe(priority: Int, tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
         let subscription = DispatcherSubscription(
             dispatcher: self,
@@ -75,7 +75,7 @@ final public class Dispatcher {
             completion: completion)
         return registerInternal(subscription: subscription)
     }
-    
+
     public func registerInternal(subscription: DispatcherSubscription) -> DispatcherSubscription {
         internalQueue.sync {
             if let map = subscriptionMap[subscription.tag, orPut: OrderedSet<DispatcherSubscription>()] {
@@ -84,7 +84,7 @@ final public class Dispatcher {
         }
         return subscription
     }
-    
+
     public func unregisterInternal(subscription: DispatcherSubscription) {
         internalQueue.sync {
             var removed = false
@@ -96,13 +96,13 @@ final public class Dispatcher {
             assert(removed, "Failed to remove DispatcherSubscription, multiple dispose calls?")
         }
     }
-    
+
     public func subscribe<T: Action>(completion: @escaping (T) -> Void) -> DispatcherSubscription {
         return subscribe(tag: T.tag, completion: { (action: T) -> Void in
             completion(action)
         })
     }
-    
+
     public func subscribe<T: Action>(tag: String, completion: @escaping (T) -> Void) -> DispatcherSubscription {
         return subscribe(tag: tag, completion: { object in
             if let action = object as? T {
@@ -112,11 +112,11 @@ final public class Dispatcher {
             }
         })
     }
-    
+
     public func subscribe(tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
         return subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
     }
-    
+
     public func dispatch(_ action: Action, mode: Dispatcher.DispatchMode.UI) {
         switch mode {
         case .sync:
@@ -133,7 +133,7 @@ final public class Dispatcher {
             }
         }
     }
-    
+
     private func dispatch(_ action: Action) {
         assert(DispatchQueue.isMain)
         internalQueue.sync {
@@ -145,7 +145,7 @@ final public class Dispatcher {
             _ = chain.proceed(action)
         }
     }
-    
+
     private func getNewSubscriptionId() -> Int {
         $subscriptionCounter.mutate { $0 += 1 }
         return subscriptionCounter
@@ -153,14 +153,14 @@ final public class Dispatcher {
 }
 
 public final class DispatcherSubscription: Comparable, Cancellable {
-    
+
     private let dispatcher: Dispatcher
     public let id: Int
     private let priority: Int
     private let completion: (Action) -> Void
-    
+
     public let tag: String
-    
+
     public init (dispatcher: Dispatcher,
                  id: Int,
                  priority: Int,
@@ -172,31 +172,31 @@ public final class DispatcherSubscription: Comparable, Cancellable {
         self.tag = tag
         self.completion = completion
     }
-    
+
     public func cancel() {
         dispatcher.unregisterInternal(subscription: self)
     }
-    
+
     public func on(_ action: Action) {
         completion(action)
     }
-    
+
     public static func == (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     public static func > (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
         return lhs.priority > rhs.priority
     }
-    
+
     public static func < (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
         return lhs.priority < rhs.priority
     }
-    
+
     public static func >= (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
         return lhs.priority >= rhs.priority
     }
-    
+
     public static func <= (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
         return lhs.priority <= rhs.priority
     }

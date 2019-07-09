@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ReducerGroup.swift
 //  
 //
 //  Created by Jorge Revuelta on 03/07/2019.
@@ -13,8 +13,9 @@ public protocol Group {
 }
 
 public struct ReducerGroup: Group {
+
     public let cancellableBag = CancellableBag()
-    
+
     init(@ActionReducerBuilder builder: () -> [Cancellable]) {
         let cancellables = builder()
         cancellables.forEach {
@@ -26,12 +27,9 @@ public struct ReducerGroup: Group {
 @_functionBuilder
 public final class ActionReducerBuilder {
 
-    public static func buildBlock(_ reducers: ActionReducer...) -> [Cancellable] {
-        reducers
-            .compactMap { reducer in
-                reducer.dispatcher
-                    .subscribe(tag: reducer.action.tag) { reducer.reducer($0) }
-                
-        }
+    public typealias Component = [Cancellable]
+
+    public static func buildBlock(_ children: Component...) -> Component {
+        children.flatMap { $0 }
     }
 }

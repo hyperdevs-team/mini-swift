@@ -1,15 +1,9 @@
 language: swift
-osx_image: xcode10.2
-
-addons:
-  homebrew:
-    brewfile: true
+osx_image: xcode11
 
 script:
 - set -o pipefail
 - swift --version
 - rake
 - bundle exec fastlane pass_tests
-- pod repo update
-- pod lib lint
 - bundle exec danger

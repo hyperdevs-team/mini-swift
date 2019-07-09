@@ -26,8 +26,10 @@ opt_in_rules:
   - first_where
   - sorted_first_last
 included:
-  - Source
+  - Sources
   - Tests
+excluded:
+  - Tests/MiniSwiftTests/XCTestManifests.swift
 closure_end_indentation:
   severity: error
 force_cast: 
@@ -84,4 +86,5 @@ attributes:
       - "@IBAction"
       - "@NSManaged"
       - "@testable"
+      - "@DelayedImmutable"
 reporter: "xcode"

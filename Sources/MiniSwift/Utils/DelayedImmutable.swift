@@ -9,10 +9,10 @@ import Foundation
 
 @propertyWrapper
 public struct DelayedImmutable<Value> {
-    private var _value: Value? = nil
-    
+    private var _value: Value?
+
     public init() { }
-    
+
     public var value: Value {
         get {
             guard let value = _value else {
@@ -20,7 +20,7 @@ public struct DelayedImmutable<Value> {
             }
             return value
         }
-        
+
         // Perform an initialization, trapping if the
         // value is already initialized.
         set {

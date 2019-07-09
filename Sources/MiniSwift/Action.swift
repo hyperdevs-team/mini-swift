@@ -17,7 +17,7 @@ extension Action {
     public var innerTag: String {
         return String(describing: type(of: self))
     }
-    
+
     /**
      Static method to retrieve the name of the action as a tag.action.
      

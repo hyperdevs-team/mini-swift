@@ -11,15 +11,15 @@ import Foundation
 public struct Atomic<A> {
     private var _value: A
     private let queue = DispatchQueue(label: "property wrapper")
-    
+
     public init(initialValue: A) {
         _value = initialValue
     }
-    
+
     public var value: A {
         queue.sync { _value }
     }
-    
+
     public mutating func mutate(_ transform: (inout A) -> Void) {
         queue.sync {
             transform(&_value)
