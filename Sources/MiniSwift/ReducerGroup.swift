@@ -16,13 +16,8 @@ public struct ReducerGroup: Group {
 
     public let cancellableBag = CancellableBag()
 
-    init(@ActionReducerBuilder builder: () -> [Cancellable]) {
-        let cancellables = builder()
-        cancellables.forEach {
-            $0.cancelled(by: self.cancellableBag)
-        }
+    init(@ActionReducerBuilder builder: () -> Cancellable) {
+        let cancellable = builder()
+        cancellable.cancelled(by: cancellableBag)
     }
 }
-
-@_functionBuilder
-public final class ActionReducerBuilder { }

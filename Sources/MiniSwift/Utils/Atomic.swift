@@ -7,7 +7,7 @@
 
 import Foundation
 
-@propertyDelegate
+@propertyWrapper
 public struct Atomic<A> {
     private var _value: A
     private let queue = DispatchQueue(label: "property wrapper")
@@ -16,7 +16,7 @@ public struct Atomic<A> {
         _value = initialValue
     }
 
-    public var value: A {
+    public var wrappedValue: A {
         queue.sync { _value }
     }
 

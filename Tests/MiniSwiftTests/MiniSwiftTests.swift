@@ -38,7 +38,7 @@ final class MiniSwiftTests: XCTestCase {
 
         override var reducerGroup: ReducerGroup {
             ReducerGroup {
-                Reduce(dispatcher: self.dispatcher, action: OneTestAction.self) { _ in
+                Reducer(of: OneTestAction.self, on: self.dispatcher) { _ in
                     self.changes += 1
                 }
             }
