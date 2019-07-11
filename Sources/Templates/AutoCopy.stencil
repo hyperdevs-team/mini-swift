@@ -1,0 +1,33 @@
+// MARK: - Empty template base file
+{% macro createCopy variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{variable.name}}: {{variable.typeName }}{% if not variable.isOptional %}?{% endif %} = nil{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+
+{% macro initArguments variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{variable.name}}: {{variable.typeName }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+
+{% macro init variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{ variable.name }}: {{ variable.name }} ?? self.{{variable.name}}{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+
+{% macro customInit variables %}
+    {% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}
+        self.{{ variable.name }} = {{ variable.name }}
+    {% endfor %}
+{% endmacro %}
+
+{% for type in types.all where type.implements.AutoCopy %}
+{% if type|annotated:"import" %}
+import {{type.annotations.import }}
+{% endif %}
+// swiftlint:disable all
+extension {{ type.name }} {
+    {% set numberOfAnnotations type.allVariables|annotated:"addCopy" %}
+    {% if numberOfAnnotations.count > 0 %}
+    init({% call initArguments type.allVariables %}) {
+        {% call customInit type.allVariables %}
+    }
+
+    {% endif %}
+    func copy({% call createCopy type.allVariables %}) -> {{ type.name }} {
+        return {{ type.name }}({% call init type.allVariables %})
+    } 
+}
+// swiftlint:enable all
+// sourcery:end
+{% endfor %}

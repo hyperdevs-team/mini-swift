@@ -37,17 +37,17 @@ public class Store<S: State>: BindableObject, ReducerGroupType {
     ```
      public var reducerGroup: ReducerGroup {
         ReducerGroup {
-         ActionReducer(dispatcher: dispatcher, action: SomeAction.self) { (action: SomeAction)
+         Reducer(of: SomeAction.self, on: self.dispatcher) { (action: SomeAction)
             self.state = myCoolNewState
          }
-         ActionReducer(dispatcher: dispatcher, action: OtherAction.self) { (action: OtherAction)
+         Reducer(of: OtherAction.self, on: self.dispatcher) { (action: OtherAction)
             // Needed work
             self.state = myAnotherState
          }
         }
      }
     ```
-     - Note : As the property being annotated with `@DelayedImmutable`, it is not required at initialization time, but it will crash if either the group is not defined but used or mutated once the group is defined.
+     - Note : The property has a default implementation which complies with the @_functionBuilder's current limitations, where no empty blocks can be produced in this iteration.
      */
     public var reducerGroup: ReducerGroup {
         ReducerGroup {
