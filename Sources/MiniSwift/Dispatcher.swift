@@ -147,7 +147,7 @@ final public class Dispatcher {
     }
 
     private func getNewSubscriptionId() -> Int {
-        _subscriptionCounter.mutate { $0 += 1 }
+        $subscriptionCounter.mutate { $0 += 1 }
         return subscriptionCounter
     }
 }

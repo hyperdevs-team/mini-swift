@@ -10,9 +10,10 @@ import Combine
 
 public protocol Group {
     var cancellableBag: CancellableBag { get }
+    func subscribe() -> Cancellable
 }
 
-public struct ReducerGroup: Group {
+public class ReducerGroup: Group {
 
     public let cancellableBag = CancellableBag()
 
@@ -20,4 +21,9 @@ public struct ReducerGroup: Group {
         let cancellable = builder()
         cancellable.cancelled(by: cancellableBag)
     }
+
+    public func subscribe() -> Cancellable {
+        cancellableBag
+    }
+
 }

@@ -13,7 +13,7 @@ public struct DelayedImmutable<Value> {
 
     public init() { }
 
-    public var wrappedValue: Value {
+    public var value: Value {
         get {
             guard let value = _value else {
                 fatalError("property accessed before being initialized")

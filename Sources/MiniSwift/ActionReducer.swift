@@ -8,14 +8,14 @@
 import Foundation
 import Combine
 
-public struct Reducer: Cancellable {
-    public let action: Action.Type
+public class Reducer<A: Action>: Cancellable {
+    public let action: A.Type
     public let dispatcher: Dispatcher
-    public let reducer: (Action) -> Void
+    public let reducer: (A) -> Void
 
     @DelayedImmutable private var cancellable: Cancellable
 
-    public init(of action: Action.Type, on dispatcher: Dispatcher, reducer: @escaping (Action) -> Void) {
+    public init(of action: A.Type, on dispatcher: Dispatcher, reducer: @escaping (A) -> Void) {
         self.action = action
         self.dispatcher = dispatcher
         self.reducer = reducer

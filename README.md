@@ -143,24 +143,20 @@ class RequestContactsAccess: Action {
 
 - A `Store` reduces the flow of a certain amount of `Action`s through the `var reducerGroup: ReducerGroup` property.
 
+- The `Store` is implemented in a way that has two generic requirements, a `State: StateType` and a `StoreController: Cancellable`. The `StoreController` is usually a class that contains the logic to perform the `Actions` that might be intercepted by the store, i.e, a group of URL requests, perform a database query, etc.
+
+- Through generic specialization, the `reducerGroup` variable can be rewritten for each case of pair `State` and `StoreController` without the need of subclassing the `Store`.
+
 ```swift
-class TestStore: Store<TestState> {
+extension Store where State == TestState, StoreController == TestStoreController {
 
-  let dispatcher: Dispatcher
-
-  init(dispatcher: Dispatcher) {
-      self.dispatcher = dispatcher
-      let initialState = TestState()
-      super.init(state: initialState, dispatcher: dispatcher)
-  }
-
-  override var reducerGroup: ReducerGroup {
-      ReducerGroup {
-          Reducer(of: OneTestAction.self, on: self.dispatcher) { _ in
-              self.state = self.state.copy(test: true)
-          }
-      }
-  }
+    var reducerGroup: ReducerGroup {
+        ReducerGroup {
+            Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
+                self.state = self.state.copy(testTask: .requestSuccess(), counter: action.counter)
+            }
+        }
+    }
 }
 ```
 

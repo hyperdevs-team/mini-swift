@@ -9,44 +9,31 @@ import Foundation
 import Combine
 import SwiftUI
 
-public protocol ReducerGroupType {
+public protocol StoreType {
+    associatedtype State: StateType
+    associatedtype StoreController: Cancellable
+
+    var state: State { get set }
+    var dispatcher: Dispatcher { get }
     var reducerGroup: ReducerGroup { get }
 }
 
-public class Store<S: State>: BindableObject, ReducerGroupType {
-
-    public var didChange: CurrentValueSubject<S, Never>
-
-    private var _initialState: S
-    private var _state: S
-    private let dispatcher: Dispatcher
-
-    private(set) public var state: S {
-        set {
-            if !newValue.isEqual(to: state) {
-                _state = newValue
-                didChange.send(newValue)
-            }
-        }
-        get {
-            _state
-        }
-    }
+extension StoreType {
     /**
      Property responsible of reduce the `State` given a certain `Action` being triggered.
-    ```
+     ```
      public var reducerGroup: ReducerGroup {
         ReducerGroup {
-         Reducer(of: SomeAction.self, on: self.dispatcher) { (action: SomeAction)
-            self.state = myCoolNewState
-         }
-         Reducer(of: OtherAction.self, on: self.dispatcher) { (action: OtherAction)
-            // Needed work
-            self.state = myAnotherState
-         }
+            Reducer(of: SomeAction.self, on: self.dispatcher) { (action: SomeAction)
+                self.state = myCoolNewState
+            }
+            Reducer(of: OtherAction.self, on: self.dispatcher) { (action: OtherAction)
+                // Needed work
+                self.state = myAnotherState
+            }
         }
      }
-    ```
+     ```
      - Note : The property has a default implementation which complies with the @_functionBuilder's current limitations, where no empty blocks can be produced in this iteration.
      */
     public var reducerGroup: ReducerGroup {
@@ -54,20 +41,43 @@ public class Store<S: State>: BindableObject, ReducerGroupType {
             CancellableBag()
         }
     }
+}
 
-    @DelayedImmutable private var _reducerGroup: ReducerGroup
+public class Store<State: StateType, StoreController: Cancellable>: BindableObject, StoreType {
 
-    public var initialState: S {
+    public typealias State = State
+    public typealias StoreController = StoreController
+
+    public var didChange: CurrentValueSubject<State, Never>
+
+    private var _initialState: State
+    public let dispatcher: Dispatcher
+    private var storeController: StoreController
+
+    @AtomicState public var state: State {
+        didSet {
+            didChange.send(state)
+        }
+    }
+
+    public var initialState: State {
         _initialState
     }
 
-    public init(state: S,
-                dispatcher: Dispatcher) {
+    public init(_ state: State,
+                dispatcher: Dispatcher,
+                storeController: StoreController) {
         self._initialState = state
-        self._state = state
         self.dispatcher = dispatcher
         self.didChange = CurrentValueSubject(state)
-        self._reducerGroup = reducerGroup
+        self.storeController = storeController
+        self.state = _initialState
+    }
+
+    public var reducerGroup: ReducerGroup {
+        ReducerGroup {
+            CancellableBag()
+        }
     }
 
     public func replayOnce() {

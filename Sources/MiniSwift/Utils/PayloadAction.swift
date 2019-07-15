@@ -21,7 +21,7 @@ protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never {
 
 extension EmptyAction {
     init(task: Task, payload: Payload?) {
-        fatalError("Never call this method from a EmptyAction")
+        fatalError("Never call this method from an EmptyAction")
     }
 }
 

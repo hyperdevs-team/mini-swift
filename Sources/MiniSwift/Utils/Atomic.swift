@@ -16,7 +16,7 @@ public struct Atomic<A> {
         _value = initialValue
     }
 
-    public var wrappedValue: A {
+    public var value: A {
         queue.sync { _value }
     }
 
