@@ -29,7 +29,7 @@ import PackageDescription
 let package = Package(
   name: "MiniSwiftProject",
   dependencies: [
-    .package(url: "https://github.com/bq/mini-swift.git", from: "1.0.0")
+    .package(url: "https://github.com/bq/mini-swift.git", .branch("5.1")),
   ],
   targets: [
     .target(name: "MiniSwiftProject", dependencies: ["MiniSwift"])
@@ -161,6 +161,16 @@ extension Store where State == TestState, StoreController == TestStoreController
 ```
 
 - In the snippet above, we have a complete example of how a `Store` would work. We use the `ReducerGroup` to indicate how the `Store` will intercept `Action`s of type `OneTestAction` and that everytime it gets intercepted, the `Store`'s `State` gets copied (is not black magic 🧙‍, is through a set of [Sourcery](https://github.com/krzysztofzablocki/Sourcery) scripts that are distributed with this package).
+
+- When working with `Store` instances, you may retain a strong reference of its `reducerGroup`, this is done using the `subscribe()`  method, which is a `Cancellable` that can be used like below:
+
+```swift
+var bag = CancellableBag()
+let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
+store.reducerGroup
+    .subscribe()
+    .cancelled(by: bag)
+```
 
 ### Dispatcher
 
