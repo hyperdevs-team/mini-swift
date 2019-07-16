@@ -1,33 +1,61 @@
-// MARK: - Empty template base file
-{% macro createCopy variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{variable.name}}: {{variable.typeName }}{% if not variable.isOptional %}?{% endif %} = nil{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+{# Thanks to: https://arasthel.com/data-classes-on-swift/#selectwhichvalueswillbechangedandwhichwillbecopied #}
+// swiftlint:disable all
+public protocol AutoCopy { }
 
-{% macro initArguments variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{variable.name}}: {{variable.typeName }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+public extension AutoCopy {
+    
+    func setValueOptional<T>(_ value: OptionalCopyValue<T>, _ defaultValue: T?) -> T? {
+        switch(value) {
+        case let .new(content):
+            return content
+        case .same:
+            return defaultValue
+        default:
+            return nil
+        }
+    }
+}
 
-{% macro init variables %}{% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}{{ variable.name }}: {{ variable.name }} ?? self.{{variable.name}}{% if not forloop.last %}, {% endif %}{% endfor %}{% endmacro %}
+public enum OptionalCopyValue<T>: ExpressibleByNilLiteral {
 
-{% macro customInit variables %}
-    {% for variable in variables where not variable.isStatic and not variable.isComputed and not variable.readAccess == "private" or variable|annotated:"addCopy" %}
-        self.{{ variable.name }} = {{ variable.name }}
-    {% endfor %}
-{% endmacro %}
+    case new(T)
+    case same
+    case `nil`
+    
+    public init(nilLiteral: ()) {
+        self = .nil
+    }
+}
+
+prefix operator *
+
+prefix func * <T>(lhs: T) -> OptionalCopyValue<T> {
+    return .new(lhs)
+}
+
+// swiftlint:enable all
+
+{# Thanks to: https://arasthel.com/data-classes-on-swift/#selectwhichvalueswillbechangedandwhichwillbecopied #}
 
 {% for type in types.all where type.implements.AutoCopy %}
-{% if type|annotated:"import" %}
-import {{type.annotations.import }}
-{% endif %}
-// swiftlint:disable all
-extension {{ type.name }} {
-    {% set numberOfAnnotations type.allVariables|annotated:"addCopy" %}
-    {% if numberOfAnnotations.count > 0 %}
-    init({% call initArguments type.allVariables %}) {
-        {% call customInit type.allVariables %}
-    }
-
+    {% if type|annotated:"import" %}
+    import {{type.annotations.import }}
     {% endif %}
-    func copy({% call createCopy type.allVariables %}) -> {{ type.name }} {
-        return {{ type.name }}({% call init type.allVariables %})
-    } 
-}
-// swiftlint:enable all
-// sourcery:end
+    // swiftlint:disable all
+    extension {{ type.name }} {
+    
+        func copy(
+        {% for variable in type.storedVariables %}
+            {{ variable.name }} copied_{{ variable.name }}: OptionalCopyValue<{{ variable.unwrappedTypeName }}> = .same{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        ) -> {{ type.name }} {
+            return {{ type.name }}(
+            {% for variable in type.storedVariables %}
+                {% if variable.isOptional %}
+                {{ variable.name }}: setValueOptional(copied_{{ variable.name }}, self.{{ variable.name }}){% else %}{{ variable.name }}: setValueOptional(copied_{{ variable.name }}, self.{{ variable.name }}) ?? self.{{ variable.name }}{% endif %}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+            )
+        }
+    }
 {% endfor %}
+// swiftlint:enable all
