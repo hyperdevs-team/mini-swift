@@ -3,5 +3,6 @@ import XCTest
 import MiniSwiftTests
 
 var tests = [XCTestCaseEntry]()
-tests += MiniSwiftTests.allTests()
+tests += MiniSwiftTests.__allTests()
+
 XCTMain(tests)

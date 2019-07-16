@@ -8,9 +8,13 @@
 import Foundation
 import Combine
 
-public protocol Group {
-    var cancellableBag: CancellableBag { get }
+/// Protocol that defines a type which you can subscribe to.
+public protocol Subscribable {
     func subscribe() -> Cancellable
+}
+
+public protocol Group: Cancellable {
+    var cancellableBag: CancellableBag { get }
 }
 
 public class ReducerGroup: Group {
@@ -22,8 +26,7 @@ public class ReducerGroup: Group {
         cancellable.cancelled(by: cancellableBag)
     }
 
-    public func subscribe() -> Cancellable {
-        cancellableBag
+    public func cancel() {
+        cancellableBag.cancel()
     }
-
 }
