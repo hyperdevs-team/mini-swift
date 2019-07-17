@@ -153,7 +153,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     var reducerGroup: ReducerGroup {
         ReducerGroup {
             Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
-                self.state = self.state.copy(testTask: .requestSuccess(), counter: action.counter)
+                self.state = self.state.copy(testTask: *.requestSuccess(), counter: *action.counter)
             }
         }
     }
@@ -167,7 +167,7 @@ extension Store where State == TestState, StoreController == TestStoreController
 ```swift
 var bag = CancellableBag()
 let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
-store.reducerGroup
+store
     .subscribe()
     .cancelled(by: bag)
 ```
