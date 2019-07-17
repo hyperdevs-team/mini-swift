@@ -27,9 +27,8 @@ opt_in_rules:
   - sorted_first_last
 included:
   - Sources
-  - Tests
 excluded:
-  - Tests/MiniSwiftTests/XCTestManifests.swift
+  - Tests
 closure_end_indentation:
   severity: error
 force_cast: 
