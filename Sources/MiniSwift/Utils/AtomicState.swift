@@ -17,7 +17,7 @@ public struct AtomicState<V: StateType> {
         _value = initialValue
     }
 
-    public var value: V {
+    public var wrappedValue: V {
         set {
             queue.sync {
                 if !newValue.isEqual(to: _value) {

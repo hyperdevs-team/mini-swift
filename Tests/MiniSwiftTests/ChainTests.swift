@@ -1,5 +1,4 @@
 import XCTest
-import Combine
 @testable import MiniSwift
 
 final class ChainTests: XCTestCase {
@@ -24,6 +23,7 @@ final class ChainTests: XCTestCase {
             action.mutableProperty = 1
             return action
         }
+
         let testAction = TestAction(property: 0)
 
         XCTAssert(testAction.mutableProperty == 0)

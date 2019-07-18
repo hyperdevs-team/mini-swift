@@ -48,7 +48,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
     public typealias State = State
     public typealias StoreController = StoreController
 
-    public var didChange: CurrentValueSubject<State, Never>
+    public var willChange: CurrentValueSubject<State, Never>
 
     private var _initialState: State
     public let dispatcher: Dispatcher
@@ -56,7 +56,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
 
     @AtomicState public var state: State {
         didSet {
-            didChange.send(state)
+            willChange.send(state)
         }
     }
 
@@ -69,7 +69,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
                 storeController: StoreController) {
         self._initialState = state
         self.dispatcher = dispatcher
-        self.didChange = CurrentValueSubject(state)
+        self.willChange = CurrentValueSubject(state)
         self.storeController = storeController
         self.state = _initialState
     }
@@ -81,7 +81,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
     }
 
     public func replayOnce() {
-        didChange.send(state)
+        willChange.send(state)
     }
 
     public func reset() {
