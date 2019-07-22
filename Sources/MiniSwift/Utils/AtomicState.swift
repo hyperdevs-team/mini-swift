@@ -27,13 +27,4 @@ public struct AtomicState<V: StateType> {
         }
         get { queue.sync { _value } }
     }
-
-    public mutating func mutate(_ transform: () -> V) {
-        queue.sync {
-            if !_value.isEqual(to: transform()) {
-                _value = transform()
-            }
-
-        }
-    }
 }
