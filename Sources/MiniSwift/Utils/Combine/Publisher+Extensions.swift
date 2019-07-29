@@ -1,5 +1,5 @@
 //
-//  Observable+Extensions.swift
+//  Publisher+Extensions.swift
 //
 //
 //  Created by Jorge Revuelta on 17/07/2019.
@@ -7,6 +7,97 @@
 
 import Foundation
 import Combine
+
+extension Publisher where Failure == Never {
+
+    private func filterForLifetime<Type, T: TypedTask<Type>> (
+        taskMap: @escaping ((Self.Output) -> T?),
+        lifetime: Task.Lifetime)
+        -> AnyPublisher<Output, Failure> {
+            switch lifetime {
+            case .once:
+                return self
+                    .filterOne { taskMap($0)?.isTerminal ?? true }
+            case .forever(let ignoreOld):
+                let date = Date()
+                return self
+                    .drop(while: {
+                        if ignoreOld {
+                            if let task = taskMap($0) {
+                                return task.started < date
+                            }
+                            return false
+                        } else {
+                            return false
+                        }
+                    })
+                    .filter { taskMap($0)?.isTerminal ?? true }
+                    .eraseToAnyPublisher()
+            }
+    }
+
+    private func filterForKeyedLifetime<K: Hashable> (
+        key: K,
+        taskMap: @escaping ((Self.Output) -> KeyedTask<K>),
+        lifetime: Task.Lifetime)
+        -> AnyPublisher<Self.Output, Self.Failure> {
+            switch lifetime {
+            case .once:
+                return self
+                    .filter { taskMap($0).hasValue(for: key) }
+                    .filter { taskMap($0)[task: key].isTerminal }
+                    .eraseToAnyPublisher()
+            case .forever:
+                return self
+                    .drop(while: { taskMap($0)[task: key].status == .idle || taskMap($0)[task: key].isTerminal })
+                    .filter { taskMap($0).hasValue(for: key) }
+                    .filter { taskMap($0)[task: key].isTerminal }
+                    .first()
+                    .eraseToAnyPublisher()
+            }
+    }
+
+    private func subscribe<Type, T: TypedTask<Type>> (
+        taskMap: @escaping ((Self.Output) -> T?),
+        lifetime: Task.Lifetime = .once,
+        success: @escaping (Self.Output) -> Void = { _ in },
+        error: @escaping (Self.Output) -> Void = { _ in })
+        -> Cancellable {
+        return self.filterForLifetime(taskMap: taskMap, lifetime: lifetime)
+            .sink(receiveValue: { state in
+                if let task = taskMap(state) {
+                    if task.isSuccessful {
+                        success(state)
+                    } else if task.isFailure {
+                        error(state)
+                    } else {
+                        success(state)
+                    }
+                }
+            })
+        }
+
+    private func subscribe<K: Hashable> (
+        key: K,
+        taskMap: @escaping ((Self.Output) -> KeyedTask<K>),
+        lifetime: Task.Lifetime = .once,
+        success: @escaping (Self.Output) -> Void = { _ in },
+        error: @escaping (Self.Output) -> Void = { _ in })
+        -> Cancellable {
+            return self
+                .filterForKeyedLifetime(key: key, taskMap: taskMap, lifetime: lifetime)
+                .sink(receiveValue: { state in
+                    let task = taskMap(state)[task: key]
+                    if task.isSuccessful {
+                        success(state)
+                    } else if task.isFailure {
+                        error(state)
+                    } else {
+                        success(state)
+                    }
+                })
+    }
+}
 
 extension Publisher {
 
@@ -43,7 +134,7 @@ extension Publisher {
             )
             return subscription
     }
-    
+
     /**
          Publisher extensions that dispatches a certain `Action` when the subscription receives a value through the emitter. Uses `KeyedCompletableAction`s to fill with the emitter values new actions and with the corresponding error if any occurred in the `Publisher`.
          
@@ -80,7 +171,7 @@ extension Publisher {
 }
 
 extension Publisher where Output == Swift.Never {
-    
+
     /**
          Publisher extensions that dispatches a certain `Action` when the subscription receives a value through the emitter. Uses `EmptyAction`s to fill with the emitter values new actions and with the corresponding error if any occurred in the `Publisher`.
          

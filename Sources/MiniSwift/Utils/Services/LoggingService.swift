@@ -8,9 +8,9 @@
 import Foundation
 
 public class LoggingService: Service {
-    
+
     public var id: UUID = UUID()
-    
+
     public var perform: ServiceChain { { action, _ -> Void in
             NSLog(String(dumping: action))
         }

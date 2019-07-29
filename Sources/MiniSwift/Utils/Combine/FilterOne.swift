@@ -25,7 +25,7 @@ extension Publishers {
             self.upstream = upstream
         }
 
-        public func receive<S>(subscriber: S) where Output == S.Input, S : Subscriber, Upstream.Failure == S.Failure {
+        public func receive<S>(subscriber: S) where Output == S.Input, S: Subscriber, Upstream.Failure == S.Failure {
             let sink = AnySubscriber<Upstream.Output, Upstream.Failure>(
                 receiveSubscription: { subscription in
                     subscriber.receive(subscription: subscription)
@@ -53,7 +53,7 @@ extension Publisher {
     public func first(where condition: @escaping (Self.Output) -> Bool) -> Publishers.FilterOne<Self> {
         Publishers.FilterOne(upstream: self, where: condition)
     }
-    
+
     public func filterOne(_ condition: @escaping ((Self.Output) -> Bool)) -> AnyPublisher<Self.Output, Self.Failure> {
         self.filter(condition).first().eraseToAnyPublisher()
     }

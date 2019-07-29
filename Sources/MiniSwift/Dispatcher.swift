@@ -66,13 +66,13 @@ final public class Dispatcher {
             chain = build()
         }
     }
-    
+
     public func register(service: Service) {
         internalQueue.sync {
             self.service.append(service)
         }
     }
-    
+
     public func unregister(service: Service) {
         internalQueue.sync {
             if let index = self.service.firstIndex(where: { service.id == $0.id }) {
