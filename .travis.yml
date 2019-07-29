@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode11
-# xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 8
+xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 8
 os: osx
 before_install:
 - openssl aes-256-cbc -K $encrypted_5ce6572667b1_key -iv $encrypted_5ce6572667b1_iv -in cookies.txt.enc -out cookies.txt -d
