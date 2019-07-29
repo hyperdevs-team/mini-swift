@@ -11,6 +11,7 @@ script:
 - swift --version
 - rake
 - brew install thii/unxip/unxip
+- brew install wget
 - wget --load-cookies=cookies.txt -c https://download.developer.apple.com/Developer_Tools/Xcode_11_Beta_4/Xcode_11_Beta_4.xip
 - unxip Xcode_11_Beta_4.xip /Applications/Xcode-beta.app
 - xcode-select -s /Applications/Xcode-beta.app/Contents/Developer
