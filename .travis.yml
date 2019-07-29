@@ -10,8 +10,8 @@ script:
 - set -o pipefail
 - swift --version
 - rake
-- xcversion install "11 beta 4"
-- xcversion select "11 beta 4"
+- bundle exec xcversion install "11 beta 4"
+- bundle exec xcversion select "11 beta 4"
 - xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test
 - curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'
 - bundle exec danger
