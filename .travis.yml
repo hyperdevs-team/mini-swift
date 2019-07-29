@@ -10,10 +10,11 @@ script:
 - set -o pipefail
 - swift --version
 - rake
-- bundle exec xcversion update
-- bundle exec xcversion list
-- bundle exec xcversion install "11 beta 4"
-- bundle exec xcversion select "11 beta 4"
+- brew install thii/unxip/unxip
+- curl -sL -O https://download.developer.apple.com/Developer_Tools/Xcode_11_Beta_4/Xcode_11_Beta_4.xip
+- unxip Xcode_11_Beta_4.xip /Applications/Xcode-beta.app
+- xcode-select -s /Applications/Xcode-beta.app/Contents/Developer
+- xcode-select --install
 - xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test
 - curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'
 - bundle exec danger
