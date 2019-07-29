@@ -10,6 +10,8 @@ script:
 - set -o pipefail
 - swift --version
 - rake
+- bundle exec xcversion update
+- bundle exec xcversion list
 - bundle exec xcversion install "11 beta 4"
 - bundle exec xcversion select "11 beta 4"
 - xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test
