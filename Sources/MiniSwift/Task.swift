@@ -80,11 +80,11 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         Task(status: .running)
     }
 
-    public static func requestSuccess(expiration: Task.Expiration = .long) -> Task {
+    public static func requestSuccess(_ expiration: Task.Expiration = .long) -> Task {
         Task(status: .success, expiration: expiration)
     }
 
-    public static func requestFailure(withError error: Error) -> Task {
+    public static func requestFailure(_ error: Error) -> Task {
         Task(status: .failure, error: error)
     }
 

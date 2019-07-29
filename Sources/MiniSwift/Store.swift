@@ -55,8 +55,8 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
     private var storeController: StoreController
 
     @AtomicState public var state: State {
-        didSet {
-            willChange.send(state)
+        willSet {
+            willChange.send(newValue)
         }
     }
 

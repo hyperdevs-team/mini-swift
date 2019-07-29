@@ -31,7 +31,7 @@ class TaskTests: XCTestCase {
     }
 
     func test_check_states_for_failure_task() {
-        let task = Task.requestFailure(withError: error)
+        let task = Task.requestFailure(error)
 
         XCTAssertEqual(task.status, .failure)
         XCTAssertEqual(task.error as NSError?, error)
@@ -58,12 +58,12 @@ class TaskTests: XCTestCase {
     }
 
     func test_success_task_with_expiration_setted_to_immediately() {
-        let task = Task.requestSuccess(expiration: .immediately)
+        let task = Task.requestSuccess(.immediately)
         XCTAssertFalse(task.isRecentlySucceeded)
     }
 
     func test_success_task_with_expiration_setted() {
-        let task = Task.requestSuccess(expiration: .custom(2))
+        let task = Task.requestSuccess(.custom(2))
         XCTAssertTrue(task.isRecentlySucceeded)
 
         Thread.sleep(forTimeInterval: 3)

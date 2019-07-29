@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Wrapper class to allow pass dictionaries has a memory reference
+/// Wrapper class to allow pass dictionaries with a memory reference
 public class SharedDictionary<Key: Hashable, Value> {
     public var innerDictionary: [Key: Value]
 
@@ -23,7 +23,7 @@ public class SharedDictionary<Key: Hashable, Value> {
         self[key]
     }
 
-    public subscript (_ key: Key, orPut defaultValue:  @autoclosure () -> Value) -> Value {
+    public subscript (_ key: Key, orPut defaultValue: @autoclosure () -> Value) -> Value {
         innerDictionary[key, orPut: defaultValue()]
     }
 

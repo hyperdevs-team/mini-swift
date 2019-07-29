@@ -27,7 +27,7 @@ public class TestMiddleware: Middleware {
         }
     }
 
-    /// Check if a given action have been intercepted before for the TestInterceptor.
+    /// Check if a given action have been intercepted before by the Middleware.
     ///
     /// - Parameter action: action to be checked
     /// - Returns: returns true if an action with the same params have been intercepted before.
