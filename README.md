@@ -7,7 +7,7 @@ The re-imagined Re-Flux architecture for Swift.
 [![Platform](https://img.shields.io/cocoapods/p/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
 [![GitHub](https://img.shields.io/github/license/bq/mini-swift.svg)](https://github.com/bq/mini-swift/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=master)](https://travis-ci.org/bq/mini-swift)
+[![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=5.1)](https://travis-ci.org/bq/mini-swift)
 [![codecov](https://codecov.io/gh/bq/mini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/bq/mini-swift)
 
 ## Requirements

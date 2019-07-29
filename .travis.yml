@@ -11,10 +11,13 @@ script:
 - swift --version
 - rake
 - brew install thii/unxip/unxip
-- curl -sL -O https://download.developer.apple.com/Developer_Tools/Xcode_11_Beta_4/Xcode_11_Beta_4.xip
+- wget --load-cookies=cookies.txt -c https://download.developer.apple.com/Developer_Tools/Xcode_11_Beta_4/Xcode_11_Beta_4.xip
 - unxip Xcode_11_Beta_4.xip /Applications/Xcode-beta.app
 - xcode-select -s /Applications/Xcode-beta.app/Contents/Developer
 - xcode-select --install
 - xcodebuild -scheme MiniSwift-Package -enableCodeCoverage YES test
 - curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'
 - bundle exec danger
+before_install:
+- openssl aes-256-cbc -K $encrypted_5ce6572667b1_key -iv $encrypted_5ce6572667b1_iv
+  -in cookies.txt.enc -out cookies.txt -d
