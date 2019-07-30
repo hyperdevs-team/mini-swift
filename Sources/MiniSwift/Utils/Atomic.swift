@@ -12,7 +12,7 @@ public struct Atomic<A> {
     private var _value: A
     private let queue = DispatchQueue(label: "property wrapper")
 
-    public init(initialValue: A) {
+    public init(wrappedValue initialValue: A) {
         _value = initialValue
     }
 

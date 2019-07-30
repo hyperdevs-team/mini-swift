@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-extension Publisher where Failure == Never {
+extension Publisher where Output: StateType {
 
-    private func filterForLifetime<Type, T: TypedTask<Type>> (
+   private func filterForLifetime<Type, T: TypedTask<Type>> (
         taskMap: @escaping ((Self.Output) -> T?),
         lifetime: Task.Lifetime)
         -> AnyPublisher<Output, Failure> {
@@ -57,45 +57,51 @@ extension Publisher where Failure == Never {
             }
     }
 
-    private func subscribe<Type, T: TypedTask<Type>> (
+    func sink<Type, T: TypedTask<Type>> (
         taskMap: @escaping ((Self.Output) -> T?),
         lifetime: Task.Lifetime = .once,
         success: @escaping (Self.Output) -> Void = { _ in },
         error: @escaping (Self.Output) -> Void = { _ in })
-        -> Cancellable {
+        -> AnyCancellable {
         return self.filterForLifetime(taskMap: taskMap, lifetime: lifetime)
-            .sink(receiveValue: { state in
-                if let task = taskMap(state) {
-                    if task.isSuccessful {
-                        success(state)
-                    } else if task.isFailure {
-                        error(state)
-                    } else {
-                        success(state)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { state in
+                    if let task = taskMap(state) {
+                        if task.isSuccessful {
+                            success(state)
+                        } else if task.isFailure {
+                            error(state)
+                        } else {
+                            success(state)
+                        }
                     }
                 }
-            })
+            )
         }
 
-    private func subscribe<K: Hashable> (
+    func sink<K: Hashable> (
         key: K,
         taskMap: @escaping ((Self.Output) -> KeyedTask<K>),
         lifetime: Task.Lifetime = .once,
         success: @escaping (Self.Output) -> Void = { _ in },
         error: @escaping (Self.Output) -> Void = { _ in })
-        -> Cancellable {
+        -> AnyCancellable {
             return self
                 .filterForKeyedLifetime(key: key, taskMap: taskMap, lifetime: lifetime)
-                .sink(receiveValue: { state in
-                    let task = taskMap(state)[task: key]
-                    if task.isSuccessful {
-                        success(state)
-                    } else if task.isFailure {
-                        error(state)
-                    } else {
-                        success(state)
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { state in
+                        let task = taskMap(state)[task: key]
+                        if task.isSuccessful {
+                            success(state)
+                        } else if task.isFailure {
+                            error(state)
+                        } else {
+                            success(state)
+                        }
                     }
-                })
+                )
     }
 }
 
@@ -117,7 +123,7 @@ extension Publisher {
                                                on dispatcher: Dispatcher,
                                                method dispatchMethod: Dispatcher.DispatchMode.UI = .async,
                                                fillOnError errorPayload: A.Payload? = nil)
-        -> Cancellable where A.Payload == Self.Output {
+        -> AnyCancellable where A.Payload == Self.Output {
             let subscription = self.sink(
                 receiveCompletion: { completion in
                     if case let .failure(error) = completion {
@@ -153,7 +159,7 @@ extension Publisher {
                                                     on dispatcher: Dispatcher,
                                                     method dispatchMethod: Dispatcher.DispatchMode.UI = .async,
                                                     fillOnError errorPayload: A.Payload? = nil)
-        -> Cancellable where A.Payload == Self.Output {
+        -> AnyCancellable where A.Payload == Self.Output {
             let subscription = self.sink(
                 receiveCompletion: { completion in
                     if case let .failure(error) = completion {

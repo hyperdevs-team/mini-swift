@@ -13,7 +13,7 @@ public struct AtomicState<V: StateType> {
     private let queue = DispatchQueue(label: "atomic state")
     private var _value: V
 
-    public init(initialValue: V) {
+    public init(wrappedValue initialValue: V) {
         _value = initialValue
     }
 

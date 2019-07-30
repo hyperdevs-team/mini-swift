@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 public protocol StoreType {
     associatedtype State: StateType
@@ -43,12 +42,12 @@ extension StoreType {
     }
 }
 
-public class Store<State: StateType, StoreController: Cancellable>: BindableObject, StoreType {
+public class Store<State: StateType, StoreController: Cancellable>: ObservableObject, StoreType {
 
     public typealias State = State
     public typealias StoreController = StoreController
 
-    public var willChange: CurrentValueSubject<State, Never>
+    public var objectWillChange: CurrentValueSubject<State, Error>
 
     private var _initialState: State
     public let dispatcher: Dispatcher
@@ -56,7 +55,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
 
     @AtomicState public var state: State {
         willSet {
-            willChange.send(newValue)
+            objectWillChange.send(newValue)
         }
     }
 
@@ -69,7 +68,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
                 storeController: StoreController) {
         self._initialState = state
         self.dispatcher = dispatcher
-        self.willChange = CurrentValueSubject(state)
+        self.objectWillChange = CurrentValueSubject(state)
         self.storeController = storeController
         self.state = _initialState
     }
@@ -81,7 +80,7 @@ public class Store<State: StateType, StoreController: Cancellable>: BindableObje
     }
 
     public func replayOnce() {
-        willChange.send(state)
+        objectWillChange.send(state)
     }
 
     public func reset() {
