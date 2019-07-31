@@ -7,17 +7,24 @@ final class FilterOneTests: XCTestCase {
     func test_filter_one() {
         
         let cancellableBag = CancellableBag()
+        
+        let expec = expectation(description: "FilterOne")
 
         var values = [Int]()
 
         [1, 2, 3]
             .publisher
             .filterOne { $0 == 2 }
-            .sink(receiveValue: { values.append($0) })
+            .sink(
+                receiveCompletion: { _ in expec.fulfill() },
+                receiveValue: {
+                    values.append($0)
+            })
             .cancelled(by: cancellableBag)
         
-        XCTAssert(values.count == 1)
+        waitForExpectations(timeout: 1.0)
         
-        XCTAssert(values.first == 2)
+        XCTAssertEqual(values, [2])
+
     }
 }
