@@ -17,21 +17,21 @@ extension Task {
 
 extension Publishers {
     
-    public struct Dispatch<Store: StoreType & ObservableObject, A: Action, T: Task>: Publisher where Store.ObjectWillChangePublisher: CurrentValueSubject<Store.State, Store.ObjectWillChangePublisher.Failure> {
+    public struct Dispatch<Store: StoreType & ObservableObject>: Publisher where Store.ObjectWillChangePublisher.Output == Store.State {
         
         public typealias Output = Store.State
         
         public typealias Failure = Error
         
         private let dispatcher: Dispatcher
-        private let action: () -> A
-        private let taskMap: (Store.State) -> T?
+        private let action: () -> Action
+        private let taskMap: (Store.State) -> Task?
         private let store: Store
         private let lifetime: Task.Lifetime
         
         public init(using dispatcher: Dispatcher,
-                    factory action: @autoclosure @escaping () -> A,
-                    taskMap: @escaping (Store.State) -> T?,
+                    factory action: @autoclosure @escaping () -> Action,
+                    taskMap: @escaping (Store.State) -> Task?,
                     on store: Store,
                     lifetime: Task.Lifetime = .once) {
             self.dispatcher = dispatcher
@@ -41,7 +41,7 @@ extension Publishers {
             self.lifetime = lifetime
         }
         
-        public func receive<S>(subscriber: S) where S : Subscriber, Error == S.Failure, Store.ObjectWillChangePublisher.Output == S.Input {
+        public func receive<S>(subscriber: S) where S : Subscriber, Error == S.Failure, Store.State == S.Input {
             let action = self.action()
             self.dispatcher.dispatch(action, mode: .sync)
             let subscription = self.store.objectWillChange.sink(

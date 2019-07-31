@@ -46,16 +46,18 @@ public class Store<State: StateType, StoreController: Cancellable>: ObservableOb
 
     public typealias State = State
     public typealias StoreController = StoreController
+    
+    public typealias ObjectWillChangePublisher = CurrentValueSubject<State, Never>
 
-    public var objectWillChange: CurrentValueSubject<State, Error>
+    public var objectWillChange: ObjectWillChangePublisher
 
     private var _initialState: State
     public let dispatcher: Dispatcher
     private var storeController: StoreController
 
     @AtomicState public var state: State {
-        willSet {
-            objectWillChange.send(newValue)
+        didSet {
+            objectWillChange.send(state)
         }
     }
 
@@ -68,7 +70,7 @@ public class Store<State: StateType, StoreController: Cancellable>: ObservableOb
                 storeController: StoreController) {
         self._initialState = state
         self.dispatcher = dispatcher
-        self.objectWillChange = CurrentValueSubject(state)
+        self.objectWillChange = ObjectWillChangePublisher(state)
         self.storeController = storeController
         self.state = _initialState
     }
