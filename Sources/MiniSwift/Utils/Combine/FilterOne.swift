@@ -34,7 +34,6 @@ extension Publishers {
                     let satisfies = self._where(event)
                     if satisfies {
                         let demand = subscriber.receive(event)
-                        _ = subscriber.receive(completion: .finished)
                         return demand
                     }
                     return .unlimited
@@ -50,11 +49,7 @@ extension Publishers {
 
 extension Publisher {
 
-    public func first(where condition: @escaping (Self.Output) -> Bool) -> Publishers.FilterOne<Self> {
+    public func filterOne(_ condition: @escaping (Self.Output) -> Bool) -> Publishers.FilterOne<Self> {
         Publishers.FilterOne(upstream: self, where: condition)
-    }
-
-    public func filterOne(_ condition: @escaping ((Self.Output) -> Bool)) -> AnyPublisher<Self.Output, Self.Failure> {
-        self.filter(condition).first().eraseToAnyPublisher()
     }
 }

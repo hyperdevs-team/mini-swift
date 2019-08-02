@@ -18,6 +18,7 @@ extension Publisher where Output: StateType {
             case .once:
                 return self
                     .filterOne { taskMap($0)?.isTerminal ?? true }
+                    .eraseToAnyPublisher()
             case .forever(let ignoreOld):
                 let date = Date()
                 return self
