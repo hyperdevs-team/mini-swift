@@ -26,8 +26,8 @@ extension Dictionary {
         }
     }
 
-    public subscript(unwrapping key: Key) -> Value {
-        return self[key]!
+    public subscript(unwrapping key: Key) -> Value! {
+        return self[key]
     }
 }
 
