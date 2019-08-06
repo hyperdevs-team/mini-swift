@@ -2,7 +2,7 @@ import XCTest
 import Combine
 @testable import MiniSwift
 
-public class OneTestAction: Action {
+class OneTestAction: Action {
 
     let counter: Int
 
@@ -17,7 +17,7 @@ public class OneTestAction: Action {
     }
 }
 
-public struct TestState: StateType {
+struct TestState: StateType {
 
     public let testTask: Task
     public let counter: Int
@@ -34,7 +34,7 @@ public struct TestState: StateType {
     }
 }
 
-public class TestStoreController: Cancellable {
+class TestStoreController: Cancellable {
     public func cancel() {
         // NO-OP
     }
@@ -51,7 +51,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     }
 }
 
-final class MiniSwiftTests: XCTestCase {
+final class ReducerTests: XCTestCase {
 
     func test_dispatcher_triggers_action_in_reducer_group_reducer() {
         let dBag = CancellableBag()

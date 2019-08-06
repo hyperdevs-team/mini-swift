@@ -40,6 +40,22 @@ let package = Package(
 $ swift build
 ```
 
+### [Carthage](https://github.com/Carthage/Carthage)
+
+- Add this to your `Cartfile`:
+
+```
+github "bq/mini-swift" "5.1" 
+```
+
+### [Cocoapods](https://cocoapods.org/)
+
+- Add the dependency to your `Podfile`:
+
+```
+pod "Mini-Swift", branch: "5.1"
+```
+
 ## Usage
 
 - **MiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
