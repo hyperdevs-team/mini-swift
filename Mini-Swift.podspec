@@ -13,7 +13,7 @@ Dependencies: RxSwift
   s.license          = { :type => 'APACHE', :file => 'LICENSE' }
   s.author           = { 'bq' => 'info@bq.com' }
   s.source           = { :git => 'https://github.com/bq/mini-swift.git', :tag => "v#{s.version.to_s}" }
-  s.social_media_url = 'https://twitter.com/bqreaders'
+  #s.social_media_url = 'https://twitter.com/bqreaders'
 
   s.ios.deployment_target = '11.0'
   s.ios.frameworks = 'UIKit'
