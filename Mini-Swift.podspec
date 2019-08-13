@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Mini-Swift'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.swift_version    = '5.0'
   s.summary          = 'The re-imagined Re-Flux architecture for Swift.'
 
@@ -33,6 +33,6 @@ Dependencies: RxSwift
 
   s.frameworks = 'Foundation'
   s.dependency 'RxSwift', '~> 5'
-  s.dependency 'MagicPills', '~> 2.0'
+  s.dependency 'MagicPills', '~> 2.1'
   s.module_name = 'Mini'
 end
