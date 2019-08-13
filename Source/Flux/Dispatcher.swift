@@ -94,7 +94,7 @@ public class Dispatcher {
                 dispatching = false
             }
             if dispatching {
-                preconditionFailure(FluxExceptions.alreadyDispatchingException.message)
+                preconditionFailure(MiniError.alreadyDispatching.message)
             }
             dispatching = true
             _ = chain.proceed(action: action)

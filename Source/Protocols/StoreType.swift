@@ -1,12 +1,13 @@
 import Foundation
+import RxSwift
 
 public protocol StoreType: class {
-    // swiftlint:disable:next type_name
-    associatedtype S: State
+    associatedtype AssociatedState: State
 
-    var state: S { get set }
-    var initialState: S { get }
+    var processor: BehaviorSubject<AssociatedState> { get set }
+    var initialState: AssociatedState { get set }
+    var state: AssociatedState { get set }
+    func subscribeActions()
     func reloadState()
-    func resetState()
-    func initialize()
+    func reset()
 }

@@ -1,32 +1,28 @@
 import Foundation
 import RxSwift
 
-/**
- Generic store that exposes its state as a [Flowable] and emits change events
- when [.setState] is called.
+public class Store<S: State, SC: Disposable>: StoreType {
 
- - <S> The state type.
- */
-public class Store<S: State>: StoreType, ObservableConvertibleType {
+    public typealias AssociatedState = S
 
-    // swiftlint:disable:next type_name
-    public typealias E = S
-    public typealias State = S
-
-    private var _initialState: S
-    private var _state: S
-    private var processor: BehaviorSubject<S>
-    let dispatcher: Dispatcher
-    internal let disposables: CompositeDisposable = CompositeDisposable()
-    internal let disposeBag: DisposeBag = DisposeBag()
-
+    public var initialState: S
+    public var dispatcher: Dispatcher
+    public var storeController: SC
     public var properties: StoreProperties = StoreProperties()
+    public var processor: BehaviorSubject<S>
+    public var disposables: CompositeDisposable = CompositeDisposable()
+    public var disposeBag: DisposeBag = DisposeBag()
 
-    public init(initialState: S, dispatcher: Dispatcher) {
-        _initialState = initialState
-        _state = initialState
+    private var _state: S
+
+    public required init(initialState: @autoclosure @escaping () -> S,
+                         dispatcher: Dispatcher,
+                         storeController: SC) {
+        self.initialState = initialState()
         self.dispatcher = dispatcher
-        self.processor = BehaviorSubject<S>(value: initialState)
+        self.storeController = storeController
+        self.processor = BehaviorSubject<S>(value: self.initialState)
+        self._state = self.initialState
     }
 
     public var state: S {
@@ -34,30 +30,27 @@ public class Store<S: State>: StoreType, ObservableConvertibleType {
             return _state
         }
         set(value) {
-            if !value.isEqualTo(state) {
+            if !value.isEqualTo(_state) {
                 _state = value
                 processor.onNext(value)
             }
         }
     }
 
+    public func subscribeActions() {
+        fatalError("Abstract Method")
+    }
+
     public func reloadState() {
         processor.onNext(state)
     }
 
-    public func resetState() {
-        state = initialState
-    }
-
-    public func initialize() {
-        fatalError("Abstract Method")
-    }
-
-    public var initialState: S {
-        return _initialState
-    }
-
     public func asObservable() -> Observable<S> {
         return processor.asObservable()
+    }
+
+    public func reset() {
+        state = initialState
+        storeController.dispose()
     }
 }

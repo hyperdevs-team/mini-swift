@@ -21,13 +21,13 @@ public func onUi(block: @escaping () -> Void) {
 /// Asserts that the caller function is called in the UI thread.
 public func assertOnUiThread() {
     if !Thread.isMainThread {
-        fatalError(FluxExceptions.notOnUiThreadException.message)
+        fatalError(MiniError.onUiThread.message)
     }
 }
 
 /// Asserts that the caller function is not called in the UI thread.
 public func assertNotOnUiThread() {
     if Thread.isMainThread {
-        fatalError(FluxExceptions.onUiThreadException.message)
+        fatalError(MiniError.onUiThread.message)
     }
 }
