@@ -12,9 +12,13 @@ public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<Dispatche
 public class Dispatcher {
     // swiftlint:disable:next type_name
     public struct UI {
-        let dispatcher: Dispatcher
+        public init(dispatcher: Dispatcher) {
+            self.dispatcher = dispatcher
+        }
 
-        func sync(_ action: Action) {
+        private let dispatcher: Dispatcher
+
+        public func sync(_ action: Action) {
             if DispatchQueue.isMain {
                 self.dispatcher.dispatch(action: action)
             } else {
@@ -24,7 +28,7 @@ public class Dispatcher {
             }
         }
 
-        func async(_ action: Action) {
+        public func async(_ action: Action) {
             DispatchQueue.main.async {
                 self.dispatcher.dispatch(action: action)
             }
