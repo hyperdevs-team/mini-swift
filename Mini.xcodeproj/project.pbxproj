@@ -68,10 +68,10 @@
 		F22A38B8227C60000012C010 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A2227C60000012C010 /* Interceptor.swift */; };
 		F22A38B9227C60000012C010 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A2227C60000012C010 /* Interceptor.swift */; };
 		F22A38BA227C60000012C010 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A2227C60000012C010 /* Interceptor.swift */; };
-		F22A38BB227C60000012C010 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* State.swift */; };
-		F22A38BC227C60000012C010 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* State.swift */; };
-		F22A38BD227C60000012C010 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* State.swift */; };
-		F22A38BE227C60000012C010 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* State.swift */; };
+		F22A38BB227C60000012C010 /* StoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* StoreState.swift */; };
+		F22A38BC227C60000012C010 /* StoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* StoreState.swift */; };
+		F22A38BD227C60000012C010 /* StoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* StoreState.swift */; };
+		F22A38BE227C60000012C010 /* StoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A3227C60000012C010 /* StoreState.swift */; };
 		F22A38BF227C60000012C010 /* StoreProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A4227C60000012C010 /* StoreProperties.swift */; };
 		F22A38C0227C60000012C010 /* StoreProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A4227C60000012C010 /* StoreProperties.swift */; };
 		F22A38C1227C60000012C010 /* StoreProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22A38A4227C60000012C010 /* StoreProperties.swift */; };
@@ -162,7 +162,7 @@
 		F22A389F227C60000012C010 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		F22A38A1227C60000012C010 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		F22A38A2227C60000012C010 /* Interceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
-		F22A38A3227C60000012C010 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		F22A38A3227C60000012C010 /* StoreState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreState.swift; sourceTree = "<group>"; };
 		F22A38A4227C60000012C010 /* StoreProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreProperties.swift; sourceTree = "<group>"; };
 		F22A38A5227C60000012C010 /* MiniError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniError.swift; sourceTree = "<group>"; };
 		F22A38A6227C60000012C010 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -373,8 +373,8 @@
 				F22A38A1227C60000012C010 /* Dispatcher.swift */,
 				F22A38A5227C60000012C010 /* MiniError.swift */,
 				F22A38A2227C60000012C010 /* Interceptor.swift */,
-				F22A38A3227C60000012C010 /* State.swift */,
 				F22A38A6227C60000012C010 /* Store.swift */,
+				F22A38A3227C60000012C010 /* StoreState.swift */,
 				F22A38A4227C60000012C010 /* StoreProperties.swift */,
 				F22A389E227C60000012C010 /* Threading.swift */,
 				F22A3577228086A2004E8546 /* Task.swift */,
@@ -737,7 +737,7 @@
 				F22A38C7227C60000012C010 /* Store.swift in Sources */,
 				F22A3578228086A2004E8546 /* Task.swift in Sources */,
 				F26C3AF822537A4600189D28 /* Mini.swift in Sources */,
-				F22A38BB227C60000012C010 /* State.swift in Sources */,
+				F22A38BB227C60000012C010 /* StoreState.swift in Sources */,
 				F22A38B3227C60000012C010 /* Dispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,7 +766,7 @@
 				F22A38C8227C60000012C010 /* Store.swift in Sources */,
 				F22A3579228086A2004E8546 /* Task.swift in Sources */,
 				F26C3AF922537A4600189D28 /* Mini.swift in Sources */,
-				F22A38BC227C60000012C010 /* State.swift in Sources */,
+				F22A38BC227C60000012C010 /* StoreState.swift in Sources */,
 				F22A38B4227C60000012C010 /* Dispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,7 +795,7 @@
 				F22A38C9227C60000012C010 /* Store.swift in Sources */,
 				F22A357A228086A2004E8546 /* Task.swift in Sources */,
 				F26C3AFA22537A4600189D28 /* Mini.swift in Sources */,
-				F22A38BD227C60000012C010 /* State.swift in Sources */,
+				F22A38BD227C60000012C010 /* StoreState.swift in Sources */,
 				F22A38B5227C60000012C010 /* Dispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -824,7 +824,7 @@
 				F22A38CA227C60000012C010 /* Store.swift in Sources */,
 				F22A357B228086A2004E8546 /* Task.swift in Sources */,
 				F26C3AFB22537A4600189D28 /* Mini.swift in Sources */,
-				F22A38BE227C60000012C010 /* State.swift in Sources */,
+				F22A38BE227C60000012C010 /* StoreState.swift in Sources */,
 				F22A38B6227C60000012C010 /* Dispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

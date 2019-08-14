@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 public protocol StoreType: class {
-    associatedtype AssociatedState: State
+    associatedtype AssociatedState: StoreState
 
     var processor: BehaviorSubject<AssociatedState> { get set }
     var initialState: AssociatedState { get set }

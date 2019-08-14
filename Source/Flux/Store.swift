@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Store<S: State, SC: Disposable>: StoreType {
+public class Store<S: StoreState, SC: Disposable>: StoreType {
 
     public typealias AssociatedState = S
 
