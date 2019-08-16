@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public protocol StoreType: class {
+public protocol StoreType: class, ObservableConvertibleType {
     associatedtype AssociatedState: StoreState
 
     var processor: BehaviorSubject<AssociatedState> { get set }
