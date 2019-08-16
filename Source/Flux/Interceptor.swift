@@ -15,7 +15,7 @@ public struct InterceptorWrapper: DefinesPrimaryKey {
     let id: Int
     let interceptor: Interceptor
 
-    init(withId id: Int, withInterceptor interceptor: @escaping Interceptor) {
+    public init(withId id: Int, withInterceptor interceptor: @escaping Interceptor) {
         self.id = id
         self.interceptor = interceptor
     }
