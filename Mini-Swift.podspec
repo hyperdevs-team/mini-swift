@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Mini-Swift'
-  s.version          = '0.3.1'
+  s.version          = '0.3.2'
   s.swift_version    = '5.0'
   s.summary          = 'The re-imagined Re-Flux architecture for Swift.'
 
