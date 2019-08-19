@@ -2,11 +2,6 @@ gemfile: Gemfile
 
 concurrency: '1'
 
-PostCheckout:
-  CustomScript:
-    enabled: true
-    command: ["./bin/post-checkout.sh"]
-
 PreCommit:
   BundleCheck:
     enabled: true
