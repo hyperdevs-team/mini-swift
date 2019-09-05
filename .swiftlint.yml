@@ -27,6 +27,7 @@ opt_in_rules:
   - sorted_first_last
 included:
   - Source
+excluded:
   - Tests
 closure_end_indentation:
   severity: error
@@ -52,31 +53,10 @@ file_length:
 type_name:
   min_length: 3
   max_length: 40
-  excluded:
-    - iPhone
-    - my
-    - BO
-    - bo
   severity: error
 identifier_name:
   min_length: 3
   max_length: 40
-  excluded: 
-    - i
-    - to
-    - x
-    - y
-    - z
-    - a
-    - b
-    - rx
-    - map
-    - app
-    - id
-    - URL
-    - GlobalAPIKey
-    - bo
-    - BO
   severity: error
 attributes:
   always_on_same_line:

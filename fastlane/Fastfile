@@ -3,22 +3,18 @@ default_platform(:ios)
 platform :ios do
   desc "Pass all test for main target"
   lane :pass_tests do
-  	test_scheme(scheme: "Mini-macOS", 
-  				configuration: "Debug", 
-  				name: "mac",
-  				output_directory: "./output")
-  	sh "curl -s https://codecov.io/bash | bash -s -- -F mac -J 'Mini'"
+    Dir.chdir('..') do
+        clear_derived_data
+        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -f `xcpretty-travis-formatter`"
+        sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
 
-  	test_scheme(scheme: "Mini-tvOS", 
-  				configuration: "Debug", 
-  				name: "tv",
-  				output_directory: "./output")
-  	sh "curl -s https://codecov.io/bash | bash -s -- -F tv -J 'Mini'"
+        clear_derived_data
+        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=OS X,arch=x86_64' | xcpretty -f `xcpretty-travis-formatter`"
+        sh "curl -s https://codecov.io/bash | bash -s -- -F mac -J 'Mini'"
 
-  	test_scheme(scheme: "Mini-iOS", 
-  				configuration: "Debug", 
-  				name: "iOS",
-  				output_directory: "./output")
-  	sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
+        clear_derived_data
+        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.1' | xcpretty -f `xcpretty-travis-formatter`"
+        sh "curl -s https://codecov.io/bash | bash -s -- -F tv -J 'Mini'"
+    end
   end
 end
