@@ -9,5 +9,5 @@ coverage:
       default: false
       framework:
         target: auto
-        paths: "Source/"
+        paths: "Sources/"
     patch: off
