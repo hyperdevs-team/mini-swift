@@ -25,7 +25,7 @@ extension Task {
 }
 
 extension ObservableType {
-    
+
     /// Take the first element that matches the filter function.
     ///
     /// - Parameter fn: Filter closure.
@@ -33,12 +33,12 @@ extension ObservableType {
     public func filterOne(_ condition: @escaping (Element) -> Bool) -> Observable<Element> {
         return filter {
             return condition($0)
-            }.take(1)
+        }.take(1)
     }
 }
 
 extension ObservableType where Self.Element: StateType {
-    
+
     private func filterForLifetime<Type, T: TypedTask<Type>> (
         taskMap: @escaping ((Self.Element) -> T?),
         lifetime: Task.Lifetime) -> Observable<Element> {
@@ -62,7 +62,7 @@ extension ObservableType where Self.Element: StateType {
                 .filter { taskMap($0)?.isTerminal ?? true }
         }
     }
-    
+
     private func filterForKeyedLifetime<K: Hashable> (
         key: K,
         taskMap: @escaping ((Self.Element) -> KeyedTask<K>),
@@ -80,7 +80,7 @@ extension ObservableType where Self.Element: StateType {
                 .take(1)
         }
     }
-    
+
     private func subscribe<Type, T: TypedTask<Type>> (
         taskMap: @escaping ((Self.Element) -> T?),
         lifetime: Task.Lifetime = .once,
@@ -101,7 +101,7 @@ extension ObservableType where Self.Element: StateType {
                     }
                 })
     }
-    
+
     private func subscribe<K: Hashable> (
         key: K,
         taskMap: @escaping ((Self.Element) -> KeyedTask<K>),
@@ -125,7 +125,7 @@ extension ObservableType where Self.Element: StateType {
 }
 
 extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
-    
+
     public static func dispatch<A: Action, T: Task> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
@@ -152,7 +152,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
             }
             return observable
     }
-    
+
     public static func dispatch<A: Action, K: Hashable> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,

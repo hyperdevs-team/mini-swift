@@ -14,7 +14,6 @@
  limitations under the License.
  */
 
-
 import Foundation
 
 /// Action for testing purposes.
@@ -26,18 +25,18 @@ public class TestOnlyAction: Action {
 
 /// Interceptor class for testing purposes which mute all the received actions.
 public class TestMiddleware: Middleware {
-    
+
     public var id: UUID = UUID()
-    
+
     private var interceptedActions: [Action] = []
-    
+
     public var perform: MiddlewareChain {
         return { action, _ -> Action in
             self.interceptedActions.append(action)
             return TestOnlyAction()
         }
     }
-    
+
     /// Check if a given action have been intercepted before by the Middleware.
     ///
     /// - Parameter action: action to be checked
@@ -47,7 +46,7 @@ public class TestMiddleware: Middleware {
             action.isEqual(to: $0)
         })
     }
-    
+
     /// Check for actions of certain type being intercepted.
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
@@ -55,7 +54,7 @@ public class TestMiddleware: Middleware {
     func actions<T: Action>(of kind: T.Type) -> [T] {
         return interceptedActions.compactMap { $0 as? T }
     }
-    
+
     /// Clear all the intercepted actions
     func clear() {
         interceptedActions.removeAll()

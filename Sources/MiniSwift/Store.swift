@@ -20,7 +20,7 @@ import RxSwift
 public protocol StoreType {
     associatedtype State: StateType
     associatedtype StoreController: Disposable
-    
+
     var state: State { get set }
     var dispatcher: Dispatcher { get }
     var reducerGroup: ReducerGroup { get }
@@ -52,24 +52,24 @@ extension StoreType {
 }
 
 public class Store<State: StateType, StoreController: Disposable>: ObservableType, StoreType {
-    
+
     public typealias Element = State
-    
+
     public typealias State = State
     public typealias StoreController = StoreController
-    
+
     public typealias ObjectWillChangePublisher = BehaviorSubject<State>
-    
+
     public var objectWillChange: ObjectWillChangePublisher
-    
+
     private var _initialState: State
     public let dispatcher: Dispatcher
     private var storeController: StoreController
-    
+
     private let queue = DispatchQueue(label: "atomic state")
-    
+
     private var _state: State
-    
+
     public var state: State {
         get {
             return _state
@@ -83,11 +83,11 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
             }
         }
     }
-    
+
     public var initialState: State {
         return _initialState
     }
-    
+
     public init(_ state: State,
                 dispatcher: Dispatcher,
                 storeController: StoreController) {
@@ -98,21 +98,21 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
         self.storeController = storeController
         self.state = _initialState
     }
-    
+
     public var reducerGroup: ReducerGroup {
         return ReducerGroup {
             []
         }
     }
-    
+
     public func replayOnce() {
         objectWillChange.onNext(state)
     }
-    
+
     public func reset() {
         state = initialState
     }
-    
+
     public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Store.Element {
         return objectWillChange.subscribe(observer)
     }
