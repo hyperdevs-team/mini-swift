@@ -1178,6 +1178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_285 /* Build configuration list for PBXNativeTarget "MiniSwift" */;
 			buildPhases = (
+				F2F0AA1C232185C800BC7CD9 /* Swiftlint */,
 				OBJ_288 /* Sources */,
 				OBJ_307 /* Frameworks */,
 			);
@@ -1340,6 +1341,27 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F2F0AA1C232185C800BC7CD9 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_261 /* Sources */ = {
