@@ -26,7 +26,7 @@ opt_in_rules:
   - first_where
   - sorted_first_last
 included:
-  - Source
+  - Sources
 excluded:
   - Tests
 closure_end_indentation:
