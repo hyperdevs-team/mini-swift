@@ -20,20 +20,20 @@ public typealias Task = TypedTask<Any>
 public typealias KeyedTask<K: Hashable> = [K: Task]
 
 public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
-    
+
     public enum Status {
         case idle
         case running
         case success
         case failure
     }
-    
+
     public enum Expiration {
         case immediately
         case short
         case long
         case custom(TimeInterval)
-        
+
         public var value: TimeInterval {
             switch self {
             case .immediately: return 0
@@ -43,14 +43,14 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
             }
         }
     }
-    
+
     public let status: Status
     public let started: Date
     public let expiration: Expiration
     public let data: T?
     public let progress: Decimal?
     public let error: Error?
-    
+
     public required init(status: Status = .idle,
                          started: Date = Date(),
                          expiration: Expiration = .long,
@@ -64,39 +64,39 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         self.progress = progress
         self.error = error
     }
-    
+
     public var isRunning: Bool {
         return status == .running
     }
-    
+
     public var isRecentlySucceeded: Bool {
         return status == .success && started.timeIntervalSinceNow + expiration.value >= 0
     }
-    
+
     public var isTerminal: Bool {
         return status == .success || status == .failure
     }
-    
+
     public var isSuccessful: Bool {
         return status == .success
     }
-    
+
     public var isFailure: Bool {
         return status == .failure
     }
-    
+
     public static func requestRunning() -> Task {
         return Task(status: .running)
     }
-    
+
     public static func requestSuccess(_ expiration: Task.Expiration = .long) -> Task {
         return Task(status: .success, expiration: expiration)
     }
-    
+
     public static func requestFailure(_ error: Error) -> Task {
         return Task(status: .failure, error: error)
     }
-    
+
     // MARK: - CustomDebugStringConvertible
     public var debugDescription: String {
         return """
