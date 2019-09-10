@@ -24,7 +24,7 @@ public protocol Group: Disposable {
 public class ReducerGroup: Group {
 
     public let disposeBag = CompositeDisposable()
-    
+
     public init(_ builder: () -> [Disposable]) {
         let disposable = builder()
         disposable.forEach { _ = disposeBag.insert($0) }

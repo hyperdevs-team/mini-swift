@@ -25,6 +25,6 @@ public class LoggingService: Service {
             NSLog(String(dumping: action))
         }
     }
-    
+
     public init() { }
 }
