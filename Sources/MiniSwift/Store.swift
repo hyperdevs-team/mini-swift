@@ -64,7 +64,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
 
     private var _initialState: State
     public let dispatcher: Dispatcher
-    private var storeController: StoreController
+    public var storeController: StoreController
 
     private let queue = DispatchQueue(label: "atomic state")
 
