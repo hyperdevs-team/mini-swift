@@ -36,7 +36,7 @@ public class TestMiddleware: Middleware {
             return TestOnlyAction()
         }
     }
-    
+
     public init() { }
 
     /// Check if a given action have been intercepted before by the Middleware.
