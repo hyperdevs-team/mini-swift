@@ -36,12 +36,14 @@ public class TestMiddleware: Middleware {
             return TestOnlyAction()
         }
     }
+    
+    public init() { }
 
     /// Check if a given action have been intercepted before by the Middleware.
     ///
     /// - Parameter action: action to be checked
     /// - Returns: returns true if an action with the same params have been intercepted before.
-    func contains(action: Action) -> Bool {
+    public func contains(action: Action) -> Bool {
         return interceptedActions.contains(where: {
             action.isEqual(to: $0)
         })
@@ -51,12 +53,12 @@ public class TestMiddleware: Middleware {
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
     /// - Returns: Array of actions of `kind` being intercepted.
-    func actions<T: Action>(of kind: T.Type) -> [T] {
+    public func actions<T: Action>(of kind: T.Type) -> [T] {
         return interceptedActions.compactMap { $0 as? T }
     }
 
     /// Clear all the intercepted actions
-    func clear() {
+    public func clear() {
         interceptedActions.removeAll()
     }
 }
