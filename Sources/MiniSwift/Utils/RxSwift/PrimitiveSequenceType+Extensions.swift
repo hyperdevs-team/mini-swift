@@ -87,7 +87,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
 public extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Swift.Never {
 
     func dispatch<A: EmptyAction>(action: A.Type,
-                                  expiration: Task.Expiration = .long,
+                                  expiration: Task.Expiration = .immediately,
                                   on dispatcher: Dispatcher,
                                   mode: Dispatcher.DispatchMode.UI = .async)
         -> Disposable {
