@@ -17,7 +17,7 @@
 import Foundation
 import RxSwift
 
-public extension PrimitiveSequenceType where Self: StoreType & ObservableType, Self.Trait == SingleTrait {
+public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Self.Trait == SingleTrait {
 
     func dispatch<A: CompletableAction>(action: A.Type,
                                         expiration: Task.Expiration = .immediately,
@@ -27,11 +27,13 @@ public extension PrimitiveSequenceType where Self: StoreType & ObservableType, S
         -> Disposable where A.Payload == Self.Element {
         let subscription = self.subscribe(
             onSuccess: { payload in
-                let action = A(task: .requestSuccess(expiration), payload: payload)
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestSuccess(expiration), payload: payload)
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
-                let action = A(task: .requestFailure(error), payload: errorPayload)
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestFailure(error), payload: errorPayload)
                 dispatcher.dispatch(action, mode: mode)
             }
         )
@@ -47,11 +49,13 @@ public extension PrimitiveSequenceType where Self: StoreType & ObservableType, S
         -> Disposable where A.Payload == Self.Element {
         let subscription = self.subscribe(
             onSuccess: { payload in
-                let action = A(task: .requestSuccess(expiration), payload: payload, key: key)
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestSuccess(expiration), payload: payload, key: key)
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
-                let action = A(task: .requestFailure(error), payload: errorPayload, key: key)
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestFailure(error), payload: errorPayload, key: key)
                 dispatcher.dispatch(action, mode: mode)
             }
         )
@@ -65,11 +69,13 @@ public extension PrimitiveSequenceType where Self: StoreType & ObservableType, S
         return Single.create { single in
             let subscription = self.subscribe(
                 onSuccess: { payload in
-                    let action = A(task: .requestSuccess(expiration), payload: payload)
+                    // swiftlint:disable:next explicit_init
+                    let action = A.init(task: .requestSuccess(expiration), payload: payload)
                     single(.success(action))
                 },
                 onError: { error in
-                    let action = A(task: .requestFailure(error), payload: errorPayload)
+                    // swiftlint:disable:next explicit_init
+                    let action = A.init(task: .requestFailure(error), payload: errorPayload)
                     single(.success(action))
                 }
             )
@@ -88,10 +94,12 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         let subscription = self.subscribe { completable in
             switch completable {
             case .completed:
-                let action = A(task: .requestSuccess(expiration))
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestSuccess(expiration))
                 dispatcher.dispatch(action, mode: mode)
             case .error(let error):
-                let action = A(task: .requestFailure(error))
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestFailure(error))
                 dispatcher.dispatch(action, mode: mode)
             }
         }
