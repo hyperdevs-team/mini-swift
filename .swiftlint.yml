@@ -2,6 +2,7 @@ disabled_rules:
   - todo
   - conditional_returns_on_newline
   - unused_optional_binding
+  - file_header
 opt_in_rules: 
   #lint
   - prohibited_super_call
@@ -58,6 +59,9 @@ identifier_name:
   min_length: 3
   max_length: 40
   severity: error
+  excluded:
+    - id
+    - i
 attributes:
   always_on_same_line:
       - "@IBOutlet"

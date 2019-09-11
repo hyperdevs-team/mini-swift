@@ -54,6 +54,13 @@ $ swift build
 pod "Mini-Swift"
 ```
 
+- We also offer two subpecs for logging and testing:
+```
+pod "Mini-Swift/Log"
+pod "Mini-Swift/Test"
+```
+
+
 ## Usage
 
 - **MiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
@@ -132,7 +139,7 @@ class RequestContactsAccess: Action {
       }
     }
     ```
-    - A `KeyedPayloadAction`, adds a `Key` (which is `Hahsable`) to the `CompletableAction`. This is a special case where the same `Action` produces results that can be grouped together, tipically, under a `Dictionary` (i.e., an `Action` to search contacts, and grouped by their main phone number).
+    - A `KeyedPayloadAction`, adds a `Key` (which is `Hashable`) to the `CompletableAction`. This is a special case where the same `Action` produces results that can be grouped together, tipically, under a `Dictionary` (i.e., an `Action` to search contacts, and grouped by their main phone number).
 
     ```swift
     class RequestContactLoadedAction: KeyedCompletableAction {
@@ -159,7 +166,7 @@ class RequestContactsAccess: Action {
 
 - A `Store` reduces the flow of a certain amount of `Action`s through the `var reducerGroup: ReducerGroup` property.
 
-- The `Store` is implemented in a way that has two generic requirements, a `State: StateType` and a `StoreController: Cancellable`. The `StoreController` is usually a class that contains the logic to perform the `Actions` that might be intercepted by the store, i.e, a group of URL requests, perform a database query, etc.
+- The `Store` is implemented in a way that has two generic requirements, a `State: StateType` and a `StoreController: Disposable`. The `StoreController` is usually a class that contains the logic to perform the `Actions` that might be intercepted by the store, i.e, a group of URL requests, perform a database query, etc.
 
 - Through generic specialization, the `reducerGroup` variable can be rewritten for each case of pair `State` and `StoreController` without the need of subclassing the `Store`.
 
@@ -180,14 +187,14 @@ extension Store where State == TestState, StoreController == TestStoreController
 
 > If you are using SPM or Carthage, they doesn't really allow to distribute assets with the library, in that regard we recommend to just install `Sourcery` in your project and use the templates that can be downloaded directly from the repository under the `Templates` directory.
 
-- When working with `Store` instances, you may retain a strong reference of its `reducerGroup`, this is done using the `subscribe()`  method, which is a `Cancellable` that can be used like below:
+- When working with `Store` instances, you may retain a strong reference of its `reducerGroup`, this is done using the `subscribe()`  method, which is a `Disposable` that can be used like below:
 
 ```swift
-var bag = CancellableBag()
+var bag = DisposeBag()
 let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
 store
     .subscribe()
-    .cancelled(by: bag)
+    .disposed(by: bag)
 ```
 
 ### Dispatcher

@@ -53,7 +53,7 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
 
     public required init(status: Status = .idle,
                          started: Date = Date(),
-                         expiration: Expiration = .long,
+                         expiration: Expiration = .immediately,
                          data: T? = nil,
                          progress: Decimal? = nil,
                          error: Error? = nil) {
@@ -89,7 +89,7 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         return Task(status: .running)
     }
 
-    public static func requestSuccess(_ expiration: Task.Expiration = .long) -> Task {
+    public static func requestSuccess(_ expiration: Task.Expiration = .immediately) -> Task {
         return Task(status: .success, expiration: expiration)
     }
 
