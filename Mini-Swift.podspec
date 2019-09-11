@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Mini-Swift'
-  s.version          = '1.0.2'
+  s.version          = '1.1.0'
   s.swift_version    = '5.0'
   s.summary          = 'The minimal expression of a Flux architecture in Swift.'
 
@@ -21,20 +21,52 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/bqreaders'
 
   s.ios.deployment_target = '11.0'
-  s.ios.source_files = 'Sources/**/*.swift'
 
   s.osx.deployment_target = '10.13'
-  s.osx.source_files = 'Sources/**/*.swift'
 
   s.tvos.deployment_target = '11.0'
-  s.tvos.source_files = 'Sources/**/*.swift'
 
   s.frameworks = 'Foundation'
 
-  s.dependency 'RxSwift', '~> 5'
-  s.dependency 'SwiftNIOConcurrencyHelpers', '~> 2.0.0'
+  s.dependency('RxSwift', '~> 5')
+  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.0.0')
+
+  s.default_subspec = 'Core'
 
   s.module_name = 'Mini'
+
+  s.subspec('Core') do |ss|
+    ss.ios.source_files = 'Sources/**/*.swift'
+    ss.ios.exclude_files = ['Sources/TestMiddleware/*.swift', 'Sources/LoggingService/*.swift']
+
+    ss.osx.source_files = 'Sources/**/*.swift'
+    ss.osx.exclude_files = ['Sources/TestMiddleware/*.swift', 'Sources/LoggingService/*.swift']
+
+    ss.tvos.source_files = 'Sources/**/*.swift'
+    ss.tvos.exclude_files = ['Sources/TestMiddleware/*.swift', 'Sources/LoggingService/*.swift']
+  end
+
+  s.subspec('Log') do |ss|
+    ss.ios.source_files = 'Sources/**/*.swift'
+    ss.ios.exclude_files = ['Sources/TestMiddleware/*.swift']
+
+    ss.osx.source_files = 'Sources/**/*.swift'
+    ss.osx.exclude_files = ['Sources/TestMiddleware/*.swift']
+
+    ss.tvos.source_files = 'Sources/**/*.swift'
+    ss.tvos.exclude_files = ['Sources/TestMiddleware/*.swift']
+  end
+
+  s.subspec('Test') do |ss|
+    ss.ios.source_files = 'Sources/**/*.swift'
+    ss.ios.exclude_files = ['Sources/LoggingService/*.swift']
+
+    ss.osx.source_files = 'Sources/**/*.swift'
+    ss.osx.exclude_files = ['Sources/LoggingService/*.swift']
+
+    ss.tvos.source_files = 'Sources/**/*.swift'
+    ss.tvos.exclude_files = ['Sources/LoggingService/*.swift']
+  end
 
   s.preserve_paths = ['Templates/*.stencil']
 end

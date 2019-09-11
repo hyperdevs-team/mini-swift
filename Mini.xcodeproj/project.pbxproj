@@ -32,6 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		12A3ADEF2328D3D100019F49 /* PrimitiveSequenceType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A3ADED2328D33400019F49 /* PrimitiveSequenceType+Extensions.swift */; };
 		OBJ_262 /* c-atomics.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* c-atomics.c */; };
 		OBJ_264 /* CNIOAtomics.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* CNIOAtomics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		OBJ_265 /* cpp_magic.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* cpp_magic.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -299,6 +300,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12A3ADED2328D33400019F49 /* PrimitiveSequenceType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrimitiveSequenceType+Extensions.swift"; sourceTree = "<group>"; };
 		"Mini::MiniSwift::Product" /* MiniSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MiniSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Mini::MiniSwiftTests::Product" /* MiniSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MiniSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* ActionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionReducer.swift; sourceTree = "<group>"; };
@@ -499,7 +501,7 @@
 		OBJ_98 /* Catch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catch.swift; sourceTree = "<group>"; };
 		OBJ_99 /* CombineLatest+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineLatest+Collection.swift"; sourceTree = "<group>"; };
 		"RxSwift::RxSwift::Product" /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"swift-nio::CNIOAtomics::Product" /* CNIOAtomics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CNIOAtomics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"swift-nio::CNIOAtomics::Product" /* CNIOAtomics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CNIOAtomics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"swift-nio::NIOConcurrencyHelpers::Product" /* NIOConcurrencyHelpers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NIOConcurrencyHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -550,15 +552,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12A3ADEB2328D25600019F49 /* LoggingService */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_30 /* LoggingService.swift */,
+			);
+			path = LoggingService;
+			sourceTree = "<group>";
+		};
+		12A3ADEC2328D29F00019F49 /* TestMiddleware */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_24 /* TestMiddleware.swift */,
+			);
+			path = TestMiddleware;
+			sourceTree = "<group>";
+		};
 		OBJ_18 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_19 /* Foundation */,
-				OBJ_23 /* Middleware */,
 				OBJ_25 /* OrderedSet.swift */,
 				OBJ_26 /* PayloadAction.swift */,
 				OBJ_27 /* RxSwift */,
-				OBJ_29 /* Service */,
 				OBJ_31 /* SharedDictionary.swift */,
 			);
 			path = Utils;
@@ -572,14 +588,6 @@
 				OBJ_22 /* String+Extensions.swift */,
 			);
 			path = Foundation;
-			sourceTree = "<group>";
-		};
-		OBJ_23 /* Middleware */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_24 /* TestMiddleware.swift */,
-			);
-			path = Middleware;
 			sourceTree = "<group>";
 		};
 		OBJ_232 /* RxTest */ = {
@@ -606,16 +614,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_28 /* ObservableType+Extensions.swift */,
+				12A3ADED2328D33400019F49 /* PrimitiveSequenceType+Extensions.swift */,
 			);
 			path = RxSwift;
-			sourceTree = "<group>";
-		};
-		OBJ_29 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_30 /* LoggingService.swift */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		OBJ_32 /* Tests */ = {
@@ -985,6 +986,8 @@
 		OBJ_8 /* MiniSwift */ = {
 			isa = PBXGroup;
 			children = (
+				12A3ADEC2328D29F00019F49 /* TestMiddleware */,
+				12A3ADEB2328D25600019F49 /* LoggingService */,
 				OBJ_9 /* Action.swift */,
 				OBJ_10 /* ActionReducer.swift */,
 				OBJ_11 /* Dispatcher.swift */,
@@ -1314,6 +1317,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"swift-nio::CNIOAtomics" = {
+						LastSwiftMigration = 1030;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Mini" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1395,6 +1403,7 @@
 				OBJ_297 /* Task.swift in Sources */,
 				OBJ_298 /* Dictionary+Extensions.swift in Sources */,
 				OBJ_299 /* DispatchQueue+Extensions.swift in Sources */,
+				12A3ADEF2328D3D100019F49 /* PrimitiveSequenceType+Extensions.swift in Sources */,
 				OBJ_300 /* String+Extensions.swift in Sources */,
 				OBJ_301 /* TestMiddleware.swift in Sources */,
 				OBJ_302 /* OrderedSet.swift in Sources */,
@@ -1683,6 +1692,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = CNIOAtomics;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1715,6 +1726,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = CNIOAtomics;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
