@@ -66,7 +66,7 @@ class TaskTests: XCTestCase {
         let task = Task.requestSuccess(.custom(2))
         XCTAssertTrue(task.isRecentlySucceeded)
 
-        Thread.sleep(forTimeInterval: 2.1)
+        Thread.sleep(forTimeInterval: 3)
         XCTAssertFalse(task.isRecentlySucceeded)
     }
 }
