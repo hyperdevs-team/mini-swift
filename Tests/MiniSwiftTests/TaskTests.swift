@@ -27,7 +27,6 @@ class TaskTests: XCTestCase {
         XCTAssertFalse(task.isFailure)
         XCTAssertTrue(task.isTerminal)
         XCTAssertTrue(task.isSuccessful)
-        XCTAssertTrue(task.isRecentlySucceeded)
     }
 
     func test_check_states_for_failure_task() {
