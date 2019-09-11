@@ -17,68 +17,68 @@
 import Foundation
 import RxSwift
 
-extension PrimitiveSequenceType where Self: StoreType & ObservableType, Self.Trait == SingleTrait {
+public extension PrimitiveSequenceType where Self: StoreType & ObservableType, Self.Trait == SingleTrait {
 
-func dispatch<A: CompletableAction>(action: A.Type,
-                                    expiration: Task.Expiration = .immediately,
-                                    on dispatcher: Dispatcher,
-                                    mode: Dispatcher.DispatchMode.UI = .async,
-                                    fillOnError errorPayload: A.Payload? = nil)
-    -> Disposable where A.Payload == Self.Element {
-    let subscription = self.subscribe(
-        onSuccess: { payload in
-            let action = A(task: .requestSuccess(expiration), payload: payload)
-            dispatcher.dispatch(action, mode: mode)
-        },
-        onError: { error in
-            let action = A(task: .requestFailure(error), payload: errorPayload)
-            dispatcher.dispatch(action, mode: mode)
-        }
-    )
-    return subscription
-}
-
-func dispatch<A: KeyedCompletableAction>(action: A.Type,
-                                         expiration: Task.Expiration = .immediately,
-                                         key: A.Key,
-                                         on dispatcher: Dispatcher,
-                                         mode: Dispatcher.DispatchMode.UI = .async,
-                                         fillOnError errorPayload: A.Payload? = nil)
-    -> Disposable where A.Payload == Self.Element {
-    let subscription = self.subscribe(
-        onSuccess: { payload in
-            let action = A(task: .requestSuccess(expiration), payload: payload, key: key)
-            dispatcher.dispatch(action, mode: mode)
-        },
-        onError: { error in
-            let action = A(task: .requestFailure(error), payload: errorPayload, key: key)
-            dispatcher.dispatch(action, mode: mode)
-        }
-    )
-    return subscription
-}
-
-func action<A: CompletableAction>(_ action: A.Type,
-                                  expiration: Task.Expiration = .immediately,
-                                  fillOnError errorPayload: A.Payload? = nil)
-    -> Single<A> where A.Payload == Self.Element {
-    return Single.create { single in
+    func dispatch<A: CompletableAction>(action: A.Type,
+                                        expiration: Task.Expiration = .immediately,
+                                        on dispatcher: Dispatcher,
+                                        mode: Dispatcher.DispatchMode.UI = .async,
+                                        fillOnError errorPayload: A.Payload? = nil)
+        -> Disposable where A.Payload == Self.Element {
         let subscription = self.subscribe(
             onSuccess: { payload in
                 let action = A(task: .requestSuccess(expiration), payload: payload)
-                single(.success(action))
+                dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 let action = A(task: .requestFailure(error), payload: errorPayload)
-                single(.success(action))
+                dispatcher.dispatch(action, mode: mode)
             }
         )
-        return Disposables.create([subscription])
+        return subscription
+    }
+
+    func dispatch<A: KeyedCompletableAction>(action: A.Type,
+                                             expiration: Task.Expiration = .immediately,
+                                             key: A.Key,
+                                             on dispatcher: Dispatcher,
+                                             mode: Dispatcher.DispatchMode.UI = .async,
+                                             fillOnError errorPayload: A.Payload? = nil)
+        -> Disposable where A.Payload == Self.Element {
+        let subscription = self.subscribe(
+            onSuccess: { payload in
+                let action = A(task: .requestSuccess(expiration), payload: payload, key: key)
+                dispatcher.dispatch(action, mode: mode)
+            },
+            onError: { error in
+                let action = A(task: .requestFailure(error), payload: errorPayload, key: key)
+                dispatcher.dispatch(action, mode: mode)
+            }
+        )
+        return subscription
+    }
+
+    func action<A: CompletableAction>(_ action: A.Type,
+                                      expiration: Task.Expiration = .immediately,
+                                      fillOnError errorPayload: A.Payload? = nil)
+        -> Single<A> where A.Payload == Self.Element {
+        return Single.create { single in
+            let subscription = self.subscribe(
+                onSuccess: { payload in
+                    let action = A(task: .requestSuccess(expiration), payload: payload)
+                    single(.success(action))
+                },
+                onError: { error in
+                    let action = A(task: .requestFailure(error), payload: errorPayload)
+                    single(.success(action))
+                }
+            )
+            return Disposables.create([subscription])
+        }
     }
 }
-}
 
-extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Swift.Never {
+public extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Swift.Never {
 
     func dispatch<A: EmptyAction>(action: A.Type,
                                   expiration: Task.Expiration = .long,
