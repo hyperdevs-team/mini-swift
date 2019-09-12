@@ -110,6 +110,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
     }
 
     public func reset() {
+        storeController.dispose()
         state = initialState
     }
 
