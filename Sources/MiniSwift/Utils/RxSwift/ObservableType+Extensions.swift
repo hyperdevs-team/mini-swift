@@ -17,12 +17,11 @@
 import Foundation
 import RxSwift
 
+public struct Promises { }
 
-public struct AnyPromise { }
-
-extension AnyPromise {
-
-    public enum Lifetime {
+public extension Promises {
+    
+    enum Lifetime {
         case once
         case forever(ignoringOld: Bool)
     }
@@ -45,7 +44,7 @@ extension ObservableType where Self.Element: StateType {
 
     private func filterForLifetime<Type> (
         taskMap: @escaping ((Self.Element) -> Promise<Type>?),
-        lifetime: AnyPromise.Lifetime) -> Observable<Element> {
+        lifetime: Promises.Lifetime) -> Observable<Element> {
         switch lifetime {
         case .once:
             return self
@@ -70,7 +69,7 @@ extension ObservableType where Self.Element: StateType {
     private func filterForKeyedLifetime<K: Hashable, Type> (
         key: K,
         taskMap: @escaping ((Self.Element) -> [K: Promise<Type>]),
-        lifetime: AnyPromise.Lifetime) -> Observable<Element> {
+        lifetime: Promises.Lifetime) -> Observable<Element> {
         switch lifetime {
         case .once:
             return self
@@ -87,7 +86,7 @@ extension ObservableType where Self.Element: StateType {
 
     private func subscribe<Type> (
         taskMap: @escaping ((Self.Element) -> Promise<Type>?),
-        lifetime: AnyPromise.Lifetime = .once,
+        lifetime: Promises.Lifetime = .once,
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
@@ -108,7 +107,7 @@ extension ObservableType where Self.Element: StateType {
     private func subscribe<K: Hashable, Type> (
         key: K,
         taskMap: @escaping ((Self.Element) -> [K: Promise<Type>]),
-        lifetime: AnyPromise.Lifetime = .once,
+        lifetime: Promises.Lifetime = .once,
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
@@ -133,7 +132,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         factory action: @autoclosure @escaping () -> A,
         taskMap: @escaping (Self.Element.State) -> T?,
         on store: Self.Element,
-        lifetime: AnyPromise.Lifetime = .once)
+        lifetime: Promises.Lifetime = .once)
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()
@@ -161,7 +160,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         key: K,
         taskMap: @escaping (Self.Element.State) -> [K: T],
         on store: Self.Element,
-        lifetime: AnyPromise.Lifetime = .once)
+        lifetime: Promises.Lifetime = .once)
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()

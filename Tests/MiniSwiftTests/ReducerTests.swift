@@ -74,7 +74,9 @@ extension Store where State == TestState, StoreController == TestStoreController
                 self.storeController.counter(action.counter)
             },
             Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
-                self.state = TestState(counter: .value(action.counter))
+                self.state.counter
+                    .fulfill(action.counter)
+                    .notify(to: self)
             }
         ]
         }

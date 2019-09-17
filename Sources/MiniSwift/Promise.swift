@@ -29,8 +29,8 @@ public protocol PromiseType {
     var error: Swift.Error? { get }
     
     
-    func fulfill(_ value: Element)
-    func reject(_ error: Swift.Error)
+    func fulfill(_ value: Element) -> Self
+    func reject(_ error: Swift.Error) -> Self
 }
 
 public final class Promise<T>: PromiseType {
@@ -79,15 +79,21 @@ public final class Promise<T>: PromiseType {
     }
 
     /// - Note: `fulfill` do not trigger an object reassignment,
-    /// so no notifications about it can be triggered.
-    public func fulfill(_ value: T) {
+    /// so no notifications about it can be triggered. It is recommended
+    /// to call the method `notify` afterwards.
+    @discardableResult
+    public func fulfill(_ value: T) -> Self {
         self.box.seal(.success(value))
+        return self
     }
 
     /// - Note: `reject` do not trigger an object reassignment,
-    /// so no notifications about it can be triggered.
-    public func reject(_ error: Swift.Error) {
+    /// so no notifications about it can be triggered. It is recommended
+    /// to call the method `notify` afterwards.
+    @discardableResult
+    public func reject(_ error: Swift.Error) -> Self {
         self.box.seal(.failure(error))
+        return self
     }
 }
 

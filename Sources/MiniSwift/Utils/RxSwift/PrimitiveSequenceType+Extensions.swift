@@ -27,17 +27,17 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         let subscription = self.subscribe(
             onSuccess: { payload in
                 // swiftlint:disable:next explicit_init
-                let action = A.init(task: .value(payload))
+                let action = A.init(promise: .value(payload))
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(task: .value(errorPayload))
+                    action = A.init(promise: .value(errorPayload))
                 } else {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(task: .error(error))
+                    action = A.init(promise: .error(error))
                 }
                 dispatcher.dispatch(action, mode: mode)
             }
@@ -54,17 +54,17 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         let subscription = self.subscribe(
             onSuccess: { payload in
                 // swiftlint:disable:next explicit_init
-                let action = A.init(task: [key: .value(payload)])
+                let action = A.init(promise: [key: .value(payload)])
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(task: [key: .value(errorPayload)])
+                    action = A.init(promise: [key: .value(errorPayload)])
                 } else {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(task: [key: .error(error)])
+                    action = A.init(promise: [key: .error(error)])
                 }
                 dispatcher.dispatch(action, mode: mode)
             }
@@ -79,17 +79,17 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
             let subscription = self.subscribe(
                 onSuccess: { payload in
                     // swiftlint:disable:next explicit_init
-                    let action = A.init(task: .value(payload))
+                    let action = A.init(promise: .value(payload))
                     single(.success(action))
                 },
                 onError: { error in
                     var action: A
                     if let errorPayload = errorPayload {
                         // swiftlint:disable:next explicit_init
-                        action = A.init(task: .value(errorPayload))
+                        action = A.init(promise: .value(errorPayload))
                     } else {
                         // swiftlint:disable:next explicit_init
-                        action = A.init(task: .error(error))
+                        action = A.init(promise: .error(error))
                     }
                     single(.success(action))
                 }
@@ -109,11 +109,11 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             switch completable {
             case .completed:
                 // swiftlint:disable:next explicit_init
-                let action = A.init(task: .value(Void()))
+                let action = A.init(promise: .value(Void()))
                 dispatcher.dispatch(action, mode: mode)
             case .error(let error):
                 // swiftlint:disable:next explicit_init
-                let action = A.init(task: .error(error))
+                let action = A.init(promise: .error(error))
                 dispatcher.dispatch(action, mode: mode)
             }
         }
@@ -126,10 +126,10 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             let subscription = self.subscribe { event in
                 switch event {
                 case .completed:
-                    let action = A(task: .value(nil))
+                    let action = A(promise: .value(nil))
                     single(.success(action))
                 case .error(let error):
-                    let action = A(task: .error(error))
+                    let action = A(promise: .error(error))
                     single(.success(action))
                 }
             }

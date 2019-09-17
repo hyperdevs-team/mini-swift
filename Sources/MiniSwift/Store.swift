@@ -17,6 +17,12 @@
 import Foundation
 import RxSwift
 
+public extension Promise {
+    func notify<T: StoreType>(to store: T) {
+        store.replayOnce()
+    }
+}
+
 public protocol StoreType {
     associatedtype State: StateType
     associatedtype StoreController: Disposable
@@ -24,6 +30,8 @@ public protocol StoreType {
     var state: State { get set }
     var dispatcher: Dispatcher { get }
     var reducerGroup: ReducerGroup { get }
+    
+    func replayOnce()
 }
 
 extension StoreType {
@@ -103,6 +111,10 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
         return ReducerGroup {
             []
         }
+    }
+    
+    public func notify() {
+        self.replayOnce()
     }
 
     public func replayOnce() {
