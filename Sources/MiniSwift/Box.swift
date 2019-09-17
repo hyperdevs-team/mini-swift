@@ -29,11 +29,11 @@ class Box<T> {
 
 final class SealedBox<T>: Box<T> {
     let value: T
-    
+
     init(value: T) {
         self.value = value
     }
-    
+
     override func inspect() -> Sealant<T> {
         return .resolved(value)
     }
@@ -41,14 +41,14 @@ final class SealedBox<T>: Box<T> {
 
 class EmptyBox<T>: Box<T> {
     private var sealant = Sealant<T>.pending
-    
+
     override func seal(_ value: T) {
         guard case .pending = self.sealant else {
             return  // already fulfilled!
         }
         self.sealant = .resolved(value)
     }
-    
+
     override func inspect() -> Sealant<T> {
         return self.sealant
     }

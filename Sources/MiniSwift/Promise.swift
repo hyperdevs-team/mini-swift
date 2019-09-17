@@ -18,17 +18,16 @@ import Foundation
 
 public protocol PromiseType {
     associatedtype Element
-    
+
     var result: Result<Element, Swift.Error>? { get }
-    
+
     var isPending: Bool { get }
     var isResolved: Bool { get }
     var isFulfilled: Bool { get }
     var isRejected: Bool { get }
     var value: Element? { get }
     var error: Swift.Error? { get }
-    
-    
+
     func fulfill(_ value: Element) -> Self
     func reject(_ error: Swift.Error) -> Self
 }
@@ -36,9 +35,9 @@ public protocol PromiseType {
 public final class Promise<T>: PromiseType {
 
     public typealias Element = T
-    
+
     public let date = Date()
-    
+
     private let box: Box<Result<T, Swift.Error>>
 
     fileprivate init(box: SealedBox<Result<T, Swift.Error>>) {
@@ -48,7 +47,7 @@ public final class Promise<T>: PromiseType {
     public class func value(_ value: T) -> Promise<T> {
         return Promise(box: SealedBox(value: Result.success(value)))
     }
-    
+
     public class func error(_ error: Swift.Error) -> Promise<T> {
         return Promise(box: SealedBox(value: Result.failure(error)))
     }

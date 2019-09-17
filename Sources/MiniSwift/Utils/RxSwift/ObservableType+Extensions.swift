@@ -20,7 +20,7 @@ import RxSwift
 public struct Promises { }
 
 public extension Promises {
-    
+
     enum Lifetime {
         case once
         case forever(ignoringOld: Bool)

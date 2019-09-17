@@ -30,7 +30,7 @@ public protocol StoreType {
     var state: State { get set }
     var dispatcher: Dispatcher { get }
     var reducerGroup: ReducerGroup { get }
-    
+
     func replayOnce()
 }
 
@@ -112,7 +112,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
             []
         }
     }
-    
+
     public func notify() {
         self.replayOnce()
     }
