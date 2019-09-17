@@ -30,7 +30,7 @@ let package = Package(
             dependencies: ["RxSwift", "NIOConcurrencyHelpers"]),
         .testTarget(
             name: "MiniSwiftTests",
-            dependencies: ["MiniSwift","NIOConcurrencyHelpers", "RxSwift", "Nimble"]),
+            dependencies: ["MiniSwift", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]),
     ],
     swiftLanguageVersions: [.v4, .v4_2, .v5]
 )
