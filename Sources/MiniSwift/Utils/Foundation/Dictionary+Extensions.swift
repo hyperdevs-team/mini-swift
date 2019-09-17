@@ -40,9 +40,9 @@ extension Dictionary {
     }
 }
 
-extension Dictionary where Value: Task {
+extension Dictionary where Value: PromiseType {
 
-    public subscript(task key: Key) -> Value {
+    public subscript(promise key: Key) -> Value {
         return self[unwrapping: key]
     }
 

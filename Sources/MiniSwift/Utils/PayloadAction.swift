@@ -19,17 +19,17 @@ import Foundation
 public protocol PayloadAction {
     associatedtype Payload
 
-    init(task: Task, payload: Payload?)
+    init(task: Promise<Payload?>)
 }
 
 public protocol CompletableAction: Action & PayloadAction { }
 
 public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never {
-    init(task: Task)
+    init(task: Promise<Void>)
 }
 
 public extension EmptyAction {
-    init(task: Task, payload: Payload?) {
+    init(task: Promise<Payload?>) {
         fatalError("Never call this method from a EmptyAction")
     }
 }
@@ -39,7 +39,7 @@ public protocol KeyedPayloadAction {
     associatedtype Payload
     associatedtype Key: Hashable
 
-    init(task: Task, payload: Payload?, key: Key)
+    init(task: [Key: Promise<Payload?>])
 }
 
 public protocol KeyedCompletableAction: Action & KeyedPayloadAction { }

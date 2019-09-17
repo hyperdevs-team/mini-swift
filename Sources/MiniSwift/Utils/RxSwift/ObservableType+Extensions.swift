@@ -17,7 +17,11 @@
 import Foundation
 import RxSwift
 
-extension Task {
+
+public struct AnyPromise { }
+
+extension AnyPromise {
+
     public enum Lifetime {
         case once
         case forever(ignoringOld: Bool)
@@ -39,86 +43,84 @@ extension ObservableType {
 
 extension ObservableType where Self.Element: StateType {
 
-    private func filterForLifetime<Type, T: TypedTask<Type>> (
-        taskMap: @escaping ((Self.Element) -> T?),
-        lifetime: Task.Lifetime) -> Observable<Element> {
+    private func filterForLifetime<Type> (
+        taskMap: @escaping ((Self.Element) -> Promise<Type>?),
+        lifetime: AnyPromise.Lifetime) -> Observable<Element> {
         switch lifetime {
         case .once:
             return self
-                .filterOne { taskMap($0)?.isTerminal ?? true }
+                .filterOne { taskMap($0)?.isResolved ?? true }
         case .forever(let ignoreOld):
             let date = Date()
             return self
                 .skipWhile {
                     if ignoreOld {
-                        if let task = taskMap($0) {
-                            return task.started < date
+                        if let promise = taskMap($0) {
+                            return promise.date < date
                         }
                         return false
                     } else {
                         return false
                     }
                 }
-                .filter { taskMap($0)?.isTerminal ?? true }
+                .filter { taskMap($0)?.isResolved ?? true }
         }
     }
 
-    private func filterForKeyedLifetime<K: Hashable> (
+    private func filterForKeyedLifetime<K: Hashable, Type> (
         key: K,
-        taskMap: @escaping ((Self.Element) -> KeyedTask<K>),
-        lifetime: Task.Lifetime) -> Observable<Element> {
+        taskMap: @escaping ((Self.Element) -> [K: Promise<Type>]),
+        lifetime: AnyPromise.Lifetime) -> Observable<Element> {
         switch lifetime {
         case .once:
             return self
                 .filter { taskMap($0).hasValue(for: key) }
-                .filter { taskMap($0)[task: key].isTerminal }
+                .filter { taskMap($0)[promise: key].isResolved }
         case .forever:
             return self
-                .skipWhile { taskMap($0)[task: key].status == .idle || taskMap($0)[task: key].isTerminal }
+                .skipWhile { taskMap($0)[promise: key].isPending || taskMap($0)[promise: key].isResolved }
                 .filter { taskMap($0).hasValue(for: key) }
-                .filter { taskMap($0)[task: key].isTerminal }
+                .filter { taskMap($0)[promise: key].isResolved }
                 .take(1)
         }
     }
 
-    private func subscribe<Type, T: TypedTask<Type>> (
-        taskMap: @escaping ((Self.Element) -> T?),
-        lifetime: Task.Lifetime = .once,
+    private func subscribe<Type> (
+        taskMap: @escaping ((Self.Element) -> Promise<Type>?),
+        lifetime: AnyPromise.Lifetime = .once,
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
             return self
                 .filterForLifetime(taskMap: taskMap, lifetime: lifetime)
                 .subscribe(onNext: { state in
-                    if let task = taskMap(state) {
-                        if task.isSuccessful {
+                    if let promise = taskMap(state) {
+                        if case .success? = promise.result {
                             success(state)
-                        } else if task.isFailure {
+                        }
+                        if case .failure? = promise.result {
                             error(state)
-                        } else {
-                            success(state)
                         }
                     }
                 })
     }
 
-    private func subscribe<K: Hashable> (
+    private func subscribe<K: Hashable, Type> (
         key: K,
-        taskMap: @escaping ((Self.Element) -> KeyedTask<K>),
-        lifetime: Task.Lifetime = .once,
+        taskMap: @escaping ((Self.Element) -> [K: Promise<Type>]),
+        lifetime: AnyPromise.Lifetime = .once,
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
             return self
                 .filterForKeyedLifetime(key: key, taskMap: taskMap, lifetime: lifetime)
                 .subscribe(onNext: { state in
-                    let task = taskMap(state)[task: key]
-                    if task.isSuccessful {
+                    let promise = taskMap(state)[promise: key]
+                    if case .success? = promise.result {
                         success(state)
-                    } else if task.isFailure {
+                    }
+                    if case .failure? = promise.result {
                         error(state)
-                    } else {
-                        success(state)
                     }
                 })
     }
@@ -126,12 +128,12 @@ extension ObservableType where Self.Element: StateType {
 
 extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
 
-    public static func dispatch<A: Action, T: Task> (
+    public static func dispatch<A: Action, Type, T: Promise<Type>> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
         taskMap: @escaping (Self.Element.State) -> T?,
         on store: Self.Element,
-        lifetime: Task.Lifetime = .once)
+        lifetime: AnyPromise.Lifetime = .once)
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()
@@ -153,13 +155,13 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
             return observable
     }
 
-    public static func dispatch<A: Action, K: Hashable> (
+    public static func dispatch<A: Action, K: Hashable, Type, T: Promise<Type>> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
         key: K,
-        taskMap: @escaping (Self.Element.State) -> KeyedTask<K>,
+        taskMap: @escaping (Self.Element.State) -> [K: T],
         on store: Self.Element,
-        lifetime: Task.Lifetime = .once)
+        lifetime: AnyPromise.Lifetime = .once)
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()

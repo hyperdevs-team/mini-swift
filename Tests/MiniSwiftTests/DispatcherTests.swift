@@ -11,8 +11,8 @@ final class DispatcherTests: XCTestCase {
 
         XCTAssert(dispatcher.subscriptionCount == 0)
 
-        _ = disposable.insert(dispatcher.subscribe { (_: OneTestAction) -> Void in })
-        _ = disposable.insert(dispatcher.subscribe { (_: OneTestAction) -> Void in })
+        _ = disposable.insert(dispatcher.subscribe { (_: SetCounterActionLoaded) -> Void in })
+        _ = disposable.insert(dispatcher.subscribe { (_: SetCounterActionLoaded) -> Void in })
 
         print(dispatcher.subscriptionCount)
 
@@ -31,19 +31,19 @@ final class DispatcherTests: XCTestCase {
 
         dispatcher.add(middleware: middleware)
 
-        dispatcher.dispatch(OneTestAction(counter: 0), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: 0), mode: .sync)
 
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == false)
+        XCTAssert(middleware.actions(of: SetCounterActionLoaded.self).isEmpty == false)
 
         middleware.clear()
 
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == true)
+        XCTAssert(middleware.actions(of: SetCounterActionLoaded.self).isEmpty == true)
 
         dispatcher.remove(middleware: middleware)
 
-        dispatcher.dispatch(OneTestAction(counter: 0), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: 0), mode: .sync)
 
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == true)
+        XCTAssert(middleware.actions(of: SetCounterActionLoaded.self).isEmpty == true)
     }
 
     func test_add_remove_service() {
@@ -78,19 +78,19 @@ final class DispatcherTests: XCTestCase {
 
         XCTAssert(service.actions.isEmpty == true)
 
-        dispatcher.dispatch(OneTestAction(counter: 1), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: 1), mode: .sync)
 
         wait(for: [expectation], timeout: 5.0)
 
         XCTAssert(service.actions.count == 1)
 
-        XCTAssert(service.actions.contains(where: { $0 is OneTestAction }) == true)
+        XCTAssert(service.actions.contains(where: { $0 is SetCounterActionLoaded }) == true)
 
         dispatcher.unregister(service: service)
 
         service.actions.removeAll()
 
-        dispatcher.dispatch(OneTestAction(counter: 1), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: 1), mode: .sync)
 
         XCTAssert(service.actions.isEmpty == true)
 

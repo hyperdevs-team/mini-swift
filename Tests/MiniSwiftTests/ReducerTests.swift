@@ -1,8 +1,9 @@
 import XCTest
 import RxSwift
+import Nimble
 @testable import MiniSwift
 
-class OneTestAction: Action {
+class SetCounterAction: Action {
 
     let counter: Int
 
@@ -11,7 +12,22 @@ class OneTestAction: Action {
     }
 
     public func isEqual(to other: Action) -> Bool {
-        guard let action = other as? OneTestAction else { return false }
+        guard let action = other as? SetCounterAction else { return false }
+        guard counter == action.counter else { return false }
+        return true
+    }
+}
+
+class SetCounterActionLoaded: Action {
+    
+    let counter: Int
+    
+    init(counter: Int) {
+        self.counter = counter
+    }
+    
+    public func isEqual(to other: Action) -> Bool {
+        guard let action = other as? SetCounterActionLoaded else { return false }
         guard counter == action.counter else { return false }
         return true
     }
@@ -19,11 +35,9 @@ class OneTestAction: Action {
 
 struct TestState: StateType {
 
-    public let testTask: Task
-    public let counter: Int
+    let counter: Promise<Int>
 
-    public init(testTask: Task = Task(), counter: Int = 0) {
-        self.testTask = testTask
+    init(counter: Promise<Int> = .pending()) {
         self.counter = counter
     }
 
@@ -35,6 +49,17 @@ struct TestState: StateType {
 }
 
 class TestStoreController: Disposable {
+    
+    let dispatcher: Dispatcher
+    
+    init(dispatcher: Dispatcher) {
+        self.dispatcher = dispatcher
+    }
+    
+    func counter(_ number: Int) {
+        self.dispatcher.dispatch(SetCounterActionLoaded(counter: number), mode: .async)
+    }
+    
     public func dispose() {
         // NO-OP
     }
@@ -44,8 +69,12 @@ extension Store where State == TestState, StoreController == TestStoreController
 
     var reducerGroup: ReducerGroup {
         return ReducerGroup { [
-            Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
-                self.state = TestState(testTask: .requestSuccess(), counter: action.counter)
+            Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
+                self.state = TestState(counter: .pending())
+                self.storeController.counter(action.counter)
+            },
+            Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
+                self.state = TestState(counter: .value(action.counter))
             }
         ]
         }
@@ -57,59 +86,140 @@ final class ReducerTests: XCTestCase {
     func test_dispatcher_triggers_action_in_reducer_group_reducer() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
         store
             .reducerGroup
             .disposed(by: dBag)
-        XCTAssertTrue(store.state.counter == 0)
+        XCTAssertTrue(store.state.counter.isPending)
+        var counter: Int = 0
+        store
+            .map { $0.counter.value }
+            .filter { $0 != nil }
+            .subscribe(onNext: { _counter in
+                counter = _counter!
+            })
+            .disposed(by: dBag)
         dispatcher.dispatch(
-            OneTestAction(counter: 1),
+            SetCounterAction(counter: 1),
             mode: .sync
         )
-        XCTAssertTrue(store.state.counter == 1)
+        expect(counter).toEventually(equal(1), timeout: 5.5, pollInterval: 0.2)
     }
 
     func test_no_subscribe_to_store_produces_no_changes() {
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
-        XCTAssertTrue(store.state.counter == 0)
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        XCTAssertTrue(store.state.counter.isPending)
         dispatcher.dispatch(
-            OneTestAction(counter: 2),
+            SetCounterAction(counter: 2),
             mode: .sync
         )
-        XCTAssertTrue(store.state.counter == 0)
+        XCTAssertTrue(store.state.counter.isPending)
     }
 
     func test_subscribe_to_store_receive_actions() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
-        XCTAssertTrue(store.state.counter == 0)
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        XCTAssertTrue(store.state.counter.isPending)
+        var counter: Int = 0
+        store
+            .map { $0.counter.value }
+            .filter { $0 != nil }
+            .subscribe(onNext: { _counter in
+                counter = _counter!
+            })
+            .disposed(by: dBag)
         store
             .reducerGroup
             .disposed(by: dBag)
         dispatcher.dispatch(
-            OneTestAction(counter: 2),
+            SetCounterAction(counter: 2),
             mode: .sync
         )
-        XCTAssertTrue(store.state.counter == 2)
+        expect(counter).toEventually(equal(2), timeout: 5.5, pollInterval: 0.2)
+    }
+    
+    func test_subscribe_to_store_receive_multiple_actions() {
+        let dBag = DisposeBag()
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        XCTAssertTrue(store.state.counter.isPending)
+        var counter: Int = 0
+        store
+            .map { $0.counter.value }
+            .filter { $0 != nil }
+            .subscribe(onNext: { _counter in
+                counter = _counter!
+            })
+            .disposed(by: dBag)
+        store
+            .reducerGroup
+            .disposed(by: dBag)
+        dispatcher.dispatch(
+            SetCounterAction(counter: 2),
+            mode: .sync
+        )
+        expect(counter).toEventually(equal(2), timeout: 5.5, pollInterval: 0.2)
+        dispatcher.dispatch(
+            SetCounterAction(counter: 3),
+            mode: .sync
+        )
+        expect(counter).toEventually(equal(3), timeout: 5.5, pollInterval: 0.2)
     }
 
     func test_reset_state() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
         let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
-        XCTAssertTrue(store.state.counter == 0)
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        XCTAssertTrue(store.state.counter.isPending)
+        var counter: Int = 0
+        store
+            .map { $0.counter.value }
+            .filter { $0 != nil }
+            .subscribe(onNext: { _counter in
+                counter = _counter!
+            })
+            .disposed(by: dBag)
         store
             .reducerGroup
             .disposed(by: dBag)
         dispatcher.dispatch(
-            OneTestAction(counter: 3),
+            SetCounterAction(counter: 3),
             mode: .sync
         )
-        XCTAssertTrue(store.state.counter == 3)
+        expect(counter).toEventually(equal(3), timeout: 5.5, pollInterval: 0.2)
         store.reset()
         XCTAssert(store.state.isEqual(to: initialState))
+    }
+    
+    func test_state_received_in_store() throws {
+        let dBag = DisposeBag()
+        let dispatcher = Dispatcher()
+        let initialState = TestState()
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        XCTAssertTrue(store.state.counter.isPending)
+        var counter: Int = 0
+        store
+            .map { $0.counter.value }
+            .filter { $0 != nil }
+            .subscribe(onNext: { _counter in
+                counter = _counter!
+            })
+            .disposed(by: dBag)
+        store
+            .reducerGroup
+            .disposed(by: dBag)
+        dispatcher.dispatch(
+            SetCounterAction(counter: 3),
+            mode: .sync
+        )
+        expect(counter).toEventually(equal(3), timeout: 5.5, pollInterval: 0.2)
+        dispatcher.dispatch(
+            SetCounterAction(counter: 4),
+            mode: .sync
+        )
+        expect(counter).toEventually(equal(4), timeout: 5.5, pollInterval: 0.2)
     }
 }
