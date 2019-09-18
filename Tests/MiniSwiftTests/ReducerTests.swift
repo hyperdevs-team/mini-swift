@@ -37,7 +37,7 @@ struct TestState: StateType {
 
     let counter: Promise<Int>
 
-    init(counter: Promise<Int> = .pending()) {
+    init(counter: Promise<Int> = .idle()) {
         self.counter = counter
     }
 
@@ -70,6 +70,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     var reducerGroup: ReducerGroup {
         return ReducerGroup { [
             Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
+                guard !self.state.counter.isOnProgress else { return }
                 self.state = TestState(counter: .pending())
                 self.storeController.counter(action.counter)
             },
@@ -92,7 +93,7 @@ final class ReducerTests: XCTestCase {
         store
             .reducerGroup
             .disposed(by: dBag)
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         var counter: Int = 0
         store
             .map { $0.counter.value }
@@ -111,19 +112,19 @@ final class ReducerTests: XCTestCase {
     func test_no_subscribe_to_store_produces_no_changes() {
         let dispatcher = Dispatcher()
         let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         dispatcher.dispatch(
             SetCounterAction(counter: 2),
             mode: .sync
         )
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
     }
 
     func test_subscribe_to_store_receive_actions() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
         let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         var counter: Int = 0
         store
             .map { $0.counter.value }
@@ -146,7 +147,7 @@ final class ReducerTests: XCTestCase {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
         let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         var counter: Int = 0
         store
             .map { $0.counter.value }
@@ -175,7 +176,7 @@ final class ReducerTests: XCTestCase {
         let dispatcher = Dispatcher()
         let initialState = TestState()
         let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         var counter: Int = 0
         store
             .map { $0.counter.value }
@@ -201,7 +202,7 @@ final class ReducerTests: XCTestCase {
         let dispatcher = Dispatcher()
         let initialState = TestState()
         let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
-        XCTAssertTrue(store.state.counter.isPending)
+        XCTAssertTrue(store.state.counter.isIdle)
         var counter: Int = 0
         store
             .map { $0.counter.value }

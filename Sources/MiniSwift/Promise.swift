@@ -21,10 +21,12 @@ public protocol PromiseType {
 
     var result: Result<Element, Swift.Error>? { get }
 
+    var isIdle: Bool { get }
     var isPending: Bool { get }
     var isResolved: Bool { get }
     var isFulfilled: Bool { get }
     var isRejected: Bool { get }
+    var isOnProgress: Bool { get }
     var value: Element? { get }
     var error: Swift.Error? { get }
 
@@ -35,10 +37,12 @@ public protocol PromiseType {
 public final class Promise<T>: PromiseType {
 
     public typealias Element = T
+    
+    private typealias PromiseBox = Box<Result<T, Swift.Error>>
 
     public let date = Date()
 
-    private let box: Box<Result<T, Swift.Error>>
+    private let box: PromiseBox
 
     fileprivate init(box: SealedBox<Result<T, Swift.Error>>) {
         self.box = box
@@ -56,12 +60,17 @@ public final class Promise<T>: PromiseType {
         box = SealedBox(value: Result.failure(error))
     }
 
-    private init(_ sealant: Sealant<T>) {
+    private init(_ sealant: Sealant<Result<T, Swift.Error>>) {
         box = EmptyBox()
+        box.fill(sealant)
     }
 
     public init() {
         box = EmptyBox()
+    }
+    
+    public class func idle() -> Promise<T> {
+        return Promise<T>(.idle)
     }
 
     public class func pending() -> Promise<T> {
@@ -70,7 +79,7 @@ public final class Promise<T>: PromiseType {
 
     public var result: Result<T, Swift.Error>? {
         switch box.inspect() {
-        case .pending:
+        case .idle, .pending:
             return nil
         case .resolved(let result):
             return result
@@ -97,19 +106,41 @@ public final class Promise<T>: PromiseType {
 }
 
 public extension Promise {
+    
+    /**
+     - Returns: `true` if the promise has been triggered from some source to its resolution.
+     */
+    var isOnProgress: Bool {
+        switch self.box.inspect() {
+        case .idle, .resolved:
+            return false
+        case .pending:
+            return true
+        }
+    }
+    
+    /**
+     - Returns: `true` if the promise has not yet resolved nor pending.
+     */
+    var isIdle: Bool {
+        if case .idle = self.box.inspect() {
+            return true
+        }
+        return false
+    }
 
     /**
      - Returns: `true` if the promise has not yet resolved.
      */
     var isPending: Bool {
-        return result == nil
+        return !isIdle && result == nil
     }
 
     /**
      - Returns: `true` if the promise has resolved.
      */
     var isResolved: Bool {
-        return !isPending
+        return !isIdle && !isPending
     }
 
     /**
@@ -172,6 +203,7 @@ extension Promise where T: Equatable {
 
     public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
         guard lhs.value == rhs.value else { return false }
+        guard lhs.isIdle == rhs.isIdle else { return false }
         guard lhs.isResolved == rhs.isResolved else { return false }
         guard lhs.isRejected == rhs.isRejected else { return false }
         guard lhs.isPending == rhs.isPending else { return false }

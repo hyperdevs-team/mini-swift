@@ -17,6 +17,7 @@
 import Dispatch
 
 enum Sealant<R> {
+    case idle
     case pending
     case resolved(R)
 }
@@ -25,6 +26,7 @@ enum Sealant<R> {
 class Box<T> {
     func inspect() -> Sealant<T> { fatalError() }
     func seal(_: T) {}
+    func fill(_: Sealant<T>) { fatalError() }
 }
 
 final class SealedBox<T>: Box<T> {
@@ -32,6 +34,7 @@ final class SealedBox<T>: Box<T> {
 
     init(value: T) {
         self.value = value
+        super.init()
     }
 
     override func inspect() -> Sealant<T> {
@@ -40,13 +43,20 @@ final class SealedBox<T>: Box<T> {
 }
 
 class EmptyBox<T>: Box<T> {
-    private var sealant = Sealant<T>.pending
+    
+    private var sealant: Sealant<T> = .pending
+    
+    override func fill(_ sealant: Sealant<T>) {
+        self.sealant = sealant
+    }
 
     override func seal(_ value: T) {
-        guard case .pending = self.sealant else {
-            return  // already fulfilled!
+        switch self.sealant {
+        case .pending:
+            self.sealant = .resolved(value)
+        case .idle, .resolved:
+            return // cannot be mutated!
         }
-        self.sealant = .resolved(value)
     }
 
     override func inspect() -> Sealant<T> {
