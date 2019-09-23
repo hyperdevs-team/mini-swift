@@ -152,12 +152,10 @@ class RequestContactsAccess: Action {
       typealias Payload = CNContact
       typealias Key = String
 
-      let requestContactPromise: Promise<CNContact?>
-      let phoneNumber: String
+      let requestContactPromise: [Key: Promise<Payload?>]
 
-      required init(promise: Promise<CNContact?>, key: String) {
+      required init(promise: [Key: Promise<Payload?>]) {
           self.requestContactPromise = promise
-          self.phoneNumber = key
       }
     }
     ```
