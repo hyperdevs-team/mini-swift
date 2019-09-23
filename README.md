@@ -71,28 +71,35 @@ pod "Mini-Swift/Test"
 
 - The minimal unit of the architecture is based on the idea of the **State**. **State** is, as its name says, the representation of a part of the application in a moment of time.
 
-- The **State** is a simple `struct` which is conformed of different **Tasks** and different pieces of data that are potentially fulfilled by the execution of those tasks.
+- The **State** is a simple `struct` which is conformed of different **Promises** that holds the individual pieces of information that represents the current state, this can be implemented as follows.
 
 - For example:
 
 ```swift
 struct MyCoolState: State {
-    let cool: Bool?
-    let coolTask: Task
+    let cool: Promise<Bool>
 
-    init(cool: Bool = nil,
-         coolTask: Task = Task()
-        ) {
+    init(cool: Promise<Bool> = .idle()) {
         self.cool = cool
-        self.coolTask = coolTask
     }
 
     // Conform to State protocol
     func isEqual(to other: State) -> Bool {
         guard let state = other as? MyCoolState else { return false }
-        return self.cool == state.cool && self.coolTask == state.coolState
+        return self.cool == state.cool
     }
 }
+```
+
+- The default inner state of a `Promise` is `idle`. It means that no `Action` (see more below), has started any operation over that `Promise`.
+
+- A `Promise` can hold any kind of aditional properties that the developer might encounter useful for its implementation, for example, hold a `Date` for cache usage:
+
+```swift
+let promise: Promise<Bool> = .idle()
+promise.date = Date()
+// Later on...
+let date: Date = promise.date
 ```
 
 - The core idea of a `State` is its [immutability](https://en.wikipedia.org/wiki/Immutable_object), so once created, no third-party objects are able to mutate it out of the control of the architecture flow.
@@ -116,14 +123,12 @@ class RequestContactsAccess: Action {
     ```swift
     class RequestContactsAccessResult: CompletableAction {
 
-      let requestContactsAccessTask: Task
-      let grantedAccess: Bool?
+      let requestContactsAccessPromise: Promise<Bool?>
 
       typealias Payload = Bool
 
-      required init(task: Task, payload: Payload?) {
-          self.requestContactsAccessTask = task
-          self.grantedAccess = payload
+      required init(promise: Promise<Bool?>) {
+          self.requestContactsAccessPromise = task
       }
     }
     ```
@@ -132,10 +137,10 @@ class RequestContactsAccess: Action {
     ```swift
     class ActivateVoucherLoaded: EmptyAction {
 
-      let activateVoucherTask: Task
+      let activateVoucherPromise: Promise<()>
 
-      required init(task: Task) {
-          self.activateVoucherTask = task
+      required init(promise: Promise<()>) {
+          self.activateVoucherPromise = task
       }
     }
     ```
@@ -147,13 +152,11 @@ class RequestContactsAccess: Action {
       typealias Payload = CNContact
       typealias Key = String
 
-      let requestContactTask: Task
-      let contact: CNContact?
+      let requestContactPromise: Promise<CNContact?>
       let phoneNumber: String
 
-      required init(task: Task, payload: CNContact?, key: String) {
-          self.requestContactTask = task
-          self.contact = payload
+      required init(promise: Promise<CNContact?>, key: String) {
+          self.requestContactPromise = promise
           self.phoneNumber = key
       }
     }
@@ -176,7 +179,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     var reducerGroup: ReducerGroup {
         return ReducerGroup { [
             Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
-                self.state = self.state.copy(testTask: *.requestSuccess(), counter: *action.counter)
+                self.state = self.state.copy(testPromise: *.value(action.counter))
             }
         ] }
     }
@@ -207,6 +210,107 @@ dispatcher.dispatch(action, mode: .sync)
 ```
 
 - With one line, we can notify every `Store` which has defined a reducer for that type of `Action`.
+
+### Advanced usage
+
+- **Mini** is built over a request-response unidirectional flow. This is achieved using pair of `Action`, one for making the request of a change in a certain `State`, and another `Action` to mutate the `State` over the result of the operation being made.
+
+- This is much simplier to explain with a code example:
+
+```swift
+// We define our state in first place:
+struct TestState: StateType {
+    // Our state is defined over the Promise of an Integer type.
+    let counter: Promise<Int>
+
+    init(counter: Promise<Int> = .idle()) {
+        self.counter = counter
+    }
+
+    public func isEqual(to other: StateType) -> Bool {
+        guard let state = other as? TestState else { return false }
+        guard counter == state.counter else { return false }
+        return true
+    }
+}
+
+// We define our actions, one of them represents the request of a change, the other one the response of that change requested.
+
+// This is the request
+class SetCounterAction: Action {
+
+    let counter: Int
+
+    init(counter: Int) {
+        self.counter = counter
+    }
+
+    public func isEqual(to other: Action) -> Bool {
+        guard let action = other as? SetCounterAction else { return false }
+        guard counter == action.counter else { return false }
+        return true
+    }
+}
+
+// This is the response
+class SetCounterActionLoaded: Action {
+    
+    let counter: Int
+    
+    init(counter: Int) {
+        self.counter = counter
+    }
+    
+    public func isEqual(to other: Action) -> Bool {
+        guard let action = other as? SetCounterActionLoaded else { return false }
+        guard counter == action.counter else { return false }
+        return true
+    }
+}
+
+// As you can see, both seems to be the same, same parameters, initializer, etc. But next, we define our StoreController.
+
+// The StoreController define the side-effects that an Action might trigger.
+class TestStoreController: Disposable {
+    
+    let dispatcher: Dispatcher
+    
+    init(dispatcher: Dispatcher) {
+        self.dispatcher = dispatcher
+    }
+    
+    // This function dispatches (always in a async mode) the result of the operation, just giving out the number to the dispatcher.
+    func counter(_ number: Int) {
+        self.dispatcher.dispatch(SetCounterActionLoaded(counter: number), mode: .async)
+    }
+    
+    public func dispose() {
+        // NO-OP
+    }
+}
+
+// Last, but not least, the Store definition with the Reducers
+extension Store where State == TestState, StoreController == TestStoreController {
+
+    var reducerGroup: ReducerGroup {
+        return ReducerGroup { [
+          // We set the state with a Promise as .pending, someone has to fill the requirement later on. This represents the Request.
+            Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
+                guard !self.state.counter.isOnProgress else { return }
+                self.state = TestState(counter: .pending())
+                self.storeController.counter(action.counter)
+            },
+          // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Promise and notify the store for the State change. This represents the Response.
+            Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
+                self.state.counter
+                    .fulfill(action.counter)
+                    .notify(to: self)
+            }
+        ]
+        }
+    }
+}
+```
 
 ## Authors & Collaborators
 
