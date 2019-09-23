@@ -38,9 +38,9 @@ public protocol PromiseType {
 public final class Promise<T>: PromiseType {
 
     public typealias Element = T
-    
+
     private typealias PromiseBox = Box<Result<T, Swift.Error>>
-    
+
     private var properties: [String: Any] = [:]
 
     private let box: PromiseBox
@@ -70,7 +70,7 @@ public final class Promise<T>: PromiseType {
     public init() {
         box = EmptyBox()
     }
-    
+
     public class func idle(with options: [String: Any] = [:]) -> Promise<T> {
         return Promise<T>(.idle, options: options)
     }
@@ -105,7 +105,7 @@ public final class Promise<T>: PromiseType {
         self.box.seal(.failure(error))
         return self
     }
-    
+
     public subscript<T>(dynamicMember member: String) -> T? {
         get {
             return properties[member] as? T
@@ -117,7 +117,7 @@ public final class Promise<T>: PromiseType {
 }
 
 public extension Promise {
-    
+
     /**
      - Returns: `true` if the promise has been triggered from some source to its resolution.
      */
@@ -129,7 +129,7 @@ public extension Promise {
             return true
         }
     }
-    
+
     /**
      - Returns: `true` if the promise has not yet resolved nor pending.
      */

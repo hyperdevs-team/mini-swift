@@ -43,9 +43,9 @@ final class SealedBox<T>: Box<T> {
 }
 
 class EmptyBox<T>: Box<T> {
-    
+
     private var sealant: Sealant<T> = .pending
-    
+
     override func fill(_ sealant: Sealant<T>) {
         switch sealant {
         case .idle, .pending:

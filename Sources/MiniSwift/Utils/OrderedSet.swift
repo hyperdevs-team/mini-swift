@@ -162,10 +162,10 @@ public class OrderedSet<T: Comparable> {
         return (internalSet as NSArray)
             .enumerateObjects(
                 options: .concurrent,
-                using: { (object, index, stop) in
+                using: { object, _, _ in
                     guard let object = object as? T else { return }
                     body(object)
-        })
+                })
     }
 
     /// Enumerated function

@@ -49,21 +49,20 @@ extension Dictionary where Value: PromiseType, Key: Hashable {
     public func hasValue(for key: Dictionary.Key) -> Bool {
         return self.keys.contains(key)
     }
-    
+
     func notify<T: StoreType>(to store: T) {
         store.replayOnce()
     }
-    
+
     public mutating func fulfill(with other: [Key: Value]) -> Self {
-        self.merge(other, uniquingKeysWith: { (_, new) in new })
+        self.merge(other, uniquingKeysWith: { _, new in new })
         return self
     }
-    
+
 }
 
 public extension Dictionary where Value: PromiseType, Key: Hashable, Value.Element: Equatable {
-    
-    
+
     static func == (lhs: [Key: Value], rhs: [Key: Value]) -> Bool {
         guard lhs.keys == rhs.keys else { return false }
         for (key1, key2) in zip(
