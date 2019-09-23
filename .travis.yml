@@ -1,6 +1,10 @@
 language: swift
 osx_image: xcode11
 
+cache:
+  bundler: true
+  cocoapods: true
+
 addons:
   homebrew:
     brewfile: true
@@ -12,5 +16,5 @@ script:
 - rake test
 - bundle exec fastlane pass_tests
 - bundle exec pod repo update
-- bundle exec pod lib lint --allow-warnings
+- bundle exec pod lib lint --allow-warnings --fail-fast --verbose
 - bundle exec danger
