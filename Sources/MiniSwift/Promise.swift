@@ -34,13 +34,14 @@ public protocol PromiseType {
     func reject(_ error: Swift.Error) -> Self
 }
 
+@dynamicMemberLookup
 public final class Promise<T>: PromiseType {
 
     public typealias Element = T
     
     private typealias PromiseBox = Box<Result<T, Swift.Error>>
-
-    public let date = Date()
+    
+    private var properties: [String: Any] = [:]
 
     private let box: PromiseBox
 
@@ -60,21 +61,22 @@ public final class Promise<T>: PromiseType {
         box = SealedBox(value: Result.failure(error))
     }
 
-    private init(_ sealant: Sealant<Result<T, Swift.Error>>) {
+    private init(_ sealant: Sealant<Result<T, Swift.Error>>, options: [String: Any] = [:]) {
         box = EmptyBox()
         box.fill(sealant)
+        properties = options
     }
 
     public init() {
         box = EmptyBox()
     }
     
-    public class func idle() -> Promise<T> {
-        return Promise<T>(.idle)
+    public class func idle(with options: [String: Any] = [:]) -> Promise<T> {
+        return Promise<T>(.idle, options: options)
     }
 
-    public class func pending() -> Promise<T> {
-        return Promise<T>(.pending)
+    public class func pending(options: [String: Any] = [:]) -> Promise<T> {
+        return Promise<T>(.pending, options: options)
     }
 
     public var result: Result<T, Swift.Error>? {
@@ -102,6 +104,15 @@ public final class Promise<T>: PromiseType {
     public func reject(_ error: Swift.Error) -> Self {
         self.box.seal(.failure(error))
         return self
+    }
+    
+    public subscript<T>(dynamicMember member: String) -> T? {
+        get {
+            return properties[member] as? T
+        }
+        set(newValue) {
+            properties[member] = newValue
+        }
     }
 }
 

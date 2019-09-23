@@ -17,7 +17,7 @@
 import Foundation
 import RxSwift
 
-public struct Promises { }
+public enum Promises { }
 
 public extension Promises {
 
@@ -54,8 +54,8 @@ extension ObservableType where Self.Element: StateType {
             return self
                 .skipWhile {
                     if ignoreOld {
-                        if let promise = taskMap($0) {
-                            return promise.date < date
+                        if let promise = taskMap($0), let promiseDate: Date = promise.date {
+                            return promiseDate < date
                         }
                         return false
                     } else {

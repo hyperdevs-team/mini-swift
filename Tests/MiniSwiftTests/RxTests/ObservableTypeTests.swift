@@ -23,7 +23,7 @@ final class ObservableTypeTests: XCTestCase {
     }
 
     func test_filter_one() {
-        let filterOneObservable = scheduler.createObserver(Int.self)
+        let filterOneObserver = scheduler.createObserver(Int.self)
         
         scheduler.createColdObservable(
             [
@@ -34,14 +34,37 @@ final class ObservableTypeTests: XCTestCase {
             ]
         )
         .filterOne { $0 == 20 }
-        .subscribe(filterOneObservable)
+        .subscribe(filterOneObserver)
         .disposed(by: disposeBag)
         
         scheduler.start()
         
-        XCTAssertEqual(filterOneObservable.events, [
+        XCTAssertEqual(filterOneObserver.events, [
             .next(20, 20),
             .completed(20)
         ])
+    }
+    
+    func test_dispatch_action_from_store() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+        
+        guard let state = try Observable<Store<TestState, TestStoreController>>
+            .dispatch(using: dispatcher,
+                      factory: SetCounterAction(counter: 1),
+                      taskMap: { $0.counter },
+                      on: store)
+            .toBlocking(timeout: 5.0).first()
+            else {
+                fatalError()
+        }
+        
+        XCTAssertTrue(state.counter.isResolved)
+        XCTAssertTrue(state.counter.error == nil)
+        XCTAssertEqual(state.counter.value, 1)
     }
 }

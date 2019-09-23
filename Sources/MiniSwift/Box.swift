@@ -47,7 +47,12 @@ class EmptyBox<T>: Box<T> {
     private var sealant: Sealant<T> = .pending
     
     override func fill(_ sealant: Sealant<T>) {
-        self.sealant = sealant
+        switch sealant {
+        case .idle, .pending:
+            self.sealant = sealant
+        default:
+            return // don't seal the promise
+        }
     }
 
     override func seal(_ value: T) {

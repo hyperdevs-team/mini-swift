@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import MiniSwift
 
 class PromiseTests: XCTestCase {
@@ -115,5 +116,13 @@ class PromiseTests: XCTestCase {
         let promise2: Promise<Int> = .init(error: Error.dummy)
         
         XCTAssertTrue(promise1 == promise2)
+    }
+    
+    func test_promise_properties() {
+        let promise: Promise<Int> = .pending()
+        promise.property = 1
+        
+        XCTAssertTrue(promise.property == 1)
+        XCTAssertNil(promise.not_a_property as Int?)
     }
 }

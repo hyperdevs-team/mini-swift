@@ -159,7 +159,13 @@ public class OrderedSet<T: Comparable> {
 
     /// For each function
     public func forEach(_ body: (T) -> Swift.Void) {
-        return internalSet.forEach(body)
+        return (internalSet as NSArray)
+            .enumerateObjects(
+                options: .concurrent,
+                using: { (object, index, stop) in
+                    guard let object = object as? T else { return }
+                    body(object)
+        })
     }
 
     /// Enumerated function
