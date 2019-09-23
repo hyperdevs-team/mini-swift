@@ -40,7 +40,7 @@ extension Dictionary {
     }
 }
 
-extension Dictionary where Value: PromiseType {
+extension Dictionary where Value: PromiseType, Key: Hashable {
 
     public subscript(promise key: Key) -> Value {
         return self[unwrapping: key]
@@ -48,5 +48,33 @@ extension Dictionary where Value: PromiseType {
 
     public func hasValue(for key: Dictionary.Key) -> Bool {
         return self.keys.contains(key)
+    }
+    
+    func notify<T: StoreType>(to store: T) {
+        store.replayOnce()
+    }
+    
+    public mutating func fulfill(with other: [Key: Value]) -> Self {
+        self.merge(other, uniquingKeysWith: { (_, new) in new })
+        return self
+    }
+    
+}
+
+public extension Dictionary where Value: PromiseType, Key: Hashable, Value.Element: Equatable {
+    
+    
+    static func == (lhs: [Key: Value], rhs: [Key: Value]) -> Bool {
+        guard lhs.keys == rhs.keys else { return false }
+        for (key1, key2) in zip(
+            lhs.keys.sorted(by: { $0.hashValue < $1.hashValue }),
+            rhs.keys.sorted(by: { $0.hashValue < $1.hashValue })
+            ) {
+                guard
+                    let left: Promise<Value.Element> = lhs[key1] as? Promise<Value.Element>,
+                    let right: Promise<Value.Element> = rhs[key2] as? Promise<Value.Element> else { return false }
+                guard left == right else { return false }
+        }
+        return true
     }
 }
