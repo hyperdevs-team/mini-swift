@@ -10,7 +10,7 @@ class SetCounterAction: Action {
         self.counter = counter
     }
 
-    public func isEqual(to other: Action) -> Bool {
+    func isEqual(to other: Action) -> Bool {
         guard let action = other as? SetCounterAction else { return false }
         guard counter == action.counter else { return false }
         return true
@@ -51,6 +51,7 @@ class SetCounterHashAction: Action {
 }
 
 class SetCounterHashLoadedAction: KeyedCompletableAction {
+
     typealias Key = String
     typealias Payload = Int
     
@@ -130,7 +131,7 @@ extension Store where State == TestState, StoreController == TestStoreController
             },
             Reducer(of: SetCounterHashLoadedAction.self, on: self.dispatcher) { action in
                 self.state.hashCounter
-                    .fulfill(with: action.promise)
+                    .resolve(with: action.promise)
                     .notify(to: self)
             },
         ] }

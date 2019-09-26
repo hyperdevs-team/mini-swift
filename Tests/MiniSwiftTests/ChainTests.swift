@@ -5,7 +5,7 @@ final class ChainTests: XCTestCase {
 
     func test_forwarding_chain_forwards_action() {
 
-        class TestAction: Action {
+        class TestAction: Action, Equatable {
             var mutableProperty: Int
 
             init(property: Int) {

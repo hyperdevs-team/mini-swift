@@ -38,3 +38,18 @@ extension Action {
         return tag.components(separatedBy: ".")[0]
     }
 }
+
+extension Action {
+
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.isEqual(to: rhs)
+    }
+}
+
+extension Action where Self: Equatable {
+
+    public func isEqual(to other: Action) -> Bool {
+        guard let action = other as? Self else { return false }
+        return self == action
+    }
+}

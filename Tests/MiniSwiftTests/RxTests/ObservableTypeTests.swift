@@ -13,18 +13,18 @@ import Nimble
 @testable import MiniSwift
 
 fileprivate func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
-  return Predicate { expression in
-    guard let dict = try expression.evaluate() else {
-      return PredicateResult(status: .fail,
-                             message: .fail("failed evaluating expression"))
+    return Predicate { expression in
+        guard let dict = try expression.evaluate() else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("failed evaluating expression"))
+        }
+        guard dict == by else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("Dictionary doesn't match"))
+        }
+        return PredicateResult(status: .matches,
+                               message: .expectedTo("expectation fulfilled"))
     }
-    guard dict == by else {
-        return PredicateResult(status: .fail,
-                               message: .fail("Dictionary doesn't match"))
-    }
-    return PredicateResult(status: .matches,
-                           message: .expectedTo("expectation fulfilled"))
-  }
 }
 
 final class ObservableTypeTests: XCTestCase {
