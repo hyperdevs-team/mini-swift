@@ -111,7 +111,7 @@ class TestStoreController: Disposable {
 extension Store where State == TestState, StoreController == TestStoreController {
 
     var reducerGroup: ReducerGroup {
-        return ReducerGroup { [
+        return ReducerGroup(
             Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
                 guard !self.state.counter.isOnProgress else { return }
                 self.state = TestState(counter: .pending())
@@ -133,7 +133,7 @@ extension Store where State == TestState, StoreController == TestStoreController
                 self.state.hashCounter
                     .resolve(with: action.promise)
                     .notify(to: self)
-            },
-        ] }
+            }
+        )
     }
 }

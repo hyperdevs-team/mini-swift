@@ -53,9 +53,7 @@ extension StoreType {
      - Note : The property has a default implementation which complies with the @_functionBuilder's current limitations, where no empty blocks can be produced in this iteration.
      */
     public var reducerGroup: ReducerGroup {
-        return ReducerGroup {
-            []
-        }
+        return ReducerGroup()
     }
 }
 
@@ -108,9 +106,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
     }
 
     public var reducerGroup: ReducerGroup {
-        return ReducerGroup {
-            []
-        }
+        return ReducerGroup()
     }
 
     public func notify() {
