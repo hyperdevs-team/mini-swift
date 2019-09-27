@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios pass_tests
 ```
 Pass all test for main target
+### ios tests
+```
+fastlane ios tests
+```
+
 
 ----
 
