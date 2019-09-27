@@ -2,7 +2,7 @@
 
 # FILE HELPERS
 gitfiles = (git.modified_files + git.added_files).uniq
-has_code_changes = !gitfiles.grep(/^Source/).empty?
+has_code_changes = !gitfiles.grep(/^Sources/).empty?
 has_tests_changes = !gitfiles.grep(/^Tests/).empty?
 
 # bq_helpers.scan_files
