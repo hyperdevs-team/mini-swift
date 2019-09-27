@@ -106,7 +106,7 @@ public final class Promise<T>: PromiseType {
         self.box.seal(.failure(error))
         return self
     }
-    
+
     /// Resolves the current `Promise` with the optional `Result` parameter.
     /// - Returns: `self` or `nil` if no `result` was not provided.
     /// - Note: The optional parameter and restun value are helpers in order to
