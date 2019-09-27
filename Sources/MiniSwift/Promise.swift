@@ -107,6 +107,10 @@ public final class Promise<T>: PromiseType {
         return self
     }
     
+    /// Resolves the current `Promise` with the optional `Result` parameter.
+    /// - Returns: `self` or `nil` if no `result` was not provided.
+    /// - Note: The optional parameter and restun value are helpers in order to
+    /// make optional chaining in the `Reducer` context.
     @discardableResult
     public func resolve(_ result: Result<T, Error>?) -> Self? {
         if let result = result {
