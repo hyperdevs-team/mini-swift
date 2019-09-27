@@ -30,6 +30,7 @@ public protocol PromiseType {
     var value: Element? { get }
     var error: Swift.Error? { get }
 
+    func resolve(_ result: Result<Element, Swift.Error>?) -> Self?
     func fulfill(_ value: Element) -> Self
     func reject(_ error: Swift.Error) -> Self
 }
@@ -104,6 +105,15 @@ public final class Promise<T>: PromiseType {
     public func reject(_ error: Swift.Error) -> Self {
         self.box.seal(.failure(error))
         return self
+    }
+    
+    @discardableResult
+    public func resolve(_ result: Result<T, Error>?) -> Self? {
+        if let result = result {
+            self.box.seal(result)
+            return self
+        }
+        return nil
     }
 
     public subscript<T>(dynamicMember member: String) -> T? {

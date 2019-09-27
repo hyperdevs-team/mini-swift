@@ -54,6 +54,7 @@ extension Dictionary where Value: PromiseType, Key: Hashable {
         store.replayOnce()
     }
 
+    @discardableResult
     public mutating func resolve(with other: [Key: Value]) -> Self {
         self.merge(other, uniquingKeysWith: { _, new in new })
         return self

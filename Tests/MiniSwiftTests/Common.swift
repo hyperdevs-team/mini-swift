@@ -19,9 +19,9 @@ class SetCounterAction: Action {
 
 class SetCounterActionLoaded: Action {
     
-    let counter: Int
+    let counter: Promise<Int>
     
-    init(counter: Int) {
+    init(counter: Promise<Int>) {
         self.counter = counter
     }
     
@@ -96,7 +96,7 @@ class TestStoreController: Disposable {
     }
     
     func counter(_ number: Int) {
-        self.dispatcher.dispatch(SetCounterActionLoaded(counter: number), mode: .async)
+        self.dispatcher.dispatch(SetCounterActionLoaded(counter: .value(number)), mode: .async)
     }
     
     func hashCounter(counter: Int, key: String) {
@@ -119,7 +119,7 @@ extension Store where State == TestState, StoreController == TestStoreController
             },
             Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
                 self.state.counter
-                    .fulfill(action.counter)
+                    .resolve(action.counter.result)?
                     .notify(to: self)
             },
             Reducer(of: SetCounterHashAction.self, on: self.dispatcher) { action in

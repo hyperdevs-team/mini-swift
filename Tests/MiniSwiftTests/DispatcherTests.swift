@@ -31,7 +31,7 @@ final class DispatcherTests: XCTestCase {
 
         dispatcher.add(middleware: middleware)
 
-        dispatcher.dispatch(SetCounterActionLoaded(counter: 0), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: .value(0)), mode: .sync)
 
         XCTAssert(middleware.actions(of: SetCounterActionLoaded.self).isEmpty == false)
 
@@ -41,7 +41,7 @@ final class DispatcherTests: XCTestCase {
 
         dispatcher.remove(middleware: middleware)
 
-        dispatcher.dispatch(SetCounterActionLoaded(counter: 0), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: .value(0)), mode: .sync)
 
         XCTAssert(middleware.actions(of: SetCounterActionLoaded.self).isEmpty == true)
     }
@@ -78,7 +78,7 @@ final class DispatcherTests: XCTestCase {
 
         XCTAssert(service.actions.isEmpty == true)
 
-        dispatcher.dispatch(SetCounterActionLoaded(counter: 1), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: .value(1)), mode: .sync)
 
         wait(for: [expectation], timeout: 5.0)
 
@@ -90,7 +90,7 @@ final class DispatcherTests: XCTestCase {
 
         service.actions.removeAll()
 
-        dispatcher.dispatch(SetCounterActionLoaded(counter: 1), mode: .sync)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: .value(1)), mode: .sync)
 
         XCTAssert(service.actions.isEmpty == true)
 
