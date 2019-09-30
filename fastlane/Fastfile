@@ -19,7 +19,9 @@ platform :ios do
       osx: 'platform=OS X,arch=x86_64'
       }
     clear_derived_data
-    sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination '#{map_platform_to_destination[platform.to_sym]}' | xcpretty -f `xcpretty-travis-formatter`"
-    sh "curl -s https://codecov.io/bash | bash -s -- -F #{platform} -J 'Mini'"
+    Dir.chdir('..') do
+      sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination '#{map_platform_to_destination[platform.to_sym]}' | xcpretty -f `xcpretty-travis-formatter`"
+      sh "curl -s https://codecov.io/bash | bash -s -- -F #{platform} -J 'Mini'"
+    end
   end
 end
