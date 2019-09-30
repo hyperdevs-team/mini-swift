@@ -27,3 +27,8 @@ end
 task(:test) do
   sh('swift test')
 end
+
+task(:docs) do
+  sh('swift run sourcedocs generate --spm-module MiniSwift --output-folder Documentation/reference')
+  sh('./Scripts/update_docs.rb')
+end

@@ -14,8 +14,8 @@ platform :ios do
     platform = options[:platform]
     print("PLATFORM #{platform}\n")
     map_platform_to_destination = {
-      ios: 'platform=iOS Simulator,name=iPhone 8,OS=12.1',
-      tvos: 'platform=tvOS Simulator,name=Apple TV,OS=12.1',
+      ios: 'platform=iOS Simulator,name=iPhone 8,OS=13.0',
+      tvos: 'platform=tvOS Simulator,name=Apple TV,OS=13.0',
       osx: 'platform=OS X,arch=x86_64'
       }
     clear_derived_data

@@ -2,6 +2,11 @@ gemfile: Gemfile
 
 concurrency: '1'
 
+PrePush:
+  CustomScript:
+    enabled: true
+    command: ["swift test"]
+
 PreCommit:
   BundleCheck:
     enabled: true
