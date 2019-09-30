@@ -5,7 +5,7 @@ concurrency: '1'
 PrePush:
   CustomScript:
     enabled: true
-    command: ["swift test"]
+    command: ["ruby", "bin/pre-push.rb"]
 
 PreCommit:
   BundleCheck:
@@ -13,4 +13,4 @@ PreCommit:
 
   CustomScript:
     enabled: true
-    command: ["./bin/pre-commit.sh"]
+    command: ["ruby" ,"bin/pre-commit.rb"]
