@@ -126,7 +126,7 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             let subscription = self.subscribe { event in
                 switch event {
                 case .completed:
-                    let action = A(promise: .value(()))
+                    let action = A.init(promise: .value(()))
                     single(.success(action))
                 case .error(let error):
                     let action = A(promise: .error(error))

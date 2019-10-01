@@ -50,14 +50,18 @@ extension Dictionary where Value: PromiseType, Key: Hashable {
         return self.keys.contains(key)
     }
 
-    func notify<T: StoreType>(to store: T) {
+    func notify<T: StoreType>(to store: T) -> Self {
         store.replayOnce()
+        return self
     }
 
     @discardableResult
-    public mutating func resolve(with other: [Key: Value]) -> Self {
-        self.merge(other, uniquingKeysWith: { _, new in new })
-        return self
+    public func resolve(with other: [Key: Value]) -> Self {
+        return self.merging(other, uniquingKeysWith: { _, new in new })
+    }
+    
+    public func mergingNew(with other: [Key: Value]) -> Self {
+        return self.merging(other, uniquingKeysWith: { _, new in new })
     }
 
 }

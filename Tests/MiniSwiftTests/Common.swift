@@ -55,9 +55,9 @@ class SetCounterHashLoadedAction: KeyedCompletableAction {
     typealias Key = String
     typealias Payload = Int
     
-    let promise: [Key: Promise<Payload?>]
+    let promise: [Key: Promise<Payload>]
     
-    required init(promise: [Key : Promise<Payload?>]) {
+    required init(promise: [Key : Promise<Payload>]) {
         self.promise = promise
     }
     
@@ -71,10 +71,10 @@ class SetCounterHashLoadedAction: KeyedCompletableAction {
 struct TestState: StateType {
 
     let counter: Promise<Int>
-    var hashCounter: [String: Promise<Int?>]
+    let hashCounter: [String: Promise<Int>]
 
     init(counter: Promise<Int> = .idle(),
-         hashCounter: [String: Promise<Int?>] = [:]) {
+         hashCounter: [String: Promise<Int>] = [:]) {
         self.counter = counter
         self.hashCounter = hashCounter
     }
@@ -113,7 +113,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     var reducerGroup: ReducerGroup {
         return ReducerGroup(
             Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
-                guard !self.state.counter.isOnProgress else { return }
+                guard !self.state.counter.isPending else { return }
                 self.state = TestState(counter: .pending())
                 self.storeController.counter(action.counter)
             },
@@ -123,16 +123,12 @@ extension Store where State == TestState, StoreController == TestStoreController
                     .notify(to: self)
             },
             Reducer(of: SetCounterHashAction.self, on: self.dispatcher) { action in
-                guard !(self.state.hashCounter[action.key]?.isOnProgress ?? false) else { return }
-                var state = self.state
-                state.hashCounter[action.key] = .pending()
-                self.state = state
+                guard !(self.state.hashCounter[action.key]?.isPending ?? false) else { return }
+                self.state = TestState(hashCounter: self.state.hashCounter.mergingNew(with: [action.key: .pending()]))
                 self.storeController.hashCounter(counter: action.counter, key: action.key)
             },
             Reducer(of: SetCounterHashLoadedAction.self, on: self.dispatcher) { action in
-                self.state.hashCounter
-                    .resolve(with: action.promise)
-                    .notify(to: self)
+                self.state = TestState(hashCounter: self.state.hashCounter.resolve(with: action.promise))
             }
         )
     }

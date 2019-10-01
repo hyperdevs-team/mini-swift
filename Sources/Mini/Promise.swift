@@ -26,7 +26,6 @@ public protocol PromiseType {
     var isResolved: Bool { get }
     var isFulfilled: Bool { get }
     var isRejected: Bool { get }
-    var isOnProgress: Bool { get }
     var value: Element? { get }
     var error: Swift.Error? { get }
 
@@ -131,18 +130,6 @@ public final class Promise<T>: PromiseType {
 }
 
 public extension Promise {
-
-    /**
-     - Returns: `true` if the promise has been triggered from some source to its resolution.
-     */
-    var isOnProgress: Bool {
-        switch self.box.inspect() {
-        case .idle, .resolved:
-            return false
-        case .pending:
-            return true
-        }
-    }
 
     /**
      - Returns: `true` if the promise has not yet resolved nor pending.

@@ -104,6 +104,6 @@ final class ObservableTypeTests: XCTestCase {
         
         XCTAssertTrue(state.hashCounter[promise: "hello"].isResolved)
         XCTAssertTrue(state.hashCounter[promise: "hello"].error == nil)
-        expect(state.hashCounter).to(matchPromiseHash(["hello": Promise<Int?>.value(1)]))
+        expect(state.hashCounter).to(matchPromiseHash(["hello": Promise<Int>.value(1)]))
     }
 }

@@ -30,9 +30,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         
         typealias Payload = Int
         
-        let counter: Promise<Payload?>
+        let counter: Promise<Payload>
         
-        required init(promise: Promise<Payload?>) {
+        required init(promise: Promise<Payload>) {
             counter = promise
         }
         
@@ -47,9 +47,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         typealias Payload = Int
         typealias Key = String
         
-        let counterMap: [Key: Promise<Payload?>]
+        let counterMap: [Key: Promise<Payload>]
         
-        required init(promise: [Key : Promise<Payload?>]) {
+        required init(promise: [Key : Promise<Payload>]) {
             counterMap = promise
         }
         
