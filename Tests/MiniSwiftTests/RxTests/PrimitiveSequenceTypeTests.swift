@@ -4,7 +4,8 @@ import RxBlocking
 import RxTest
 import RxSwift
 import Nimble
-@testable import MiniSwift
+@testable import Mini
+@testable import TestMiddleware
 
 fileprivate func equalAction<A: Action>(_ by: A) -> Predicate<A> {
     return Predicate { expression in

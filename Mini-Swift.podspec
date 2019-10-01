@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Mini-Swift'
-  s.version          = '1.1.2'
+  s.version          = '1.1.1'
   s.swift_version    = '5.0'
   s.summary          = 'The minimal expression of a Flux architecture in Swift.'
 
@@ -36,33 +36,33 @@ Pod::Spec.new do |s|
   s.module_name = 'Mini'
 
   s.subspec('Core') do |ss|
-    ss.ios.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.ios.source_files = 'Sources/Mini/**/*.swift'
 
-    ss.osx.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.osx.source_files = 'Sources/Mini/**/*.swift'
 
-    ss.tvos.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.tvos.source_files = 'Sources/Mini/**/*.swift'
   end
 
   s.subspec('Log') do |ss|
     ss.ios.dependency('Mini-Swift/Core')
-    ss.ios.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.ios.source_files = 'Sources/LoggingService/*.swift'
 
     ss.osx.dependency('Mini-Swift/Core')
-    ss.osx.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.osx.source_files = 'Sources/LoggingService/*.swift'
 
     ss.tvos.dependency('Mini-Swift/Core')
-    ss.tvos.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.tvos.source_files = 'Sources/LoggingService/*.swift'
   end
 
   s.subspec('Test') do |ss|
     ss.ios.dependency('Mini-Swift/Core')
-    ss.ios.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.ios.source_files = 'Sources/LoggingService/*.swift'
 
     ss.osx.dependency('Mini-Swift/Core')
-    ss.osx.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.osx.source_files = 'Sources/LoggingService/*.swift'
 
     ss.tvos.dependency('Mini-Swift/Core')
-    ss.tvos.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.tvos.source_files = 'Sources/LoggingService/*.swift'
   end
 
   s.preserve_paths = ['Templates/*.stencil']

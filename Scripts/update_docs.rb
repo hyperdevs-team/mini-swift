@@ -14,10 +14,10 @@ tmp_dir = `xcodebuild -project ./Mini.xcodeproj -showBuildSettings -configuratio
 #
 template = File.read("Scripts/data/request.template.yml")
 file = template
-         .gsub("[DEBUG_ROOT]", debug_dir)
-         .gsub("[SDK_ROOT]", sdk_dir)
-         .gsub("[CWD]", Dir.pwd)
-         .gsub("[TMP_DIR]", tmp_dir)
+       .gsub("[DEBUG_ROOT]", debug_dir)
+       .gsub("[SDK_ROOT]", sdk_dir)
+       .gsub("[CWD]", Dir.pwd)
+       .gsub("[TMP_DIR]", tmp_dir)
 
 File.write("Scripts/data/request.yml", file)
 

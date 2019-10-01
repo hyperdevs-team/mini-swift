@@ -7,7 +7,7 @@
 
 import XCTest
 import Nimble
-@testable import MiniSwift
+@testable import Mini
 
 class PromiseTests: XCTestCase {
     

@@ -1,7 +1,7 @@
 import XCTest
 import RxSwift
 import Nimble
-@testable import MiniSwift
+@testable import Mini
 
 final class ReducerTests: XCTestCase {
 

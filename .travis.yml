@@ -16,5 +16,7 @@ script:
 - rake test
 - bundle exec fastlane pass_tests
 - bundle exec pod repo update
-- bundle exec pod lib lint --allow-warnings --fail-fast
+- bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Core"
+- bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Log"
+- bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Test"
 - bundle exec danger

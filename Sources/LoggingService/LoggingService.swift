@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import Mini
 
 public class LoggingService: Service {
 

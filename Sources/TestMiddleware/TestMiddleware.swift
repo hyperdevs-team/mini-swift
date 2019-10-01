@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import Mini
 
 /// Action for testing purposes.
 public class TestOnlyAction: Action {

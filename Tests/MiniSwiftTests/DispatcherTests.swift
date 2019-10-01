@@ -1,6 +1,7 @@
 import XCTest
 import RxSwift
-@testable import MiniSwift
+@testable import Mini
+@testable import TestMiddleware
 
 final class DispatcherTests: XCTestCase {
 

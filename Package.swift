@@ -14,7 +14,13 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "Mini",
-            targets: ["MiniSwift"]),
+            targets: ["Mini"]),
+        .library(
+            name: "Mini/Log",
+            targets: ["Mini", "LoggingService"]),
+        .library(
+            name: "Mini/Test",
+            targets: ["Mini", "TestMiddleware"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -31,11 +37,17 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "MiniSwift",
+            name: "Mini",
             dependencies: ["RxSwift", "NIOConcurrencyHelpers"]),
+        .target(
+            name: "LoggingService",
+            dependencies: ["Mini"]),
+        .target(
+            name: "TestMiddleware",
+            dependencies: ["Mini"]),
         .testTarget(
             name: "MiniSwiftTests",
-            dependencies: ["MiniSwift", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]) // dev
+            dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]) // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )

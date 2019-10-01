@@ -10,7 +10,7 @@ import RxTest
 import RxBlocking
 import RxSwift
 import Nimble
-@testable import MiniSwift
+@testable import Mini
 
 fileprivate func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
     return Predicate { expression in

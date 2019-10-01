@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-@testable import MiniSwift
+@testable import Mini
 
 final class DispatchQueueTests: XCTestCase {
     
