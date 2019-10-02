@@ -20,6 +20,7 @@ enum Sealant<R> {
     case idle
     case pending
     case resolved(R)
+    case completed
 }
 
 /// - Remark: not protocol ∵ http://www.russbishop.net/swift-associated-types-cont
@@ -42,6 +43,33 @@ final class SealedBox<T>: Box<T> {
     }
 }
 
+final class PreSealedBox<T>: Box<T> {
+    
+    private var sealant: Sealant<T> = .completed
+    
+    override init() {
+        super.init()
+    }
+
+    override func inspect() -> Sealant<T> {
+        return sealant
+    }
+    
+    @available(iOS, unavailable)
+    @available(OSX, unavailable)
+    @available(watchOS, unavailable)
+    override func seal(_: T) {
+        // NO-OP
+    }
+    
+    @available(iOS, unavailable)
+    @available(OSX, unavailable)
+    @available(watchOS, unavailable)
+    override func fill(_: Sealant<T>) {
+        // NO-OP
+    }
+}
+
 class EmptyBox<T>: Box<T> {
 
     private var sealant: Sealant<T> = .pending
@@ -59,7 +87,7 @@ class EmptyBox<T>: Box<T> {
         switch self.sealant {
         case .pending:
             self.sealant = .resolved(value)
-        case .idle, .resolved:
+        case .idle, .resolved, .completed:
             return // cannot be mutated!
         }
     }

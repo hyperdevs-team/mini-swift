@@ -109,7 +109,7 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             switch completable {
             case .completed:
                 // swiftlint:disable:next explicit_init
-                let action = A.init(promise: .value(()))
+                let action = A.init(promise: .never())
                 dispatcher.dispatch(action, mode: mode)
             case .error(let error):
                 // swiftlint:disable:next explicit_init
@@ -126,7 +126,7 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
             let subscription = self.subscribe { event in
                 switch event {
                 case .completed:
-                    let action = A.init(promise: .value(()))
+                    let action = A.init(promise: .never())
                     single(.success(action))
                 case .error(let error):
                     let action = A(promise: .error(error))

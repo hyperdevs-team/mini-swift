@@ -61,9 +61,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
     
     class TestEmptyAction: EmptyAction {
         
-        let promise: Promise<Void>
+        let promise: Promise<Never>
         
-        required init(promise: Promise<Void>) {
+        required init(promise: Promise<Never>) {
             self.promise = promise
         }
         
@@ -149,5 +149,37 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
                 .toBlocking(timeout: 5.0).first() else { fatalError() }
         
         expect(action).to(equalAction(TestCompletableAction(promise: .value(1))))
+    }
+    
+    func test_empty_action_dispatch() {
+        
+        Completable
+            .empty()
+            .dispatch(action: TestEmptyAction.self, on: dispatcher)
+            .disposed(by: disposeBag)
+        
+        expect(
+            self.testMiddleware.actions(of: TestEmptyAction.self).count
+        ).toEventually(be(1))
+        
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved).to(beTrue())
+    }
+    
+    func test_empty_action_dispatch_error() {
+        
+        Completable
+            .error(Error.dummy)
+            .dispatch(action: TestEmptyAction.self, on: dispatcher)
+            .disposed(by: disposeBag)
+        
+        expect(
+            self.testMiddleware.actions(of: TestEmptyAction.self).count
+        ).toEventually(be(1))
+        
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved).to(beTrue())
+        
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isCompleted).to(beTrue())
+        
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isRejected).to(beTrue())
     }
 }

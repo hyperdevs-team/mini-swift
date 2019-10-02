@@ -66,6 +66,10 @@ public final class Promise<T>: PromiseType {
         box.fill(sealant)
         properties = options
     }
+    
+    private init(with box: @autoclosure @escaping () -> Box<Result<T, Error>>) {
+        self.box = box()
+    }
 
     public init() {
         box = EmptyBox()
@@ -81,7 +85,7 @@ public final class Promise<T>: PromiseType {
 
     public var result: Result<T, Swift.Error>? {
         switch box.inspect() {
-        case .idle, .pending:
+        case .idle, .pending, .completed:
             return nil
         case .resolved(let result):
             return result
@@ -145,7 +149,19 @@ public extension Promise {
      - Returns: `true` if the promise has not yet resolved.
      */
     var isPending: Bool {
-        return !isIdle && result == nil
+        return !isIdle && (result == nil && !isCompleted)
+    }
+    
+    /**
+     - Returns: `true` if the promise has completed.
+     */
+    var isCompleted: Bool {
+        switch self.box.inspect() {
+        case .completed, .resolved:
+            return true
+        default:
+            return false
+        }
     }
 
     /**
@@ -211,6 +227,13 @@ extension Promise: Equatable where T == () {
     }
 }
 
+extension Promise where T == Never {
+    
+    public class func never() -> Promise<T> {
+        self.init(with: PreSealedBox())
+    }
+}
+
 extension Promise where T: Equatable {
 
     public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
@@ -219,6 +242,7 @@ extension Promise where T: Equatable {
         guard lhs.isResolved == rhs.isResolved else { return false }
         guard lhs.isRejected == rhs.isRejected else { return false }
         guard lhs.isPending == rhs.isPending else { return false }
+        guard lhs.isCompleted == rhs.isCompleted else { return false }
         if
             let result1 = lhs.result,
             let result2 = rhs.result {

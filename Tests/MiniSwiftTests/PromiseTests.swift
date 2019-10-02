@@ -90,6 +90,14 @@ class PromiseTests: XCTestCase {
         promise.fulfill(2)
         
         XCTAssertFalse(promise.value! == 2)
+        
+        let neverPromise: Promise<Never> = .never()
+        
+        XCTAssertTrue(promise.isCompleted)
+        
+        neverPromise.reject(Error.dummy)
+        
+        XCTAssertTrue(promise.error == nil)
     }
     
     func test_equality_with_value() {
@@ -116,6 +124,15 @@ class PromiseTests: XCTestCase {
         let promise2: Promise<Int> = .init(error: Error.dummy)
         
         XCTAssertTrue(promise1 == promise2)
+    }
+    
+    func test_equality_completed() {
+        
+        let promise1: Promise<Never> = .never()
+        let promise2: Promise<Never> = .never()
+        
+        XCTAssertTrue(promise1 == promise2)
+        
     }
     
     func test_promise_properties() {
