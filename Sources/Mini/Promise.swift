@@ -228,10 +228,8 @@ extension Promise where T == Never {
     public class func never() -> Promise<T> {
         self.init(with: PreSealedBox())
     }
-}
-
-extension Promise: Equatable where T == Never {
-    public static func == (_: Promise<T>, _: Promise<T>) -> Bool {
+    
+    public static func == (_: Promise<Never>, _: Promise<Never>) -> Bool {
         return true
     }
 }
