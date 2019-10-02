@@ -1,12 +1,12 @@
 /*
  Copyright [2019] [BQ]
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,6 @@ public protocol PromiseType {
 
 @dynamicMemberLookup
 public final class Promise<T>: PromiseType {
-
     public typealias Element = T
 
     private typealias PromiseBox = Box<Result<T, Swift.Error>>
@@ -66,7 +65,7 @@ public final class Promise<T>: PromiseType {
         box.fill(sealant)
         properties = options
     }
-    
+
     private init(with box: @autoclosure @escaping () -> Box<Result<T, Error>>) {
         self.box = box()
     }
@@ -87,7 +86,7 @@ public final class Promise<T>: PromiseType {
         switch box.inspect() {
         case .idle, .pending, .completed:
             return nil
-        case .resolved(let result):
+        case let .resolved(result):
             return result
         }
     }
@@ -97,7 +96,7 @@ public final class Promise<T>: PromiseType {
     /// to call the method `notify` afterwards.
     @discardableResult
     public func fulfill(_ value: T) -> Self {
-        self.box.seal(.success(value))
+        box.seal(.success(value))
         return self
     }
 
@@ -106,7 +105,7 @@ public final class Promise<T>: PromiseType {
     /// to call the method `notify` afterwards.
     @discardableResult
     public func reject(_ error: Swift.Error) -> Self {
-        self.box.seal(.failure(error))
+        box.seal(.failure(error))
         return self
     }
 
@@ -117,7 +116,7 @@ public final class Promise<T>: PromiseType {
     @discardableResult
     public func resolve(_ result: Result<T, Error>?) -> Self? {
         if let result = result {
-            self.box.seal(result)
+            box.seal(result)
             return self
         }
         return nil
@@ -134,12 +133,11 @@ public final class Promise<T>: PromiseType {
 }
 
 public extension Promise {
-
     /**
      - Returns: `true` if the promise has not yet resolved nor pending.
      */
     var isIdle: Bool {
-        if case .idle = self.box.inspect() {
+        if case .idle = box.inspect() {
             return true
         }
         return false
@@ -151,12 +149,12 @@ public extension Promise {
     var isPending: Bool {
         return !isIdle && (result == nil && !isCompleted)
     }
-    
+
     /**
      - Returns: `true` if the promise has completed.
      */
     var isCompleted: Bool {
-        switch self.box.inspect() {
+        switch box.inspect() {
         case .completed, .resolved:
             return true
         default:
@@ -192,7 +190,7 @@ public extension Promise {
         switch result {
         case .none:
             return nil
-        case .some(.success(let value)):
+        case let .some(.success(value)):
             return value
         case .some(.failure):
             return nil
@@ -208,7 +206,7 @@ public extension Promise {
             return nil
         case .some(.success):
             return nil
-        case .some(.failure(let error)):
+        case let .some(.failure(error)):
             return error
         }
     }
@@ -216,26 +214,29 @@ public extension Promise {
 
 extension Promise where T == () {
     public convenience init() {
-        self.init(box: SealedBox<Result<(), Error>>(value: .success(())))
+        self.init(box: SealedBox<Result<Void, Error>>(value: .success(())))
     }
 }
 
 extension Promise: Equatable where T == () {
-
-    public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
+    public static func == (_: Promise<T>, _: Promise<T>) -> Bool {
         return true
     }
 }
 
 extension Promise where T == Never {
-    
     public class func never() -> Promise<T> {
         self.init(with: PreSealedBox())
     }
 }
 
-extension Promise where T: Equatable {
+extension Promise: Equatable where T == Never {
+    public static func == (_: Promise<T>, _: Promise<T>) -> Bool {
+        return true
+    }
+}
 
+extension Promise where T: Equatable {
     public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
         guard lhs.value == rhs.value else { return false }
         guard lhs.isIdle == rhs.isIdle else { return false }
@@ -252,8 +253,8 @@ extension Promise where T: Equatable {
                 return true
             }
             guard
-                case .success(let value1) = result1,
-                case .success(let value2) = result2 else { return false }
+                case let .success(value1) = result1,
+                case let .success(value2) = result2 else { return false }
             guard value1 == value2 else { return false }
         }
         return true

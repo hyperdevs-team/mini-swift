@@ -128,19 +128,19 @@ class RequestContactsAccess: Action {
       typealias Payload = Bool
 
       required init(promise: Promise<Bool?>) {
-          self.requestContactsAccessPromise = task
+          self.requestContactsAccessPromise = promise
       }
     }
     ```
-    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Never`, this means it only has associated a `Task`.
+    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Never`, this means it only has associated a `Promise<Never>`.
 
     ```swift
     class ActivateVoucherLoaded: EmptyAction {
 
-      let activateVoucherPromise: Promise<()>
+      let activateVoucherPromise: Promise<Never>
 
-      required init(promise: Promise<()>) {
-          self.activateVoucherPromise = task
+      required init(promise: Promise<Never>) {
+          self.activateVoucherPromise = promise
       }
     }
     ```
