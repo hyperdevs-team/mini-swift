@@ -228,7 +228,7 @@ extension Promise where T == Never {
     public class func never() -> Promise<T> {
         self.init(with: PreSealedBox())
     }
-    
+
     public static func == (_: Promise<Never>, _: Promise<Never>) -> Bool {
         return true
     }

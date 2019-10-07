@@ -59,7 +59,7 @@ extension Dictionary where Value: PromiseType, Key: Hashable {
     public func resolve(with other: [Key: Value]) -> Self {
         return self.merging(other, uniquingKeysWith: { _, new in new })
     }
-    
+
     public func mergingNew(with other: [Key: Value]) -> Self {
         return self.merging(other, uniquingKeysWith: { _, new in new })
     }

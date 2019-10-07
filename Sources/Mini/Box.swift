@@ -44,9 +44,9 @@ final class SealedBox<T>: Box<T> {
 }
 
 final class PreSealedBox<T>: Box<T> {
-    
+
     private var sealant: Sealant<T> = .completed
-    
+
     override init() {
         super.init()
     }
@@ -54,14 +54,14 @@ final class PreSealedBox<T>: Box<T> {
     override func inspect() -> Sealant<T> {
         return sealant
     }
-    
+
     @available(iOS, unavailable)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
     override func seal(_: T) {
         // NO-OP
     }
-    
+
     @available(iOS, unavailable)
     @available(OSX, unavailable)
     @available(watchOS, unavailable)
