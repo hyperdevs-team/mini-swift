@@ -44,7 +44,7 @@ final class ObservableTypeTests: XCTestCase {
                 .next(10, 10),
                 .next(20, 20),
                 .next(30, 30),
-                .completed(40),
+                .completed(40)
             ]
         )
         .filterOne { $0 == 20 }
@@ -55,7 +55,7 @@ final class ObservableTypeTests: XCTestCase {
 
         XCTAssertEqual(filterOneObserver.events, [
             .next(20, 20),
-            .completed(20),
+            .completed(20)
         ])
     }
 

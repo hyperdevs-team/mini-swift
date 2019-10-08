@@ -28,9 +28,9 @@ opt_in_rules:
   - sorted_first_last
 included:
   - Sources
-excluded:
   - Tests
-  - Documentation
+excluded:
+  - docs
   - Scripts
 closure_end_indentation:
   severity: error

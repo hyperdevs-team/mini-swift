@@ -151,7 +151,7 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             self.testMiddleware.actions(of: TestEmptyAction.self).count
         ).toEventually(be(1))
 
-        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved).to(beTrue())
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved) == true
     }
 
     func test_empty_action_dispatch_error() {
@@ -164,10 +164,10 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             self.testMiddleware.actions(of: TestEmptyAction.self).count
         ).toEventually(be(1))
 
-        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved).to(beTrue())
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isResolved) == true
 
-        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isCompleted).to(beTrue())
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isCompleted) == true
 
-        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isRejected).to(beTrue())
+        expect(self.testMiddleware.actions(of: TestEmptyAction.self).first?.promise.isRejected) == true
     }
 }
