@@ -1,4 +1,0 @@
-module CwlCatchExceptionSupport {
-    umbrella "/Users/minuscorp/Documents/GitHub/mini-swift/.build/checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include"
-    export *
-}

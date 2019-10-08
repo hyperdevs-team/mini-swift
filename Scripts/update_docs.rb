@@ -27,7 +27,7 @@ response = `swift run sourcekitten request --yaml Scripts/data/request.yml`
 interface = JSON.parse(response)
 
 # Write just the interface all to a file, in theory we can make a HTML version of this in the future
-File.write("Documentation/Reference/Mini.swift", interface["key.sourcetext"])
+File.write("docs/Mini.swift", interface["key.sourcetext"])
 
 # Format the updated file
-`swift run swiftformat Documentation/Reference/Mini.swift`
+`swift run swiftformat docs/Mini.swift`

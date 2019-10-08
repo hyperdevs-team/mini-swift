@@ -14,7 +14,7 @@ task(:setup) do
   sh('bundle exec overcommit --install')
   sh('bundle exec overcommit --sign')
   sh('bundle exec overcommit --sign pre-commit')
-  sh('bundle exec overcommit --sign post-checkout')
+  sh('bundle exec overcommit --sign pre-push')
 
   puts('➡️  SPM Resolve Dependencies')
   sh('swift package resolve')
@@ -29,6 +29,6 @@ task(:test) do
 end
 
 task(:docs) do
-  sh('swift run sourcedocs generate --spm-module MiniSwift --output-folder Documentation/reference')
+  sh('swift run sourcedocs generate --spm-module MiniSwift --output-folder docs')
   sh('./Scripts/update_docs.rb')
 end
