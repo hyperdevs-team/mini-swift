@@ -310,6 +310,10 @@ extension Store where State == TestState, StoreController == TestStoreController
 }
 ```
 
+## Documentation
+
+All the documentation available can be found **[here](http://opensource.bq.com/mini-swift/docs/)**
+
 ## Authors & Collaborators
 
 * **[Edilberto Lopez Torregrosa](https://github.com/ediLT)**
