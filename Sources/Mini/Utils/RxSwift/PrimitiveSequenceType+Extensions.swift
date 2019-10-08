@@ -25,17 +25,14 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         -> Disposable where A.Payload == Self.Element {
         let subscription = subscribe(
             onSuccess: { payload in
-                // swiftlint:disable:next explicit_init
                 let action = A(promise: .value(payload))
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
-                    // swiftlint:disable:next explicit_init
                     action = A(promise: .value(errorPayload))
                 } else {
-                    // swiftlint:disable:next explicit_init
                     action = A(promise: .error(error))
                 }
                 dispatcher.dispatch(action, mode: mode)
@@ -52,17 +49,14 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         -> Disposable where A.Payload == Self.Element {
         let subscription = subscribe(
             onSuccess: { payload in
-                // swiftlint:disable:next explicit_init
                 let action = A(promise: [key: .value(payload)])
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
-                    // swiftlint:disable:next explicit_init
                     action = A(promise: [key: .value(errorPayload)])
                 } else {
-                    // swiftlint:disable:next explicit_init
                     action = A(promise: [key: .error(error)])
                 }
                 dispatcher.dispatch(action, mode: mode)
@@ -77,17 +71,14 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         return Single<A>.create { single in
             let subscription = self.subscribe(
                 onSuccess: { payload in
-                    // swiftlint:disable:next explicit_init
                     let action = A(promise: .value(payload))
                     single(.success(action))
                 },
                 onError: { error in
                     var action: A
                     if let errorPayload = errorPayload {
-                        // swiftlint:disable:next explicit_init
                         action = A(promise: .value(errorPayload))
                     } else {
-                        // swiftlint:disable:next explicit_init
                         action = A(promise: .error(error))
                     }
                     single(.success(action))
@@ -106,11 +97,9 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         let subscription = subscribe { completable in
             switch completable {
             case .completed:
-                // swiftlint:disable:next explicit_init
                 let action = A(promise: .never())
                 dispatcher.dispatch(action, mode: mode)
             case let .error(error):
-                // swiftlint:disable:next explicit_init
                 let action = A(promise: .error(error))
                 dispatcher.dispatch(action, mode: mode)
             }

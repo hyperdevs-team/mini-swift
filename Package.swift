@@ -8,7 +8,7 @@ let package = Package(
     platforms: [
         .iOS(.v11),
         .macOS(.v10_13),
-        .tvOS(.v11),
+        .tvOS(.v11)
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
@@ -23,7 +23,7 @@ let package = Package(
         .library(
             name: "Mini/Test",
             targets: ["Mini", "TestMiddleware"]
-        ),
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,7 +35,7 @@ let package = Package(
         .package(url: "https://github.com/jpsim/SourceKitten", .exact("0.25.0")), // dev
         .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
         .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
-        .package(url: "https://github.com/eneko/SourceDocs", from: "0.5.1"), // dev
+        .package(url: "https://github.com/eneko/SourceDocs", from: "0.5.1") // dev
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -55,7 +55,7 @@ let package = Package(
         .testTarget(
             name: "MiniSwiftTests",
             dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]
-        ), // dev
+        ) // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )
