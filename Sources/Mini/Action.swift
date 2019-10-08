@@ -16,7 +16,13 @@
 
 import Foundation
 
+/**
+ Protocol that has to be conformed by any object that can be dispatcher
+ by a `Dispatcher` object.
+ */
 public protocol Action {
+    /// Equality function between `Action` objects
+    /// - Returns: If an `Action` is the same as other.
     func isEqual(to other: Action) -> Bool
 }
 
@@ -40,12 +46,17 @@ extension Action {
 }
 
 extension Action {
+    /// Equality operator between `Action` objects.
+    /// - Returns: If the `Action`s are equal or not.
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }
 
 extension Action where Self: Equatable {
+    /// Convenience `isEqual` implementation when the `Action` object
+    /// implements `Equatable`.
+    /// - Returns: Whether the `Action` object is the same as other.
     public func isEqual(to other: Action) -> Bool {
         guard let action = other as? Self else { return false }
         return self == action
