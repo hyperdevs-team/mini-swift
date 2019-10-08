@@ -12,6 +12,7 @@ With Mini, you can create a thread-safe application with a predictable unidirect
 
 [![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=5.0)](https://travis-ci.org/bq/mini-swift)
 [![codecov](https://codecov.io/gh/bq/mini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/bq/mini-swift)
+[![Documentation](https://img.shields.io/badge/Documentation-passing-green.svg)](http://opensource.bq.com/mini-swift/docs/)
 
 ## Requirements
 
