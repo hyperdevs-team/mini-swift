@@ -1,12 +1,12 @@
 /*
  Copyright [2019] [BQ]
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,7 +41,7 @@ public class OrderedSet<T: Comparable> {
         }
 
         // Insert new the item just before the one that is larger.
-        for i in 0..<count where internalSet[i] > item {
+        for i in 0 ..< count where internalSet[i] > item {
             internalSet.insert(item, at: i)
             return true
         }
@@ -165,7 +165,8 @@ public class OrderedSet<T: Comparable> {
                 using: { object, _, _ in
                     guard let object = object as? T else { return }
                     body(object)
-                })
+                }
+            )
     }
 
     /// Enumerated function

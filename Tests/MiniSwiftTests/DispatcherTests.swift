@@ -1,12 +1,10 @@
-import XCTest
-import RxSwift
 @testable import Mini
+import RxSwift
 @testable import TestMiddleware
+import XCTest
 
 final class DispatcherTests: XCTestCase {
-
     func test_subscription_count() {
-
         let dispatcher = Dispatcher()
         let disposable = CompositeDisposable()
 
@@ -25,7 +23,6 @@ final class DispatcherTests: XCTestCase {
     }
 
     func test_add_remove_middleware() {
-
         let dispatcher = Dispatcher()
 
         let middleware = TestMiddleware()
@@ -48,9 +45,7 @@ final class DispatcherTests: XCTestCase {
     }
 
     func test_add_remove_service() {
-
         class TestService: Service {
-
             var id: UUID = UUID()
 
             var actions = [Action]()
@@ -94,6 +89,5 @@ final class DispatcherTests: XCTestCase {
         dispatcher.dispatch(SetCounterActionLoaded(counter: .value(1)), mode: .sync)
 
         XCTAssert(service.actions.isEmpty == true)
-
     }
 }

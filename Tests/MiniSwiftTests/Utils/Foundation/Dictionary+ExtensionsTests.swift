@@ -1,10 +1,8 @@
-import XCTest
 @testable import Mini
+import XCTest
 
 final class DictionaryExtensionsTests: XCTestCase {
-
     func test_get_or_put() {
-
         var dic = [String: Int]()
 
         XCTAssertEqual(dic.getOrPut("foo", defaultValue: 1), 1)
@@ -16,7 +14,6 @@ final class DictionaryExtensionsTests: XCTestCase {
     }
 
     func test_unrapping_subscript() {
-
         var dic = [String: Int]()
 
         let test: Int? = dic[unwrapping: "foo"]

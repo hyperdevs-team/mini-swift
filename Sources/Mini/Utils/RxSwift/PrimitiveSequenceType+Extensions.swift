@@ -1,4 +1,4 @@
-///*
+/// *
 // Copyright [2019] [BQ]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,26 +18,25 @@ import Foundation
 import RxSwift
 
 public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Self.Trait == SingleTrait {
-
     func dispatch<A: CompletableAction>(action: A.Type,
                                         on dispatcher: Dispatcher,
                                         mode: Dispatcher.DispatchMode.UI = .async,
                                         fillOnError errorPayload: A.Payload? = nil)
         -> Disposable where A.Payload == Self.Element {
-        let subscription = self.subscribe(
+        let subscription = subscribe(
             onSuccess: { payload in
                 // swiftlint:disable:next explicit_init
-                let action = A.init(promise: .value(payload))
+                let action = A(promise: .value(payload))
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(promise: .value(errorPayload))
+                    action = A(promise: .value(errorPayload))
                 } else {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(promise: .error(error))
+                    action = A(promise: .error(error))
                 }
                 dispatcher.dispatch(action, mode: mode)
             }
@@ -51,20 +50,20 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
                                              mode: Dispatcher.DispatchMode.UI = .async,
                                              fillOnError errorPayload: A.Payload? = nil)
         -> Disposable where A.Payload == Self.Element {
-        let subscription = self.subscribe(
+        let subscription = subscribe(
             onSuccess: { payload in
                 // swiftlint:disable:next explicit_init
-                let action = A.init(promise: [key: .value(payload)])
+                let action = A(promise: [key: .value(payload)])
                 dispatcher.dispatch(action, mode: mode)
             },
             onError: { error in
                 var action: A
                 if let errorPayload = errorPayload {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(promise: [key: .value(errorPayload)])
+                    action = A(promise: [key: .value(errorPayload)])
                 } else {
                     // swiftlint:disable:next explicit_init
-                    action = A.init(promise: [key: .error(error)])
+                    action = A(promise: [key: .error(error)])
                 }
                 dispatcher.dispatch(action, mode: mode)
             }
@@ -79,17 +78,17 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
             let subscription = self.subscribe(
                 onSuccess: { payload in
                     // swiftlint:disable:next explicit_init
-                    let action = A.init(promise: .value(payload))
+                    let action = A(promise: .value(payload))
                     single(.success(action))
                 },
                 onError: { error in
                     var action: A
                     if let errorPayload = errorPayload {
                         // swiftlint:disable:next explicit_init
-                        action = A.init(promise: .value(errorPayload))
+                        action = A(promise: .value(errorPayload))
                     } else {
                         // swiftlint:disable:next explicit_init
-                        action = A.init(promise: .error(error))
+                        action = A(promise: .error(error))
                     }
                     single(.success(action))
                 }
@@ -100,20 +99,19 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
 }
 
 public extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Swift.Never {
-
     func dispatch<A: EmptyAction>(action: A.Type,
                                   on dispatcher: Dispatcher,
                                   mode: Dispatcher.DispatchMode.UI = .async)
         -> Disposable {
-        let subscription = self.subscribe { completable in
+        let subscription = subscribe { completable in
             switch completable {
             case .completed:
                 // swiftlint:disable:next explicit_init
-                let action = A.init(promise: .never())
+                let action = A(promise: .never())
                 dispatcher.dispatch(action, mode: mode)
-            case .error(let error):
+            case let .error(error):
                 // swiftlint:disable:next explicit_init
-                let action = A.init(promise: .error(error))
+                let action = A(promise: .error(error))
                 dispatcher.dispatch(action, mode: mode)
             }
         }
@@ -128,7 +126,7 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
                 case .completed:
                     let action = A(promise: .never())
                     single(.success(action))
-                case .error(let error):
+                case let .error(error):
                     let action = A(promise: .error(error))
                     single(.success(action))
                 }

@@ -1,10 +1,9 @@
-import XCTest
-import RxSwift
-import Nimble
 @testable import Mini
+import Nimble
+import RxSwift
+import XCTest
 
 final class ReducerTests: XCTestCase {
-
     func test_dispatcher_triggers_action_in_reducer_group_reducer() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
@@ -61,7 +60,7 @@ final class ReducerTests: XCTestCase {
         )
         expect(counter).toEventually(equal(2), timeout: 5.5, pollInterval: 0.2)
     }
-    
+
     func test_subscribe_to_store_receive_multiple_actions() {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()
@@ -115,7 +114,7 @@ final class ReducerTests: XCTestCase {
         store.reset()
         XCTAssert(store.state.isEqual(to: initialState))
     }
-    
+
     func test_state_received_in_store() throws {
         let dBag = DisposeBag()
         let dispatcher = Dispatcher()

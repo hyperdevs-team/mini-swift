@@ -1,9 +1,8 @@
 import Foundation
-import RxSwift
 @testable import Mini
+import RxSwift
 
 class SetCounterAction: Action {
-
     let counter: Int
 
     init(counter: Int) {
@@ -18,13 +17,12 @@ class SetCounterAction: Action {
 }
 
 class SetCounterActionLoaded: Action {
-    
     let counter: Promise<Int>
-    
+
     init(counter: Promise<Int>) {
         self.counter = counter
     }
-    
+
     public func isEqual(to other: Action) -> Bool {
         guard let action = other as? SetCounterActionLoaded else { return false }
         guard counter == action.counter else { return false }
@@ -33,15 +31,14 @@ class SetCounterActionLoaded: Action {
 }
 
 class SetCounterHashAction: Action {
-    
     let counter: Int
     let key: String
-    
+
     init(counter: Int, key: String) {
         self.counter = counter
         self.key = key
     }
-    
+
     func isEqual(to other: Action) -> Bool {
         guard let action = other as? SetCounterHashAction else { return false }
         guard counter == action.counter else { return false }
@@ -51,16 +48,15 @@ class SetCounterHashAction: Action {
 }
 
 class SetCounterHashLoadedAction: KeyedCompletableAction {
-
     typealias Key = String
     typealias Payload = Int
-    
+
     let promise: [Key: Promise<Payload>]
-    
-    required init(promise: [Key : Promise<Payload>]) {
+
+    required init(promise: [Key: Promise<Payload>]) {
         self.promise = promise
     }
-    
+
     func isEqual(to other: Action) -> Bool {
         guard let action = other as? SetCounterHashLoadedAction else { return false }
         guard promise == action.promise else { return false }
@@ -69,7 +65,6 @@ class SetCounterHashLoadedAction: KeyedCompletableAction {
 }
 
 struct TestState: StateType {
-
     let counter: Promise<Int>
     let hashCounter: [String: Promise<Int>]
 
@@ -88,46 +83,44 @@ struct TestState: StateType {
 }
 
 class TestStoreController: Disposable {
-    
     let dispatcher: Dispatcher
-    
+
     init(dispatcher: Dispatcher) {
         self.dispatcher = dispatcher
     }
-    
+
     func counter(_ number: Int) {
-        self.dispatcher.dispatch(SetCounterActionLoaded(counter: .value(number)), mode: .async)
+        dispatcher.dispatch(SetCounterActionLoaded(counter: .value(number)), mode: .async)
     }
-    
+
     func hashCounter(counter: Int, key: String) {
-        self.dispatcher.dispatch(SetCounterHashLoadedAction(promise: [key: .value(counter)]), mode: .async)
+        dispatcher.dispatch(SetCounterHashLoadedAction(promise: [key: .value(counter)]), mode: .async)
     }
-    
+
     public func dispose() {
         // NO-OP
     }
 }
 
 extension Store where State == TestState, StoreController == TestStoreController {
-
     var reducerGroup: ReducerGroup {
         return ReducerGroup(
-            Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
+            Reducer(of: SetCounterAction.self, on: dispatcher) { action in
                 guard !self.state.counter.isPending else { return }
                 self.state = TestState(counter: .pending())
                 self.storeController.counter(action.counter)
             },
-            Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
+            Reducer(of: SetCounterActionLoaded.self, on: dispatcher) { action in
                 self.state.counter
                     .resolve(action.counter.result)?
                     .notify(to: self)
             },
-            Reducer(of: SetCounterHashAction.self, on: self.dispatcher) { action in
+            Reducer(of: SetCounterHashAction.self, on: dispatcher) { action in
                 guard !(self.state.hashCounter[action.key]?.isPending ?? false) else { return }
                 self.state = TestState(hashCounter: self.state.hashCounter.mergingNew(with: [action.key: .pending()]))
                 self.storeController.hashCounter(counter: action.counter, key: action.key)
             },
-            Reducer(of: SetCounterHashLoadedAction.self, on: self.dispatcher) { action in
+            Reducer(of: SetCounterHashLoadedAction.self, on: dispatcher) { action in
                 self.state = TestState(hashCounter: self.state.hashCounter.resolve(with: action.promise))
             }
         )

@@ -1,12 +1,12 @@
 /*
  Copyright [2019] [BQ]
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,14 +19,13 @@ import Mini
 
 /// Action for testing purposes.
 public class TestOnlyAction: Action {
-    public func isEqual(to other: Action) -> Bool {
+    public func isEqual(to _: Action) -> Bool {
         return true
     }
 }
 
 /// Interceptor class for testing purposes which mute all the received actions.
 public class TestMiddleware: Middleware {
-
     public var id: UUID = UUID()
 
     private var interceptedActions: [Action] = []
@@ -38,7 +37,7 @@ public class TestMiddleware: Middleware {
         }
     }
 
-    public init() { }
+    public init() {}
 
     /// Check if a given action have been intercepted before by the Middleware.
     ///
@@ -54,7 +53,7 @@ public class TestMiddleware: Middleware {
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
     /// - Returns: Array of actions of `kind` being intercepted.
-    public func actions<T: Action>(of kind: T.Type) -> [T] {
+    public func actions<T: Action>(of _: T.Type) -> [T] {
         return interceptedActions.compactMap { $0 as? T }
     }
 

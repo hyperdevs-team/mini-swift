@@ -1,12 +1,12 @@
 /*
  Copyright [2019] [BQ]
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,13 +15,12 @@
  */
 
 import Foundation
-import RxSwift
 import NIOConcurrencyHelpers
+import RxSwift
 
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
-final public class Dispatcher {
-
+public final class Dispatcher {
     public struct DispatchMode {
         // swiftlint:disable:next type_name nesting
         public enum UI {
@@ -34,7 +33,7 @@ final public class Dispatcher {
             guard let setValue = set else { return 0 }
             return setValue.count
         }
-        .reduce(0, { $0 + $1.value })
+        .reduce(0) { $0 + $1.value }
     }
 
     public static let defaultPriority = 100
@@ -54,11 +53,11 @@ final public class Dispatcher {
     }
 
     private func build() -> Chain {
-        return middleware.reduce(root, { (chain: Chain, middleware: Middleware) -> Chain in
-            return ForwardingChain { action in
+        return middleware.reduce(root) { (chain: Chain, middleware: Middleware) -> Chain in
+            ForwardingChain { action in
                 middleware.perform(action, chain)
             }
-        })
+        }
     }
 
     public func add(middleware: Middleware) {
@@ -97,7 +96,8 @@ final public class Dispatcher {
             id: getNewSubscriptionId(),
             priority: priority,
             tag: tag,
-            completion: completion)
+            completion: completion
+        )
         return registerInternal(subscription: subscription)
     }
 
@@ -146,7 +146,7 @@ final public class Dispatcher {
         switch mode {
         case .sync:
             if DispatchQueue.isMain {
-                self.dispatch(action)
+                dispatch(action)
             } else {
                 DispatchQueue.main.sync {
                     self.dispatch(action)
@@ -183,7 +183,6 @@ final public class Dispatcher {
 }
 
 public final class DispatcherSubscription: Comparable, Disposable {
-
     private let dispatcher: Dispatcher
     public let id: Int
     private let priority: Int
@@ -191,11 +190,11 @@ public final class DispatcherSubscription: Comparable, Disposable {
 
     public let tag: String
 
-    public init (dispatcher: Dispatcher,
-                 id: Int,
-                 priority: Int,
-                 tag: String,
-                 completion: @escaping (Action) -> Void) {
+    public init(dispatcher: Dispatcher,
+                id: Int,
+                priority: Int,
+                tag: String,
+                completion: @escaping (Action) -> Void) {
         self.dispatcher = dispatcher
         self.id = id
         self.priority = priority
