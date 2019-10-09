@@ -4,8 +4,14 @@ import NIOConcurrencyHelpers
 import RxSwift
 import SwiftOnoneSupport
 
+/**
+ Protocol that has to be conformed by any object that can be dispatcher
+ by a `Dispatcher` object.
+ */
 public protocol Action {
-    func isEqual(to other: MiniSwift.Action) -> Bool
+    /// Equality function between `Action` objects
+    /// - Returns: If an `Action` is the same as other.
+    func isEqual(to other: Mini.Action) -> Bool
 }
 
 extension Action {
@@ -15,18 +21,23 @@ extension Action {
 }
 
 extension Action {
+    /// Equality operator between `Action` objects.
+    /// - Returns: If the `Action`s are equal or not.
     public static func == (lhs: Self, rhs: Self) -> Bool
 }
 
 extension Action where Self: Equatable {
-    public func isEqual(to other: MiniSwift.Action) -> Bool
+    /// Convenience `isEqual` implementation when the `Action` object
+    /// implements `Equatable`.
+    /// - Returns: Whether the `Action` object is the same as other.
+    public func isEqual(to other: Mini.Action) -> Bool
 }
 
 public protocol Chain {
-    var proceed: MiniSwift.Next { get }
+    var proceed: Mini.Next { get }
 }
 
-public protocol CompletableAction: MiniSwift.Action, MiniSwift.PayloadAction {}
+public protocol CompletableAction: Mini.Action, Mini.PayloadAction {}
 
 public final class Dispatcher {
     public struct DispatchMode {
@@ -43,27 +54,27 @@ public final class Dispatcher {
 
     public init()
 
-    public func add(middleware: MiniSwift.Middleware)
+    public func add(middleware: Mini.Middleware)
 
-    public func remove(middleware: MiniSwift.Middleware)
+    public func remove(middleware: Mini.Middleware)
 
-    public func register(service: MiniSwift.Service)
+    public func register(service: Mini.Service)
 
-    public func unregister(service: MiniSwift.Service)
+    public func unregister(service: Mini.Service)
 
-    public func subscribe(priority: Int, tag: String, completion: @escaping (MiniSwift.Action) -> Void) -> MiniSwift.DispatcherSubscription
+    public func subscribe(priority: Int, tag: String, completion: @escaping (Mini.Action) -> Void) -> Mini.DispatcherSubscription
 
-    public func registerInternal(subscription: MiniSwift.DispatcherSubscription) -> MiniSwift.DispatcherSubscription
+    public func registerInternal(subscription: Mini.DispatcherSubscription) -> Mini.DispatcherSubscription
 
-    public func unregisterInternal(subscription: MiniSwift.DispatcherSubscription)
+    public func unregisterInternal(subscription: Mini.DispatcherSubscription)
 
-    public func subscribe<T>(completion: @escaping (T) -> Void) -> MiniSwift.DispatcherSubscription where T: MiniSwift.Action
+    public func subscribe<T>(completion: @escaping (T) -> Void) -> Mini.DispatcherSubscription where T: Mini.Action
 
-    public func subscribe<T>(tag: String, completion: @escaping (T) -> Void) -> MiniSwift.DispatcherSubscription where T: MiniSwift.Action
+    public func subscribe<T>(tag: String, completion: @escaping (T) -> Void) -> Mini.DispatcherSubscription where T: Mini.Action
 
-    public func subscribe(tag: String, completion: @escaping (MiniSwift.Action) -> Void) -> MiniSwift.DispatcherSubscription
+    public func subscribe(tag: String, completion: @escaping (Mini.Action) -> Void) -> Mini.DispatcherSubscription
 
-    public func dispatch(_ action: MiniSwift.Action, mode: MiniSwift.Dispatcher.DispatchMode.UI)
+    public func dispatch(_ action: Mini.Action, mode: Mini.Dispatcher.DispatchMode.UI)
 }
 
 public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
@@ -71,12 +82,12 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
 
     public let tag: String
 
-    public init(dispatcher: MiniSwift.Dispatcher, id: Int, priority: Int, tag: String, completion: @escaping (MiniSwift.Action) -> Void)
+    public init(dispatcher: Mini.Dispatcher, id: Int, priority: Int, tag: String, completion: @escaping (Mini.Action) -> Void)
 
     /// Dispose resource.
     public func dispose()
 
-    public func on(_ action: MiniSwift.Action)
+    public func on(_ action: Mini.Action)
 
     /// Returns a Boolean value indicating whether two values are equal.
     ///
@@ -86,7 +97,7 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func == (lhs: MiniSwift.DispatcherSubscription, rhs: MiniSwift.DispatcherSubscription) -> Bool
+    public static func == (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 
     /// Returns a Boolean value indicating whether the value of the first
     /// argument is greater than that of the second argument.
@@ -94,7 +105,7 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func > (lhs: MiniSwift.DispatcherSubscription, rhs: MiniSwift.DispatcherSubscription) -> Bool
+    public static func > (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 
     /// Returns a Boolean value indicating whether the value of the first
     /// argument is less than that of the second argument.
@@ -106,7 +117,7 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func < (lhs: MiniSwift.DispatcherSubscription, rhs: MiniSwift.DispatcherSubscription) -> Bool
+    public static func < (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 
     /// Returns a Boolean value indicating whether the value of the first
     /// argument is greater than or equal to that of the second argument.
@@ -114,7 +125,7 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func >= (lhs: MiniSwift.DispatcherSubscription, rhs: MiniSwift.DispatcherSubscription) -> Bool
+    public static func >= (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 
     /// Returns a Boolean value indicating whether the value of the first
     /// argument is less than or equal to that of the second argument.
@@ -122,54 +133,46 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func <= (lhs: MiniSwift.DispatcherSubscription, rhs: MiniSwift.DispatcherSubscription) -> Bool
+    public static func <= (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 }
 
-public protocol EmptyAction: MiniSwift.Action, MiniSwift.PayloadAction where Self.Payload == Never {
-    init(promise: MiniSwift.Promise<Void>)
+public protocol EmptyAction: Mini.Action, Mini.PayloadAction where Self.Payload == Never {
+    init(promise: Mini.Promise<Never>)
 }
 
 extension EmptyAction {
-    public init(promise: MiniSwift.Promise<Self.Payload?>)
+    public init(promise _: Mini.Promise<Self.Payload>)
 }
 
-public final class ForwardingChain: MiniSwift.Chain {
-    public var proceed: MiniSwift.Next { get }
+public final class ForwardingChain: Mini.Chain {
+    public var proceed: Mini.Next { get }
 
-    public init(next: @escaping MiniSwift.Next)
+    public init(next: @escaping Mini.Next)
 }
 
 public protocol Group: RxSwift.Disposable {
     var disposeBag: RxSwift.CompositeDisposable { get }
 }
 
-public protocol KeyedCompletableAction: MiniSwift.Action, MiniSwift.KeyedPayloadAction {}
+public protocol KeyedCompletableAction: Mini.Action, Mini.KeyedPayloadAction {}
 
 public protocol KeyedPayloadAction {
     associatedtype Payload
 
     associatedtype Key: Hashable
 
-    init(promise: [Self.Key: MiniSwift.Promise<Self.Payload?>])
-}
-
-public class LoggingService: MiniSwift.Service {
-    public var id: UUID
-
-    public var perform: MiniSwift.ServiceChain { get }
-
-    public init()
+    init(promise: [Self.Key: Mini.Promise<Self.Payload>])
 }
 
 public protocol Middleware {
     var id: UUID { get }
 
-    var perform: MiniSwift.MiddlewareChain { get }
+    var perform: Mini.MiddlewareChain { get }
 }
 
-public typealias MiddlewareChain = (MiniSwift.Action, MiniSwift.Chain) -> MiniSwift.Action
+public typealias MiddlewareChain = (Mini.Action, Mini.Chain) -> Mini.Action
 
-public typealias Next = (MiniSwift.Action) -> MiniSwift.Action
+public typealias Next = (Mini.Action) -> Mini.Action
 
 /**
  An Ordered Set is a collection where all items in the set follow an ordering,
@@ -225,23 +228,23 @@ public class OrderedSet<T> where T: Comparable {
 public protocol PayloadAction {
     associatedtype Payload
 
-    init(promise: MiniSwift.Promise<Self.Payload?>)
+    init(promise: Mini.Promise<Self.Payload>)
 }
 
-@dynamicMemberLookup public final class Promise<T>: MiniSwift.PromiseType {
+@dynamicMemberLookup public final class Promise<T>: Mini.PromiseType {
     public typealias Element = T
 
-    public class func value(_ value: T) -> MiniSwift.Promise<T>
+    public class func value(_ value: T) -> Mini.Promise<T>
 
-    public class func error(_ error: Error) -> MiniSwift.Promise<T>
+    public class func error(_ error: Error) -> Mini.Promise<T>
 
     public init(error: Error)
 
     public init()
 
-    public class func idle(with options: [String: Any] = [:]) -> MiniSwift.Promise<T>
+    public class func idle(with options: [String: Any] = [:]) -> Mini.Promise<T>
 
-    public class func pending(options: [String: Any] = [:]) -> MiniSwift.Promise<T>
+    public class func pending(options: [String: Any] = [:]) -> Mini.Promise<T>
 
     public var result: Result<T, Error>? { get }
 
@@ -266,11 +269,6 @@ public protocol PayloadAction {
 
 extension Promise {
     /**
-     - Returns: `true` if the promise has been triggered from some source to its resolution.
-     */
-    public var isOnProgress: Bool { get }
-
-    /**
      - Returns: `true` if the promise has not yet resolved nor pending.
      */
     public var isIdle: Bool { get }
@@ -279,6 +277,11 @@ extension Promise {
      - Returns: `true` if the promise has not yet resolved.
      */
     public var isPending: Bool { get }
+
+    /**
+     - Returns: `true` if the promise has completed.
+     */
+    public var isCompleted: Bool { get }
 
     /**
      - Returns: `true` if the promise has resolved.
@@ -319,15 +322,21 @@ extension Promise: Equatable where T == () {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func == (lhs: MiniSwift.Promise<T>, rhs: MiniSwift.Promise<T>) -> Bool
+    public static func == (_: Mini.Promise<T>, _: Mini.Promise<T>) -> Bool
+}
+
+extension Promise where T == Never {
+    public class func never() -> Mini.Promise<T>
+
+    public static func == (_: Mini.Promise<Never>, _: Mini.Promise<Never>) -> Bool
 }
 
 extension Promise where T: Equatable {
-    public static func == (lhs: MiniSwift.Promise<T>, rhs: MiniSwift.Promise<T>) -> Bool
+    public static func == (lhs: Mini.Promise<T>, rhs: Mini.Promise<T>) -> Bool
 }
 
 extension Promise {
-    public func notify<T>(to store: T) where T: MiniSwift.StoreType
+    public func notify<T>(to store: T) where T: Mini.StoreType
 }
 
 public protocol PromiseType {
@@ -344,8 +353,6 @@ public protocol PromiseType {
     var isFulfilled: Bool { get }
 
     var isRejected: Bool { get }
-
-    var isOnProgress: Bool { get }
 
     var value: Self.Element? { get }
 
@@ -368,20 +375,34 @@ extension Promises {
     }
 }
 
-public class Reducer<A>: RxSwift.Disposable where A: MiniSwift.Action {
+/**
+ The `Reducer` defines the behavior to be executed when a certain
+ `Action` object is received.
+ */
+public class Reducer<A>: RxSwift.Disposable where A: Mini.Action {
+    /// The `Action` type which the `Reducer` listens to.
     public let action: A.Type
 
-    public let dispatcher: MiniSwift.Dispatcher
+    /// The `Dispatcher` object that sends the `Action` objects.
+    public let dispatcher: Mini.Dispatcher
 
+    /// The behavior to be executed when the `Dispatcher` sends a certain `Action`
     public let reducer: (A) -> Void
 
-    public init(of action: A.Type, on dispatcher: MiniSwift.Dispatcher, reducer: @escaping (A) -> Void)
+    /**
+     Initializes a new `Reducer` object.
+     - Parameter action: The `Action` type that will be listened to.
+     - Parameter dispatcher: The `Dispatcher` that sends the `Action`.
+     - Parameter reducer: The closure that will be executed when the `Dispatcher`
+     sends the defined `Action` type.
+     */
+    public init(of action: A.Type, on dispatcher: Mini.Dispatcher, reducer: @escaping (A) -> Void)
 
     /// Dispose resource.
     public func dispose()
 }
 
-public class ReducerGroup: MiniSwift.Group {
+public class ReducerGroup: Mini.Group {
     public let disposeBag: RxSwift.CompositeDisposable
 
     public init(_ builder: RxSwift.Disposable...)
@@ -390,19 +411,19 @@ public class ReducerGroup: MiniSwift.Group {
     public func dispose()
 }
 
-public final class RootChain: MiniSwift.Chain {
-    public var proceed: MiniSwift.Next { get }
+public final class RootChain: Mini.Chain {
+    public var proceed: Mini.Next { get }
 
-    public init(map: MiniSwift.SubscriptionMap)
+    public init(map: Mini.SubscriptionMap)
 }
 
 public protocol Service {
     var id: UUID { get }
 
-    var perform: MiniSwift.ServiceChain { get }
+    var perform: Mini.ServiceChain { get }
 }
 
-public typealias ServiceChain = (MiniSwift.Action, MiniSwift.Chain) -> Void
+public typealias ServiceChain = (Mini.Action, Mini.Chain) -> Void
 
 /// Wrapper class to allow pass dictionaries with a memory reference
 public class SharedDictionary<Key, Value> where Key: Hashable {
@@ -420,14 +441,14 @@ public class SharedDictionary<Key, Value> where Key: Hashable {
 }
 
 public protocol StateType {
-    func isEqual(to other: MiniSwift.StateType) -> Bool
+    func isEqual(to other: Mini.StateType) -> Bool
 }
 
 extension StateType where Self: Equatable {
-    public func isEqual(to other: MiniSwift.StateType) -> Bool
+    public func isEqual(to other: Mini.StateType) -> Bool
 }
 
-public class Store<State, StoreController>: RxSwift.ObservableType, MiniSwift.StoreType where State: MiniSwift.StateType, StoreController: RxSwift.Disposable {
+public class Store<State, StoreController>: RxSwift.ObservableType, Mini.StoreType where State: Mini.StateType, StoreController: RxSwift.Disposable {
     /// Type of elements in sequence.
     public typealias Element = State
 
@@ -439,7 +460,7 @@ public class Store<State, StoreController>: RxSwift.ObservableType, MiniSwift.St
 
     public var objectWillChange: RxSwift.BehaviorSubject<State>
 
-    public let dispatcher: MiniSwift.Dispatcher
+    public let dispatcher: Mini.Dispatcher
 
     public var storeController: StoreController
 
@@ -447,9 +468,9 @@ public class Store<State, StoreController>: RxSwift.ObservableType, MiniSwift.St
 
     public var initialState: State { get }
 
-    public init(_ state: State, dispatcher: MiniSwift.Dispatcher, storeController: StoreController)
+    public init(_ state: State, dispatcher: Mini.Dispatcher, storeController: StoreController)
 
-    public var reducerGroup: MiniSwift.ReducerGroup { get }
+    public var reducerGroup: Mini.ReducerGroup { get }
 
     public func notify()
 
@@ -484,15 +505,15 @@ public class Store<State, StoreController>: RxSwift.ObservableType, MiniSwift.St
 }
 
 public protocol StoreType {
-    associatedtype State: MiniSwift.StateType
+    associatedtype State: Mini.StateType
 
     associatedtype StoreController: RxSwift.Disposable
 
     var state: Self.State { get set }
 
-    var dispatcher: MiniSwift.Dispatcher { get }
+    var dispatcher: Mini.Dispatcher { get }
 
-    var reducerGroup: MiniSwift.ReducerGroup { get }
+    var reducerGroup: Mini.ReducerGroup { get }
 
     func replayOnce()
 }
@@ -515,39 +536,10 @@ extension StoreType {
      ```
      - Note : The property has a default implementation which complies with the @_functionBuilder's current limitations, where no empty blocks can be produced in this iteration.
      */
-    public var reducerGroup: MiniSwift.ReducerGroup { get }
+    public var reducerGroup: Mini.ReducerGroup { get }
 }
 
-public typealias SubscriptionMap = MiniSwift.SharedDictionary<String, MiniSwift.OrderedSet<MiniSwift.DispatcherSubscription>?>
-
-/// Interceptor class for testing purposes which mute all the received actions.
-public class TestMiddleware: MiniSwift.Middleware {
-    public var id: UUID
-
-    public var perform: MiniSwift.MiddlewareChain { get }
-
-    public init()
-
-    /// Check if a given action have been intercepted before by the Middleware.
-    ///
-    /// - Parameter action: action to be checked
-    /// - Returns: returns true if an action with the same params have been intercepted before.
-    public func contains(action: MiniSwift.Action) -> Bool
-
-    /// Check for actions of certain type being intercepted.
-    ///
-    /// - Parameter kind: Action type to be checked against the intercepted actions.
-    /// - Returns: Array of actions of `kind` being intercepted.
-    public func actions<T>(of kind: T.Type) -> [T] where T: MiniSwift.Action
-
-    /// Clear all the intercepted actions
-    public func clear()
-}
-
-/// Action for testing purposes.
-public class TestOnlyAction: MiniSwift.Action {
-    public func isEqual(to other: MiniSwift.Action) -> Bool
-}
+public typealias SubscriptionMap = Mini.SharedDictionary<String, Mini.OrderedSet<Mini.DispatcherSubscription>?>
 
 extension Dictionary {
     /// Returns the value for the given key. If the key is not found in the map, calls the `defaultValue` function,
@@ -559,15 +551,17 @@ extension Dictionary {
     public subscript(unwrapping _: Key) -> Value! { get }
 }
 
-extension Dictionary where Value: MiniSwift.PromiseType {
+extension Dictionary where Value: Mini.PromiseType {
     public subscript(promise _: Key) -> Value { get }
 
     public func hasValue(for key: [Key: Value].Key) -> Bool
 
-    public mutating func resolve(with other: [Key: Value]) -> [Key: Value]
+    public func resolve(with other: [Key: Value]) -> [Key: Value]
+
+    public func mergingNew(with other: [Key: Value]) -> [Key: Value]
 }
 
-extension Dictionary where Value: MiniSwift.PromiseType, Value.Element: Equatable {
+extension Dictionary where Value: Mini.PromiseType, Value.Element: Equatable {
     public static func == (lhs: [Key: Value], rhs: [Key: Value]) -> Bool
 }
 
@@ -583,22 +577,22 @@ extension ObservableType {
     public func filterOne(_ condition: @escaping (Self.Element) -> Bool) -> RxSwift.Observable<Self.Element>
 }
 
-extension ObservableType where Self.Element: MiniSwift.StoreType, Self.Element: RxSwift.ObservableType, Self.Element.Element == Self.Element.State {
-    public static func dispatch<A, Type, T>(using dispatcher: MiniSwift.Dispatcher, factory action: @autoclosure @escaping () -> A, taskMap: @escaping (Self.Element.State) -> T?, on store: Self.Element, lifetime: MiniSwift.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: MiniSwift.Action, T: MiniSwift.Promise<Type>
+extension ObservableType where Self.Element: Mini.StoreType, Self.Element: RxSwift.ObservableType, Self.Element.Element == Self.Element.State {
+    public static func dispatch<A, Type, T>(using dispatcher: Mini.Dispatcher, factory action: @autoclosure @escaping () -> A, taskMap: @escaping (Self.Element.State) -> T?, on store: Self.Element, lifetime: Mini.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: Mini.Action, T: Mini.Promise<Type>
 
-    public static func dispatch<A, K, Type, T>(using dispatcher: MiniSwift.Dispatcher, factory action: @autoclosure @escaping () -> A, key: K, taskMap: @escaping (Self.Element.State) -> [K: T], on store: Self.Element, lifetime: MiniSwift.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: MiniSwift.Action, K: Hashable, T: MiniSwift.Promise<Type>
+    public static func dispatch<A, K, Type, T>(using dispatcher: Mini.Dispatcher, factory action: @autoclosure @escaping () -> A, key: K, taskMap: @escaping (Self.Element.State) -> [K: T], on store: Self.Element, lifetime: Mini.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: Mini.Action, K: Hashable, T: Mini.Promise<Type>
 }
 
 extension PrimitiveSequenceType where Self: RxSwift.ObservableConvertibleType, Self.Trait == RxSwift.SingleTrait {
-    public func dispatch<A>(action: A.Type, on dispatcher: MiniSwift.Dispatcher, mode: MiniSwift.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniSwift.CompletableAction, Self.Element == A.Payload
+    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: Mini.CompletableAction, Self.Element == A.Payload
 
-    public func dispatch<A>(action: A.Type, key: A.Key, on dispatcher: MiniSwift.Dispatcher, mode: MiniSwift.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniSwift.KeyedCompletableAction, Self.Element == A.Payload
+    public func dispatch<A>(action: A.Type, key: A.Key, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: Mini.KeyedCompletableAction, Self.Element == A.Payload
 
-    public func action<A>(_ action: A.Type, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Single<A> where A: MiniSwift.CompletableAction, Self.Element == A.Payload
+    public func action<A>(_ action: A.Type, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Single<A> where A: Mini.CompletableAction, Self.Element == A.Payload
 }
 
 extension PrimitiveSequenceType where Self.Element == Never, Self.Trait == RxSwift.CompletableTrait {
-    public func dispatch<A>(action: A.Type, on dispatcher: MiniSwift.Dispatcher, mode: MiniSwift.Dispatcher.DispatchMode.UI = .async) -> RxSwift.Disposable where A: MiniSwift.EmptyAction
+    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async) -> RxSwift.Disposable where A: Mini.EmptyAction
 
-    public func action<A>(_ action: A.Type) -> RxSwift.Single<A> where A: MiniSwift.EmptyAction
+    public func action<A>(_ action: A.Type) -> RxSwift.Single<A> where A: Mini.EmptyAction
 }

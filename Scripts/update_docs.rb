@@ -3,6 +3,9 @@
 require 'json'
 require 'yaml'
 
+`swift package generate-xcodeproj`
+`xcodebuild -scheme Mini-Package -configuration Debug -derivedDataPath '#{Dir.pwd}' clean build`
+
 # Derive the lib dirs from via xcode
 debug_dir = `xcodebuild -project ./Mini.xcodeproj -showBuildSettings -configuration Debug | grep -m 1 "CONFIGURATION_BUILD_DIR" | grep -oEi "\/.*"`.strip
 sdk_dir = `xcodebuild -project ./Mini.xcodeproj -showBuildSettings -configuration Debug | grep -m 1 "SDKROOT" | grep -oEi "\/.*"`.strip
@@ -30,3 +33,5 @@ File.write("docs/Mini.swift", interface["key.sourcetext"])
 
 # Format the updated file
 `swift run swiftformat docs/Mini.swift`
+
+`rm -rf Mini.xcodeproj`
