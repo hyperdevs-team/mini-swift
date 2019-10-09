@@ -2,7 +2,6 @@
 
 require 'json'
 require 'yaml'
-require 'pry'
 
 # Derive the lib dirs from via xcode
 debug_dir = `xcodebuild -project ./Mini.xcodeproj -showBuildSettings -configuration Debug | grep -m 1 "CONFIGURATION_BUILD_DIR" | grep -oEi "\/.*"`.strip

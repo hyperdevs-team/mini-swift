@@ -10,5 +10,5 @@ public protocol PayloadAction
 ### `init(promise:)`
 
 ```swift
-init(promise: Promise<Payload?>)
+init(promise: Promise<Payload>)
 ```

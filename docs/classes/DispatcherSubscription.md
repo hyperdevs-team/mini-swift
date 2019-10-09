@@ -23,11 +23,11 @@ public let tag: String
 ### `init(dispatcher:id:priority:tag:completion:)`
 
 ```swift
-public init (dispatcher: Dispatcher,
-             id: Int,
-             priority: Int,
-             tag: String,
-             completion: @escaping (Action) -> Void)
+public init(dispatcher: Dispatcher,
+            id: Int,
+            priority: Int,
+            tag: String,
+            completion: @escaping (Action) -> Void)
 ```
 
 ### `dispose()`

@@ -38,7 +38,7 @@
     "-Xcc",
     "-I",
     "-Xcc",
-    "[TMP_DIR]/MiniSwift.build/Debug/MiniSwiftTests.build/swift-overrides.hmap",
+    "[TMP_DIR]/Mini.build/Debug/MiniSwiftTests.build/swift-overrides.hmap",
     "-Xcc",
     "-I",
     "-Xcc",
@@ -46,11 +46,11 @@
     "-Xcc",
     "-I",
     "-Xcc",
-    "[TMP_DIR]/MiniSwift.build/Debug/MiniSwiftTests.build/DerivedSources/x86_64",
+    "[TMP_DIR]/Mini.build/Debug/MiniSwiftTests.build/DerivedSources/x86_64",
     "-Xcc",
     "-I",
     "-Xcc",
-    "[TMP_DIR]/MiniSwift.build/Debug/MiniSwiftTests.build/DerivedSources",
+    "[TMP_DIR]/Mini.build/Debug/MiniSwiftTests.build/DerivedSources",
     "-Xcc",
     "-F",
     "-Xcc",
@@ -69,7 +69,7 @@
     "[CWD]",
     ""
   ],
-  key.modulename: "MiniSwift",
+  key.modulename: "Mini",
   key.toolchains: [
     "com.apple.dt.toolchain.XcodeDefault"
   ],

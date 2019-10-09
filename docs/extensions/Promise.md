@@ -3,14 +3,6 @@
 # `Promise`
 
 ## Properties
-### `isOnProgress`
-
-```swift
-var isOnProgress: Bool
-```
-
-> - Returns: `true` if the promise has been triggered from some source to its resolution.
-
 ### `isIdle`
 
 ```swift
@@ -26,6 +18,14 @@ var isPending: Bool
 ```
 
 > - Returns: `true` if the promise has not yet resolved.
+
+### `isCompleted`
+
+```swift
+var isCompleted: Bool
+```
+
+> - Returns: `true` if the promise has completed.
 
 ### `isResolved`
 
@@ -77,7 +77,7 @@ public convenience init()
 ### `==(_:_:)`
 
 ```swift
-public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool
+public static func == (_: Promise<T>, _: Promise<T>) -> Bool
 ```
 
 #### Parameters
@@ -86,6 +86,18 @@ public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool
 | ---- | ----------- |
 | lhs | A value to compare. |
 | rhs | Another value to compare. |
+
+### `never()`
+
+```swift
+public class func never() -> Promise<T>
+```
+
+### `==(_:_:)`
+
+```swift
+public static func == (_: Promise<Never>, _: Promise<Never>) -> Bool
+```
 
 ### `==(_:_:)`
 

@@ -10,5 +10,5 @@ public protocol KeyedPayloadAction
 ### `init(promise:)`
 
 ```swift
-init(promise: [Key: Promise<Payload?>])
+init(promise: [Key: Promise<Payload>])
 ```

@@ -3,7 +3,7 @@
 # `Dispatcher`
 
 ```swift
-final public class Dispatcher
+public final class Dispatcher
 ```
 
 ## Properties

@@ -21,7 +21,13 @@ public func hasValue(for key: Dictionary.Key) -> Bool
 ### `resolve(with:)`
 
 ```swift
-public mutating func resolve(with other: [Key: Value]) -> Self
+public func resolve(with other: [Key: Value]) -> Self
+```
+
+### `mergingNew(with:)`
+
+```swift
+public func mergingNew(with other: [Key: Value]) -> Self
 ```
 
 ### `==(_:_:)`

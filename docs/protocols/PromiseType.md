@@ -43,12 +43,6 @@ var isFulfilled: Bool
 var isRejected: Bool
 ```
 
-### `isOnProgress`
-
-```swift
-var isOnProgress: Bool
-```
-
 ### `value`
 
 ```swift

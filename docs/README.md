@@ -27,7 +27,6 @@ This Reference Documentation has been generated with
 -   [Dispatcher](classes/Dispatcher.md)
 -   [DispatcherSubscription](classes/DispatcherSubscription.md)
 -   [ForwardingChain](classes/ForwardingChain.md)
--   [LoggingService](classes/LoggingService.md)
 -   [OrderedSet](classes/OrderedSet.md)
 -   [Promise](classes/Promise.md)
 -   [Reducer](classes/Reducer.md)
@@ -35,8 +34,6 @@ This Reference Documentation has been generated with
 -   [RootChain](classes/RootChain.md)
 -   [SharedDictionary](classes/SharedDictionary.md)
 -   [Store](classes/Store.md)
--   [TestMiddleware](classes/TestMiddleware.md)
--   [TestOnlyAction](classes/TestOnlyAction.md)
 
 ## Enums
 

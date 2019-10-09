@@ -6,5 +6,5 @@
 ### `init(promise:)`
 
 ```swift
-init(promise: Promise<Payload?>)
+init(promise _: Promise<Payload>)
 ```

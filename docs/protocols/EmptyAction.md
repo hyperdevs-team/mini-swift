@@ -10,5 +10,5 @@ public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never
 ### `init(promise:)`
 
 ```swift
-init(promise: Promise<Void>)
+init(promise: Promise<Never>)
 ```
