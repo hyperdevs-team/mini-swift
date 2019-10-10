@@ -6,7 +6,7 @@
         //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__ChainTests = [
-            ("test_forwarding_chain_forwards_action", test_forwarding_chain_forwards_action)
+            ("test_forwarding_chain_forwards_action", test_forwarding_chain_forwards_action),
         ]
     }
 
@@ -16,7 +16,7 @@
         // to regenerate.
         static let __allTests__DictionaryExtensionsTests = [
             ("test_get_or_put", test_get_or_put),
-            ("test_unrapping_subscript", test_unrapping_subscript)
+            ("test_unrapping_subscript", test_unrapping_subscript),
         ]
     }
 
@@ -25,7 +25,7 @@
         //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__DispatchQueueTests = [
-            ("test_main_queue", test_main_queue)
+            ("test_main_queue", test_main_queue),
         ]
     }
 
@@ -36,7 +36,7 @@
         static let __allTests__DispatcherTests = [
             ("test_add_remove_middleware", test_add_remove_middleware),
             ("test_add_remove_service", test_add_remove_service),
-            ("test_subscription_count", test_subscription_count)
+            ("test_subscription_count", test_subscription_count),
         ]
     }
 
@@ -47,7 +47,7 @@
         static let __allTests__ObservableTypeTests = [
             ("test_dispatch_action_from_store", test_dispatch_action_from_store),
             ("test_dispatch_hashable_action_from_store", test_dispatch_hashable_action_from_store),
-            ("test_filter_one", test_filter_one)
+            ("test_filter_one", test_filter_one),
         ]
     }
 
@@ -59,8 +59,10 @@
             ("test_completable_action_action", test_completable_action_action),
             ("test_completable_action_dispatch", test_completable_action_dispatch),
             ("test_completable_action_dispatch_error", test_completable_action_dispatch_error),
+            ("test_empty_action_dispatch", test_empty_action_dispatch),
+            ("test_empty_action_dispatch_error", test_empty_action_dispatch_error),
             ("test_keyed_completable_action_dispatch", test_keyed_completable_action_dispatch),
-            ("test_keyed_completable_action_dispatch_error", test_keyed_completable_action_dispatch_error)
+            ("test_keyed_completable_action_dispatch_error", test_keyed_completable_action_dispatch_error),
         ]
     }
 
@@ -69,6 +71,7 @@
         //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__PromiseTests = [
+            ("test_equality_completed", test_equality_completed),
             ("test_equality_error", test_equality_error),
             ("test_equality_pending", test_equality_pending),
             ("test_equality_with_value", test_equality_with_value),
@@ -79,7 +82,7 @@
             ("test_is_rejected", test_is_rejected),
             ("test_is_resolved", test_is_resolved),
             ("test_promise_properties", test_promise_properties),
-            ("test_reject", test_reject)
+            ("test_reject", test_reject),
         ]
     }
 
@@ -93,7 +96,7 @@
             ("test_reset_state", test_reset_state),
             ("test_state_received_in_store", test_state_received_in_store),
             ("test_subscribe_to_store_receive_actions", test_subscribe_to_store_receive_actions),
-            ("test_subscribe_to_store_receive_multiple_actions", test_subscribe_to_store_receive_multiple_actions)
+            ("test_subscribe_to_store_receive_multiple_actions", test_subscribe_to_store_receive_multiple_actions),
         ]
     }
 
@@ -106,7 +109,7 @@
             testCase(ObservableTypeTests.__allTests__ObservableTypeTests),
             testCase(PrimitiveSequenceTypeTests.__allTests__PrimitiveSequenceTypeTests),
             testCase(PromiseTests.__allTests__PromiseTests),
-            testCase(ReducerTests.__allTests__ReducerTests)
+            testCase(ReducerTests.__allTests__ReducerTests),
         ]
     }
 #endif

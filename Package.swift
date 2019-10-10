@@ -1,15 +1,15 @@
-// swift-tools-version:5.1
+// swift-tools-version:4.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "Mini",
-    platforms: [
-        .iOS(.v11),
-        .macOS(.v10_13),
-        .tvOS(.v11)
-    ],
+    //    platforms: [
+//        .iOS(.v11),
+//        .macOS(.v10_13),
+//        .tvOS(.v11)
+//    ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -23,7 +23,7 @@ let package = Package(
         .library(
             name: "Mini/Test",
             targets: ["Mini", "TestMiddleware"]
-        )
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -35,7 +35,9 @@ let package = Package(
         .package(url: "https://github.com/jpsim/SourceKitten", .exact("0.25.0")), // dev
         .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
         .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
-        .package(url: "https://github.com/eneko/SourceDocs", from: "0.5.1") // dev
+        .package(url: "https://github.com/eneko/SourceDocs", from: "0.5.1"), // dev
+        .package(url: "https://github.com/minuscorp/PackageConfig", .branch("master")),
+        .package(url: "https://github.com/shibapm/Komondor.git", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -52,7 +54,7 @@ let package = Package(
             name: "TestMiddleware",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests",dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]) // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )
@@ -65,6 +67,16 @@ let package = Package(
             "before": [
                 "rake docs",
                 "Scripts/update_changelog.sh",
+            ],
+        ],
+        "komondor": [
+            "pre-push": "swift test",
+            "pre-commit": [
+                "swift test",
+                "swift test --generate-linuxmain",
+                "swift run swiftformat .",
+                "swift run swiftlint autocorrect --path Sources/",
+                "git add .",
             ],
         ],
     ]).write()
