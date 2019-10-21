@@ -105,8 +105,8 @@ Carthage/Build/
 Scripts/data/request.yml
 Scripts/tmp/*
 !Scripts/tmp/.gitkeep
-.spm/*
+.swiftpm/*
 Logs/*
 ModuleCache.noindex/*
-
+Index/*
 
