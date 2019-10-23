@@ -2,9 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LastAccessedDate</key>
-	<date>2019-10-23T18:21:31Z</date>
-	<key>WorkspacePath</key>
-	<string>/Users/minuscorp/Documents/GitHub/mini-swift/Mini.xcodeproj</string>
+    <key>IDEWorkspaceSharedSettings_AutocreateContextsIfNeeded</key>
+    <false/>
 </dict>
 </plist>

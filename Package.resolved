@@ -57,11 +57,11 @@
       },
       {
         "package": "PackageConfig",
-        "repositoryURL": "https://github.com/minuscorp/PackageConfig",
+        "repositoryURL": "https://github.com/shibapm/PackageConfig.git",
         "state": {
-          "branch": "master",
-          "revision": "47efdb5d59dc94c4d8ebc11ebe8edcae1f4dca1c",
-          "version": null
+          "branch": null,
+          "revision": "fd0829aac9851434b3d2db0890e27bc489fc973a",
+          "version": "0.12.2"
         }
       },
       {
