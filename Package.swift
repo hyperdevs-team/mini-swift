@@ -68,11 +68,11 @@ let package = Package(
                 "bundle install",
                 "export POD_VERSION=`echo $VERSION | cut -d \"v\" -f 2`",
                 "bundle exec fastlane run version_bump_podspec version_number:$POD_VERSION",
-                "rake docs"
+                "rake docs",
             ],
             "after": [
                 "pod lib lint --allow-warnings",
-                "pod trunk push"
+                "pod trunk push --allow-warnings",
             ],
         ],
         "komondor": [
