@@ -1,5 +1,6 @@
 language: swift
 osx_image: xcode11
+if: tag is blank
 
 cache:
   bundler: true
