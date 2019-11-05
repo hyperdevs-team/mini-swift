@@ -66,8 +66,7 @@ let package = Package(
         "rocket": [
             "before": [
                 "bundle install",
-                "export POD_VERSION=`echo $VERSION | cut -d \"v\" -f 2`",
-                "bundle exec fastlane run version_bump_podspec version_number:$POD_VERSION",
+                "bundle exec fastlane run version_bump_podspec version_number:`echo $VERSION | cut -d \"v\" -f 2`",
                 "rake docs",
             ],
             "after": [
