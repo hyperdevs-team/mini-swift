@@ -150,8 +150,8 @@
         "repositoryURL": "https://github.com/nicklockwood/SwiftFormat",
         "state": {
           "branch": null,
-          "revision": "4cd3fab23a9ca3524bcd8ef044c1c22403a8a0d2",
-          "version": "0.40.12"
+          "revision": "768be83fb2c232f13ad75dc15056c5909e374ef6",
+          "version": "0.40.14"
         }
       },
       {

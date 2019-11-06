@@ -56,13 +56,13 @@ Pod::Spec.new do |s|
 
   s.subspec('Test') do |ss|
     ss.ios.dependency('Mini-Swift/Core')
-    ss.ios.source_files = 'Sources/LoggingService/*.swift'
+    ss.ios.source_files = 'Sources/TestMiddleware/*.swift'
 
     ss.osx.dependency('Mini-Swift/Core')
-    ss.osx.source_files = 'Sources/LoggingService/*.swift'
+    ss.osx.source_files = 'Sources/TestMiddleware/*.swift'
 
     ss.tvos.dependency('Mini-Swift/Core')
-    ss.tvos.source_files = 'Sources/LoggingService/*.swift'
+    ss.tvos.source_files = 'Sources/TestMiddleware/*.swift'
   end
 
   s.preserve_paths = ['Templates/*.stencil']
