@@ -57,9 +57,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
     }
 
     class TestEmptyAction: EmptyAction {
-        let promise: Promise<Never>
+        let promise: Promise<Void>
 
-        required init(promise: Promise<Never>) {
+        required init(promise: Promise<Void>) {
             self.promise = promise
         }
 

@@ -32,10 +32,10 @@ let package = Package(
         // Development
         .package(url: "https://github.com/Quick/Nimble.git", .exact("8.0.2")), // dev
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
-        .package(url: "https://github.com/jpsim/SourceKitten", .exact("0.25.0")), // dev
+        .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
         .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
         .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
-        .package(url: "https://github.com/eneko/SourceDocs", from: "0.5.1"), // dev
+        .package(url: "https://github.com/eneko/SourceDocs", from: "0.6.1"), // dev
         .package(url: "https://github.com/shibapm/PackageConfig.git", from: "0.12.2"), // dev
         .package(url: "https://github.com/shibapm/Komondor.git", from: "1.0.0"), // dev
     ],

@@ -71,6 +71,7 @@
         //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__PromiseTests = [
+            ("test_empty_resolution", test_empty_resolution),
             ("test_equality_completed", test_equality_completed),
             ("test_equality_error", test_equality_error),
             ("test_equality_pending", test_equality_pending),

@@ -24,8 +24,8 @@ public protocol PayloadAction {
 
 public protocol CompletableAction: Action & PayloadAction {}
 
-public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never {
-    init(promise: Promise<Never>)
+public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Void {
+    init(promise: Promise<Void>)
 }
 
 public extension EmptyAction {

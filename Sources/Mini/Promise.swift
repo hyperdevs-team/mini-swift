@@ -216,21 +216,15 @@ extension Promise where T == () {
     public convenience init() {
         self.init(box: SealedBox<Result<Void, Error>>(value: .success(())))
     }
+
+    public static func empty() -> Promise<T> {
+        self.init()
+    }
 }
 
 extension Promise: Equatable where T == () {
-    public static func == (_: Promise<T>, _: Promise<T>) -> Bool {
-        return true
-    }
-}
-
-extension Promise where T == Never {
-    public class func never() -> Promise<T> {
-        self.init(with: PreSealedBox())
-    }
-
-    public static func == (_: Promise<Never>, _: Promise<Never>) -> Bool {
-        return true
+    public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }
 
