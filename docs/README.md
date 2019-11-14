@@ -1,7 +1,3 @@
-# Reference Documentation
-This Reference Documentation has been generated with
-[SourceDocs](https://github.com/eneko/SourceDocs).
-
 ## Protocols
 
 -   [Action](protocols/Action.md)
@@ -51,3 +47,7 @@ This Reference Documentation has been generated with
 -   [Promise](extensions/Promise.md)
 -   [StateType](extensions/StateType.md)
 -   [StoreType](extensions/StoreType.md)
+
+# Reference Documentation
+This reference documentation was generated with
+[SourceDocs](https://github.com/eneko/SourceDocs).

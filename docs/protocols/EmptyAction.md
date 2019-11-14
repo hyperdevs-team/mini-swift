@@ -3,12 +3,12 @@
 # `EmptyAction`
 
 ```swift
-public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never
+public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Void
 ```
 
 ## Methods
 ### `init(promise:)`
 
 ```swift
-init(promise: Promise<Never>)
+init(promise: Promise<Void>)
 ```

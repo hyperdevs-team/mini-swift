@@ -136,8 +136,8 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     public static func <= (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 }
 
-public protocol EmptyAction: Mini.Action, Mini.PayloadAction where Self.Payload == Never {
-    init(promise: Mini.Promise<Never>)
+public protocol EmptyAction: Mini.Action, Mini.PayloadAction where Self.Payload == Void {
+    init(promise: Mini.Promise<Void>)
 }
 
 extension EmptyAction {
@@ -311,6 +311,8 @@ extension Promise {
 
 extension Promise where T == () {
     public convenience init()
+
+    public static func empty() -> Mini.Promise<T>
 }
 
 extension Promise: Equatable where T == () {
@@ -322,13 +324,7 @@ extension Promise: Equatable where T == () {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func == (_: Mini.Promise<T>, _: Mini.Promise<T>) -> Bool
-}
-
-extension Promise where T == Never {
-    public class func never() -> Mini.Promise<T>
-
-    public static func == (_: Mini.Promise<Never>, _: Mini.Promise<Never>) -> Bool
+    public static func == (lhs: Mini.Promise<T>, rhs: Mini.Promise<T>) -> Bool
 }
 
 extension Promise where T: Equatable {

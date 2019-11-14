@@ -74,10 +74,16 @@ var error: Swift.Error?
 public convenience init()
 ```
 
+### `empty()`
+
+```swift
+public static func empty() -> Promise<T>
+```
+
 ### `==(_:_:)`
 
 ```swift
-public static func == (_: Promise<T>, _: Promise<T>) -> Bool
+public static func == (lhs: Promise<T>, rhs: Promise<T>) -> Bool
 ```
 
 #### Parameters
@@ -86,18 +92,6 @@ public static func == (_: Promise<T>, _: Promise<T>) -> Bool
 | ---- | ----------- |
 | lhs | A value to compare. |
 | rhs | Another value to compare. |
-
-### `never()`
-
-```swift
-public class func never() -> Promise<T>
-```
-
-### `==(_:_:)`
-
-```swift
-public static func == (_: Promise<Never>, _: Promise<Never>) -> Bool
-```
 
 ### `==(_:_:)`
 
