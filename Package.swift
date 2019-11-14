@@ -30,15 +30,15 @@ let package = Package(
         .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", .exact("2.7.1")),
         // Development
-        .package(url: "https://github.com/Quick/Nimble.git", .exact("8.0.2")), // dev
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
-        .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
-        .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
-        .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
-        .package(url: "https://github.com/eneko/SourceDocs", from: "0.6.1"), // dev
-        .package(url: "https://github.com/shibapm/PackageConfig.git", from: "0.12.2"), // dev
-        .package(url: "https://github.com/shibapm/Komondor.git", from: "1.0.0"), // dev
-        .package(url: "https://github.com/Carthage/Commandant.git", .exact("0.16.0")), // dev
+//        .package(url: "https://github.com/Quick/Nimble.git", .exact("8.0.2")), // dev
+//        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
+//        .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
+//        .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
+//        .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
+//        .package(url: "https://github.com/eneko/SourceDocs", from: "0.6.1"), // dev
+//        .package(url: "https://github.com/shibapm/PackageConfig.git", from: "0.12.2"), // dev
+//        .package(url: "https://github.com/shibapm/Komondor.git", from: "1.0.0"), // dev
+//        .package(url: "https://github.com/Carthage/Commandant.git", .exact("0.16.0")), // dev
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -55,7 +55,7 @@ let package = Package(
             name: "TestMiddleware",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
+//        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )
