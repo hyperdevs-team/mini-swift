@@ -231,7 +231,7 @@ public protocol PayloadAction {
     init(promise: Mini.Promise<Self.Payload>)
 }
 
-@dynamicMemberLookup public final class Promise<T>: Mini.PromiseType {
+@dynamicCallable @dynamicMemberLookup public final class Promise<T>: Mini.PromiseType {
     public typealias Element = T
 
     public class func value(_ value: T) -> Mini.Promise<T>
@@ -264,7 +264,9 @@ public protocol PayloadAction {
     /// make optional chaining in the `Reducer` context.
     public func resolve(_ result: Result<T, Error>?) -> Self?
 
-    public subscript<T>(dynamicMember member: String) -> T?
+    public subscript<Value>(dynamicMember _: String) -> Value? { get }
+
+    public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>)
 }
 
 extension Promise {

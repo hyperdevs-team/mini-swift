@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Carthage/Commandant.git",
         "state": {
           "branch": null,
-          "revision": "2cd0210f897fe46c6ce42f52ccfa72b3bbb621a0",
-          "version": "0.16.0"
+          "revision": "ab68611013dec67413628ac87c1f29e8427bc8e4",
+          "version": "0.17.0"
         }
       },
       {
@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "ModuleInterface",
+        "repositoryURL": "https://github.com/minuscorp/ModuleInterface",
+        "state": {
+          "branch": null,
+          "revision": "b4634080108e2d99404db98a75a6e2cfc5ade253",
+          "version": "0.0.3"
+        }
+      },
+      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
@@ -80,15 +89,6 @@
           "branch": null,
           "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
           "version": "3.1.5"
-        }
-      },
-      {
-        "package": "Result",
-        "repositoryURL": "https://github.com/antitypical/Result.git",
-        "state": {
-          "branch": null,
-          "revision": "2ca499ba456795616fbc471561ff1d963e6ae160",
-          "version": "4.1.0"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten",
         "state": {
           "branch": null,
-          "revision": "cc1f16acc70630d27498e81078789f5fa55d7463",
-          "version": "0.26.0"
+          "revision": "356551fc513eb12ed779bb369f79cf86a3a01599",
+          "version": "0.27.0"
         }
       },
       {
@@ -168,8 +168,8 @@
         "repositoryURL": "https://github.com/nicklockwood/SwiftFormat",
         "state": {
           "branch": null,
-          "revision": "768be83fb2c232f13ad75dc15056c5909e374ef6",
-          "version": "0.40.14"
+          "revision": "c008fa16e0e4d2a2aff3f5a99c5d0dd5709da5ee",
+          "version": "0.42.0"
         }
       },
       {
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/Realm/SwiftLint",
         "state": {
           "branch": null,
-          "revision": "652e5dd59c44f00ef89549a1d923f2a72378b85f",
-          "version": "0.36.0"
+          "revision": "8dc3e811934704a3d0e46a8ffd1de785fddcf7ec",
+          "version": "0.38.0"
         }
       },
       {
