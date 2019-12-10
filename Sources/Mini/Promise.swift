@@ -34,6 +34,7 @@ public protocol PromiseType {
     func reject(_ error: Swift.Error) -> Self
 }
 
+@dynamicCallable
 @dynamicMemberLookup
 public final class Promise<T>: PromiseType {
     public typealias Element = T
@@ -122,15 +123,17 @@ public final class Promise<T>: PromiseType {
         return nil
     }
 
-    public subscript<T>(dynamicMember member: String) -> T? {
-        get {
-            return properties[member] as? T
-        }
-        set(newValue) {
-            properties[member] = newValue
-        }
+    public subscript<Value>(dynamicMember member: String) -> Value? {
+        return properties[member] as? Value
+    }
+
+    public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>) -> Void {
+        guard let key = args.first?.key, let value = args.first?.value else { return }
+        properties[key] = value
     }
 }
+
+extension Dictionary where Key: StringProtocol {}
 
 public extension Promise {
     /**

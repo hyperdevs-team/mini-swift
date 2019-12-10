@@ -66,6 +66,7 @@ let package = Package(
     let config = PackageConfiguration([
         "rocket": [
             "before": [
+                "brew bundle",
                 "bundle install",
                 "bundle exec fastlane run version_bump_podspec version_number:`echo $VERSION | cut -d \"v\" -f 2`",
                 "rake docs",

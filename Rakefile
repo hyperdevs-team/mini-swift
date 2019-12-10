@@ -30,5 +30,5 @@ end
 
 task(:docs) do
   sh('swift run sourcedocs generate --min-acl public --spm-module Mini --output-folder docs')
-  # sh('./Scripts/update_docs.rb')
+  sh('moduleinterface generate --spm-module Mini --output-folder docs')
 end

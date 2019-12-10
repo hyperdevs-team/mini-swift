@@ -138,9 +138,17 @@ class PromiseTests: XCTestCase {
 
     func test_promise_properties() {
         let promise: Promise<Int> = .pending()
-        promise.property = 1
-
-        XCTAssertTrue(promise.property == 1)
+        promise(property: 1)
+        let data: Int? = promise.property
+        XCTAssertTrue(promise.property == data)
         XCTAssertNil(promise.not_a_property as Int?)
+    }
+
+    func test_dynamic_extension() {
+        let promise: Promise<Int> = .pending()
+        let date = Date()
+        promise(date: date)
+        let newDate: Date? = promise.date
+        XCTAssertTrue(newDate == date)
     }
 }
