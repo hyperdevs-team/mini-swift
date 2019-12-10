@@ -80,3 +80,9 @@ public func resolve(_ result: Result<T, Error>?) -> Self?
 > - Returns: `self` or `nil` if no `result` was not provided.
 > - Note: The optional parameter and restun value are helpers in order to
 > make optional chaining in the `Reducer` context.
+
+### `dynamicallyCall(withKeywordArguments:)`
+
+```swift
+public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>) -> Void
+```
