@@ -121,6 +121,12 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
     }
 
     public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Store.Element {
-        return objectWillChange.subscribe(observer)
+        objectWillChange.subscribe(observer)
+    }
+}
+
+public extension Store {
+    func replaying() -> Observable<Store.State> {
+        startWith(state)
     }
 }
