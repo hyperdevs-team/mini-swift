@@ -22,7 +22,7 @@ public enum Promises {}
 public extension Promises {
     enum Lifetime {
         case once
-        case forever(ignoringOld: Bool)
+        case forever(ignoringOld: Bool = false)
     }
 }
 
