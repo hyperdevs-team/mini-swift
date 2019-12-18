@@ -122,7 +122,7 @@ extension ObservableType where Self.Element: StateType {
 
 extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
     public static func dispatch<A: Action, Type, T: Promise<Type>>(
-        using dispatcher: Dispatcher,
+        using dispatcher: Dispatcher? = nil,
         factory action: @autoclosure @escaping () -> A,
         taskMap: @escaping (Self.Element.State) -> T?,
         on store: Self.Element,
@@ -131,6 +131,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         -> Observable<Self.Element.State> {
         let observable: Observable<Self.Element.State> = Observable.create { observer in
             let action = action()
+            let dispatcher = dispatcher ?? store.dispatcher
             dispatcher.dispatch(action, mode: .sync)
             let subscription = store.subscribe(
                 taskMap: taskMap,
@@ -150,7 +151,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
     }
 
     public static func dispatch<A: Action, K: Hashable, Type, T: Promise<Type>>(
-        using dispatcher: Dispatcher,
+        using dispatcher: Dispatcher? = nil,
         factory action: @autoclosure @escaping () -> A,
         key: K,
         taskMap: @escaping (Self.Element.State) -> [K: T],
@@ -159,6 +160,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
     )
         -> Observable<Self.Element.State> {
         let observable: Observable<Self.Element.State> = Observable.create { observer in
+            let dispatcher = dispatcher ?? store.dispatcher
             let action = action()
             dispatcher.dispatch(action, mode: .sync)
             let subscription = store.subscribe(
