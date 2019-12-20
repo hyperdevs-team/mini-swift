@@ -20,7 +20,7 @@ import Foundation
  Protocol that has to be conformed by any object that can be dispatcher
  by a `Dispatcher` object.
  */
-public protocol Action { }
+public protocol Action {}
 
 extension Action {
     /// String used as tag of the given Action based on his name.

@@ -127,7 +127,7 @@ public final class Promise<T>: PromiseType {
         return properties[member] as? Value
     }
 
-    public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>) -> Void {
+    public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>) {
         guard let key = args.first?.key, let value = args.first?.value else { return }
         properties[key] = value
     }

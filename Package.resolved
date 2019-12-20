@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Carthage/Commandant.git",
         "state": {
           "branch": null,
-          "revision": "2cd0210f897fe46c6ce42f52ccfa72b3bbb621a0",
-          "version": "0.16.0"
+          "revision": "ab68611013dec67413628ac87c1f29e8427bc8e4",
+          "version": "0.17.0"
         }
       },
       {
@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "ModuleInterface",
+        "repositoryURL": "https://github.com/minuscorp/ModuleInterface",
+        "state": {
+          "branch": null,
+          "revision": "abae15b50bad512a77c1dfea3f205731d3542a19",
+          "version": "0.0.4"
+        }
+      },
+      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
@@ -83,15 +92,6 @@
         }
       },
       {
-        "package": "Result",
-        "repositoryURL": "https://github.com/antitypical/Result.git",
-        "state": {
-          "branch": null,
-          "revision": "2ca499ba456795616fbc471561ff1d963e6ae160",
-          "version": "4.1.0"
-        }
-      },
-      {
         "package": "Rocket",
         "repositoryURL": "https://github.com/shibapm/Rocket",
         "state": {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
         "state": {
           "branch": null,
-          "revision": "d3d54ce662dfee7fef619330b71d251b8d4869f9",
-          "version": "2.2.0"
+          "revision": "4ebf25863deb9c3c02696704fc3d39736183f258",
+          "version": "2.2.1"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten",
         "state": {
           "branch": null,
-          "revision": "cc1f16acc70630d27498e81078789f5fa55d7463",
-          "version": "0.26.0"
+          "revision": "356551fc513eb12ed779bb369f79cf86a3a01599",
+          "version": "0.27.0"
         }
       },
       {
@@ -168,8 +168,8 @@
         "repositoryURL": "https://github.com/nicklockwood/SwiftFormat",
         "state": {
           "branch": null,
-          "revision": "768be83fb2c232f13ad75dc15056c5909e374ef6",
-          "version": "0.40.14"
+          "revision": "b564570c139d1c36292e8a5bb08d4ba6818b0a91",
+          "version": "0.43.0"
         }
       },
       {
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/Realm/SwiftLint",
         "state": {
           "branch": null,
-          "revision": "652e5dd59c44f00ef89549a1d923f2a72378b85f",
-          "version": "0.36.0"
+          "revision": "8dc3e811934704a3d0e46a8ffd1de785fddcf7ec",
+          "version": "0.38.0"
         }
       },
       {

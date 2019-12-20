@@ -16,41 +16,41 @@
 
 import Foundation
 #if canImport(Mini)
-import Mini
+    import Mini
 
-/// Action for testing purposes.
-public class TestOnlyAction: Action { }
+    /// Action for testing purposes.
+    public class TestOnlyAction: Action {}
 
-/// Interceptor class for testing purposes which mute all the received actions.
-public class TestMiddleware: Middleware {
-    public var id: UUID = UUID()
+    /// Interceptor class for testing purposes which mute all the received actions.
+    public class TestMiddleware: Middleware {
+        public var id: UUID = UUID()
 
-    private var interceptedActions: [Action] = []
+        private var interceptedActions: [Action] = []
 
-    public var perform: MiddlewareChain {
-        return { action, _ -> Action in
-            self.interceptedActions.append(action)
-            return TestOnlyAction()
+        public var perform: MiddlewareChain {
+            return { action, _ -> Action in
+                self.interceptedActions.append(action)
+                return TestOnlyAction()
+            }
         }
-    }
 
-    public init() {}
+        public init() {}
 
     /// Check for actions of certain type being intercepted.
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
-    /// - Returns: Array of actions of `kind` being intercepted.
-    public func actions<T: Action>(of _: T.Type) -> [T] {
-        return interceptedActions.compactMap { $0 as? T }
-    }
-    
-    public func action<T: Action>(of _: T.Type, where params: (T) -> Bool) -> Bool {
-        interceptedActions.compactMap { $0 as? T }.compactMap(params).first ?? false
-    }
+        /// - Returns: Array of actions of `kind` being intercepted.
+        public func actions<T: Action>(of _: T.Type) -> [T] {
+            return interceptedActions.compactMap { $0 as? T }
+        }
 
-    /// Clear all the intercepted actions
-    public func clear() {
-        interceptedActions.removeAll()
+        public func action<T: Action>(of _: T.Type, where params: (T) -> Bool) -> Bool {
+            interceptedActions.compactMap { $0 as? T }.compactMap(params).first ?? false
+        }
+
+        /// Clear all the intercepted actions
+        public func clear() {
+            interceptedActions.removeAll()
+        }
     }
-}
 #endif

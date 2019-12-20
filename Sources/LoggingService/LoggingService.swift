@@ -16,17 +16,17 @@
 
 import Foundation
 #if canImport(Mini)
-import Mini
+    import Mini
 
-public class LoggingService: Service {
-    public var id: UUID = UUID()
+    public class LoggingService: Service {
+        public var id: UUID = UUID()
 
-    public var perform: ServiceChain {
-        return { action, _ -> Void in
-            NSLog(String(dumping: action))
+        public var perform: ServiceChain {
+            return { action, _ -> Void in
+                NSLog(String(dumping: action))
+            }
         }
-    }
 
-    public init() {}
-}
+        public init() {}
+    }
 #endif

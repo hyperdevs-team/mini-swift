@@ -33,7 +33,7 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         required init(promise: Promise<Payload>) {
             counter = promise
         }
-        
+
         static func == (lhs: TestCompletableAction, rhs: TestCompletableAction) -> Bool {
             lhs.counter == rhs.counter
         }
@@ -48,7 +48,7 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         required init(promise: [Key: Promise<Payload>]) {
             counterMap = promise
         }
-        
+
         static func == (lhs: TestKeyedCompletableAction, rhs: TestKeyedCompletableAction) -> Bool {
             lhs.counterMap == rhs.counterMap
         }
@@ -60,8 +60,8 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         required init(promise: Promise<Void>) {
             self.promise = promise
         }
-        
-        static func == (lhs: TestEmptyAction, rhs: TestEmptyAction) -> Bool {
+
+        static func == (_: TestEmptyAction, _: TestEmptyAction) -> Bool {
             true
         }
     }
@@ -101,8 +101,8 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         ).toEventually(be(1))
 
         expect(self.testMiddleware.action(of: TestCompletableAction.self) {
-                $0.counter == .error(Error.dummy)
-            }
+            $0.counter == .error(Error.dummy)
+        }
         ).toEventually(beTrue())
     }
 
@@ -129,8 +129,8 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         expect(
             self.testMiddleware
                 .action(of: TestKeyedCompletableAction.self) {
-                $0.counterMap == ["hello": .error(Error.dummy)]
-            }
+                    $0.counterMap == ["hello": .error(Error.dummy)]
+                }
         ).toEventually(beTrue())
     }
 
