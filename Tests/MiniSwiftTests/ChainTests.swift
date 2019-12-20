@@ -3,16 +3,11 @@ import XCTest
 
 final class ChainTests: XCTestCase {
     func test_forwarding_chain_forwards_action() {
-        class TestAction: Action, Equatable {
+        class TestAction: Action {
             var mutableProperty: Int
 
             init(property: Int) {
                 mutableProperty = property
-            }
-
-            func isEqual(to other: Action) -> Bool {
-                guard let action = other as? TestAction else { return false }
-                return mutableProperty == action.mutableProperty
             }
         }
 

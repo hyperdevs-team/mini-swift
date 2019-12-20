@@ -15,14 +15,11 @@
  */
 
 import Foundation
+#if canImport(Mini)
 import Mini
 
 /// Action for testing purposes.
-public class TestOnlyAction: Action {
-    public func isEqual(to _: Action) -> Bool {
-        return true
-    }
-}
+public class TestOnlyAction: Action { }
 
 /// Interceptor class for testing purposes which mute all the received actions.
 public class TestMiddleware: Middleware {
@@ -39,16 +36,6 @@ public class TestMiddleware: Middleware {
 
     public init() {}
 
-    /// Check if a given action have been intercepted before by the Middleware.
-    ///
-    /// - Parameter action: action to be checked
-    /// - Returns: returns true if an action with the same params have been intercepted before.
-    public func contains(action: Action) -> Bool {
-        return interceptedActions.contains(where: {
-            action.isEqual(to: $0)
-        })
-    }
-
     /// Check for actions of certain type being intercepted.
     ///
     /// - Parameter kind: Action type to be checked against the intercepted actions.
@@ -56,9 +43,14 @@ public class TestMiddleware: Middleware {
     public func actions<T: Action>(of _: T.Type) -> [T] {
         return interceptedActions.compactMap { $0 as? T }
     }
+    
+    public func action<T: Action>(of _: T.Type, where params: (T) -> Bool) -> Bool {
+        interceptedActions.compactMap { $0 as? T }.compactMap(params).first ?? false
+    }
 
     /// Clear all the intercepted actions
     public func clear() {
         interceptedActions.removeAll()
     }
 }
+#endif

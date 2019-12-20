@@ -15,6 +15,7 @@
  */
 
 import Foundation
+#if canImport(Mini)
 import Mini
 
 public class LoggingService: Service {
@@ -28,3 +29,4 @@ public class LoggingService: Service {
 
     public init() {}
 }
+#endif

@@ -7,7 +7,7 @@ import RxTest
 @testable import TestMiddleware
 import XCTest
 
-private func equalAction<A: Action>(_ by: A) -> Predicate<A> {
+private func equalAction<A: Action & Equatable>(_ by: A) -> Predicate<A> {
     return Predicate { expression in
         guard let action = try expression.evaluate() else {
             return PredicateResult(status: .fail,
@@ -25,7 +25,7 @@ private func equalAction<A: Action>(_ by: A) -> Predicate<A> {
 final class PrimitiveSequenceTypeTests: XCTestCase {
     fileprivate enum Error: Swift.Error { case dummy }
 
-    class TestCompletableAction: CompletableAction {
+    class TestCompletableAction: CompletableAction, Equatable {
         typealias Payload = Int
 
         let counter: Promise<Payload>
@@ -33,14 +33,13 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         required init(promise: Promise<Payload>) {
             counter = promise
         }
-
-        func isEqual(to other: Action) -> Bool {
-            guard let action = other as? TestCompletableAction else { return false }
-            return counter == action.counter
+        
+        static func == (lhs: TestCompletableAction, rhs: TestCompletableAction) -> Bool {
+            lhs.counter == rhs.counter
         }
     }
 
-    class TestKeyedCompletableAction: KeyedCompletableAction {
+    class TestKeyedCompletableAction: KeyedCompletableAction, Equatable {
         typealias Payload = Int
         typealias Key = String
 
@@ -49,23 +48,21 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         required init(promise: [Key: Promise<Payload>]) {
             counterMap = promise
         }
-
-        func isEqual(to other: Action) -> Bool {
-            guard let action = other as? TestKeyedCompletableAction else { return false }
-            return counterMap == action.counterMap
+        
+        static func == (lhs: TestKeyedCompletableAction, rhs: TestKeyedCompletableAction) -> Bool {
+            lhs.counterMap == rhs.counterMap
         }
     }
 
-    class TestEmptyAction: EmptyAction {
+    class TestEmptyAction: EmptyAction, Equatable {
         let promise: Promise<Void>
 
         required init(promise: Promise<Void>) {
             self.promise = promise
         }
-
-        func isEqual(to other: Action) -> Bool {
-            guard let action = other as? TestEmptyAction else { return false }
-            return promise == action.promise
+        
+        static func == (lhs: TestEmptyAction, rhs: TestEmptyAction) -> Bool {
+            true
         }
     }
 
@@ -103,7 +100,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             self.testMiddleware.actions(of: TestCompletableAction.self).count
         ).toEventually(be(1))
 
-        expect(self.testMiddleware.contains(action: TestCompletableAction(promise: .error(Error.dummy)))
+        expect(self.testMiddleware.action(of: TestCompletableAction.self) {
+                $0.counter == .error(Error.dummy)
+            }
         ).toEventually(beTrue())
     }
 
@@ -115,7 +114,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
 
         expect(
             self.testMiddleware
-                .contains(action: TestKeyedCompletableAction(promise: ["hello": .value(1)]))
+                .action(of: TestKeyedCompletableAction.self) {
+                    $0.counterMap == ["hello": .value(1)]
+                }
         ).toEventually(beTrue())
     }
 
@@ -127,7 +128,9 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
 
         expect(
             self.testMiddleware
-                .contains(action: TestKeyedCompletableAction(promise: ["hello": .error(Error.dummy)]))
+                .action(of: TestKeyedCompletableAction.self) {
+                $0.counterMap == ["hello": .error(Error.dummy)]
+            }
         ).toEventually(beTrue())
     }
 
