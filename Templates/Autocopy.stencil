@@ -39,7 +39,9 @@ prefix func * <T>(lhs: T) -> OptionalCopyValue<T> {
 
 {% for type in types.all where type.implements.AutoCopy %}
     {% if type|annotated:"import" %}
-    import {{type.annotations.import }}
+    {% for import in type.annotations.import|toArray %}
+    import {{ import }}
+    {% endfor %}
     {% endif %}
     // swiftlint:disable all
     extension {{ type.name }} {
