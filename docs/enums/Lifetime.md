@@ -16,5 +16,5 @@ case once
 ### `forever(ignoringOld:)`
 
 ```swift
-case forever(ignoringOld: Bool)
+case forever(ignoringOld: Bool = false)
 ```

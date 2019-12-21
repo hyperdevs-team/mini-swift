@@ -46,6 +46,7 @@
 -   [PrimitiveSequenceType](extensions/PrimitiveSequenceType.md)
 -   [Promise](extensions/Promise.md)
 -   [StateType](extensions/StateType.md)
+-   [Store](extensions/Store.md)
 -   [StoreType](extensions/StoreType.md)
 
 # Reference Documentation

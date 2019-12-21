@@ -84,5 +84,5 @@ public func resolve(_ result: Result<T, Error>?) -> Self?
 ### `dynamicallyCall(withKeywordArguments:)`
 
 ```swift
-public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>) -> Void
+public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>)
 ```
