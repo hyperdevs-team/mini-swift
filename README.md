@@ -243,12 +243,6 @@ class SetCounterAction: Action {
     init(counter: Int) {
         self.counter = counter
     }
-
-    public func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterAction else { return false }
-        guard counter == action.counter else { return false }
-        return true
-    }
 }
 
 // This is the response
@@ -258,12 +252,6 @@ class SetCounterActionLoaded: Action {
     
     init(counter: Int) {
         self.counter = counter
-    }
-    
-    public func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterActionLoaded else { return false }
-        guard counter == action.counter else { return false }
-        return true
     }
 }
 
