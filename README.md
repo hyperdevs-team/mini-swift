@@ -176,11 +176,11 @@ class RequestContactsAccess: Action {
 extension Store where State == TestState, StoreController == TestStoreController {
 
     var reducerGroup: ReducerGroup {
-        return ReducerGroup { [
+        return ReducerGroup(
             Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
                 self.state = self.state.copy(testPromise: *.value(action.counter))
             }
-        ] }
+        )
     }
 }
 ```
