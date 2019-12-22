@@ -81,9 +81,10 @@ let package = Package(
             "pre-push": "swift test",
             "pre-commit": [
                 "swift test",
+                "swift run swiftlint autocorrect --path Sources/",
+                "swift run swiftlint autocorrect --path Tests/",
                 "swift test --generate-linuxmain",
                 "swift run swiftformat .",
-                "swift run swiftlint autocorrect --path Sources/",
                 "git add .",
             ],
         ],
