@@ -7,13 +7,13 @@ import RxTest
 @testable import TestMiddleware
 import XCTest
 
-func equalAction<A: Action & Equatable>(_ by: A) -> Predicate<A> {
+func equalAction<A: Action & Equatable>(_ matcher: A) -> Predicate<A> {
     return Predicate { expression in
         guard let action = try expression.evaluate() else {
             return PredicateResult(status: .fail,
                                    message: .fail("failed evaluating expression"))
         }
-        guard action == by else {
+        guard action == matcher else {
             return PredicateResult(status: .fail,
                                    message: .fail("Actions doesn't match"))
         }

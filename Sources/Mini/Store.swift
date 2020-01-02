@@ -137,10 +137,24 @@ extension Store {
         dispatcher.dispatch(action, mode: .sync)
         return objectWillChange.asObservable()
     }
+
+    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T> {
+        map(stateComponent()).filter(componentProperty())
+    }
 }
 
 extension ObservableType where Element: StateType {
+    /**
+     Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
+     */
     public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T> {
-        return map(stateComponent()).filter(one: componentProperty())
+        return map(stateComponent()).filter(componentProperty())
+    }
+
+    /**
+     Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
+     */
+    public func withStateChanges<T: PromiseType>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
+        return map(stateComponent()).filter(\.isFulfilled)
     }
 }

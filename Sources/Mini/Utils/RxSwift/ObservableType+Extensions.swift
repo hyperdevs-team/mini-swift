@@ -32,21 +32,21 @@ extension ObservableType {
     /// - Parameter fn: Filter closure.
     /// - Returns: The first element that matches the filter.
     public func filterOne(_ condition: @escaping (Element) -> Bool) -> Observable<Element> {
-        return filter {
+        filter {
             condition($0)
         }.take(1)
     }
 
-    public func filter(one condition: KeyPath<Element, Bool>) -> Observable<Element> {
-        filter(condition).take(1)
-    }
-
     public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
-        return filter { $0[keyPath: keyPath] }
+        filter { $0[keyPath: keyPath] }
     }
 
     public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T> {
-        return map { $0[keyPath: keyPath] }
+        map { $0[keyPath: keyPath] }
+    }
+
+    public func one() -> Observable<Element> {
+        take(1)
     }
 }
 

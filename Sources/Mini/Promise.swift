@@ -254,4 +254,18 @@ extension Promise where T: Equatable {
         }
         return true
     }
+
+    public static func != (lhs: Promise<T>, rhs: Promise<T>) -> Bool {
+        !(lhs == rhs)
+    }
+}
+
+public func == <T: Equatable>(lhs: [Promise<T>], rhs: [Promise<T>]) -> Bool {
+    guard lhs.count == rhs.count else { return false }
+    for (left, right) in zip(lhs, rhs) {
+        if left != right {
+            return false
+        }
+    }
+    return true
 }

@@ -13,13 +13,13 @@ import RxTest
 @testable import TestMiddleware
 import XCTest
 
-func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
+func matchPromiseHash<K: Hashable, Type: Equatable>(_ matcher: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
     return Predicate { expression in
         guard let dict = try expression.evaluate() else {
             return PredicateResult(status: .fail,
                                    message: .fail("failed evaluating expression"))
         }
-        guard dict == by else {
+        guard dict == matcher else {
             return PredicateResult(status: .fail,
                                    message: .fail("Dictionary doesn't match"))
         }
@@ -28,7 +28,22 @@ func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) ->
     }
 }
 
-func matchPromise<Type: Equatable>(_ by: Promise<Type>) -> Predicate<Promise<Type>> {
+func matchPromise<Type: Equatable>(_ matcher: Promise<Type>) -> Predicate<Promise<Type>> {
+    return Predicate { expression in
+        guard let dict = try expression.evaluate() else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("failed evaluating expression"))
+        }
+        guard dict == matcher else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("Dictionary doesn't match"))
+        }
+        return PredicateResult(status: .matches,
+                               message: .expectedTo("expectation fulfilled"))
+    }
+}
+
+func matchPromiseArray<Type: Equatable>(_ by: [Promise<Type>]) -> Predicate<[Promise<Type>]> {
     return Predicate { expression in
         guard let dict = try expression.evaluate() else {
             return PredicateResult(status: .fail,
@@ -152,10 +167,40 @@ final class ObservableTypeTests: XCTestCase {
             .disposed(by: disposeBag)
 
         guard let state = try store.dispatch(SetCounterAction(counter: 1))
-            .withStateChanges(in: \.counter, that: \.isFulfilled)
+            .withStateChanges(in: \.counter)
             .toBlocking()
             .first() else { fatalError() }
 
         expect(state).to(matchPromise(.value(1)))
+    }
+
+    func test_with_state_changes() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            store.objectWillChange.on(.next(TestState(counter: .value(1))))
+            store.objectWillChange.on(.next(TestState(counter: .value(2))))
+        }
+
+        let withStateChanges = scheduler.createObserver(Promise<Int>.self)
+
+        scheduler.createColdObservable(
+            [
+                .next(1, TestState(counter: .value(1))),
+                .next(2, TestState(counter: .value(2))),
+            ]
+        )
+        .withStateChanges(in: \.counter)
+        .subscribe(withStateChanges)
+        .disposed(by: disposeBag)
+
+        scheduler.start()
+
+        expect(withStateChanges.events.compactMap { $0.value.element }).to(matchPromiseArray([.value(1), .value(2)]))
     }
 }
