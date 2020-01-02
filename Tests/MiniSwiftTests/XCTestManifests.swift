@@ -55,7 +55,9 @@
         // to regenerate.
         static let __allTests__ObservableTypeTests = [
             ("test_dispatch_action_from_store", test_dispatch_action_from_store),
+            ("test_dispatch_from_store", test_dispatch_from_store),
             ("test_dispatch_hashable_action_from_store", test_dispatch_hashable_action_from_store),
+            ("test_dispatch_with_state_changes", test_dispatch_with_state_changes),
             ("test_filter_one", test_filter_one),
         ]
     }

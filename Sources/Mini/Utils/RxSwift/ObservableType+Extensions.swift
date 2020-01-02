@@ -36,6 +36,14 @@ extension ObservableType {
             condition($0)
         }.take(1)
     }
+
+    public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
+        return filter { $0[keyPath: keyPath] }
+    }
+
+    public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T> {
+        return map { $0[keyPath: keyPath] }
+    }
 }
 
 extension ObservableType where Self.Element: StateType {

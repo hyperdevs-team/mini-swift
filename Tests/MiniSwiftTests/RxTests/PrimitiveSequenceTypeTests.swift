@@ -7,7 +7,7 @@ import RxTest
 @testable import TestMiddleware
 import XCTest
 
-private func equalAction<A: Action & Equatable>(_ by: A) -> Predicate<A> {
+func equalAction<A: Action & Equatable>(_ by: A) -> Predicate<A> {
     return Predicate { expression in
         guard let action = try expression.evaluate() else {
             return PredicateResult(status: .fail,

@@ -130,3 +130,17 @@ public extension Store {
         startWith(state)
     }
 }
+
+extension Store {
+    public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> Observable<Store.State> {
+        let action = action()
+        dispatcher.dispatch(action, mode: .sync)
+        return objectWillChange.asObservable()
+    }
+}
+
+extension ObservableType where Element: StateType {
+    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
+        return map(stateComponent()).skip(1)
+    }
+}

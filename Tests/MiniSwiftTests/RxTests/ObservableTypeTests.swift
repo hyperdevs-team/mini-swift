@@ -10,9 +10,25 @@ import Nimble
 import RxBlocking
 import RxSwift
 import RxTest
+@testable import TestMiddleware
 import XCTest
 
-private func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
+func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
+    return Predicate { expression in
+        guard let dict = try expression.evaluate() else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("failed evaluating expression"))
+        }
+        guard dict == by else {
+            return PredicateResult(status: .fail,
+                                   message: .fail("Dictionary doesn't match"))
+        }
+        return PredicateResult(status: .matches,
+                               message: .expectedTo("expectation fulfilled"))
+    }
+}
+
+func matchPromise<Type: Equatable>(_ by: Promise<Type>) -> Predicate<Promise<Type>> {
     return Predicate { expression in
         guard let dict = try expression.evaluate() else {
             return PredicateResult(status: .fail,
@@ -104,5 +120,43 @@ final class ObservableTypeTests: XCTestCase {
         XCTAssertTrue(state.hashCounter[promise: "hello"].isResolved)
         XCTAssertTrue(state.hashCounter[promise: "hello"].error == nil)
         expect(state.hashCounter).to(matchPromiseHash(["hello": Promise<Int>.value(1)]))
+    }
+
+    func test_dispatch_from_store() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+        let middleware = TestMiddleware()
+        store.dispatcher.add(middleware: middleware)
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        _ = try store.dispatch(SetCounterAction(counter: 1))
+            .toBlocking()
+            .first()
+
+        expect(
+            middleware.action(of: SetCounterAction.self) {
+                $0.counter == 1
+            }
+        ).toEventually(beTrue())
+    }
+
+    func test_dispatch_with_state_changes() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        guard let state = try store.dispatch(SetCounterAction(counter: 1))
+            .withStateChanges(in: \.counter)
+            .take(1)
+            .toBlocking()
+            .first() else { fatalError() }
+
+        expect(state).to(matchPromise(.value(1)))
     }
 }
