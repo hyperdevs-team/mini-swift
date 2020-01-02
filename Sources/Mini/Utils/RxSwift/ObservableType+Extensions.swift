@@ -37,6 +37,10 @@ extension ObservableType {
         }.take(1)
     }
 
+    public func filter(one condition: KeyPath<Element, Bool>) -> Observable<Element> {
+        filter(condition).take(1)
+    }
+
     public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
         return filter { $0[keyPath: keyPath] }
     }

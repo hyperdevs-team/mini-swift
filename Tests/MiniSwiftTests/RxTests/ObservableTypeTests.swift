@@ -152,8 +152,7 @@ final class ObservableTypeTests: XCTestCase {
             .disposed(by: disposeBag)
 
         guard let state = try store.dispatch(SetCounterAction(counter: 1))
-            .withStateChanges(in: \.counter)
-            .take(1)
+            .withStateChanges(in: \.counter, that: \.isFulfilled)
             .toBlocking()
             .first() else { fatalError() }
 

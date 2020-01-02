@@ -140,7 +140,7 @@ extension Store {
 }
 
 extension ObservableType where Element: StateType {
-    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
-        return map(stateComponent()).skip(1)
+    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T> {
+        return map(stateComponent()).filter(one: componentProperty())
     }
 }
