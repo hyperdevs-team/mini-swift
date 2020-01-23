@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Pod::Spec.new do |s|
-  s.name             = 'Mini-Swift'
+  s.name             = 'MasMini-Swift'
   s.version          = '1.1.2'
   s.swift_version    = '5.0'
   s.summary          = 'The minimal expression of a Flux architecture in Swift.'
@@ -14,11 +14,11 @@ Pod::Spec.new do |s|
     focusing on what really matters: build awesome applications.
   DESC
 
-  s.homepage         = 'https://github.com/bq/Mini-Swift'
+  s.homepage         = 'https://github.com/masmovil/MasMini-Swift'
   s.license          = { type: 'APACHE', file: 'LICENSE' }
-  s.author           = { 'bq' => 'info@bq.com' }
-  s.source           = { git: 'https://github.com/bq/mini-swift.git', tag: "v#{s.version}" }
-  s.social_media_url = 'https://twitter.com/bqreaders'
+  s.authors          = { 'MásMóvil' => 'info@grupomasmovil.com' }
+  s.source           = { :git => 'https://github.com/masmovil/masmini-swift.git', :tag => "v#{s.version.to_s}" }
+  s.social_media_url = 'https://twitter.com/masmovil'
 
   s.ios.deployment_target = '11.0'
 
@@ -44,24 +44,24 @@ Pod::Spec.new do |s|
   end
 
   s.subspec('Log') do |ss|
-    ss.ios.dependency('Mini-Swift/Core')
+    ss.ios.dependency('MasMini-Swift/Core')
     ss.ios.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
 
-    ss.osx.dependency('Mini-Swift/Core')
+    ss.osx.dependency('MasMini-Swift/Core')
     ss.osx.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
 
-    ss.tvos.dependency('Mini-Swift/Core')
+    ss.tvos.dependency('MasMini-Swift/Core')
     ss.tvos.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
   end
 
   s.subspec('Test') do |ss|
-    ss.ios.dependency('Mini-Swift/Core')
+    ss.ios.dependency('MasMini-Swift/Core')
     ss.ios.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
 
-    ss.osx.dependency('Mini-Swift/Core')
+    ss.osx.dependency('MasMini-Swift/Core')
     ss.osx.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
 
-    ss.tvos.dependency('Mini-Swift/Core')
+    ss.tvos.dependency('MasMini-Swift/Core')
     ss.tvos.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
   end
 
