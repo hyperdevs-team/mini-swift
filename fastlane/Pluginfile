@@ -3,4 +3,3 @@
 # Ensure this file is checked in to source control!
 
 gem 'fastlane-plugin-trainer'
-gem "fastlane-plugin-test_scheme", git: "https://github.com/bq/fastlane-plugin-test_scheme"

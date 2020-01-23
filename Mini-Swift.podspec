@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Pod::Spec.new do |s|
-  s.name             = 'Mini-Swift'
+  s.name             = 'MasMini-Swift'
   s.version          = '1.1.2'
   s.swift_version    = '5.0'
   s.summary          = 'The minimal expression of a Flux architecture in Swift.'
@@ -14,11 +14,11 @@ Pod::Spec.new do |s|
     focusing on what really matters: build awesome applications.
   DESC
 
-  s.homepage         = 'https://github.com/bq/Mini-Swift'
+  s.homepage         = 'https://github.com/masmovil/MasMini-Swift'
   s.license          = { type: 'APACHE', file: 'LICENSE' }
-  s.author           = { 'bq' => 'info@bq.com' }
-  s.source           = { git: 'https://github.com/bq/mini-swift.git', tag: "v#{s.version}" }
-  s.social_media_url = 'https://twitter.com/bqreaders'
+  s.authors          = { 'MásMóvil' => 'info@grupomasmovil.com' }
+  s.source           = { :git => 'https://github.com/masmovil/masmini-swift.git', :tag => "v#{s.version.to_s}" }
+  s.social_media_url = 'https://twitter.com/masmovil'
 
   s.ios.deployment_target = '11.0'
 

@@ -1,17 +1,17 @@
-# Mini-Swift
+# MasMini-Swift
 The minimal expression of a Flux architecture in Swift.
 
 Mini is built with be a first class citizen in Swift applications: **macOS, iOS and tvOS** applications.
 With Mini, you can create a thread-safe application with a predictable unidirectional data flow, focusing on what really matters: build awesome applications.
 
-[![Release Version](https://img.shields.io/github/release/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases) 
-[![Release Date](https://img.shields.io/github/release-date/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases)
+[![Release Version](https://img.shields.io/github/release/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/releases) 
+[![Release Date](https://img.shields.io/github/release-date/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/releases)
 [![Pod](https://img.shields.io/cocoapods/v/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
 [![Platform](https://img.shields.io/cocoapods/p/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-[![GitHub](https://img.shields.io/github/license/bq/mini-swift.svg)](https://github.com/bq/mini-swift/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=5.0)](https://travis-ci.org/bq/mini-swift)
-[![codecov](https://codecov.io/gh/bq/mini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/bq/mini-swift)
+[![Build Status](https://travis-ci.com/masmovil/masmini-swift.svg?branch=5.0)](https://travis-ci.org/masmovil/masmini-swift)
+[![codecov](https://codecov.io/gh/masmovil/masmini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/masmovil/masmini-swift)
 
 ## Requirements
 
@@ -35,7 +35,7 @@ import PackageDescription
 let package = Package(
   name: "MiniSwiftProject",
   dependencies: [
-    .package(url: "https://github.com/bq/mini-swift.git"),
+    .package(url: "https://github.com/masmovil/masmini-swift.git"),
   ],
   targets: [
     .target(name: "MiniSwiftProject", dependencies: ["Mini"])
@@ -51,19 +51,19 @@ $ swift build
 - Add this to you `Podfile`:
 
 ```
-pod "Mini-Swift"
+pod "MasMini-Swift"
 ```
 
 - We also offer two subpecs for logging and testing:
 ```
-pod "Mini-Swift/Log"
-pod "Mini-Swift/Test"
+pod "MasMini-Swift/Log"
+pod "MasMini-Swift/Test"
 ```
 
 
 ## Usage
 
-- **MiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
+- **MasMiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
 
 ![Architecture](https://i.imgur.com/DioR3i0.png)
 
