@@ -29,11 +29,11 @@ extension ObservableType {
     }
 
     public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
-        filter { $0[keyPath: keyPath] }
+        filter(^keyPath)
     }
 
     public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T> {
-        map { $0[keyPath: keyPath] }
+        map(^keyPath)
     }
 
     public func one() -> Observable<Element> {
