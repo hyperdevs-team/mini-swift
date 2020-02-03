@@ -32,6 +32,7 @@ excluded:
   - docs
   - Scripts
   - Tests
+  - Package.swift
 closure_end_indentation:
   severity: error
 force_cast: 
