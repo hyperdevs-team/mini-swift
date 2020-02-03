@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation'
 
   s.dependency('RxSwift', '~> 5')
-  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.0.0')
+  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.11.0')
 
   s.default_subspec = 'Core'
 
@@ -63,6 +63,28 @@ Pod::Spec.new do |s|
 
     ss.tvos.dependency('Mini-Swift/Core')
     ss.tvos.source_files = 'Sources/TestMiddleware/*.swift'
+  end
+  
+  s.subspec('Task') do |ss|
+    ss.ios.dependency('Mini-Swift/Core')
+    ss.ios.source_files = 'Sources/Task/*.swift'
+
+    ss.osx.dependency('Mini-Swift/Core')
+    ss.osx.source_files = 'Sources/Task/*.swift'
+
+    ss.tvos.dependency('Mini-Swift/Core')
+    ss.tvos.source_files = 'Sources/Task/*.swift'
+  end
+  
+  s.subspec('Promise') do |ss|
+    ss.ios.dependency('Mini-Swift/Core')
+    ss.ios.source_files = 'Sources/Promise/*.swift'
+
+    ss.osx.dependency('Mini-Swift/Core')
+    ss.osx.source_files = 'Sources/Promise/*.swift'
+
+    ss.tvos.dependency('Mini-Swift/Core')
+    ss.tvos.source_files = 'Sources/Promise/*.swift'
   end
 
   s.preserve_paths = ['Templates/*.stencil']

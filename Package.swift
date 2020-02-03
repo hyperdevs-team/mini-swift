@@ -24,11 +24,19 @@ let package = Package(
             name: "Mini/Test",
             targets: ["Mini", "TestMiddleware"]
         ),
+        .library(
+            name: "MiniTask",
+            targets: ["Mini", "Task"]
+        ),
+        .library(
+            name: "MiniPromise",
+            targets: ["Mini", "Promise"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
-        .package(url: "https://github.com/apple/swift-nio.git", .exact("2.7.1")),
+        .package(url: "https://github.com/apple/swift-nio.git", .upToNextMajor(from: "2.7.1")),
         // Development
         .package(url: "https://github.com/Quick/Nimble.git", .exact("8.0.2")), // dev
         .package(url: "https://github.com/minuscorp/ModuleInterface", from: "0.0.1"), // dev
@@ -56,7 +64,15 @@ let package = Package(
             name: "TestMiddleware",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
+        .target(
+            name: "Task",
+            dependencies: ["Mini"]
+        ),
+        .target(
+            name: "Promise",
+            dependencies: ["Mini"]
+        ),
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "Task", "Promise", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )
@@ -81,6 +97,8 @@ let package = Package(
             "pre-push": "swift test",
             "pre-commit": [
                 "swift test",
+                "swift run swiftlint autocorrect --path Sources/",
+                "swift run swiftlint autocorrect --path Tests/",
                 "swift test --generate-linuxmain",
                 "swift run swiftformat .",
                 "swift run swiftlint autocorrect --path Sources/",
