@@ -2,14 +2,8 @@
 
 -   [Action](protocols/Action.md)
 -   [Chain](protocols/Chain.md)
--   [CompletableAction](protocols/CompletableAction.md)
--   [EmptyAction](protocols/EmptyAction.md)
 -   [Group](protocols/Group.md)
--   [KeyedCompletableAction](protocols/KeyedCompletableAction.md)
--   [KeyedPayloadAction](protocols/KeyedPayloadAction.md)
 -   [Middleware](protocols/Middleware.md)
--   [PayloadAction](protocols/PayloadAction.md)
--   [PromiseType](protocols/PromiseType.md)
 -   [Service](protocols/Service.md)
 -   [StateType](protocols/StateType.md)
 -   [StoreType](protocols/StoreType.md)
@@ -24,7 +18,6 @@
 -   [DispatcherSubscription](classes/DispatcherSubscription.md)
 -   [ForwardingChain](classes/ForwardingChain.md)
 -   [OrderedSet](classes/OrderedSet.md)
--   [Promise](classes/Promise.md)
 -   [Reducer](classes/Reducer.md)
 -   [ReducerGroup](classes/ReducerGroup.md)
 -   [RootChain](classes/RootChain.md)
@@ -33,21 +26,20 @@
 
 ## Enums
 
--   [Lifetime](enums/Lifetime.md)
--   [Promises](enums/Promises.md)
 -   [UI](enums/UI.md)
 
 ## Extensions
 
 -   [Action](extensions/Action.md)
 -   [Dictionary](extensions/Dictionary.md)
--   [EmptyAction](extensions/EmptyAction.md)
 -   [ObservableType](extensions/ObservableType.md)
--   [PrimitiveSequenceType](extensions/PrimitiveSequenceType.md)
--   [Promise](extensions/Promise.md)
 -   [StateType](extensions/StateType.md)
 -   [Store](extensions/Store.md)
 -   [StoreType](extensions/StoreType.md)
+
+## Methods
+
+-   [^(_:)](methods/^(_:).md)
 
 # Reference Documentation
 This reference documentation was generated with
