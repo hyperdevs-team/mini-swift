@@ -15,15 +15,10 @@
  */
 
 import Foundation
+import Mini
 
-extension DispatchQueue {
-    private static var token: DispatchSpecificKey<Void> = {
-        let key = DispatchSpecificKey<Void>()
-        DispatchQueue.main.setSpecific(key: key, value: ())
-        return key
-    }()
-
-    static var isMain: Bool {
-        return DispatchQueue.getSpecific(key: token) != nil
+public extension Promise {
+    func notify<T: StoreType>(to store: T) {
+        store.replayOnce()
     }
 }

@@ -17,12 +17,6 @@
 import Foundation
 import RxSwift
 
-public extension Promise {
-    func notify<T: StoreType>(to store: T) {
-        store.replayOnce()
-    }
-}
-
 public protocol StoreType {
     associatedtype State: StateType
     associatedtype StoreController: Disposable
@@ -128,5 +122,17 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
 public extension Store {
     func replaying() -> Observable<Store.State> {
         startWith(state)
+    }
+}
+
+extension Store {
+    public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> Observable<Store.State> {
+        let action = action()
+        dispatcher.dispatch(action, mode: .sync)
+        return objectWillChange.asObservable()
+    }
+
+    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
+        map { $0[keyPath: stateComponent()] }
     }
 }

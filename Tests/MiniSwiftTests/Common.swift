@@ -1,5 +1,6 @@
 import Foundation
 @testable import Mini
+@testable import Promise
 import RxSwift
 
 class SetCounterAction: Action {
