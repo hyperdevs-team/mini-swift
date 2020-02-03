@@ -10,7 +10,7 @@ import Foundation
 prefix operator ^
 
 public prefix func ^ <Root, Value>(
-    _ kp: KeyPath<Root, Value>
+    _ keypath: KeyPath<Root, Value>
 ) -> (Root) -> Value {
-    return { root in root[keyPath: kp] }
+    return { root in root[keyPath: keypath] }
 }
