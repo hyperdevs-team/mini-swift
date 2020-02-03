@@ -20,29 +20,28 @@ public func filterOne(_ condition: @escaping (Element) -> Bool) -> Observable<El
 | ---- | ----------- |
 | fn | Filter closure. |
 
-### `dispatch(using:factory:taskMap:on:lifetime:)`
+### `filter(_:)`
 
 ```swift
-public static func dispatch<A: Action, Type, T: Promise<Type>>(
-    using dispatcher: Dispatcher? = nil,
-    factory action: @autoclosure @escaping () -> A,
-    taskMap: @escaping (Self.Element.State) -> T?,
-    on store: Self.Element,
-    lifetime: Promises.Lifetime = .once
-)
-    -> Observable<Self.Element.State>
+public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element>
 ```
 
-### `dispatch(using:factory:key:taskMap:on:lifetime:)`
+### `map(_:)`
 
 ```swift
-public static func dispatch<A: Action, K: Hashable, Type, T: Promise<Type>>(
-    using dispatcher: Dispatcher? = nil,
-    factory action: @autoclosure @escaping () -> A,
-    key: K,
-    taskMap: @escaping (Self.Element.State) -> [K: T],
-    on store: Self.Element,
-    lifetime: Promises.Lifetime = .once
-)
-    -> Observable<Self.Element.State>
+public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T>
 ```
+
+### `one()`
+
+```swift
+public func one() -> Observable<Element>
+```
+
+### `withStateChanges(in:that:)`
+
+```swift
+public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T>
+```
+
+> Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.

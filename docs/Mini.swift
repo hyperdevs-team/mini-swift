@@ -1,4 +1,3 @@
-import Dispatch
 import Foundation
 import NIOConcurrencyHelpers
 import RxSwift
@@ -19,8 +18,6 @@ extension Action {
 public protocol Chain {
     var proceed: Mini.Next { get }
 }
-
-public protocol CompletableAction: Mini.Action, Mini.PayloadAction {}
 
 public final class Dispatcher {
     public struct DispatchMode {
@@ -119,14 +116,6 @@ public final class DispatcherSubscription: Comparable, RxSwift.Disposable {
     public static func <= (lhs: Mini.DispatcherSubscription, rhs: Mini.DispatcherSubscription) -> Bool
 }
 
-public protocol EmptyAction: Mini.Action, Mini.PayloadAction where Self.Payload == Void {
-    init(promise: Mini.Promise<Void>)
-}
-
-extension EmptyAction {
-    public init(promise _: Mini.Promise<Self.Payload>)
-}
-
 public final class ForwardingChain: Mini.Chain {
     public var proceed: Mini.Next { get }
 
@@ -135,16 +124,6 @@ public final class ForwardingChain: Mini.Chain {
 
 public protocol Group: RxSwift.Disposable {
     var disposeBag: RxSwift.CompositeDisposable { get }
-}
-
-public protocol KeyedCompletableAction: Mini.Action, Mini.KeyedPayloadAction {}
-
-public protocol KeyedPayloadAction {
-    associatedtype Payload
-
-    associatedtype Key: Hashable
-
-    init(promise: [Self.Key: Mini.Promise<Self.Payload>])
 }
 
 public protocol Middleware {
@@ -206,154 +185,6 @@ public class OrderedSet<T> where T: Comparable {
 
     /// Enumerated function
     public func enumerated() -> EnumeratedSequence<[T]>
-}
-
-public protocol PayloadAction {
-    associatedtype Payload
-
-    init(promise: Mini.Promise<Self.Payload>)
-}
-
-@dynamicCallable @dynamicMemberLookup public final class Promise<T>: Mini.PromiseType {
-    public typealias Element = T
-
-    public class func value(_ value: T) -> Mini.Promise<T>
-
-    public class func error(_ error: Error) -> Mini.Promise<T>
-
-    public init(error: Error)
-
-    public init()
-
-    public class func idle(with options: [String: Any] = [:]) -> Mini.Promise<T>
-
-    public class func pending(options: [String: Any] = [:]) -> Mini.Promise<T>
-
-    public var result: Result<T, Error>? { get }
-
-    /// - Note: `fulfill` do not trigger an object reassignment,
-    /// so no notifications about it can be triggered. It is recommended
-    /// to call the method `notify` afterwards.
-    public func fulfill(_ value: T) -> Self
-
-    /// - Note: `reject` do not trigger an object reassignment,
-    /// so no notifications about it can be triggered. It is recommended
-    /// to call the method `notify` afterwards.
-    public func reject(_ error: Error) -> Self
-
-    /// Resolves the current `Promise` with the optional `Result` parameter.
-    /// - Returns: `self` or `nil` if no `result` was not provided.
-    /// - Note: The optional parameter and restun value are helpers in order to
-    /// make optional chaining in the `Reducer` context.
-    public func resolve(_ result: Result<T, Error>?) -> Self?
-
-    public subscript<Value>(dynamicMember _: String) -> Value? { get }
-
-    public func dynamicallyCall<T>(withKeywordArguments args: KeyValuePairs<String, T>)
-}
-
-extension Promise {
-    /**
-     - Returns: `true` if the promise has not yet resolved nor pending.
-     */
-    public var isIdle: Bool { get }
-
-    /**
-     - Returns: `true` if the promise has not yet resolved.
-     */
-    public var isPending: Bool { get }
-
-    /**
-     - Returns: `true` if the promise has completed.
-     */
-    public var isCompleted: Bool { get }
-
-    /**
-     - Returns: `true` if the promise has resolved.
-     */
-    public var isResolved: Bool { get }
-
-    /**
-     - Returns: `true` if the promise was fulfilled.
-     */
-    public var isFulfilled: Bool { get }
-
-    /**
-     - Returns: `true` if the promise was rejected.
-     */
-    public var isRejected: Bool { get }
-
-    /**
-     - Returns: The value with which this promise was fulfilled or `nil` if this promise is pending or rejected.
-     */
-    public var value: T? { get }
-
-    /**
-     - Returns: The error with which this promise was rejected or `nil` if this promise is pending or fulfilled.
-     */
-    public var error: Error? { get }
-}
-
-extension Promise where T == () {
-    public convenience init()
-
-    public static func empty() -> Mini.Promise<T>
-}
-
-extension Promise: Equatable where T == () {
-    /// Returns a Boolean value indicating whether two values are equal.
-    ///
-    /// Equality is the inverse of inequality. For any values `a` and `b`,
-    /// `a == b` implies that `a != b` is `false`.
-    ///
-    /// - Parameters:
-    ///   - lhs: A value to compare.
-    ///   - rhs: Another value to compare.
-    public static func == (lhs: Mini.Promise<T>, rhs: Mini.Promise<T>) -> Bool
-}
-
-extension Promise where T: Equatable {
-    public static func == (lhs: Mini.Promise<T>, rhs: Mini.Promise<T>) -> Bool
-}
-
-extension Promise {
-    public func notify<T>(to store: T) where T: Mini.StoreType
-}
-
-public protocol PromiseType {
-    associatedtype Element
-
-    var result: Result<Self.Element, Error>? { get }
-
-    var isIdle: Bool { get }
-
-    var isPending: Bool { get }
-
-    var isResolved: Bool { get }
-
-    var isFulfilled: Bool { get }
-
-    var isRejected: Bool { get }
-
-    var value: Self.Element? { get }
-
-    var error: Error? { get }
-
-    func resolve(_ result: Result<Self.Element, Error>?) -> Self?
-
-    func fulfill(_ value: Self.Element) -> Self
-
-    func reject(_ error: Error) -> Self
-}
-
-public enum Promises {}
-
-extension Promises {
-    public enum Lifetime {
-        case once
-
-        case forever(ignoringOld: Bool = false)
-    }
 }
 
 /**
@@ -489,6 +320,12 @@ extension Store {
     public func replaying() -> RxSwift.Observable<Mini.Store<State, StoreController>.State>
 }
 
+extension Store {
+    public func dispatch<A>(_ action: @autoclosure @escaping () -> A) -> RxSwift.Observable<Mini.Store<State, StoreController>.State> where A: Mini.Action
+
+    public func withStateChanges<T>(in stateComponent: @autoclosure @escaping () -> KeyPath<Mini.Store<State, StoreController>.Element, T>) -> RxSwift.Observable<T>
+}
+
 public protocol StoreType {
     associatedtype State: Mini.StateType
 
@@ -526,6 +363,8 @@ extension StoreType {
 
 public typealias SubscriptionMap = Mini.SharedDictionary<String, Mini.OrderedSet<Mini.DispatcherSubscription>?>
 
+public prefix func ^ <Root, Value>(keypath: KeyPath<Root, Value>) -> (Root) -> Value
+
 extension Dictionary {
     /// Returns the value for the given key. If the key is not found in the map, calls the `defaultValue` function,
     /// puts its result into the map under the given key and returns it.
@@ -536,48 +375,25 @@ extension Dictionary {
     public subscript(unwrapping _: Key) -> Value! { get }
 }
 
-extension Dictionary where Value: Mini.PromiseType {
-    public subscript(promise _: Key) -> Value { get }
-
-    public func hasValue(for key: [Key: Value].Key) -> Bool
-
-    public func resolve(with other: [Key: Value]) -> [Key: Value]
-
-    public func mergingNew(with other: [Key: Value]) -> [Key: Value]
-}
-
-extension Dictionary where Value: Mini.PromiseType, Value.Element: Equatable {
-    public static func == (lhs: [Key: Value], rhs: [Key: Value]) -> Bool
-}
-
-extension DispatchQueue {
-    public static var isMain: Bool { get }
-}
-
 extension ObservableType {
     /// Take the first element that matches the filter function.
     ///
     /// - Parameter fn: Filter closure.
     /// - Returns: The first element that matches the filter.
     public func filterOne(_ condition: @escaping (Self.Element) -> Bool) -> RxSwift.Observable<Self.Element>
+
+    public func filter(_ keyPath: KeyPath<Self.Element, Bool>) -> RxSwift.Observable<Self.Element>
+
+    public func map<T>(_ keyPath: KeyPath<Self.Element, T>) -> RxSwift.Observable<T>
+
+    public func one() -> RxSwift.Observable<Self.Element>
 }
 
-extension ObservableType where Self.Element: Mini.StoreType, Self.Element: RxSwift.ObservableType, Self.Element.Element == Self.Element.State {
-    public static func dispatch<A, Type, T>(using dispatcher: Mini.Dispatcher? = nil, factory action: @autoclosure @escaping () -> A, taskMap: @escaping (Self.Element.State) -> T?, on store: Self.Element, lifetime: Mini.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: Mini.Action, T: Mini.Promise<Type>
-
-    public static func dispatch<A, K, Type, T>(using dispatcher: Mini.Dispatcher? = nil, factory action: @autoclosure @escaping () -> A, key: K, taskMap: @escaping (Self.Element.State) -> [K: T], on store: Self.Element, lifetime: Mini.Promises.Lifetime = .once) -> RxSwift.Observable<Self.Element.State> where A: Mini.Action, K: Hashable, T: Mini.Promise<Type>
+extension ObservableType where Self.Element: Mini.StateType {
+    /**
+     Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
+     */
+    public func withStateChanges<T>(in stateComponent: @autoclosure @escaping () -> KeyPath<Self.Element, T>, that componentProperty: @autoclosure @escaping () -> KeyPath<T, Bool>) -> RxSwift.Observable<T>
 }
 
-extension PrimitiveSequenceType where Self: RxSwift.ObservableConvertibleType, Self.Trait == RxSwift.SingleTrait {
-    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: Mini.CompletableAction, Self.Element == A.Payload
-
-    public func dispatch<A>(action: A.Type, key: A.Key, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: Mini.KeyedCompletableAction, Self.Element == A.Payload
-
-    public func action<A>(_ action: A.Type, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Single<A> where A: Mini.CompletableAction, Self.Element == A.Payload
-}
-
-extension PrimitiveSequenceType where Self.Element == Never, Self.Trait == RxSwift.CompletableTrait {
-    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async) -> RxSwift.Disposable where A: Mini.EmptyAction
-
-    public func action<A>(_ action: A.Type) -> RxSwift.Single<A> where A: Mini.EmptyAction
-}
+prefix operator ^
