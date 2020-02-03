@@ -28,10 +28,10 @@ opt_in_rules:
   - sorted_first_last
 included:
   - Sources
-  - Tests
 excluded:
   - docs
   - Scripts
+  - Tests
 closure_end_indentation:
   severity: error
 force_cast: 
