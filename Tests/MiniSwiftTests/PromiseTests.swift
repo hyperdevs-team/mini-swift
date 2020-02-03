@@ -7,6 +7,7 @@
 
 @testable import Mini
 import Nimble
+@testable import Promise
 import XCTest
 
 class PromiseTests: XCTestCase {

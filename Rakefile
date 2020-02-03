@@ -21,11 +21,19 @@ task(:setup) do
 end
 
 task(:build) do
-  sh('swift build')
+  sh('swift build --disable-sandbox -c release')
 end
 
 task(:test) do
   sh('swift test')
+end
+
+task(:pods) do
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Core"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Log"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Test"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Promise"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Task"')
 end
 
 task(:docs) do

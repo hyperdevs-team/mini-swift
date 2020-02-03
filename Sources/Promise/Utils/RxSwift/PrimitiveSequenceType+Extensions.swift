@@ -15,6 +15,7 @@
 // */
 
 import Foundation
+import Mini
 import RxSwift
 
 public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Self.Trait == SingleTrait {
