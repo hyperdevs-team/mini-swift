@@ -18,4 +18,4 @@ script:
 - bundle exec fastlane pass_tests
 - bundle exec pod repo update
 - rake pods
-# - bundle exec danger
+- bundle exec danger
