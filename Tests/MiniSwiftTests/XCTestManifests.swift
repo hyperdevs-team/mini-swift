@@ -57,6 +57,7 @@
             ("test_dispatch_action_from_store", test_dispatch_action_from_store),
             ("test_dispatch_hashable_action_from_store", test_dispatch_hashable_action_from_store),
             ("test_filter_one", test_filter_one),
+            ("test_with_state_changes_promise", test_with_state_changes_promise),
         ]
     }
 
