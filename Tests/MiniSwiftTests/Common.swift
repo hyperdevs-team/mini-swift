@@ -3,66 +3,24 @@ import Foundation
 @testable import Promise
 import RxSwift
 
-class SetCounterAction: Action {
+struct SetCounterAction: Action {
     let counter: Int
-
-    init(counter: Int) {
-        self.counter = counter
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterAction else { return false }
-        guard counter == action.counter else { return false }
-        return true
-    }
 }
 
-class SetCounterActionLoaded: Action {
+struct SetCounterActionLoaded: Action {
     let counter: Promise<Int>
-
-    init(counter: Promise<Int>) {
-        self.counter = counter
-    }
-
-    public func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterActionLoaded else { return false }
-        guard counter == action.counter else { return false }
-        return true
-    }
 }
 
-class SetCounterHashAction: Action {
+struct SetCounterHashAction: Action {
     let counter: Int
     let key: String
-
-    init(counter: Int, key: String) {
-        self.counter = counter
-        self.key = key
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterHashAction else { return false }
-        guard counter == action.counter else { return false }
-        guard key == action.key else { return false }
-        return true
-    }
 }
 
-class SetCounterHashLoadedAction: KeyedCompletableAction {
+struct SetCounterHashLoadedAction: KeyedCompletableAction {
     typealias Key = String
     typealias Payload = Int
 
     let promise: [Key: Promise<Payload>]
-
-    required init(promise: [Key: Promise<Payload>]) {
-        self.promise = promise
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? SetCounterHashLoadedAction else { return false }
-        guard promise == action.promise else { return false }
-        return true
-    }
 }
 
 struct TestState: StateType {

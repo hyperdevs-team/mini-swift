@@ -106,4 +106,23 @@ final class ObservableTypeTests: XCTestCase {
         XCTAssertTrue(state.hashCounter[promise: "hello"].error == nil)
         expect(state.hashCounter).to(matchPromiseHash(["hello": Promise<Int>.value(1)]))
     }
+
+    func test_with_state_changes_promise() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        guard let counter = try store.dispatch(SetCounterAction(counter: 1))
+            .withStateChanges(in: \.counter)
+            .skip(1)
+            .toBlocking(timeout: 5.0).first() else {
+            fatalError()
+        }
+
+        XCTAssertTrue(counter.isFulfilled)
+        XCTAssertTrue(counter.value == 1)
+    }
 }

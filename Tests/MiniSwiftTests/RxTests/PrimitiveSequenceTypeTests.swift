@@ -101,9 +101,10 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             self.testMiddleware.actions(of: TestCompletableAction.self).count
         ).toEventually(be(1))
 
-        expect(self.testMiddleware.action(of: TestCompletableAction.self) {
-            $0.counter == .error(Error.dummy)
-        }
+        expect(
+            self.testMiddleware.action(of: TestCompletableAction.self) {
+                $0.counter == .error(Error.dummy)
+            }
         ).toEventually(beTrue())
     }
 

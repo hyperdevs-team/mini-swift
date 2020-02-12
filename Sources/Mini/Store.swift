@@ -133,6 +133,6 @@ extension Store {
     }
 
     public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
-        map { $0[keyPath: stateComponent()] }
+        map(^stateComponent())
     }
 }
