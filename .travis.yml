@@ -9,6 +9,7 @@ cache:
 addons:
   homebrew:
     brewfile: true
+    update: true
 
 script:
 - set -o pipefail
