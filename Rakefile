@@ -10,12 +10,6 @@ task(:setup) do
   sh('brew bundle')
   sh('bundle install')
 
-  puts('➡️  Overcommit')
-  sh('bundle exec overcommit --install')
-  sh('bundle exec overcommit --sign')
-  sh('bundle exec overcommit --sign pre-commit')
-  sh('bundle exec overcommit --sign pre-push')
-
   puts('➡️  SPM Resolve Dependencies')
   sh('swift package resolve')
 end
