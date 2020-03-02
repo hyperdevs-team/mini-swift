@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation'
 
   s.dependency('RxSwift', '~> 5')
-  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.7.1')
+  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.10.0')
 
   s.default_subspec = 'Core'
 
