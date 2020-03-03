@@ -12,6 +12,9 @@ task(:setup) do
 
   puts('➡️  SPM Resolve Dependencies')
   sh('swift package resolve')
+
+  puts('➡️ Installing git hooks')
+  sh('swift run komondor install')
 end
 
 task(:build) do
