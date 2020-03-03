@@ -59,6 +59,30 @@ final class ObservableTypeTests: XCTestCase {
             .completed(20),
         ])
     }
+    
+    func test_skipping_next() {
+        let skippingNextObserver = scheduler.createObserver(Int.self)
+        
+        scheduler.createColdObservable(
+            [
+                .next(10, 10),
+                .next(20, 20),
+                .next(30, 30),
+                .completed(40),
+            ]
+        )
+        .skippingCurrent()
+        .subscribe(skippingNextObserver)
+        .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(skippingNextObserver.events, [
+            .next(20, 20),
+            .next(30, 30),
+            .completed(40),
+        ])
+    }
 
     func test_dispatch_action_from_store() throws {
         let dispatcher = Dispatcher()
@@ -117,11 +141,31 @@ final class ObservableTypeTests: XCTestCase {
 
         guard let counter = try store.dispatch(SetCounterAction(counter: 1))
             .withStateChanges(in: \.counter)
-            .skip(1)
+            .skippingCurrent()
             .toBlocking(timeout: 5.0).first() else {
             fatalError()
         }
 
+        XCTAssertTrue(counter.isFulfilled)
+        XCTAssertTrue(counter.value == 1)
+    }
+    
+    func test_with_state_changes_standalone() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        dispatcher.dispatch(SetCounterAction(counter: 1), mode: .sync)
+        
+        guard let counter = try store.withStateChanges(in: \.counter)
+            .skippingCurrent()
+            .toBlocking(timeout: 5.0).first() else {
+            fatalError()
+        }
+        
         XCTAssertTrue(counter.isFulfilled)
         XCTAssertTrue(counter.value == 1)
     }
