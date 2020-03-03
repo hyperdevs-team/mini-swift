@@ -39,6 +39,10 @@ extension ObservableType {
     public func one() -> Observable<Element> {
         take(1)
     }
+    
+    public func skippingCurrent() -> Observable<Element> {
+        skip(1)
+    }
 }
 
 extension ObservableType where Element: StateType {
