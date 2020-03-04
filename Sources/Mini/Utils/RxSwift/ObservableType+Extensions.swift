@@ -43,13 +43,37 @@ extension ObservableType {
     public func skippingCurrent() -> Observable<Element> {
         skip(1)
     }
+
+    /**
+     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+     */
+    public func select<T: OptionalType>(_ keyPath: KeyPath<Element, T>) -> Observable<T.Wrapped> where T.Wrapped: Equatable {
+        map(keyPath)
+            .filterNil()
+            .distinctUntilChanged()
+    }
+}
+
+public extension ObservableType where Element: OptionalType {
+    /**
+     Unwraps and filters out `nil` elements.
+     - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
+     */
+    func filterNil() -> Observable<Element.Wrapped> {
+        return flatMap { element -> Observable<Element.Wrapped> in
+            guard let value = element.value else {
+                return Observable<Element.Wrapped>.empty()
+            }
+            return Observable<Element.Wrapped>.just(value)
+        }
+    }
 }
 
 extension ObservableType where Element: StateType {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
      */
-    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T> {
-        return map(stateComponent()).filter(componentProperty())
+    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>, that componentProperty: KeyPath<T, Bool>) -> Observable<T> {
+        return map(stateComponent).filter(componentProperty)
     }
 }

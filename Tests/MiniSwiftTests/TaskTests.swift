@@ -1,4 +1,4 @@
-@testable import Task
+@testable import MiniTasks
 import XCTest
 
 class TaskTests: XCTestCase {

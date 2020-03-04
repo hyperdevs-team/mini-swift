@@ -29,8 +29,8 @@ task(:pods) do
   sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Core"')
   sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Log"')
   sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Test"')
-  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Promise"')
-  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="Task"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="MiniPromises"')
+  sh('bundle exec pod lib lint --allow-warnings --fail-fast --subspec="MiniTasks"')
 end
 
 task(:docs) do

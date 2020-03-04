@@ -110,6 +110,7 @@ extension ObservableType where Self.Element: StateType {
 }
 
 extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
+    @available(*, deprecated, message: "Use store.dispatch() or dispatcher.dispatch in conjunction with an Observable over the Store: withStateChanges, select")
     public static func dispatch<A: Action, Type, T: Promise<Type>>(
         using dispatcher: Dispatcher? = nil,
         factory action: @autoclosure @escaping () -> A,
@@ -139,6 +140,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         return observable
     }
 
+    @available(*, deprecated, message: "Use store.dispatch() or dispatcher.dispatch in conjunction with an Observable over the Store: withStateChanges, select")
     public static func dispatch<A: Action, K: Hashable, Type, T: Promise<Type>>(
         using dispatcher: Dispatcher? = nil,
         factory action: @autoclosure @escaping () -> A,

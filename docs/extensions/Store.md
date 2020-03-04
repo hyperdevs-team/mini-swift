@@ -18,5 +18,5 @@ public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> Obs
 ### `withStateChanges(in:)`
 
 ```swift
-public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T>
+public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> Observable<T>
 ```

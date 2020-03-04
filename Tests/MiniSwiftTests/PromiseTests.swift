@@ -1,13 +1,6 @@
-//
-//  PromiseTests.swift
-//  MiniSwift
-//
-//  Created by Jorge Revuelta on 11/09/2019.
-//
-
 @testable import Mini
+@testable import MiniPromises
 import Nimble
-@testable import Promise
 import XCTest
 
 class PromiseTests: XCTestCase {

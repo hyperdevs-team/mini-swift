@@ -387,6 +387,8 @@ extension ObservableType {
     public func map<T>(_ keyPath: KeyPath<Self.Element, T>) -> RxSwift.Observable<T>
 
     public func one() -> RxSwift.Observable<Self.Element>
+
+    public func skippingCurrent() -> RxSwift.Observable<Self.Element>
 }
 
 extension ObservableType where Self.Element: Mini.StateType {
