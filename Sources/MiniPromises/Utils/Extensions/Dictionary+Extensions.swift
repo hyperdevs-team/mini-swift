@@ -15,7 +15,6 @@
  */
 
 import Foundation
-import Mini
 
 extension Dictionary where Value: PromiseType, Key: Hashable {
     public subscript(promise key: Key) -> Value {

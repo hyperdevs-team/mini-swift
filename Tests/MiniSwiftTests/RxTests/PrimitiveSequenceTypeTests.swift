@@ -1,5 +1,4 @@
 import Foundation
-@testable import Mini
 @testable import MiniPromises
 import Nimble
 import RxBlocking

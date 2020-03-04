@@ -15,7 +15,6 @@
  */
 
 import Foundation
-import Mini
 
 public protocol PayloadAction {
     associatedtype Payload

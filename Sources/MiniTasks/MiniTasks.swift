@@ -14,10 +14,6 @@
  limitations under the License.
  */
 
-import Foundation
-
-public extension Promise {
-    func notify<T: StoreType>(to store: T) {
-        store.replayOnce()
-    }
-}
+#if canImport(Mini)
+    @_exported import Mini
+#endif
