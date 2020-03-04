@@ -2,18 +2,18 @@
   "entries": {
     "brew": {
       "swiftlint": {
-        "version": "0.38.1",
+        "version": "0.39.1",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.38.1.catalina.bottle.tar.gz",
-              "sha256": "3530bda78d9c58545d3b877788456a5a70c0d8091bc2dc2cb017e9c829a034dd"
+              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.39.1.catalina.bottle.tar.gz",
+              "sha256": "5c51f9a46a0ab28229460afd1037825bf1bef6b577113303057602487a898553"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.38.1.mojave.bottle.tar.gz",
-              "sha256": "f01c400c89a89022e4249fb241649bcb3e6c6e9b1e9b43800411f384d774684b"
+              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.39.1.mojave.bottle.tar.gz",
+              "sha256": "408d3baeeb687da9cb753abf154835d71672eb29f1288538e5fa576f6d8880d1"
             }
           }
         }
@@ -32,12 +32,12 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.2.2-50-gc0b9167",
+        "HOMEBREW_VERSION": "2.2.7-20-g10ba0d5",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "353a3a9d5d892d99a574c7370852c35259ab1c21",
+        "Homebrew/homebrew-core": "33cacce7a4cff82d1015f591838792216d170d1f",
         "CLT": "11.0.28.3",
-        "Xcode": "11.3",
-        "macOS": "10.15.4"
+        "Xcode": "11.3.1",
+        "macOS": "10.15.2"
       }
     }
   }
