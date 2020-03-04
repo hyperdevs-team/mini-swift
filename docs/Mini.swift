@@ -136,6 +136,12 @@ public typealias MiddlewareChain = (Mini.Action, Mini.Chain) -> Mini.Action
 
 public typealias Next = (Mini.Action) -> Mini.Action
 
+public protocol OptionalType {
+    associatedtype Wrapped
+
+    var value: Self.Wrapped? { get }
+}
+
 /**
  An Ordered Set is a collection where all items in the set follow an ordering,
  usually ordered from 'least' to 'most'. The way you value and compare items
@@ -323,7 +329,7 @@ extension Store {
 extension Store {
     public func dispatch<A>(_ action: @autoclosure @escaping () -> A) -> RxSwift.Observable<Mini.Store<State, StoreController>.State> where A: Mini.Action
 
-    public func withStateChanges<T>(in stateComponent: @autoclosure @escaping () -> KeyPath<Mini.Store<State, StoreController>.Element, T>) -> RxSwift.Observable<T>
+    public func withStateChanges<T>(in stateComponent: KeyPath<Mini.Store<State, StoreController>.Element, T>) -> RxSwift.Observable<T>
 }
 
 public protocol StoreType {
@@ -375,6 +381,11 @@ extension Dictionary {
     public subscript(unwrapping _: Key) -> Value! { get }
 }
 
+extension Optional: Mini.OptionalType {
+    /// Cast `Optional<Wrapped>` to `Wrapped?`
+    public var value: Wrapped? { get }
+}
+
 extension ObservableType {
     /// Take the first element that matches the filter function.
     ///
@@ -389,13 +400,26 @@ extension ObservableType {
     public func one() -> RxSwift.Observable<Self.Element>
 
     public func skippingCurrent() -> RxSwift.Observable<Self.Element>
+
+    /**
+     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+     */
+    public func select<T>(_ keyPath: KeyPath<Self.Element, T>) -> RxSwift.Observable<T.Wrapped> where T: Mini.OptionalType, T.Wrapped: Equatable
+}
+
+extension ObservableType where Self.Element: Mini.OptionalType {
+    /**
+     Unwraps and filters out `nil` elements.
+     - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
+     */
+    public func filterNil() -> RxSwift.Observable<Self.Element.Wrapped>
 }
 
 extension ObservableType where Self.Element: Mini.StateType {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
      */
-    public func withStateChanges<T>(in stateComponent: @autoclosure @escaping () -> KeyPath<Self.Element, T>, that componentProperty: @autoclosure @escaping () -> KeyPath<T, Bool>) -> RxSwift.Observable<T>
+    public func withStateChanges<T>(in stateComponent: KeyPath<Self.Element, T>, that componentProperty: KeyPath<T, Bool>) -> RxSwift.Observable<T>
 }
 
 prefix operator ^
