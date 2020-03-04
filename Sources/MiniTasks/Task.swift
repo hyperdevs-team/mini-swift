@@ -41,6 +41,10 @@ public class TypedTask<T>: Equatable {
         self.error = error
     }
 
+    public static func idle() -> AnyTask {
+        AnyTask(status: .idle)
+    }
+
     public static func running() -> AnyTask {
         AnyTask(status: .running)
     }

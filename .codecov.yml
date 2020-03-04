@@ -4,3 +4,4 @@ coverage:
     - Templates
     - Scripts
     - Tests
+    - docs
