@@ -1,7 +1,7 @@
 import Foundation
 @testable import Mini
+@testable import MiniPromises
 import Nimble
-@testable import Promise
 import RxBlocking
 import RxSwift
 import RxTest

@@ -26,11 +26,11 @@ let package = Package(
         ),
         .library(
             name: "MiniTask",
-            targets: ["Mini", "Task"]
+            targets: ["Mini", "MiniTasks"]
         ),
         .library(
             name: "MiniPromise",
-            targets: ["Mini", "Promise"]
+            targets: ["Mini", "MiniPromises"]
         ),
     ],
     dependencies: [
@@ -65,14 +65,14 @@ let package = Package(
             dependencies: ["Mini"]
         ),
         .target(
-            name: "Task",
+            name: "MiniTasks",
             dependencies: ["Mini"]
         ),
         .target(
-            name: "Promise",
+            name: "MiniPromises",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "Task", "Promise", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
     swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
 )

@@ -132,7 +132,7 @@ extension Store {
         return objectWillChange.asObservable()
     }
 
-    public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>) -> Observable<T> {
-        map(^stateComponent())
+    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> Observable<T> {
+        map(stateComponent)
     }
 }

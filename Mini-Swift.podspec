@@ -65,26 +65,26 @@ Pod::Spec.new do |s|
     ss.tvos.source_files = 'Sources/TestMiddleware/*.swift'
   end
   
-  s.subspec('Task') do |ss|
+  s.subspec('MiniTasks') do |ss|
     ss.ios.dependency('Mini-Swift/Core')
-    ss.ios.source_files = 'Sources/Task/*.swift'
+    ss.ios.source_files = 'Sources/MiniTasks/*.swift'
 
     ss.osx.dependency('Mini-Swift/Core')
-    ss.osx.source_files = 'Sources/Task/*.swift'
+    ss.osx.source_files = 'Sources/MiniTasks/*.swift'
 
     ss.tvos.dependency('Mini-Swift/Core')
-    ss.tvos.source_files = 'Sources/Task/*.swift'
+    ss.tvos.source_files = 'Sources/MiniTasks/*.swift'
   end
   
-  s.subspec('Promise') do |ss|
+  s.subspec('MiniPromises') do |ss|
     ss.ios.dependency('Mini-Swift/Core')
-    ss.ios.source_files = 'Sources/Promise/*.swift'
+    ss.ios.source_files = 'Sources/MiniPromises/*.swift'
 
     ss.osx.dependency('Mini-Swift/Core')
-    ss.osx.source_files = 'Sources/Promise/*.swift'
+    ss.osx.source_files = 'Sources/MiniPromises/*.swift'
 
     ss.tvos.dependency('Mini-Swift/Core')
-    ss.tvos.source_files = 'Sources/Promise/*.swift'
+    ss.tvos.source_files = 'Sources/MiniPromises/*.swift'
   end
 
   s.preserve_paths = ['Templates/*.stencil']

@@ -1,13 +1,6 @@
-//
-//  ObservableTypeTests.swift
-//  MiniSwiftTests
-//
-//  Created by Jorge Revuelta on 17/09/2019.
-//
-
 @testable import Mini
+@testable import MiniPromises
 import Nimble
-@testable import Promise
 import RxBlocking
 import RxSwift
 import RxTest
@@ -139,7 +132,8 @@ final class ObservableTypeTests: XCTestCase {
             .reducerGroup
             .disposed(by: disposeBag)
 
-        guard let counter = try store.dispatch(SetCounterAction(counter: 1))
+        guard let counter = try store
+            .dispatch(SetCounterAction(counter: 1))
             .withStateChanges(in: \.counter)
             .skippingCurrent()
             .toBlocking(timeout: 5.0).first() else {
@@ -160,7 +154,8 @@ final class ObservableTypeTests: XCTestCase {
 
         dispatcher.dispatch(SetCounterAction(counter: 1), mode: .sync)
 
-        guard let counter = try store.withStateChanges(in: \.counter)
+        guard let counter = try store
+            .withStateChanges(in: \.counter)
             .skippingCurrent()
             .toBlocking(timeout: 5.0).first() else {
             fatalError()
@@ -168,5 +163,43 @@ final class ObservableTypeTests: XCTestCase {
 
         XCTAssertTrue(counter.isFulfilled)
         XCTAssertTrue(counter.value == 1)
+    }
+
+    func test_select() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        dispatcher.dispatch(SetRawCounterAction(rawCounter: 1), mode: .sync)
+
+        guard let counter = try store
+            .select(\.rawCounter)
+            .toBlocking(timeout: 5.0).first() else {
+            fatalError()
+        }
+
+        XCTAssertEqual(counter, 1)
+    }
+
+    func test_with_state_changes_task() throws {
+        let dispatcher = Dispatcher()
+        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController(dispatcher: dispatcher))
+
+        store
+            .reducerGroup
+            .disposed(by: disposeBag)
+
+        dispatcher.dispatch(SetRawCounterAction(rawCounter: 1), mode: .sync)
+
+        guard let counter = try store
+            .withStateChanges(in: \.rawCounter, that: \.rawCounterTask)
+            .toBlocking(timeout: 5.0).first() else {
+            fatalError()
+        }
+
+        XCTAssertEqual(counter, 1)
     }
 }

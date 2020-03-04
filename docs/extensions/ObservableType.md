@@ -38,10 +38,33 @@ public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T>
 public func one() -> Observable<Element>
 ```
 
+### `skippingCurrent()`
+
+```swift
+public func skippingCurrent() -> Observable<Element>
+```
+
+### `select(_:)`
+
+```swift
+public func select<T: OptionalType>(_ keyPath: KeyPath<Element, T>) -> Observable<T.Wrapped> where T.Wrapped: Equatable
+```
+
+> Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+
+### `filterNil()`
+
+```swift
+func filterNil() -> Observable<Element.Wrapped>
+```
+
+> Unwraps and filters out `nil` elements.
+> - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
+
 ### `withStateChanges(in:that:)`
 
 ```swift
-public func withStateChanges<T>(in stateComponent: @escaping @autoclosure () -> KeyPath<Element, T>, that componentProperty: @escaping @autoclosure () -> KeyPath<T, Bool>) -> Observable<T>
+public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>, that componentProperty: KeyPath<T, Bool>) -> Observable<T>
 ```
 
 > Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
