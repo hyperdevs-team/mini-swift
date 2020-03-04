@@ -15,7 +15,6 @@
  */
 
 import Foundation
-import Mini
 import RxSwift
 
 public extension ObservableType where Element: StateType {

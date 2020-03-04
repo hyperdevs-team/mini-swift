@@ -15,7 +15,6 @@
  */
 
 import Foundation
-import Mini
 import RxSwift
 
 public enum Promises {}
