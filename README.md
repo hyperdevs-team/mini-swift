@@ -26,7 +26,7 @@ With Mini, you can create a thread-safe application with a predictable unidirect
 
 ### [Swift Package Manager](https://github.com/apple/swift-package-manager)
 
-- Create a Package.swift file.
+- Create a `Package.swift` file.
 
 ```swift
 // swift-tools-version:5.0
@@ -39,10 +39,12 @@ let package = Package(
     .package(url: "https://github.com/bq/mini-swift.git"),
   ],
   targets: [
-    .target(name: "MiniSwiftProject", dependencies: ["Mini"])
+    .target(name: "MiniSwiftProject", dependencies: ["Mini" /*, "MiniPromises, MiniTasks"*/])
   ]
 )
 ```
+- Mini comes with a bare implementation and two external utility packages in order to ease the usage of the library named `MiniTasks` and `MiniPromises`, both dependant on the `Mini` base or core package.
+
 ```
 $ swift build
 ```
@@ -53,6 +55,8 @@ $ swift build
 
 ```
 pod "Mini-Swift"
+# pod "Mini-Swift/MiniPromises"
+# pod "Mini-Swift/MiniTasks"
 ```
 
 - We also offer two subpecs for logging and testing:
@@ -77,42 +81,46 @@ pod "Mini-Swift/Test"
 - For example:
 
 ```swift
-struct MyCoolState: State {
+// If you're using MiniPromises
+struct MyCoolState: StateType {
     let cool: Promise<Bool>
+}
 
-    init(cool: Promise<Bool> = .idle()) {
-        self.cool = cool
-    }
-
-    // Conform to State protocol
-    func isEqual(to other: State) -> Bool {
-        guard let state = other as? MyCoolState else { return false }
-        return self.cool == state.cool
-    }
+// If you're using MiniTasks
+struct MyCoolState: StateType {
+    let cool: Bool?
+    let coolTask: AnyTask
 }
 ```
 
-- The default inner state of a `Promise` is `idle`. It means that no `Action` (see more below), has started any operation over that `Promise`.
+- The default inner state of a `Promise` is `idle`. On the other hand, the default inner state of a `Task` is `idle` as well. This means that no `Action` (see more below), has started any operation over that `Promise` or `Task`.
 
-- A `Promise` can hold any kind of aditional properties that the developer might encounter useful for its implementation, for example, hold a `Date` for cache usage:
+- Both `Promise` and `Task` can hold any kind of aditional properties that the developer might encounter useful for its implementation, for example, hold a `Date` for cache usage:
 
 ```swift
 let promise: Promise<Bool> = .idle()
 promise.date = Date()
 // Later on...
 let date: Date = promise.date
+
+let task: AnyTask = .idle()
+task.date = Date()
+// Later on...
+let date: Date = promise.date
 ```
 
 - The core idea of a `State` is its [immutability](https://en.wikipedia.org/wiki/Immutable_object), so once created, no third-party objects are able to mutate it out of the control of the architecture flow.
 
-- As can be seen in the example, a `State`  has a pair of  `Task` + `Result`  *usually* (that can be any object, if any), which is related with the execution of the `Task`. In the example above, `CoolTask` is responsible, through its `Reducer` to fulfill the `Action` with the `Task` result and furthermore, the new `State`.
+- As can be seen in the example, a `State` has a pair of  `Task` + `Result`  *usually* (that can be any object, if any), which is related with the execution of the `Task`. In the example above, `CoolTask` is responsible, through its `Reducer` to fulfill the `Action` with the `Task` result and furthermore, the new `State`.
+
+- Furthermore, the `Promise` object unifies the _Status_ + _Result_ tuple, so it can store both the status of an ongoing task and the associated payload produced by it.
 
 ### Action
 
-- An `Action` is the piece of information that is being dispatched through the architecture. Any `class` can conform to the `Action` protocol, with the only requirement of being unique its name per application.
+- An `Action` is the piece of information that is being dispatched through the architecture. Any `struct` can conform to the `Action` protocol, with the only requirement of being unique its name per application.
 
 ```swift
-class RequestContactsAccess: Action {
+struct RequestContactsAccess: Action {
   // As simple as this is.
 }
 ```
@@ -122,27 +130,17 @@ class RequestContactsAccess: Action {
     - A `CompletableAction` is a specialization of the `Action` protocol, which allows the user attach both a `Task` and some kind of object that gets fulfilled when the `Task` succeeds.
 
     ```swift
-    class RequestContactsAccessResult: CompletableAction {
-
-      let requestContactsAccessPromise: Promise<Bool?>
+    struct RequestContactsAccessResult: CompletableAction {
+      let promise: Promise<Bool>
 
       typealias Payload = Bool
-
-      required init(promise: Promise<Bool?>) {
-          self.requestContactsAccessPromise = promise
-      }
     }
     ```
-    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Never`, this means it only has associated a `Promise<Never>`.
+    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Void`, this means it only has associated a `Promise<Void>`.
 
     ```swift
     class ActivateVoucherLoaded: EmptyAction {
-
-      let activateVoucherPromise: Promise<Never>
-
-      required init(promise: Promise<Never>) {
-          self.activateVoucherPromise = promise
-      }
+      let promise: Promise<Void>
     }
     ```
     - A `KeyedPayloadAction`, adds a `Key` (which is `Hashable`) to the `CompletableAction`. This is a special case where the same `Action` produces results that can be grouped together, tipically, under a `Dictionary` (i.e., an `Action` to search contacts, and grouped by their main phone number).
@@ -153,13 +151,12 @@ class RequestContactsAccess: Action {
       typealias Payload = CNContact
       typealias Key = String
 
-      let requestContactPromise: [Key: Promise<Payload?>]
-
-      required init(promise: [Key: Promise<Payload?>]) {
-          self.requestContactPromise = promise
-      }
+      let promise: [Key: Promise<Payload?>]
     }
     ```
+
+> We take the advantage of using `struct`, so all initializers are automatically synthesized.
+
 ### Store
 
 - A `Store` is the hub where decissions and side-efects are made through the ingoing and outgoing `Action`s. A `Store` is a generic class to inherit from and associate a `State` for it.

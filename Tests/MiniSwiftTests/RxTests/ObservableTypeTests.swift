@@ -5,6 +5,11 @@ import RxSwift
 import RxTest
 import XCTest
 
+private struct TestFilterKeyPath: Equatable {
+    let number: Int
+    let done: Bool
+}
+
 private func matchPromiseHash<K: Hashable, Type: Equatable>(_ by: [K: Promise<Type>]) -> Predicate<[K: Promise<Type>]> {
     return Predicate { expression in
         guard let dict = try expression.evaluate() else {
@@ -49,6 +54,28 @@ final class ObservableTypeTests: XCTestCase {
         XCTAssertEqual(filterOneObserver.events, [
             .next(20, 20),
             .completed(20),
+        ])
+    }
+
+    func test_filter_keypath() {
+        let filterKeyPathObserver = scheduler.createObserver(TestFilterKeyPath.self)
+
+        scheduler.createColdObservable(
+            [
+                .next(10, TestFilterKeyPath(number: 0, done: false)),
+                .next(20, TestFilterKeyPath(number: 1, done: true)),
+                .completed(40),
+            ]
+        )
+        .filter(\TestFilterKeyPath.done)
+        .subscribe(filterKeyPathObserver)
+        .disposed(by: disposeBag)
+
+        scheduler.start()
+
+        XCTAssertEqual(filterKeyPathObserver.events, [
+            .next(20, TestFilterKeyPath(number: 1, done: true)),
+            .completed(40),
         ])
     }
 

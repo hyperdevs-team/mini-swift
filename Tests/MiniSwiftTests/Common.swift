@@ -65,6 +65,12 @@ struct TestState: StateType {
     }
 }
 
+extension TestState: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.isEqual(to: rhs)
+    }
+}
+
 class TestStoreController: Disposable {
     let dispatcher: Dispatcher
 
