@@ -106,7 +106,7 @@ let date: Date = promise.date
 let task: AnyTask = .idle()
 task.date = Date()
 // Later on...
-let date: Date = promise.date
+let date: Date = task.date
 ```
 
 - The core idea of a `State` is its [immutability](https://en.wikipedia.org/wiki/Immutable_object), so once created, no third-party objects are able to mutate it out of the control of the architecture flow.
@@ -139,14 +139,14 @@ struct RequestContactsAccess: Action {
     - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Void`, this means it only has associated a `Promise<Void>`.
 
     ```swift
-    class ActivateVoucherLoaded: EmptyAction {
+    struct ActivateVoucherLoaded: EmptyAction {
       let promise: Promise<Void>
     }
     ```
     - A `KeyedPayloadAction`, adds a `Key` (which is `Hashable`) to the `CompletableAction`. This is a special case where the same `Action` produces results that can be grouped together, tipically, under a `Dictionary` (i.e., an `Action` to search contacts, and grouped by their main phone number).
 
     ```swift
-    class RequestContactLoadedAction: KeyedCompletableAction {
+    struct RequestContactLoadedAction: KeyedCompletableAction {
 
       typealias Payload = CNContact
       typealias Key = String
@@ -156,6 +156,8 @@ struct RequestContactsAccess: Action {
     ```
 
 > We take the advantage of using `struct`, so all initializers are automatically synthesized.
+
+> Examples are done with `Promise`, but there're equivalent to be used with `Task`s.
 
 ### Store
 
@@ -174,8 +176,13 @@ extension Store where State == TestState, StoreController == TestStoreController
 
     var reducerGroup: ReducerGroup {
         return ReducerGroup(
-            Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
+            // Using Promises
+            Reducer(of: OneTestAction.self, on: dispatcher) { action in
                 self.state = self.state.copy(testPromise: *.value(action.counter))
+            },
+            // Using Tasks
+            Reducer(of: OneTestAction.self, on: dispatcher) { action in
+                self.state = self.state.copy(data: *action.payload, dataTask: *action.task)
             }
         )
     }
@@ -189,7 +196,7 @@ extension Store where State == TestState, StoreController == TestStoreController
 - When working with `Store` instances, you may retain a strong reference of its `reducerGroup`, this is done using the `subscribe()`  method, which is a `Disposable` that can be used like below:
 
 ```swift
-var bag = DisposeBag()
+let bag = DisposeBag()
 let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
 store
     .subscribe()
@@ -213,6 +220,8 @@ dispatcher.dispatch(action, mode: .sync)
 
 - This is much simplier to explain with a code example:
 
+#### Using Promises
+
 ```swift
 // We define our state in first place:
 struct TestState: StateType {
@@ -233,23 +242,13 @@ struct TestState: StateType {
 // We define our actions, one of them represents the request of a change, the other one the response of that change requested.
 
 // This is the request
-class SetCounterAction: Action {
-
+struct SetCounterAction: Action {
     let counter: Int
-
-    init(counter: Int) {
-        self.counter = counter
-    }
 }
 
 // This is the response
-class SetCounterActionLoaded: Action {
-    
+struct SetCounterActionLoaded: Action {
     let counter: Int
-    
-    init(counter: Int) {
-        self.counter = counter
-    }
 }
 
 // As you can see, both seems to be the same, same parameters, initializer, etc. But next, we define our StoreController.
@@ -277,14 +276,15 @@ class TestStoreController: Disposable {
 extension Store where State == TestState, StoreController == TestStoreController {
 
     var reducerGroup: ReducerGroup {
-        return ReducerGroup(
-          // We set the state with a Promise as .pending, someone has to fill the requirement later on. This represents the Request.
+        ReducerGroup(
+            // We can use Promises:
+            // We set the state with a Promise as .pending, someone has to fill the requirement later on. This represents the Request.
             Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
                 guard !self.state.counter.isOnProgress else { return }
                 self.state = TestState(counter: .pending())
                 self.storeController.counter(action.counter)
             },
-          // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Promise and notify the store for the State change. This represents the Response.
+            // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Promise and notify the store for the State change. This represents the Response.
             Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
                 self.state.counter
                     .fulfill(action.counter)
@@ -295,19 +295,105 @@ extension Store where State == TestState, StoreController == TestStoreController
 }
 ```
 
+#### Using Tasks
+
+```swift
+// We define our state in first place:
+struct TestState: StateType {
+    // Our state is defined over the Promise of an Integer type.
+    let counter: Int?
+    let counterTask: AnyTask
+
+    init(counter: Int = nil,
+         counterTask: AnyTask = .idle()) {
+        self.counter = counter
+        self.counterTask = counterTask
+    }
+
+    public func isEqual(to other: StateType) -> Bool {
+        guard let state = other as? TestState else { return false }
+        guard counter == state.counter else { return false }
+        guard counterTask == state.counterTask else { return false }
+        return true
+    }
+}
+
+// We define our actions, one of them represents the request of a change, the other one the response of that change requested.
+
+// This is the request
+struct SetCounterAction: Action {
+    let counter: Int
+}
+
+// This is the response
+struct SetCounterActionLoaded: Action {
+    let counter: Int
+    let counterTask: AnyTask
+}
+
+// As you can see, both seems to be the same, same parameters, initializer, etc. But next, we define our StoreController.
+
+// The StoreController define the side-effects that an Action might trigger.
+class TestStoreController: Disposable {
+    
+    let dispatcher: Dispatcher
+    
+    init(dispatcher: Dispatcher) {
+        self.dispatcher = dispatcher
+    }
+    
+    // This function dispatches (always in a async mode) the result of the operation, just giving out the number to the dispatcher.
+    func counter(_ number: Int) {
+        self.dispatcher.dispatch(
+            SetCounterActionLoaded(counter: number, 
+            counterTask: .success()
+            ),
+            mode: .async)
+    }
+    
+    public func dispose() {
+        // NO-OP
+    }
+}
+
+// Last, but not least, the Store definition with the Reducers
+extension Store where State == TestState, StoreController == TestStoreController {
+
+    var reducerGroup: ReducerGroup {
+        ReducerGroup(
+            // We can use Tasks:
+            // We set the state with a Task as .running, someone has to fill the requirement later on. This represents the Request.
+            Reducer(of: SetCounterAction.self, on: dispatcher) { action in
+                guard !self.state.counterTask.isRunning else { return }
+                self.state = TestState(counterTask: .running())
+                self.storeController.counter(action.counter)
+            },
+            // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Task and update the data associated with the execution of it on the State. This represents the Response.
+            Reducer(of: SetCounterActionLoaded.self, on: dispatcher) { action in
+                guard self.state.rawCounterTask.isRunning else { return }
+                self.state = TestState(counter: action.counter, counterTask: action.counterTask)
+            }
+        )
+    }
+}
+```
+
 ## Documentation
 
-All the documentation available can be found **[here](http://opensource.bq.com/mini-swift/docs/)**
+All the documentation available can be found **[here](http://github.com/bq/mini-swift/tree/master/docs)**
+
+## Maintainers
+
+* **[Jorge Revuelta](https://github.com/minuscorp)**
+* **[Francisco García Sierra](https://github.com/FrangSierra)**
 
 ## Authors & Collaborators
 
 * **[Edilberto Lopez Torregrosa](https://github.com/ediLT)**
 * **[Raúl Pedraza León](https://github.com/r-pedraza)**
-* **[Jorge Revuelta](https://github.com/minuscorp)**
-* **[Francisco García Sierra](https://github.com/FrangSierra)**
 * **[Pablo Orgaz](https://github.com/pabloogc)**
 * **[Sebastián Varela](https://github.com/sebastianvarela)**
 
 ## License
 
-Mini-Swift is available under the Apache 2.0. See the LICENSE file for more info.
+Mini-Swift is available under the Apache 2.0. See the [LICENSE](LICENSE) file for more info.

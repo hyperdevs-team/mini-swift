@@ -34,6 +34,10 @@ task(:pods) do
 end
 
 task(:docs) do
-  sh('sourcedocs generate --min-acl public --spm-module Mini --output-folder docs')
+  sh('sourcedocs generate --min-acl public --spm-module Mini --output-folder docs/Mini')
+  sh('sourcedocs generate --min-acl public --spm-module MiniTasks --output-folder docs/MiniTasks')
+  sh('sourcedocs generate --min-acl public --spm-module MiniPromises --output-folder docs/MiniPromises')
   sh('moduleinterface generate --spm-module Mini --output-folder docs')
+  sh('moduleinterface generate --spm-module MiniTasks --output-folder docs')
+  sh('moduleinterface generate --spm-module MiniPromises --output-folder docs')
 end
