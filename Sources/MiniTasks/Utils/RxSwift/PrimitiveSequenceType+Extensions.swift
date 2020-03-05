@@ -16,7 +16,6 @@
 
 import RxSwift
 
-// swiftlint:disable explicit_init
 public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Self.Trait == SingleTrait {
     func dispatch<A: CompletableAction>(action: A.Type,
                                         on dispatcher: Dispatcher,
