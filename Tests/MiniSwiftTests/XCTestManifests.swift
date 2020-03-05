@@ -71,13 +71,20 @@
     //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__PrimitiveSequenceTypeTests = [
-            ("test_completable_action_action", test_completable_action_action),
-            ("test_completable_action_dispatch", test_completable_action_dispatch),
-            ("test_completable_action_dispatch_error", test_completable_action_dispatch_error),
-            ("test_empty_action_dispatch", test_empty_action_dispatch),
-            ("test_empty_action_dispatch_error", test_empty_action_dispatch_error),
-            ("test_keyed_completable_action_dispatch", test_keyed_completable_action_dispatch),
-            ("test_keyed_completable_action_dispatch_error", test_keyed_completable_action_dispatch_error),
+            ("test_promises_completable_action_action", test_promises_completable_action_action),
+            ("test_promises_completable_action_dispatch", test_promises_completable_action_dispatch),
+            ("test_promises_completable_action_dispatch_error", test_promises_completable_action_dispatch_error),
+            ("test_promises_empty_action_dispatch", test_promises_empty_action_dispatch),
+            ("test_promises_empty_action_dispatch_error", test_promises_empty_action_dispatch_error),
+            ("test_promises_keyed_completable_action_dispatch", test_promises_keyed_completable_action_dispatch),
+            ("test_promises_keyed_completable_action_dispatch_error", test_promises_keyed_completable_action_dispatch_error),
+            ("test_tasks_completable_action_action", test_tasks_completable_action_action),
+            ("test_tasks_completable_action_dispatch", test_tasks_completable_action_dispatch),
+            ("test_tasks_completable_action_dispatch_error", test_tasks_completable_action_dispatch_error),
+            ("test_tasks_empty_action_dispatch", test_tasks_empty_action_dispatch),
+            ("test_tasks_empty_action_dispatch_error", test_tasks_empty_action_dispatch_error),
+            ("test_tasks_keyed_completable_action_dispatch", test_tasks_keyed_completable_action_dispatch),
+            ("test_tasks_keyed_completable_action_dispatch_error", test_tasks_keyed_completable_action_dispatch_error),
         ]
     }
 
