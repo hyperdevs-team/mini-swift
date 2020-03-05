@@ -71,20 +71,32 @@
     //   `swift test --generate-linuxmain`
         // to regenerate.
         static let __allTests__PrimitiveSequenceTypeTests = [
+            ("test_promises_completable_action_action_error", test_promises_completable_action_action_error),
+            ("test_promises_completable_action_action_fill_on_error", test_promises_completable_action_action_fill_on_error),
             ("test_promises_completable_action_action", test_promises_completable_action_action),
             ("test_promises_completable_action_dispatch", test_promises_completable_action_dispatch),
             ("test_promises_completable_action_dispatch_error", test_promises_completable_action_dispatch_error),
+            ("test_promises_completable_action_dispatch_fill_on_error", test_promises_completable_action_dispatch_fill_on_error),
+            ("test_promises_empty_action_action_error", test_promises_empty_action_action_error),
+            ("test_promises_empty_action_action", test_promises_empty_action_action),
             ("test_promises_empty_action_dispatch", test_promises_empty_action_dispatch),
             ("test_promises_empty_action_dispatch_error", test_promises_empty_action_dispatch_error),
             ("test_promises_keyed_completable_action_dispatch", test_promises_keyed_completable_action_dispatch),
             ("test_promises_keyed_completable_action_dispatch_error", test_promises_keyed_completable_action_dispatch_error),
+            ("test_promises_keyed_completable_action_dispatch_fill_on_error", test_promises_keyed_completable_action_dispatch_fill_on_error),
+            ("test_tasks_completable_action_action_error", test_tasks_completable_action_action_error),
+            ("test_tasks_completable_action_action_fill_on_error", test_tasks_completable_action_action_fill_on_error),
             ("test_tasks_completable_action_action", test_tasks_completable_action_action),
             ("test_tasks_completable_action_dispatch", test_tasks_completable_action_dispatch),
             ("test_tasks_completable_action_dispatch_error", test_tasks_completable_action_dispatch_error),
+            ("test_tasks_completable_action_dispatch_fill_on_error", test_tasks_completable_action_dispatch_fill_on_error),
+            ("test_tasks_empty_action_action_error", test_tasks_empty_action_action_error),
+            ("test_tasks_empty_action_action", test_tasks_empty_action_action),
             ("test_tasks_empty_action_dispatch", test_tasks_empty_action_dispatch),
             ("test_tasks_empty_action_dispatch_error", test_tasks_empty_action_dispatch_error),
             ("test_tasks_keyed_completable_action_dispatch", test_tasks_keyed_completable_action_dispatch),
             ("test_tasks_keyed_completable_action_dispatch_error", test_tasks_keyed_completable_action_dispatch_error),
+            ("test_tasks_keyed_completable_action_dispatch_fill_on_error", test_tasks_keyed_completable_action_dispatch_fill_on_error),
         ]
     }
 
@@ -130,8 +142,11 @@
         // to regenerate.
         static let __allTests__TaskTests = [
             ("test_check_states_for_failure_task", test_check_states_for_failure_task),
+            ("test_check_states_for_idle_task", test_check_states_for_idle_task),
             ("test_check_states_for_running_task", test_check_states_for_running_task),
             ("test_check_states_for_success_task", test_check_states_for_success_task),
+            ("test_check_states_for_success_typed_task", test_check_states_for_success_typed_task),
+            ("test_task_properties", test_task_properties),
         ]
     }
 
