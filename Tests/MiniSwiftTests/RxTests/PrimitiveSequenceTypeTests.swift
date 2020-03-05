@@ -119,6 +119,19 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         ).toEventually(be(1))
     }
 
+    func test_promises_completable_action_dispatch_fill_on_error() {
+        Single
+            .error(Error.dummy)
+            .dispatch(action: PromisesTestCompletableAction.self, on: dispatcher, fillOnError: 1)
+            .disposed(by: disposeBag)
+
+        expect(
+            self.testMiddleware.actions(of: PromisesTestCompletableAction.self).count
+        ).toEventually(be(1))
+
+        expect(self.testMiddleware.actions(of: PromisesTestCompletableAction.self).first?.promise.value) == 1
+    }
+
     func test_promises_completable_action_dispatch_error() {
         Single
             .error(Error.dummy)
@@ -140,6 +153,20 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         Single
             .just(1)
             .dispatch(action: PromisesTestKeyedCompletableAction.self, key: "hello", on: dispatcher)
+            .disposed(by: disposeBag)
+
+        expect(
+            self.testMiddleware
+                .action(of: PromisesTestKeyedCompletableAction.self) {
+                    $0.promise == ["hello": .value(1)]
+                }
+        ).toEventually(beTrue())
+    }
+
+    func test_promises_keyed_completable_action_dispatch_fill_on_error() {
+        Single
+            .error(Error.dummy)
+            .dispatch(action: PromisesTestKeyedCompletableAction.self, key: "hello", on: dispatcher, fillOnError: 1)
             .disposed(by: disposeBag)
 
         expect(
@@ -172,6 +199,46 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             .toBlocking(timeout: 5.0).first() else { fatalError() }
 
         expect(action).to(equalAction(PromisesTestCompletableAction(promise: .value(1))))
+    }
+
+    func test_promises_completable_action_action_fill_on_error() throws {
+        guard let action =
+            try Single
+            .error(Error.dummy)
+            .action(PromisesTestCompletableAction.self, fillOnError: 1)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(PromisesTestCompletableAction(promise: .value(1))))
+    }
+
+    func test_promises_completable_action_action_error() throws {
+        guard let action =
+            try Single
+            .error(Error.dummy)
+            .action(PromisesTestCompletableAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(PromisesTestCompletableAction(promise: .error(Error.dummy))))
+    }
+
+    func test_promises_empty_action_action() throws {
+        guard let action =
+            try Completable
+            .empty()
+            .action(PromisesTestEmptyAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(PromisesTestEmptyAction(promise: .empty())))
+    }
+
+    func test_promises_empty_action_action_error() throws {
+        guard let action =
+            try Completable
+            .error(Error.dummy)
+            .action(PromisesTestEmptyAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(PromisesTestEmptyAction(promise: .error(Error.dummy))))
     }
 
     func test_promises_empty_action_dispatch() {
@@ -217,6 +284,19 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         ).toEventually(be(1))
     }
 
+    func test_tasks_completable_action_dispatch_fill_on_error() {
+        Single
+            .error(Error.dummy)
+            .dispatch(action: TasksTestCompletableAction.self, on: dispatcher, fillOnError: 1)
+            .disposed(by: disposeBag)
+
+        expect(
+            self.testMiddleware.actions(of: TasksTestCompletableAction.self).count
+        ).toEventually(be(1))
+
+        expect(self.testMiddleware.actions(of: TasksTestCompletableAction.self).first?.payload) == 1
+    }
+
     func test_tasks_completable_action_dispatch_error() {
         Single
             .error(Error.dummy)
@@ -238,6 +318,20 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
         Single
             .just(1)
             .dispatch(action: TasksTestKeyedCompletableAction.self, key: "hello", on: dispatcher)
+            .disposed(by: disposeBag)
+
+        expect(
+            self.testMiddleware
+                .action(of: TasksTestKeyedCompletableAction.self) {
+                    $0.payload == 1 && $0.key == "hello" && $0.task.status == .success
+                }
+        ).toEventually(beTrue())
+    }
+
+    func test_tasks_keyed_completable_action_dispatch_fill_on_error() {
+        Single
+            .error(Error.dummy)
+            .dispatch(action: TasksTestKeyedCompletableAction.self, key: "hello", on: dispatcher, fillOnError: 1)
             .disposed(by: disposeBag)
 
         expect(
@@ -270,6 +364,46 @@ final class PrimitiveSequenceTypeTests: XCTestCase {
             .toBlocking(timeout: 5.0).first() else { fatalError() }
 
         expect(action).to(equalAction(TasksTestCompletableAction(task: .success(), payload: 1)))
+    }
+
+    func test_tasks_completable_action_action_fill_on_error() throws {
+        guard let action =
+            try Single
+            .error(Error.dummy)
+            .action(TasksTestCompletableAction.self, fillOnError: 1)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(TasksTestCompletableAction(task: .success(), payload: 1)))
+    }
+
+    func test_tasks_completable_action_action_error() throws {
+        guard let action =
+            try Single
+            .error(Error.dummy)
+            .action(TasksTestCompletableAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(TasksTestCompletableAction(task: .failure(Error.dummy), payload: nil)))
+    }
+
+    func test_tasks_empty_action_action() throws {
+        guard let action =
+            try Completable
+            .empty()
+            .action(TasksTestEmptyAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(TasksTestEmptyAction(task: .success())))
+    }
+
+    func test_tasks_empty_action_action_error() throws {
+        guard let action =
+            try Completable
+            .error(Error.dummy)
+            .action(TasksTestEmptyAction.self)
+            .toBlocking(timeout: 5.0).first() else { fatalError() }
+
+        expect(action).to(equalAction(TasksTestEmptyAction(task: .failure(Error.dummy))))
     }
 
     func test_tasks_empty_action_dispatch() {
