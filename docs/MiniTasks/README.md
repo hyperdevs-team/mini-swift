@@ -18,6 +18,7 @@
 
 -   [EmptyAction](extensions/EmptyAction.md)
 -   [ObservableType](extensions/ObservableType.md)
+-   [PrimitiveSequenceType](extensions/PrimitiveSequenceType.md)
 
 # Reference Documentation
 This reference documentation was generated with

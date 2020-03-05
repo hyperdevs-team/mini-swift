@@ -17,6 +17,13 @@
 import RxSwift
 
 public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Self.Trait == SingleTrait {
+    /**
+     Dispatches an given action from the result of the `Single` trait. This is only usable when the `Action` is a `CompletableAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure.
+     */
     func dispatch<A: CompletableAction>(action: A.Type,
                                         on dispatcher: Dispatcher,
                                         mode: Dispatcher.DispatchMode.UI = .async,
@@ -40,6 +47,14 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         return subscription
     }
 
+    /**
+     Dispatches an given action from the result of the `Single` trait. This is only usable when the `Action` is a `CompletableAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter key: The key associated with the `Task` result.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure or `nil`.
+     */
     func dispatch<A: KeyedCompletableAction>(action: A.Type,
                                              key: A.Key,
                                              on dispatcher: Dispatcher,
@@ -64,6 +79,12 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         return subscription
     }
 
+    /**
+     Builds a `CompletableAction` from a `Single`
+     - Parameter action: The `CompletableAction` type to be built.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure or `nil`.
+     - Returns: A `Single` of the `CompletableAction` type declared by the action parameter.
+     */
     func action<A: CompletableAction>(_ action: A.Type,
                                       fillOnError errorPayload: A.Payload? = nil)
         -> Single<A> where A.Payload == Self.Element {
@@ -89,6 +110,12 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
 }
 
 public extension PrimitiveSequenceType where Trait == CompletableTrait, Element == Swift.Never {
+    /**
+     Dispatches an given action from the result of the `Completable` trait. This is only usable when the `Action` is an `EmptyAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     */
     func dispatch<A: EmptyAction>(action: A.Type,
                                   on dispatcher: Dispatcher,
                                   mode: Dispatcher.DispatchMode.UI = .async)
@@ -106,6 +133,11 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         return subscription
     }
 
+    /**
+     Builds an `EmptyAction` from a `Completable`
+     - Parameter action: The `EmptyAction` type to be built.
+     - Returns: A `Single` of the `EmptyAction` type declared by the action parameter.
+     */
     func action<A: EmptyAction>(_ action: A.Type)
         -> Single<A> {
         return Single.create { single in

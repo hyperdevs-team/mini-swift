@@ -96,3 +96,17 @@ extension ObservableType where Self.Element: Mini.StateType {
      */
     public func withStateChanges<T, Type, U>(in stateComponent: KeyPath<Self.Element, T>, that taskComponent: KeyPath<Self.Element, U>) -> RxSwift.Observable<T> where U: MiniTasks.TypedTask<Type>
 }
+
+extension PrimitiveSequenceType where Self: RxSwift.ObservableConvertibleType, Self.Trait == RxSwift.SingleTrait {
+    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniTasks.CompletableAction, Self.Element == A.Payload
+
+    public func dispatch<A>(action: A.Type, key: A.Key, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniTasks.KeyedCompletableAction, Self.Element == A.Payload
+
+    public func action<A>(_ action: A.Type, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Single<A> where A: MiniTasks.CompletableAction, Self.Element == A.Payload
+}
+
+extension PrimitiveSequenceType where Self.Element == Never, Self.Trait == RxSwift.CompletableTrait {
+    public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async) -> RxSwift.Disposable where A: MiniTasks.EmptyAction
+
+    public func action<A>(_ action: A.Type) -> RxSwift.Single<A> where A: MiniTasks.EmptyAction
+}
