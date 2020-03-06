@@ -14,11 +14,9 @@ final class ActionTests: XCTestCase {
         XCTAssertEqual(String(describing: type(of: action)), SetCounterAction.tag)
     }
 
-    #if !SWIFT_PACKAGE
-        func test_empty_action_fatal_error_initializer() {
-            expect {
-                _ = TasksTestEmptyAction(task: .success(), payload: nil)
-            }.to(throwAssertion())
-        }
-    #endif
+    func test_empty_action_fatal_error_initializer() {
+        expect {
+            _ = TasksTestEmptyAction(task: .success(), payload: nil)
+        }.to(throwAssertion())
+    }
 }

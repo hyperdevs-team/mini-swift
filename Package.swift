@@ -35,10 +35,11 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
         .package(url: "https://github.com/apple/swift-nio.git", .upToNextMajor(from: "2.7.1")),
         // Development
-        .package(url: "https://github.com/Quick/Nimble.git", .exact("8.0.2")), // dev
+        .package(url: "https://github.com/Quick/Nimble", .branch("master")), // dev
+        .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting", .branch("master")), // dev
         .package(url: "https://github.com/minuscorp/ModuleInterface", from: "0.0.1"), // dev
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
         .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
@@ -74,7 +75,7 @@ let package = Package(
         ),
         .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
-    swiftLanguageVersions: [.version("4"), .version("4.2"), .version("5")]
+    swiftLanguageVersions: [.version("5.1")]
 )
 
 #if canImport(PackageConfig)
