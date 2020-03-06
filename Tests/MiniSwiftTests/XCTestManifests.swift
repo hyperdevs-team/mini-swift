@@ -7,6 +7,7 @@
         // to regenerate.
         static let __allTests__ActionTests = [
             ("test_action_tag", test_action_tag),
+            ("test_empty_action_fatal_error_initializer", test_empty_action_fatal_error_initializer),
         ]
     }
 

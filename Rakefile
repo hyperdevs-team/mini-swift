@@ -18,7 +18,7 @@ task(:setup) do
 end
 
 task(:build) do
-  sh('swift build --disable-sandbox -c release')
+  sh("swift build --disable-sandbox -c release")
 end
 
 task(:test) do
