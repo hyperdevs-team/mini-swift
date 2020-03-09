@@ -98,15 +98,47 @@ extension ObservableType where Self.Element: Mini.StateType {
 }
 
 extension PrimitiveSequenceType where Self: RxSwift.ObservableConvertibleType, Self.Trait == RxSwift.SingleTrait {
+    /**
+     Dispatches an given action from the result of the `Single` trait. This is only usable when the `Action` is a `CompletableAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure.
+     */
     public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniTasks.CompletableAction, Self.Element == A.Payload
 
+    /**
+     Dispatches an given action from the result of the `Single` trait. This is only usable when the `Action` is a `CompletableAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter key: The key associated with the `Task` result.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure or `nil`.
+     */
     public func dispatch<A>(action: A.Type, key: A.Key, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Disposable where A: MiniTasks.KeyedCompletableAction, Self.Element == A.Payload
 
+    /**
+     Builds a `CompletableAction` from a `Single`
+     - Parameter action: The `CompletableAction` type to be built.
+     - Parameter fillOnError: The payload that will replace the action's payload in case of failure or `nil`.
+     - Returns: A `Single` of the `CompletableAction` type declared by the action parameter.
+     */
     public func action<A>(_ action: A.Type, fillOnError errorPayload: A.Payload? = nil) -> RxSwift.Single<A> where A: MiniTasks.CompletableAction, Self.Element == A.Payload
 }
 
 extension PrimitiveSequenceType where Self.Element == Never, Self.Trait == RxSwift.CompletableTrait {
+    /**
+     Dispatches an given action from the result of the `Completable` trait. This is only usable when the `Action` is an `EmptyAction`.
+     - Parameter action: The `CompletableAction` type to be dispatched.
+     - Parameter dispatcher: The `Dispatcher` object that will dispatch the action.
+     - Parameter mode: The `Dispatcher` dispatch mode, `.async` by default.
+     */
     public func dispatch<A>(action: A.Type, on dispatcher: Mini.Dispatcher, mode: Mini.Dispatcher.DispatchMode.UI = .async) -> RxSwift.Disposable where A: MiniTasks.EmptyAction
 
+    /**
+     Builds an `EmptyAction` from a `Completable`
+     - Parameter action: The `EmptyAction` type to be built.
+     - Returns: A `Single` of the `EmptyAction` type declared by the action parameter.
+     */
     public func action<A>(_ action: A.Type) -> RxSwift.Single<A> where A: MiniTasks.EmptyAction
 }
