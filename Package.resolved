@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "RxOptional",
+        "repositoryURL": "https://github.com/RxSwiftCommunity/RxOptional",
+        "state": {
+          "branch": null,
+          "revision": "98a1895918e9ba9735a15207dd9c7120e9f51843",
+          "version": "4.1.0"
+        }
+      },
+      {
         "package": "RxSwift",
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
