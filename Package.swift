@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -75,7 +75,7 @@ let package = Package(
         ),
         .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking"]), // dev
     ],
-    swiftLanguageVersions: [.version("5.1")]
+    swiftLanguageVersions: [.version("5")]
 )
 
 #if canImport(PackageConfig)

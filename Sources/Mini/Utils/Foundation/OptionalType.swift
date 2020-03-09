@@ -16,14 +16,18 @@
 
 import Foundation
 
-public protocol OptionalType {
-    associatedtype Wrapped
-    var value: Wrapped? { get }
-}
+#if !canImport(RxOptional)
 
-extension Optional: OptionalType {
-    /// Cast `Optional<Wrapped>` to `Wrapped?`
-    public var value: Wrapped? {
-        return self
+    public protocol OptionalType {
+        associatedtype Wrapped
+        var value: Wrapped? { get }
     }
-}
+
+    extension Optional: OptionalType {
+        /// Cast `Optional<Wrapped>` to `Wrapped?`
+        public var value: Wrapped? {
+            return self
+        }
+    }
+
+#endif

@@ -16,6 +16,9 @@
 
 import Foundation
 import RxSwift
+#if canImport(RxOptional)
+    import RxOptional
+#endif
 
 extension ObservableType {
     /// Take the first element that matches the filter function.
@@ -54,20 +57,22 @@ extension ObservableType {
     }
 }
 
-public extension ObservableType where Element: OptionalType {
-    /**
-     Unwraps and filters out `nil` elements.
-     - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
-     */
-    func filterNil() -> Observable<Element.Wrapped> {
-        return flatMap { element -> Observable<Element.Wrapped> in
-            guard let value = element.value else {
-                return Observable<Element.Wrapped>.empty()
+#if !canImport(RxOptional)
+    public extension ObservableType where Element: OptionalType {
+        /**
+         Unwraps and filters out `nil` elements.
+         - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
+         */
+        func filterNil() -> Observable<Element.Wrapped> {
+            return flatMap { element -> Observable<Element.Wrapped> in
+                guard let value = element.value else {
+                    return Observable<Element.Wrapped>.empty()
+                }
+                return Observable<Element.Wrapped>.just(value)
             }
-            return Observable<Element.Wrapped>.just(value)
         }
     }
-}
+#endif
 
 extension ObservableType where Element: StateType {
     /**
