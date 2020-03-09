@@ -54,10 +54,6 @@ public func select<T: OptionalType>(_ keyPath: KeyPath<Element, T>) -> Observabl
 
 ### `filterNil()`
 
-```swift
-func filterNil() -> Observable<Element.Wrapped>
-```
-
 > Unwraps and filters out `nil` elements.
 > - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
 
