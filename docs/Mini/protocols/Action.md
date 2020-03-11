@@ -6,5 +6,5 @@
 public protocol Action
 ```
 
-> Protocol that has to be conformed by any object that can be dispatcher
+> Protocol that has to be conformed by any object that can be dispatched
 > by a `Dispatcher` object.
