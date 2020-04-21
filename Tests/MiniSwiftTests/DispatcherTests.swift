@@ -48,7 +48,7 @@ final class DispatcherTests: XCTestCase {
 
     func test_add_remove_service() {
 
-        class TestService: Service {
+        class TestService: ServiceType {
 
             var id: UUID = UUID()
 

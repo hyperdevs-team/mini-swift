@@ -42,11 +42,11 @@ final public class Dispatcher {
     private let internalQueue = DispatchQueue(label: "MiniSwift", qos: .userInitiated)
     private var subscriptionMap = SubscriptionMap()
     private var middleware = [Middleware]()
-    private var service = [Service]()
+    private var service = [ServiceType]()
     private let root: RootChain
     private var chain: Chain
     private var dispatching: Bool = false
-    private var subscriptionCounter: Atomic<Int> = Atomic<Int>(value: 0)
+    private var subscriptionCounter: NIOAtomic<Int> = NIOAtomic.makeAtomic(value: 0)
 
     public init() {
         root = RootChain(map: subscriptionMap)
@@ -77,13 +77,13 @@ final public class Dispatcher {
         }
     }
 
-    public func register(service: Service) {
+    public func register(service: ServiceType) {
         internalQueue.sync {
             self.service.append(service)
         }
     }
 
-    public func unregister(service: Service) {
+    public func unregister(service: ServiceType) {
         internalQueue.sync {
             if let index = self.service.firstIndex(where: { service.id == $0.id }) {
                 self.service.remove(at: index)

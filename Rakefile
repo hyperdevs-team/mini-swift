@@ -7,7 +7,7 @@ task(:setup) do
   raise '`brew` is required. Please install brew. https://brew.sh/' unless system('which brew')
 
   puts('➡️  Bundle')
-  sh('brew bundle')
+  sh('brew install swiftlint')
   sh('bundle install')
 
   puts('➡️  Overcommit')
@@ -17,13 +17,5 @@ task(:setup) do
   sh('bundle exec overcommit --sign post-checkout')
 
   puts('➡️  SPM Resolve Dependencies')
-  sh('swift package resolve')
-end
-
-task(:build) do
-  sh('swift build')
-end
-
-task(:test) do
-  sh('swift test')
+  sh('xcodebuild -resolvePackageDependencies')
 end

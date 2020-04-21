@@ -5,27 +5,9 @@ gitfiles = (git.modified_files + git.added_files).uniq
 has_code_changes = !gitfiles.grep(/^Source/).empty?
 has_tests_changes = !gitfiles.grep(/^Tests/).empty?
 
-# bq_helpers.scan_files
-
-# BASIC CHECKS:
+# GITHUB TESTS
 warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
-
-# BUILD PARSE:
-# bq_helpers.build_reports.each do |path|
-#  path = Pathname(path)
-#  xcode_summary.report path.to_s
-# end
-#
-# #JUNIT PARSE:
-# bq_helpers.test_reports.each do |path|
-#  path = Pathname(path)
-#  junit.parse path.to_s
-#  junit.report
-#
-#  all_test = junit.tests.map(&:attributes)
-#  slowest_test = all_test.sort_by { |attributes| attributes[:time].to_f }.last
-#  message "⌛️ **[#{bq_helpers.read_platform_from_file(path: path)}]** Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds"
-# end
+fail "This PR does not have any assignees yet." unless github.pr_json["assignee"]
 
 # SWIFTLINT
 swiftlint.lint_all_files = true

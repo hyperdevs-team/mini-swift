@@ -16,7 +16,7 @@
 
 import Foundation
 
-public class LoggingService: Service {
+public class LoggingService: ServiceType {
 
     public var id: UUID = UUID()
 
