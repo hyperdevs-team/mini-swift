@@ -14,4 +14,4 @@ gem "danger-xcode_summary"
 gem "danger-bq_helpers", git: "https://github.com/bq/danger-bq_helpers"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
-eval_gemfile(plugins_path) if File.exist?(plugins_path)
+eval_gemfile('./fastlane/Pluginfile') if File.exist?(plugins_path)
