@@ -1,20 +1,46 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Pass all test for main target"
-  lane :pass_tests do
-    Dir.chdir('..') do
-        clear_derived_data
-        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' | xcpretty -f `xcpretty-travis-formatter`"
-        sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
-
-        clear_derived_data
-        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=OS X,arch=x86_64' | xcpretty -f `xcpretty-travis-formatter`"
-        sh "curl -s https://codecov.io/bash | bash -s -- -F mac -J 'Mini'"
-
-        clear_derived_data
-        sh "xcodebuild -scheme Mini-Package -enableCodeCoverage YES clean test -destination 'platform=tvOS Simulator,name=Apple TV,OS=13.3' | xcpretty -f `xcpretty-travis-formatter`"
-        sh "curl -s https://codecov.io/bash | bash -s -- -F tv -J 'Mini'"
+    before_all do
+    	ENV['WORKSPACE'] = workspace_path()
     end
-  end
+
+	desc "Pass all test for main target"
+	lane :pass_tests do
+		test_scheme(scheme: "Mini-macOS", configuration: "Debug", name: "mac")
+		sh "curl -s https://codecov.io/bash | bash -s -- -F mac -J 'Mini'"
+
+		test_scheme(scheme: "Mini-tvOS", configuration: "Debug", name: "tv")
+		sh "curl -s https://codecov.io/bash | bash -s -- -F tv -J 'Mini'"
+
+		test_scheme(scheme: "Mini-iOS", configuration: "Debug", name: "iOS")
+		sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
+	end
+
+  	private_lane :test_scheme do |options|
+        clear_derived_data
+
+        output_directory = File.expand_path("#{ENV['WORKSPACE']}/output")
+        ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "#{output_directory}/#{options[:name]}.build-report.json"
+
+        begin 
+            scan_options = {}
+            scan_options[:scheme] = options[:scheme]
+            scan_options[:configuration] = options[:configuration]
+            scan_options[:disable_slide_to_type] = false
+            scan_options[:disable_concurrent_testing] = true
+            scan_options[:max_concurrent_simulators] = 1
+            scan_options[:buildlog_path] = "#{output_directory}/#{options[:name]}/build-log/"
+            scan_options[:output_directory] = "#{output_directory}/#{options[:name]}/test-report"
+            scan_options[:formatter] = "xcpretty-json-formatter"
+            scan_options[:skip_slack] = true
+            scan(scan_options)
+        rescue 
+            UI.message 'Test are failed, check report!!!'
+        end 
+    end
+
+    def workspace_path()
+        File.expand_path("..")
+    end    	
 end

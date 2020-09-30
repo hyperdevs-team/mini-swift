@@ -16,7 +16,6 @@
 
 import Foundation
 import RxSwift
-import NIOConcurrencyHelpers
 
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
@@ -46,7 +45,7 @@ final public class Dispatcher {
     private let root: RootChain
     private var chain: Chain
     private var dispatching: Bool = false
-    private var subscriptionCounter: NIOAtomic<Int> = NIOAtomic.makeAtomic(value: 0)
+    private var subscriptionCounter = 0
 
     public init() {
         root = RootChain(map: subscriptionMap)
@@ -178,7 +177,9 @@ final public class Dispatcher {
     }
 
     private func getNewSubscriptionId() -> Int {
-        return subscriptionCounter.add(1)
+        let previous = subscriptionCounter
+        subscriptionCounter += 1
+        return previous
     }
 }
 

@@ -29,41 +29,38 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation'
 
   s.dependency('RxSwift', '~> 5.1')
-  s.dependency('SwiftNIOConcurrencyHelpers', '~> 2.16.0')
 
   s.default_subspec = 'Core'
 
   s.module_name = 'Mini'
 
   s.subspec('Core') do |ss|
-    ss.ios.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.ios.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
 
-    ss.osx.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.osx.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
 
-    ss.tvos.source_files = ['Sources/MiniSwift/*.swift', 'Sources/MiniSwift/Utils/**/*.swift']
+    ss.tvos.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
   end
 
   s.subspec('Log') do |ss|
     ss.ios.dependency('MasMini-Swift/Core')
-    ss.ios.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.ios.source_files = 'Sources/LoggingService/*.swift'
 
     ss.osx.dependency('MasMini-Swift/Core')
-    ss.osx.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.osx.source_files = 'Sources/LoggingService/*.swift'
 
     ss.tvos.dependency('MasMini-Swift/Core')
-    ss.tvos.source_files = 'Sources/MiniSwift/LoggingService/*.swift'
+    ss.tvos.source_files = 'Sources/LoggingService/*.swift'
   end
 
   s.subspec('Test') do |ss|
     ss.ios.dependency('MasMini-Swift/Core')
-    ss.ios.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.ios.source_files = 'Sources/TestMiddleware/*.swift'
 
     ss.osx.dependency('MasMini-Swift/Core')
-    ss.osx.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.osx.source_files = 'Sources/TestMiddleware/*.swift'
 
     ss.tvos.dependency('MasMini-Swift/Core')
-    ss.tvos.source_files = 'Sources/MiniSwift/TestMiddleware/*.swift'
+    ss.tvos.source_files = 'Sources/TestMiddleware/*.swift'
   end
-
-  s.preserve_paths = ['Templates/*.stencil']
 end

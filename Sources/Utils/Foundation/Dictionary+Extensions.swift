@@ -39,14 +39,3 @@ extension Dictionary {
         return self[key]
     }
 }
-
-extension Dictionary where Value: Task {
-
-    public subscript(task key: Key) -> Value {
-        return self[unwrapping: key]
-    }
-
-    public func hasValue(for key: Dictionary.Key) -> Bool {
-        return self.keys.contains(key)
-    }
-}

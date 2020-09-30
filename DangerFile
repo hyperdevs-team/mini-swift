@@ -1,19 +1,65 @@
-# frozen_string_literal: true
+# FUNCTION HELPERS
+def label_tests_summary(path:) 
+  json = File.read(path.to_s)
+  data = JSON.parse(json)
+  data["tests_summary_messages"].each { |message| 
+      if !message.empty?
+         message.insert(1, "**📢 [" + read_platform_from_buildreport_file(path: path) + "]**")
+      end
+  }
+  File.open(path.to_s,"w") do |f|
+     f.puts JSON.pretty_generate(data)
+  end 
+end 
 
-# FILE HELPERS
+def read_platform_from_buildreport_file(path:)
+    path.basename.to_s.split('.').first
+end
+
+def read_platform_from_testreport_file(path:)
+    path.dirname.to_s.split('/')[-2]
+end
+
+#FILE HELPERS
 gitfiles = (git.modified_files + git.added_files).uniq
-has_code_changes = !gitfiles.grep(/^Source/).empty?
-has_tests_changes = !gitfiles.grep(/^Tests/).empty?
 
-# GITHUB TESTS
+build_reports = []
+test_reports = []
+Find.find("./output") do |path|
+  build_reports << path if path =~ /.*\.build-report.json$/
+  test_reports << path if path =~ /.*report.junit$/
+end
+
+#BASIC CHECKS:
 warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
-fail "This PR does not have any assignees yet." unless github.pr_json["assignee"]
+fail 'This PR does not have any assignees yet.' unless github.pr_json["assignee"]
 
-# SWIFTLINT
+#BUILD PARSE:
+build_reports.each do |path|
+	path = Pathname(path)
+	label_tests_summary(path: path)
+	xcode_summary.report path.to_s
+end
+
+#JUNIT PARSE:
+test_reports.each do |path|
+	path = Pathname(path)
+	junit.parse path.to_s
+	junit.report
+
+	all_test = junit.tests.map(&:attributes)
+	slowest_test = all_test.sort_by { |attributes| attributes[:time].to_f }.last
+	message "⌛️ **[#{read_platform_from_testreport_file(path: path)}]** Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds"
+end
+
+#SWIFTLINT
 swiftlint.lint_all_files = true
 swiftlint.lint_files fail_on_error: true
 
-# TEST EVOLUTION CHECK:
-if has_code_changes
-  warn('You have changes in code but there is no changes in any test... do you sleep well at night? 🤨') unless has_tests_changes
+#TEST EVOLUTION CHECK:
+has_code_changes = !gitfiles.grep(/^Sources/).empty?
+has_tests_changes = !gitfiles.grep(/^Tests/).empty?
+
+if has_code_changes 
+	warn('You have changes in code but there is no changes in any test... do you sleep well at night? 🤨') if !has_tests_changes
 end

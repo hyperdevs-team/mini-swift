@@ -17,7 +17,6 @@
 import Foundation
 
 public typealias Task = TypedTask<Any>
-public typealias KeyedTask<K: Hashable> = [K: Task]
 
 public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
 
