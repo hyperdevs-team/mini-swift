@@ -25,16 +25,14 @@ With Mini, you can create a thread-safe application with a predictable unidirect
 
 ### [Carthage](https://github.com/Carthage/Carthage)
 
-- Create a Package.swift file.
-
-
+- Add this to you `Cartfile`:
 ```
 github "masmovil/masmini-swift" 
 ```
 
 ### [Cocoapods](https://cocoapods.org/)
 
-- Add this to you `Cartfile`:
+- Add this to you `Podfile`:
 ```
 pod "MasMini-Swift"
 ```
