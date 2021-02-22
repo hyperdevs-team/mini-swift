@@ -106,6 +106,27 @@ public extension PrimitiveSequenceType where Trait == CompletableTrait, Element 
         return subscription
     }
 
+    func dispatch<A: KeyedEmptyAction>(action: A.Type,
+                                       expiration: Task.Expiration = .immediately,
+                                       key: A.Key,
+                                       on dispatcher: Dispatcher,
+                                       mode: Dispatcher.DispatchMode.UI = .async)
+        -> Disposable {
+        let subscription = self.subscribe { completable in
+            switch completable {
+            case .completed:
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestSuccess(expiration), key: key)
+                dispatcher.dispatch(action, mode: mode)
+            case .error(let error):
+                // swiftlint:disable:next explicit_init
+                let action = A.init(task: .requestFailure(error), key: key)
+                dispatcher.dispatch(action, mode: mode)
+            }
+        }
+        return subscription
+    }
+
     func action<A: EmptyAction>(_ action: A.Type,
                                 expiration: Task.Expiration = .immediately)
         -> Single<A> {

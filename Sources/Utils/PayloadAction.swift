@@ -43,3 +43,15 @@ public protocol KeyedPayloadAction {
 }
 
 public protocol KeyedCompletableAction: Action & KeyedPayloadAction { }
+
+public protocol KeyedEmptyAction: Action & PayloadAction where Payload == Swift.Never {
+    associatedtype Key: Hashable
+
+    init(task: Task, key: Key)
+}
+
+public extension KeyedEmptyAction {
+    init(task: Task, payload: Payload?) {
+        fatalError("Never call this method from a EmptyAction")
+    }
+}
