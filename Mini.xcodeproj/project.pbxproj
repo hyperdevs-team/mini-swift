@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E23E36F9212191CE00A81C2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23E36F8212191CD00A81C2A /* UIKit.framework */; };
 		E26053F82121880000D013B5 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26053EE212187FF00D013B5 /* Mini.framework */; };
 		E26053FF2121880000D013B5 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E28123E02122C2CB00E4F6D0 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28123D72122C2CB00E4F6D0 /* Mini.framework */; };
@@ -15,10 +14,10 @@
 		E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28124322122CC4C00E4F6D0 /* Mini.framework */; };
 		E28124562122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E28124572122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28C312021494B4300DE964B /* SystemConfiguration.framework */; };
-		F200833D2265E3D100AC6EE1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F200833C2265E3BD00AC6EE1 /* AppKit.framework */; };
-		F21EE3AB227745AE005CBF77 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23E36F8212191CD00A81C2A /* UIKit.framework */; };
-		F21EE3AC227745AF005CBF77 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23E36F8212191CD00A81C2A /* UIKit.framework */; };
+		F20396B125E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
+		F20396B225E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
+		F20396B325E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
+		F20396B425E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
 		F222D4AF25249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
 		F222D4B025249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
 		F222D4B125249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
@@ -121,37 +120,6 @@
 		F26C3AF922537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFA22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFB22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
-		F2AC728223460F9900661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC727D23460F9900661BE9 /* RxRelay.framework */; };
-		F2AC728323460F9900661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC727D23460F9900661BE9 /* RxRelay.framework */; };
-		F2AC728423460F9900661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC727E23460F9900661BE9 /* RxBlocking.framework */; };
-		F2AC728523460F9900661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC727E23460F9900661BE9 /* RxBlocking.framework */; };
-		F2AC728823460F9900661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728023460F9900661BE9 /* RxSwift.framework */; };
-		F2AC728923460F9900661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728023460F9900661BE9 /* RxSwift.framework */; };
-		F2AC728A23460F9900661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728123460F9900661BE9 /* RxCocoa.framework */; };
-		F2AC728B23460F9900661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728123460F9900661BE9 /* RxCocoa.framework */; };
-		F2AC729323460FAF00661BE9 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728C23460FAE00661BE9 /* RxTest.framework */; };
-		F2AC729423460FAF00661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728D23460FAE00661BE9 /* RxSwift.framework */; };
-		F2AC729523460FAF00661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728D23460FAE00661BE9 /* RxSwift.framework */; };
-		F2AC729823460FAF00661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728F23460FAF00661BE9 /* RxCocoa.framework */; };
-		F2AC729923460FAF00661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC728F23460FAF00661BE9 /* RxCocoa.framework */; };
-		F2AC729A23460FAF00661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC729023460FAF00661BE9 /* RxRelay.framework */; };
-		F2AC729B23460FAF00661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC729023460FAF00661BE9 /* RxRelay.framework */; };
-		F2AC729C23460FAF00661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC729123460FAF00661BE9 /* RxBlocking.framework */; };
-		F2AC729D23460FAF00661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC729123460FAF00661BE9 /* RxBlocking.framework */; };
-		F2AC729F23460FC200661BE9 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC729E23460FC200661BE9 /* RxTest.framework */; };
-		F2AC72A623460FE600661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A023460FE600661BE9 /* RxCocoa.framework */; };
-		F2AC72A723460FE600661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A023460FE600661BE9 /* RxCocoa.framework */; };
-		F2AC72A823460FE600661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A123460FE600661BE9 /* RxSwift.framework */; };
-		F2AC72A923460FE600661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A123460FE600661BE9 /* RxSwift.framework */; };
-		F2AC72AB23460FE600661BE9 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A223460FE600661BE9 /* RxTest.framework */; };
-		F2AC72AE23460FE600661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A423460FE600661BE9 /* RxRelay.framework */; };
-		F2AC72AF23460FE600661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A423460FE600661BE9 /* RxRelay.framework */; };
-		F2AC72B023460FE600661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A523460FE600661BE9 /* RxBlocking.framework */; };
-		F2AC72B123460FE600661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72A523460FE600661BE9 /* RxBlocking.framework */; };
-		F2AC72B723460FFB00661BE9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72B223460FFB00661BE9 /* RxSwift.framework */; };
-		F2AC72B823460FFB00661BE9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72B323460FFB00661BE9 /* RxCocoa.framework */; };
-		F2AC72BA23460FFB00661BE9 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72B523460FFB00661BE9 /* RxBlocking.framework */; };
-		F2AC72BB23460FFB00661BE9 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AC72B623460FFB00661BE9 /* RxRelay.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,7 +147,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E23E36F8212191CD00A81C2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E26053EE212187FF00D013B5 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26053F12121880000D013B5 /* Mini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mini.h; sourceTree = "<group>"; };
 		E26053F22121880000D013B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -190,8 +157,7 @@
 		E28124322122CC4C00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281244E2122CC5B00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E28C312021494B4300DE964B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		F200833C2265E3BD00AC6EE1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxSwift.xcframework; path = Carthage/Build/RxSwift.xcframework; sourceTree = "<group>"; };
 		F222D4A625249B7D00672E7B /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		F222D4A725249B7D00672E7B /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F222D4A825249B7D00672E7B /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
@@ -219,25 +185,6 @@
 		F222D7692525361700672E7B /* KeyedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTask.swift; sourceTree = "<group>"; };
 		F222D7752525373B00672E7B /* KeyedTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTaskTests.swift; sourceTree = "<group>"; };
 		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
-		F2AC727D23460F9900661BE9 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
-		F2AC727E23460F9900661BE9 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
-		F2AC728023460F9900661BE9 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
-		F2AC728123460F9900661BE9 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
-		F2AC728C23460FAE00661BE9 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/Mac/RxTest.framework; sourceTree = "<group>"; };
-		F2AC728D23460FAE00661BE9 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
-		F2AC728F23460FAF00661BE9 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
-		F2AC729023460FAF00661BE9 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/Mac/RxRelay.framework; sourceTree = "<group>"; };
-		F2AC729123460FAF00661BE9 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/Mac/RxBlocking.framework; sourceTree = "<group>"; };
-		F2AC729E23460FC200661BE9 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
-		F2AC72A023460FE600661BE9 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/tvOS/RxCocoa.framework; sourceTree = "<group>"; };
-		F2AC72A123460FE600661BE9 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
-		F2AC72A223460FE600661BE9 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/tvOS/RxTest.framework; sourceTree = "<group>"; };
-		F2AC72A423460FE600661BE9 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/tvOS/RxRelay.framework; sourceTree = "<group>"; };
-		F2AC72A523460FE600661BE9 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/tvOS/RxBlocking.framework; sourceTree = "<group>"; };
-		F2AC72B223460FFB00661BE9 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
-		F2AC72B323460FFB00661BE9 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/watchOS/RxCocoa.framework; sourceTree = "<group>"; };
-		F2AC72B523460FFB00661BE9 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/watchOS/RxBlocking.framework; sourceTree = "<group>"; };
-		F2AC72B623460FFB00661BE9 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/watchOS/RxRelay.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,12 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23E36F9212191CE00A81C2A /* UIKit.framework in Frameworks */,
-				E28C312621494B7E00DE964B /* SystemConfiguration.framework in Frameworks */,
-				F2AC728A23460F9900661BE9 /* RxCocoa.framework in Frameworks */,
-				F2AC728823460F9900661BE9 /* RxSwift.framework in Frameworks */,
-				F2AC728223460F9900661BE9 /* RxRelay.framework in Frameworks */,
-				F2AC728423460F9900661BE9 /* RxBlocking.framework in Frameworks */,
+				F20396B125E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,12 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC729F23460FC200661BE9 /* RxTest.framework in Frameworks */,
-				F2AC728B23460F9900661BE9 /* RxCocoa.framework in Frameworks */,
-				F2AC728923460F9900661BE9 /* RxSwift.framework in Frameworks */,
-				F2AC728323460F9900661BE9 /* RxRelay.framework in Frameworks */,
 				E26053F82121880000D013B5 /* Mini.framework in Frameworks */,
-				F2AC728523460F9900661BE9 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,11 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC729C23460FAF00661BE9 /* RxBlocking.framework in Frameworks */,
-				F2AC729A23460FAF00661BE9 /* RxRelay.framework in Frameworks */,
-				F200833D2265E3D100AC6EE1 /* AppKit.framework in Frameworks */,
-				F2AC729823460FAF00661BE9 /* RxCocoa.framework in Frameworks */,
-				F2AC729423460FAF00661BE9 /* RxSwift.framework in Frameworks */,
+				F20396B225E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,12 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC729D23460FAF00661BE9 /* RxBlocking.framework in Frameworks */,
-				F2AC729323460FAF00661BE9 /* RxTest.framework in Frameworks */,
-				F2AC729B23460FAF00661BE9 /* RxRelay.framework in Frameworks */,
 				E28123E02122C2CB00E4F6D0 /* Mini.framework in Frameworks */,
-				F2AC729923460FAF00661BE9 /* RxCocoa.framework in Frameworks */,
-				F2AC729523460FAF00661BE9 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,11 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC72B023460FE600661BE9 /* RxBlocking.framework in Frameworks */,
-				F2AC72A623460FE600661BE9 /* RxCocoa.framework in Frameworks */,
-				F21EE3AC227745AF005CBF77 /* UIKit.framework in Frameworks */,
-				F2AC72AE23460FE600661BE9 /* RxRelay.framework in Frameworks */,
-				F2AC72A823460FE600661BE9 /* RxSwift.framework in Frameworks */,
+				F20396B325E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,12 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC72B123460FE600661BE9 /* RxBlocking.framework in Frameworks */,
-				F2AC72A723460FE600661BE9 /* RxCocoa.framework in Frameworks */,
 				E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */,
-				F2AC72AF23460FE600661BE9 /* RxRelay.framework in Frameworks */,
-				F2AC72AB23460FE600661BE9 /* RxTest.framework in Frameworks */,
-				F2AC72A923460FE600661BE9 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,11 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2AC72B823460FFB00661BE9 /* RxCocoa.framework in Frameworks */,
-				F2AC72BA23460FFB00661BE9 /* RxBlocking.framework in Frameworks */,
-				F2AC72BB23460FFB00661BE9 /* RxRelay.framework in Frameworks */,
-				F2AC72B723460FFB00661BE9 /* RxSwift.framework in Frameworks */,
-				F21EE3AB227745AE005CBF77 /* UIKit.framework in Frameworks */,
+				F20396B425E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,65 +308,12 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		E260546121218DE800D013B5 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				F2AC727E23460F9900661BE9 /* RxBlocking.framework */,
-				F2AC728123460F9900661BE9 /* RxCocoa.framework */,
-				F2AC727D23460F9900661BE9 /* RxRelay.framework */,
-				F2AC728023460F9900661BE9 /* RxSwift.framework */,
-				F2AC729E23460FC200661BE9 /* RxTest.framework */,
-				E28C312021494B4300DE964B /* SystemConfiguration.framework */,
-				E23E36F8212191CD00A81C2A /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		E28124592122CD2500E4F6D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E2FE59D72122CD9700A38D7A /* watchOS */,
-				E281245B2122CD3600E4F6D0 /* tvOS */,
-				E281245A2122CD2F00E4F6D0 /* macOS */,
-				E260546121218DE800D013B5 /* iOS */,
+				F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E281245A2122CD2F00E4F6D0 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				F2AC729123460FAF00661BE9 /* RxBlocking.framework */,
-				F2AC728F23460FAF00661BE9 /* RxCocoa.framework */,
-				F2AC729023460FAF00661BE9 /* RxRelay.framework */,
-				F2AC728D23460FAE00661BE9 /* RxSwift.framework */,
-				F2AC728C23460FAE00661BE9 /* RxTest.framework */,
-				F200833C2265E3BD00AC6EE1 /* AppKit.framework */,
-			);
-			name = macOS;
-			sourceTree = "<group>";
-		};
-		E281245B2122CD3600E4F6D0 /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				F2AC72A523460FE600661BE9 /* RxBlocking.framework */,
-				F2AC72A023460FE600661BE9 /* RxCocoa.framework */,
-				F2AC72A423460FE600661BE9 /* RxRelay.framework */,
-				F2AC72A123460FE600661BE9 /* RxSwift.framework */,
-				F2AC72A223460FE600661BE9 /* RxTest.framework */,
-			);
-			name = tvOS;
-			sourceTree = "<group>";
-		};
-		E2FE59D72122CD9700A38D7A /* watchOS */ = {
-			isa = PBXGroup;
-			children = (
-				F2AC72B523460FFB00661BE9 /* RxBlocking.framework */,
-				F2AC72B323460FFB00661BE9 /* RxCocoa.framework */,
-				F2AC72B623460FFB00661BE9 /* RxRelay.framework */,
-				F2AC72B223460FFB00661BE9 /* RxSwift.framework */,
-			);
-			name = watchOS;
 			sourceTree = "<group>";
 		};
 		F222D4DA25249B9A00672E7B /* LoggingService */ = {
@@ -1145,7 +1007,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1176,7 +1038,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1202,14 +1064,14 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1228,14 +1090,14 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1257,7 +1119,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
@@ -1288,7 +1150,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
@@ -1315,14 +1177,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1342,14 +1204,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1371,7 +1233,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1403,7 +1265,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1431,14 +1293,14 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1459,14 +1321,14 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1490,7 +1352,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1521,7 +1383,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
