@@ -394,8 +394,15 @@ All the documentation available can be found **[here](http://github.com/bq/mini-
 * **[Pablo Orgaz](https://github.com/pabloogc)**
 * **[Sebastián Varela](https://github.com/sebastianvarela)**
 
+## Acknowledgements
+The work in this repository up to April 30th, 2021 was done by [bq](https://github.com/bq).
+Thanks for all the work!!
+
 ## License
+This project is licensed under the Apache Software License, Version 2.0.
 ```
+   Copyright 2021 HyperDevs
+   
    Copyright 2019 BQ
 
    Licensed under the Apache License, Version 2.0 (the "License");
