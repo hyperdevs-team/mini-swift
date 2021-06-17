@@ -182,6 +182,7 @@ public final class Dispatcher {
     }
 }
 
+@available(iOS 13.0, *)
 public final class DispatcherSubscription: Comparable, Cancellable {
 
     

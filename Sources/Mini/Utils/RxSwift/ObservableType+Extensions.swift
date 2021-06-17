@@ -15,12 +15,9 @@
  */
 
 import Foundation
-import RxSwift
-#if canImport(RxOptional)
-    import RxOptional
-#endif
 
-extension ObservableType {
+/*
+class ObservableType {
     /// Take the first element that matches the filter function.
     ///
     /// - Parameter fn: Filter closure.
@@ -56,6 +53,9 @@ extension ObservableType {
             .distinctUntilChanged()
     }
 }
+*/
+
+/*
 
 #if !canImport(RxOptional)
     public extension ObservableType where Element: OptionalType {
@@ -81,4 +81,4 @@ extension ObservableType where Element: StateType {
     public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>, that componentProperty: KeyPath<T, Bool>) -> Observable<T> {
         return map(stateComponent).filter(componentProperty)
     }
-}
+}*/
