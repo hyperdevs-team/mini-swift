@@ -21,10 +21,6 @@ let package = Package(
             targets: ["LoggingService"]
         ),
         .library(
-            name: "Mini/Test",
-            targets: ["TestMiddleware"]
-        ),
-        .library(
             name: "MiniTask",
             targets: ["MiniTasks"]
         ),
@@ -56,12 +52,9 @@ let package = Package(
             name: "LoggingService"
         ),
         .target(
-            name: "TestMiddleware"
-        ),
-        .target(
             name: "MiniTasks"
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "TestMiddleware", "Nimble", "NIOConcurrencyHelpers"]), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "Nimble", "NIOConcurrencyHelpers"]), // dev
     ],
     swiftLanguageVersions: [.version("5")]
 )
