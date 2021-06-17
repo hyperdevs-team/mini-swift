@@ -18,11 +18,11 @@ let package = Package(
         ),
         .library(
             name: "Mini/Log",
-            targets: ["LoggingService"]
+            targets: ["Mini", "LoggingService"]
         ),
         .library(
             name: "MiniTask",
-            targets: ["MiniTasks"]
+            targets: ["Mini", "MiniTasks"]
         ),
     ],
     dependencies: [
@@ -49,10 +49,12 @@ let package = Package(
             dependencies: ["NIOConcurrencyHelpers"]
         ),
         .target(
-            name: "LoggingService"
+            name: "LoggingService",
+            dependencies: ["Mini"]
         ),
         .target(
-            name: "MiniTasks"
+            name: "MiniTasks",
+            dependencies: ["Mini"]
         ),
         .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "Nimble", "NIOConcurrencyHelpers"]), // dev
     ],
