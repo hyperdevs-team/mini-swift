@@ -66,7 +66,7 @@ let package = Package(
             name: "MiniPromises",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking", "RxOptional"]), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["MiniTasks", "MiniPromises", "TestMiddleware", "Nimble"]), // dev
     ],
     swiftLanguageVersions: [.version("5")]
 )
