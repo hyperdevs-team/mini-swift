@@ -15,27 +15,71 @@
  */
 
 import Foundation
-import RxSwift
+import Combine
 
-public extension ObservableType where Element: StateType {
+
+class ObservableType {
+    /*
+    /// Take the first element that matches the filter function.
+    ///
+    /// - Parameter fn: Filter closure.
+    /// - Returns: The first element that matches the filter.
+    public func filterOne(_ condition: @escaping (Element) -> Bool) -> Publisher<Element> {
+        filter {
+            condition($0)
+        }.take(1)
+    }
+
+    public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
+        filter(^keyPath)
+    }
+
+    public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T> {
+        map(^keyPath)
+    }
+
+    public func one() -> Observable<Element> {
+        take(1)
+    }
+
+    public func skippingCurrent() -> Observable<Element> {
+        skip(1)
+    }
+
+    /**
+     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+     */
+    public func select<T: OptionalType>(_ keyPath: KeyPath<Element, T>) -> Observable<T.Wrapped> where T.Wrapped: Equatable {
+        map(keyPath)
+            .filterNil()
+            .distinctUntilChanged()
+    }
+ */
+}
+
+/*
+#if !canImport(RxOptional)
+    public extension ObservableType where Element: OptionalType {
+        /**
+         Unwraps and filters out `nil` elements.
+         - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
+         */
+        func filterNil() -> Observable<Element.Wrapped> {
+            return flatMap { element -> Observable<Element.Wrapped> in
+                guard let value = element.value else {
+                    return Observable<Element.Wrapped>.empty()
+                }
+                return Observable<Element.Wrapped>.just(value)
+            }
+        }
+    }
+#endif
+
+extension ObservableType where Element: StateType {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
      */
-    func withStateChanges<T>(
-        in stateComponent: KeyPath<Element, T>
-    ) -> Observable<T> {
-        return map(stateComponent)
+    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>, that componentProperty: KeyPath<T, Bool>) -> Observable<T> {
+        return map(stateComponent).filter(componentProperty)
     }
-
-    /**
-     Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes using a `taskComponent` (i.e. a Task component in the State) to be completed (either successfully or failed).
-     */
-    func withStateChanges<T, Type, U: TypedTask<Type>>(
-        in stateComponent: KeyPath<Element, T>,
-        that taskComponent: KeyPath<Element, U>
-    )
-        -> Observable<T> {
-        filter(taskComponent.appending(path: \.isCompleted))
-            .map(stateComponent)
-    }
-}
+}*/

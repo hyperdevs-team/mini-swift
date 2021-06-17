@@ -15,11 +15,11 @@
  */
 
 import Foundation
-import RxSwift
+import Combine
 
 public protocol StoreType {
     associatedtype State: StateType
-    associatedtype StoreController: Disposable
+     associatedtype StoreController: Cancellable
 
     var state: State { get set }
     var dispatcher: Dispatcher { get }
@@ -51,13 +51,13 @@ extension StoreType {
     }
 }
 
-public class Store<State: StateType, StoreController: Disposable>: ObservableType, StoreType {
+public class Store<State: StateType, StoreController: Cancellable>: StoreType {
     public typealias Element = State
 
     public typealias State = State
     public typealias StoreController = StoreController
 
-    public typealias ObjectWillChangePublisher = BehaviorSubject<State>
+    public typealias ObjectWillChangePublisher = CurrentValueSubject<State, Never>
 
     public var objectWillChange: ObjectWillChangePublisher
 
@@ -77,7 +77,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
             queue.sync {
                 if !newValue.isEqual(to: _state) {
                     _state = newValue
-                    objectWillChange.onNext(state)
+                    objectWillChange.send(state)
                 }
             }
         }
@@ -93,7 +93,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
         _initialState = state
         _state = state
         self.dispatcher = dispatcher
-        objectWillChange = ObjectWillChangePublisher(value: state)
+        objectWillChange = ObjectWillChangePublisher(state)
         self.storeController = storeController
         self.state = _initialState
     }
@@ -107,18 +107,20 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
     }
 
     public func replayOnce() {
-        objectWillChange.onNext(state)
+        objectWillChange.send(state)
     }
 
     public func reset() {
         state = initialState
     }
 
-    public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Store.Element {
-        objectWillChange.subscribe(observer)
-    }
+    /*
+    public func subscribe<Subscriber: ObserverType>(_ observer: Subscriber) -> Cancellable where Subscriber == Store.Element {
+        objectWillChange.sink(receiveValue: observer)
+    }*/
 }
 
+/*
 public extension Store {
     func replaying() -> Observable<Store.State> {
         startWith(state)
@@ -135,4 +137,4 @@ extension Store {
     public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> Observable<T> {
         map(stateComponent)
     }
-}
+}*/

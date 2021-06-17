@@ -15,13 +15,14 @@
  */
 
 import Foundation
-import RxSwift
+import Combine
 
 /**
  The `Reducer` defines the behavior to be executed when a certain
  `Action` object is received.
  */
-public class Reducer<A: Action>: Disposable {
+public class Reducer<A: Action>: Cancellable {
+    
     /// The `Action` type which the `Reducer` listens to.
     public let action: A.Type
     /// The `Dispatcher` object that sends the `Action` objects.
@@ -29,7 +30,7 @@ public class Reducer<A: Action>: Disposable {
     /// The behavior to be executed when the `Dispatcher` sends a certain `Action`
     public let reducer: (A) -> Void
 
-    private var disposable: Disposable!
+    private var disposable: Cancellable!
 
     /**
      Initializes a new `Reducer` object.
@@ -45,15 +46,15 @@ public class Reducer<A: Action>: Disposable {
         disposable = build()
     }
 
-    private func build() -> Disposable {
+    private func build() -> Cancellable {
         let disposable = dispatcher.subscribe(tag: action.tag) {
             self.reducer($0)
         }
         return disposable
     }
-
-    /// Dispose resource.
-    public func dispose() {
-        disposable.dispose()
+    
+    public func cancel() {
+        disposable.cancel()
     }
+
 }
