@@ -24,10 +24,6 @@ let package = Package(
             name: "MiniTask",
             targets: ["MiniTasks"]
         ),
-        .library(
-            name: "MiniPromise",
-            targets: ["MiniPromises"]
-        ),
     ],
     dependencies: [
         // Development
@@ -58,11 +54,7 @@ let package = Package(
             name: "MiniTasks",
             dependencies: ["Mini"]
         ),
-        .target(
-            name: "MiniPromises",
-            dependencies: ["Mini"]
-        ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["MiniTasks", "MiniPromises", "TestMiddleware", "Nimble"]), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["MiniTasks", "TestMiddleware", "Nimble"]), // dev
     ],
     swiftLanguageVersions: [.version("5")]
 )
