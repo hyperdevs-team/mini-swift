@@ -61,7 +61,7 @@ let package = Package(
         .target(
             name: "MiniTasks"
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "TestMiddleware", "Nimble", "NIOConcurrencyHelpers"), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "TestMiddleware", "Nimble", "NIOConcurrencyHelpers"]), // dev
     ],
     swiftLanguageVersions: [.version("5")]
 )
