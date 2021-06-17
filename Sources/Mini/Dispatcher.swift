@@ -19,6 +19,7 @@ import Combine
 
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
+@available(iOS 13.0, *)
 public final class Dispatcher {
     public struct DispatchMode {
         // swiftlint:disable:next type_name nesting

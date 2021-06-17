@@ -17,6 +17,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13.0, *)
 public class ReducerGroup {
     public let disposeBag = Set<AnyCancellable>()
 }

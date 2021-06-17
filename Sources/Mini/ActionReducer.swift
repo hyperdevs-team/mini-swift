@@ -21,6 +21,7 @@ import Combine
  The `Reducer` defines the behavior to be executed when a certain
  `Action` object is received.
  */
+ @available(iOS 13.0, *)
 public class Reducer<A: Action>: Cancellable {
     
     /// The `Action` type which the `Reducer` listens to.

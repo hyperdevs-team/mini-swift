@@ -17,7 +17,7 @@
 import Foundation
 import Combine
 
-
+@available(iOS 13.0, *)
 class ObservableType {
     /*
     /// Take the first element that matches the filter function.

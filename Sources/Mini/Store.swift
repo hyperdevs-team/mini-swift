@@ -17,6 +17,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13.0, *)
 public protocol StoreType {
     associatedtype State: StateType
      associatedtype StoreController: Cancellable
@@ -28,6 +29,7 @@ public protocol StoreType {
     func replayOnce()
 }
 
+@available(iOS 13.0, *)
 extension StoreType {
     /**
      Property responsible of reduce the `State` given a certain `Action` being triggered.
@@ -51,6 +53,7 @@ extension StoreType {
     }
 }
 
+@available(iOS 13.0, *)
 public class Store<State: StateType, StoreController: Cancellable>: StoreType {
     public typealias Element = State
 
