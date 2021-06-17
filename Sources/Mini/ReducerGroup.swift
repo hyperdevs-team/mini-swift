@@ -19,5 +19,10 @@ import Combine
 
 @available(iOS 13.0, *)
 public class ReducerGroup {
-    public let disposeBag = Set<AnyCancellable>()
+    public var disposeBag = Set<AnyCancellable>()
+    
+    public init(_ builder: AnyCancellable...) {
+        let disposable = builder
+        disposable.forEach { _ = disposeBag.insert($0) }
+    }
 }
