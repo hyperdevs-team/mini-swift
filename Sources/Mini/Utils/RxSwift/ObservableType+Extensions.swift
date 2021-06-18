@@ -17,25 +17,25 @@
 import Foundation
 import Combine
 
-@available(iOS 13.0, *)
-public extension Publisher where Output: Collection  {
-    
-    func filterMany(_ isIncluded: @escaping (Output.Element) -> Bool) -> AnyPublisher<[Output.Element], Failure> {
-        map { $0.filter(isIncluded) }
-            .eraseToAnyPublisher()
-    }
+public extension Publisher where Output: StateType  {
 
-    func mapMany<Result>(_ transform: @escaping (Output.Element) -> Result) -> Publishers.Map<Self, [Result]> {
-        map { $0.map(transform) }
-    }
-    
-    func filterKey(_ keyPath: KeyPath<Output.Element, Bool>) -> AnyPublisher<[Output.Element], Failure> {
-        map { $0.filter(^keyPath) }
+    func filterKey(_ keyPath: KeyPath<Output, Bool>) -> AnyPublisher<Output, Failure> {
+        filter(^keyPath)
             .eraseToAnyPublisher()
     }
     
-    func mapKey<T>(_ keyPath: KeyPath<Output.Element, T>) -> Publishers.Map<Self, [T]> {
-        map { $0.map(^keyPath) }
+    func mapKeypath<T>(_ keyPath: KeyPath<Output, T>) -> Publishers.Map<Self, T> {
+        map(^keyPath)
+    }
+    
+    /**
+     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+     */
+    func select<T: OptionalType>(_ keyPath: KeyPath<Output, T>) -> AnyPublisher<T.Wrapped, Self.Failure> where T.Wrapped: Equatable {
+        map(keyPath)
+            .filterNil()
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
     
     func distinctUntilChanged(by comparator: @escaping (Output, Output) -> Bool) -> Publishers.Filter<Self> {
@@ -49,20 +49,8 @@ public extension Publisher where Output: Collection  {
             }
         }
     }
-    
-    /**
-     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
-     */
-    func select<T: OptionalType>(_ keyPath: KeyPath<Output, T>) -> AnyPublisher<T.Wrapped, Self.Failure> where T.Wrapped: Equatable {
-        map(keyPath)
-            .filterNil()
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
-
 }
 
-@available(iOS 13.0, *)
 public extension Publisher where Self.Output: OptionalType {
     func filterNil() -> AnyPublisher<Self.Output.Wrapped, Self.Failure> {
         return self.flatMap { element -> AnyPublisher<Self.Output.Wrapped, Self.Failure> in
@@ -73,7 +61,6 @@ public extension Publisher where Self.Output: OptionalType {
     }
 }
 
-@available(iOS 13.0, *)
 public extension Publisher where Output: Hashable {
     func distinctUntilChanged() -> Publishers.Filter<Self> {
         var seen = Set<Output>()
@@ -81,13 +68,12 @@ public extension Publisher where Output: Hashable {
     }
 }
 
-@available(iOS 13.0, *)
-extension Publisher where Output: Collection {
+extension Publisher where Output: StateType {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
      */
-    public func withStateChanges<T>(in stateComponent: KeyPath<Output.Element, T>, that componentProperty: KeyPath<T, Bool>) -> AnyPublisher<[T], Self.Failure> {
-        return mapKey(stateComponent)
+    public func withStateChanges<T: StateType>(in stateComponent: KeyPath<Output, T>, that componentProperty: KeyPath<T, Bool>) -> AnyPublisher<T, Self.Failure> {
+        return mapKeypath(stateComponent)
             .filterKey(componentProperty)
             .eraseToAnyPublisher()
     }
