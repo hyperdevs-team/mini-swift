@@ -30,6 +30,8 @@ public protocol StoreType {
 }
 
 @available(iOS 13.0, *)
+public protocol ObservableType: Publisher {}
+
 extension StoreType {
     /**
      Property responsible of reduce the `State` given a certain `Action` being triggered.
@@ -55,6 +57,8 @@ extension StoreType {
 
 @available(iOS 13.0, *)
 public class Store<State: StateType, StoreController: Cancellable>: StoreType {
+
+    
     public typealias Element = State
 
     public typealias State = State
@@ -118,26 +122,28 @@ public class Store<State: StateType, StoreController: Cancellable>: StoreType {
     }
 
     /*
-    public func subscribe<Subscriber: ObserverType>(_ observer: Subscriber) -> Cancellable where Subscriber == Store.Element {
+    public func subscribe<Subscriber: AnyPublisher>(_ observer: Subscriber) -> Cancellable where Subscriber == Store.Element {
         objectWillChange.sink(receiveValue: observer)
     }*/
 }
 
 /*
 public extension Store {
-    func replaying() -> Observable<Store.State> {
+    func replaying() -> AnyPublisher<Store.State, Error> {
         startWith(state)
     }
-}
+}*/
 
+@available(iOS 13.0, *)
 extension Store {
-    public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> Observable<Store.State> {
+    
+    public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> AnyPublisher<Store.State, Never> {
         let action = action()
         dispatcher.dispatch(action, mode: .sync)
-        return objectWillChange.asObservable()
+        return objectWillChange.eraseToAnyPublisher()
     }
-
-    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> Observable<T> {
-        map(stateComponent)
-    }
-}*/
+/*
+    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> AnyPublisher<T, Error> {
+        return CurrentValueSubject<T, Never>.mapKeypath(stateComponent).eraseToAnyPublisher()
+    }*/
+}

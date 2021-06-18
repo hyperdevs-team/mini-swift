@@ -15,70 +15,80 @@
  */
 
 import Foundation
+import Combine
 
-/*
-class ObservableType {
-    /// Take the first element that matches the filter function.
-    ///
-    /// - Parameter fn: Filter closure.
-    /// - Returns: The first element that matches the filter.
-    public func filterOne(_ condition: @escaping (Element) -> Bool) -> Observable<Element> {
-        filter {
-            condition($0)
-        }.take(1)
+@available(iOS 13.0, *)
+public extension Publisher where Output: Collection  {
+    
+    func filterMany(_ isIncluded: @escaping (Output.Element) -> Bool) -> AnyPublisher<[Output.Element], Failure> {
+        map { $0.filter(isIncluded) }
+            .eraseToAnyPublisher()
     }
 
-    public func filter(_ keyPath: KeyPath<Element, Bool>) -> Observable<Element> {
-        filter(^keyPath)
+    func mapMany<Result>(_ transform: @escaping (Output.Element) -> Result) -> Publishers.Map<Self, [Result]> {
+        map { $0.map(transform) }
     }
-
-    public func map<T>(_ keyPath: KeyPath<Element, T>) -> Observable<T> {
-        map(^keyPath)
+    
+    func filterKey(_ keyPath: KeyPath<Output.Element, Bool>) -> AnyPublisher<[Output.Element], Failure> {
+        map { $0.filter(^keyPath) }
+            .eraseToAnyPublisher()
     }
-
-    public func one() -> Observable<Element> {
-        take(1)
+    
+    func mapKey<T>(_ keyPath: KeyPath<Output.Element, T>) -> Publishers.Map<Self, [T]> {
+        map { $0.map(^keyPath) }
     }
-
-    public func skippingCurrent() -> Observable<Element> {
-        skip(1)
-    }
-
-    /**
-     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
-     */
-    public func select<T: OptionalType>(_ keyPath: KeyPath<Element, T>) -> Observable<T.Wrapped> where T.Wrapped: Equatable {
-        map(keyPath)
-            .filterNil()
-            .distinctUntilChanged()
-    }
-}
-*/
-
-/*
-
-#if !canImport(RxOptional)
-    public extension ObservableType where Element: OptionalType {
-        /**
-         Unwraps and filters out `nil` elements.
-         - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
-         */
-        func filterNil() -> Observable<Element.Wrapped> {
-            return flatMap { element -> Observable<Element.Wrapped> in
-                guard let value = element.value else {
-                    return Observable<Element.Wrapped>.empty()
-                }
-                return Observable<Element.Wrapped>.just(value)
+    
+    func distinctUntilChanged(by comparator: @escaping (Output, Output) -> Bool) -> Publishers.Filter<Self> {
+        var seen = [Output]()
+        return filter { incoming in
+            if seen.contains(where: { comparator($0, incoming) }) {
+                return false
+            } else {
+                seen.append(incoming)
+                return true
             }
         }
     }
-#endif
+    
+    /**
+     Selects a property component from an `Element` filtering `nil` and emitting only distinct contiguous elements.
+     */
+    func select<T: OptionalType>(_ keyPath: KeyPath<Output, T>) -> AnyPublisher<T.Wrapped, Self.Failure> where T.Wrapped: Equatable {
+        map(keyPath)
+            .filterNil()
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 
-extension ObservableType where Element: StateType {
+}
+
+@available(iOS 13.0, *)
+public extension Publisher where Self.Output: OptionalType {
+    func filterNil() -> AnyPublisher<Self.Output.Wrapped, Self.Failure> {
+        return self.flatMap { element -> AnyPublisher<Self.Output.Wrapped, Self.Failure> in
+            guard let value = element.value
+            else { return Empty(completeImmediately: false).setFailureType(to: Self.Failure.self).eraseToAnyPublisher() }
+            return Just(value).setFailureType(to: Self.Failure.self).eraseToAnyPublisher()
+        }.eraseToAnyPublisher()
+    }
+}
+
+@available(iOS 13.0, *)
+public extension Publisher where Output: Hashable {
+    func distinctUntilChanged() -> Publishers.Filter<Self> {
+        var seen = Set<Output>()
+        return filter { incoming in seen.insert(incoming).inserted }
+    }
+}
+
+@available(iOS 13.0, *)
+extension Publisher where Output: Collection {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
      */
-    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>, that componentProperty: KeyPath<T, Bool>) -> Observable<T> {
-        return map(stateComponent).filter(componentProperty)
+    public func withStateChanges<T>(in stateComponent: KeyPath<Output.Element, T>, that componentProperty: KeyPath<T, Bool>) -> AnyPublisher<[T], Self.Failure> {
+        return mapKey(stateComponent)
+            .filterKey(componentProperty)
+            .eraseToAnyPublisher()
     }
-}*/
+}
