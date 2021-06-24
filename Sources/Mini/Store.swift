@@ -127,13 +127,6 @@ public class Store<State: StateType, StoreController: Cancellable>: StoreType {
     }*/
 }
 
-/*
-public extension Store {
-    func replaying() -> AnyPublisher<Store.State, Error> {
-        startWith(state)
-    }
-}*/
-
 @available(iOS 13.0, *)
 extension Store {
     
@@ -142,8 +135,8 @@ extension Store {
         dispatcher.dispatch(action, mode: .sync)
         return objectWillChange.eraseToAnyPublisher()
     }
-/*
-    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> AnyPublisher<T, Error> {
-        return CurrentValueSubject<T, Never>.mapKeypath(stateComponent).eraseToAnyPublisher()
-    }*/
+
+    public func withStateChanges<T: StateType>(in stateComponent: KeyPath<Element, T>) -> AnyPublisher<T, Never> {
+        objectWillChange.mapKeypath(stateComponent).eraseToAnyPublisher()
+    }
 }
