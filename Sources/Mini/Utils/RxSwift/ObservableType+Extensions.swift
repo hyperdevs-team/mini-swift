@@ -17,6 +17,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13.0, *)
 public extension Publisher where Output: StateType  {
 
     func filterKey(_ keyPath: KeyPath<Output, Bool>) -> AnyPublisher<Output, Failure> {
@@ -51,6 +52,7 @@ public extension Publisher where Output: StateType  {
     }
 }
 
+@available(iOS 13.0, *)
 public extension Publisher where Self.Output: OptionalType {
     func filterNil() -> AnyPublisher<Self.Output.Wrapped, Self.Failure> {
         return self.flatMap { element -> AnyPublisher<Self.Output.Wrapped, Self.Failure> in
@@ -61,6 +63,7 @@ public extension Publisher where Self.Output: OptionalType {
     }
 }
 
+@available(iOS 13.0, *)
 public extension Publisher where Output: Hashable {
     func distinctUntilChanged() -> Publishers.Filter<Self> {
         var seen = Set<Output>()
@@ -68,6 +71,7 @@ public extension Publisher where Output: Hashable {
     }
 }
 
+@available(iOS 13.0, *)
 extension Publisher where Output: StateType {
     /**
      Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.

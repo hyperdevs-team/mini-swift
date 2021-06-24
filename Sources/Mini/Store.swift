@@ -32,6 +32,7 @@ public protocol StoreType {
 @available(iOS 13.0, *)
 public protocol ObservableType: Publisher {}
 
+@available(iOS 13.0, *)
 extension StoreType {
     /**
      Property responsible of reduce the `State` given a certain `Action` being triggered.
