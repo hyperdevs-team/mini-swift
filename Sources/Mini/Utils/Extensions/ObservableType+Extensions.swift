@@ -18,7 +18,7 @@ import Foundation
 import Combine
 
 @available(iOS 13.0, *)
-public extension Publisher where Output: StateType  {
+public extension Publisher {
 
     func filterKey(_ keyPath: KeyPath<Output, Bool>) -> AnyPublisher<Output, Failure> {
         filter(^keyPath)
@@ -68,17 +68,5 @@ public extension Publisher where Output: Hashable {
     func distinctUntilChanged() -> Publishers.Filter<Self> {
         var seen = Set<Output>()
         return filter { incoming in seen.insert(incoming).inserted }
-    }
-}
-
-@available(iOS 13.0, *)
-extension Publisher where Output: StateType {
-    /**
-     Maps from a `StateType` property to create an `Observable` that contains the filtered property and all its changes.
-     */
-    public func withStateChanges<T: StateType>(in stateComponent: KeyPath<Output, T>, that componentProperty: KeyPath<T, Bool>) -> AnyPublisher<T, Self.Failure> {
-        return mapKeypath(stateComponent)
-            .filterKey(componentProperty)
-            .eraseToAnyPublisher()
     }
 }
