@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13.0, *)
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
 public final class Dispatcher {
