@@ -7,12 +7,12 @@ task(:setup) do
 
   puts('➡️  Bundle')
   sh('brew bundle')
-  sh('bundle install')
+  sh('arch -x86_64 bundle install')
 
   puts('➡️  Overcommit')
-  sh('bundle exec overcommit --install')
-  sh('bundle exec overcommit --sign')
-  sh('bundle exec overcommit --sign pre-commit')
+  sh('arch -x86_64 bundle exec overcommit --install')
+  sh('arch -x86_64 bundle exec overcommit --sign')
+  sh('arch -x86_64 bundle exec overcommit --sign pre-commit')
 
   puts('➡️  Carthage')
   sh('brew update')

@@ -31,7 +31,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
                 let action = A.init(task: .requestSuccess(expiration), payload: payload)
                 dispatcher.dispatch(action, mode: mode)
             },
-            onError: { error in
+            onFailure: { error in
                 // swiftlint:disable:next explicit_init
                 let action = A.init(task: .requestFailure(error), payload: errorPayload)
                 dispatcher.dispatch(action, mode: mode)
@@ -53,7 +53,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
                 let action = A.init(task: .requestSuccess(expiration), payload: payload, key: key)
                 dispatcher.dispatch(action, mode: mode)
             },
-            onError: { error in
+            onFailure: { error in
                 // swiftlint:disable:next explicit_init
                 let action = A.init(task: .requestFailure(error), payload: errorPayload, key: key)
                 dispatcher.dispatch(action, mode: mode)
@@ -73,7 +73,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
                     let action = A.init(task: .requestSuccess(expiration), payload: payload)
                     single(.success(action))
                 },
-                onError: { error in
+                onFailure: { error in
                     // swiftlint:disable:next explicit_init
                     let action = A.init(task: .requestFailure(error), payload: errorPayload)
                     single(.success(action))

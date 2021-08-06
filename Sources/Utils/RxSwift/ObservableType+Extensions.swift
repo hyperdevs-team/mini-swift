@@ -49,7 +49,7 @@ extension ObservableType where Self.Element: StateType {
         case .forever(let ignoreOld):
             let date = Date()
             return self
-                .skipWhile {
+                .skip {
                     if ignoreOld {
                         if let task = taskMap($0) {
                             return task.started < date
@@ -74,7 +74,7 @@ extension ObservableType where Self.Element: StateType {
                 .filter { taskMap($0)[task: key].isTerminal }
         case .forever:
             return self
-                .skipWhile { taskMap($0)[task: key].status == .idle || taskMap($0)[task: key].isTerminal }
+                .skip { taskMap($0)[task: key].status == .idle || taskMap($0)[task: key].isTerminal }
                 .filter { taskMap($0).hasValue(for: key) }
                 .filter { taskMap($0)[task: key].isTerminal }
                 .take(1)
