@@ -10,7 +10,7 @@ With Mini, you can create a thread-safe application with a predictable unidirect
 [![Platform](https://img.shields.io/cocoapods/p/MasMini-Swift.svg?style=flat)](https://cocoapods.org/pods/MasMini-Swift)
 [![GitHub](https://img.shields.io/github/license/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.com/masmovil/masmini-swift.svg?branch=master)](https://travis-ci.com/masmovil/masmini-swift)
+[![Build Status](https://github.com/masmovil/masmini-swift/actions/workflows/build-and-tests.yml/badge.svg)](https://github.com/masmovil/masmini-swift/actions/workflows/build-and-tests.yml)
 [![codecov](https://codecov.io/gh/masmovil/masmini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/masmovil/masmini-swift)
 
 ## Requirements

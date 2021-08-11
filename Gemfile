@@ -9,7 +9,6 @@ gem "danger"
 gem "danger-xcodebuild"
 gem "danger-swiftlint"
 gem "danger-xcov"
-gem "danger-junit"
 gem "danger-xcode_summary"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
