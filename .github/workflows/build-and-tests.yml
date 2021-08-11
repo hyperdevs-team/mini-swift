@@ -1,0 +1,65 @@
+name: "build-and-tests"
+on:
+  pull_request:
+
+jobs:
+  discard_runnings_workflows:
+    name: Discard running workflows
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Cancel running workflows
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  build:
+    name: Check build & tests
+    runs-on: apps-ci
+    needs: discard_runnings_workflows
+    timeout-minutes: 120
+    steps:
+
+    - name: Remove any previous hook 🥸
+      run: rm -rf .git/hooks
+
+    - name: Checkout 🔎
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Cache for Gems 💎
+      uses: actions/cache@v2.1.6
+      with:
+        path: |
+          .gems 
+          ~/.bundle
+        key: ${{ runner.os }}-cache-gems-${{ hashFiles('**/Gemfile.lock') }}
+
+    - name: Cache for Carthage 🚚
+      uses: actions/cache@v2.1.6
+      with:
+        path: |
+          Carthage
+        key: ${{ runner.os }}-cache-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+
+    - name: Rake ⚙️
+      run: rake
+
+    - name: Run all tests ⚙️
+      run: rake tests
+
+    - name: Validate Podfile ⚙️
+      run: rake validate_podfile
+
+    - name: Danger 🚨
+      run: bundle exec danger
+      if: github.event_name  == 'pull_request'
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.THORBOT_GITHUB_API_TOKEN }}
+
+    - name: Save Output 📦
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: output

@@ -1,11 +1,9 @@
-import XCTest
-import RxSwift
 @testable import Mini
+import RxSwift
+import XCTest
 
 final class DispatcherTests: XCTestCase {
-
     func test_subscription_count() {
-
         let dispatcher = Dispatcher()
         let disposable = CompositeDisposable()
 
@@ -23,34 +21,9 @@ final class DispatcherTests: XCTestCase {
         XCTAssert(dispatcher.subscriptionCount == 0)
     }
 
-    func test_add_remove_middleware() {
-
-        let dispatcher = Dispatcher()
-
-        let middleware = TestMiddleware()
-
-        dispatcher.add(middleware: middleware)
-
-        dispatcher.dispatch(OneTestAction(counter: 0), mode: .sync)
-
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == false)
-
-        middleware.clear()
-
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == true)
-
-        dispatcher.remove(middleware: middleware)
-
-        dispatcher.dispatch(OneTestAction(counter: 0), mode: .sync)
-
-        XCTAssert(middleware.actions(of: OneTestAction.self).isEmpty == true)
-    }
-
     func test_add_remove_service() {
-
         class TestService: ServiceType {
-
-            var id: UUID = UUID()
+            var id = UUID()
 
             var actions = [Action]()
 
@@ -61,7 +34,7 @@ final class DispatcherTests: XCTestCase {
             }
 
             var perform: ServiceChain {
-                return { action, _ -> Void in
+                { action, _ -> Void in
                     self.actions.append(action)
                     self.expectation.fulfill()
                 }
@@ -78,21 +51,20 @@ final class DispatcherTests: XCTestCase {
 
         XCTAssert(service.actions.isEmpty == true)
 
-        dispatcher.dispatch(OneTestAction(counter: 1), mode: .sync)
+        dispatcher.dispatch(OneTestAction(counter: 1))
 
         wait(for: [expectation], timeout: 5.0)
 
         XCTAssert(service.actions.count == 1)
 
-        XCTAssert(service.actions.contains(where: { $0 is OneTestAction }) == true)
+        XCTAssert(service.actions.contains { $0 is OneTestAction } == true)
 
         dispatcher.unregister(service: service)
 
         service.actions.removeAll()
 
-        dispatcher.dispatch(OneTestAction(counter: 1), mode: .sync)
+        dispatcher.dispatch(OneTestAction(counter: 1))
 
         XCTAssert(service.actions.isEmpty == true)
-
     }
 }

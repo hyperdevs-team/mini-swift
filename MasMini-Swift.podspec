@@ -20,15 +20,15 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/masmovil/masmini-swift.git', :tag => "v#{s.version.to_s}" }
   s.social_media_url = 'https://twitter.com/masmovil'
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '14.1'
 
-  s.osx.deployment_target = '10.13'
+  s.osx.deployment_target = '11.0'
 
-  s.tvos.deployment_target = '11.0'
+  s.tvos.deployment_target = '13.0'
 
   s.frameworks = 'Foundation'
 
-  s.dependency('RxSwift', '~> 5.1')
+  s.dependency('RxSwift', '~> 6')
 
   s.default_subspec = 'Core'
 
@@ -40,27 +40,5 @@ Pod::Spec.new do |s|
     ss.osx.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
 
     ss.tvos.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
-  end
-
-  s.subspec('Log') do |ss|
-    ss.ios.dependency('MasMini-Swift/Core')
-    ss.ios.source_files = 'Sources/LoggingService/*.swift'
-
-    ss.osx.dependency('MasMini-Swift/Core')
-    ss.osx.source_files = 'Sources/LoggingService/*.swift'
-
-    ss.tvos.dependency('MasMini-Swift/Core')
-    ss.tvos.source_files = 'Sources/LoggingService/*.swift'
-  end
-
-  s.subspec('Test') do |ss|
-    ss.ios.dependency('MasMini-Swift/Core')
-    ss.ios.source_files = 'Sources/TestMiddleware/*.swift'
-
-    ss.osx.dependency('MasMini-Swift/Core')
-    ss.osx.source_files = 'Sources/TestMiddleware/*.swift'
-
-    ss.tvos.dependency('MasMini-Swift/Core')
-    ss.tvos.source_files = 'Sources/TestMiddleware/*.swift'
   end
 end

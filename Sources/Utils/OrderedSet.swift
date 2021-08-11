@@ -1,19 +1,3 @@
-/*
- Copyright [2019] [BQ]
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
 import Foundation
 
 /**
@@ -30,7 +14,7 @@ public class OrderedSet<T: Comparable> {
 
     /// Returns the number of elements in the OrderedSet.
     public var count: Int {
-        return internalSet.count
+        internalSet.count
     }
 
     /// Inserts an item. Performance: O(n)
@@ -73,7 +57,7 @@ public class OrderedSet<T: Comparable> {
 
     /// Returns true if and only if the item exists somewhere in the set.
     public func exists(_ item: T) -> Bool {
-        return indexOf(item) != nil
+        indexOf(item) != nil
     }
 
     /// Returns the index of an item if it exists, or nil otherwise.
@@ -137,33 +121,33 @@ public class OrderedSet<T: Comparable> {
 
     /// Returns the 'maximum' or 'largest' value in the set.
     public var max: T? {
-        return internalSet.isEmpty ? nil : internalSet[count - 1]
+        internalSet.isEmpty ? nil : internalSet[count - 1]
     }
 
     /// Returns the 'minimum' or 'smallest' value in the set.
     public var min: T? {
-        return internalSet.isEmpty ? nil : internalSet[0]
+        internalSet.isEmpty ? nil : internalSet[0]
     }
 
     /// Returns the k-th largest element in the set, if k is in the range
     /// [1, count]. Returns nil otherwise.
     public func kLargest(element: Int) -> T? {
-        return element > count || element <= 0 ? nil : internalSet[count - element]
+        element > count || element <= 0 ? nil : internalSet[count - element]
     }
 
     /// Returns the k-th smallest element in the set, if k is in the range
     /// [1, count]. Returns nil otherwise.
     public func kSmallest(element: Int) -> T? {
-        return element > count || element <= 0 ? nil : internalSet[element - 1]
+        element > count || element <= 0 ? nil : internalSet[element - 1]
     }
 
     /// For each function
     public func forEach(_ body: (T) -> Swift.Void) {
-        return internalSet.forEach(body)
+        internalSet.forEach(body)
     }
 
     /// Enumerated function
     public func enumerated() -> EnumeratedSequence<[T]> {
-        return internalSet.enumerated()
+        internalSet.enumerated()
     }
 }

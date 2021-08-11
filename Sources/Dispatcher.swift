@@ -1,26 +1,8 @@
-/*
- Copyright [2019] [BQ]
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
 import Foundation
-import RxSwift
 
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
-final public class Dispatcher {
-
+public final class Dispatcher {
     public struct DispatchMode {
         // swiftlint:disable:next type_name nesting
         public enum UI {
@@ -29,11 +11,11 @@ final public class Dispatcher {
     }
 
     public var subscriptionCount: Int {
-        return subscriptionMap.innerDictionary.mapValues { set -> Int in
+        subscriptionMap.innerDictionary.mapValues { set -> Int in
             guard let setValue = set else { return 0 }
             return setValue.count
         }
-        .reduce(0, { $0 + $1.value })
+        .reduce(0) { $0 + $1.value }
     }
 
     public static let defaultPriority = 100
@@ -44,7 +26,7 @@ final public class Dispatcher {
     private var service = [ServiceType]()
     private let root: RootChain
     private var chain: Chain
-    private var dispatching: Bool = false
+    private var dispatching = false
     private var subscriptionCounter = 0
 
     public init() {
@@ -53,11 +35,11 @@ final public class Dispatcher {
     }
 
     private func build() -> Chain {
-        return middleware.reduce(root, { (chain: Chain, middleware: Middleware) -> Chain in
+        middleware.reduce(root) { (chain: Chain, middleware: Middleware) -> Chain in
             return ForwardingChain { action in
                 middleware.perform(action, chain)
             }
-        })
+        }
     }
 
     public func add(middleware: Middleware) {
@@ -102,7 +84,7 @@ final public class Dispatcher {
 
     public func registerInternal(subscription: DispatcherSubscription) -> DispatcherSubscription {
         internalQueue.sync {
-            if let map = subscriptionMap[subscription.tag, orPut: OrderedSet<DispatcherSubscription>()] {
+            if let map = subscriptionMap[subscription.tag, ifNotExistsSave: OrderedSet<DispatcherSubscription>()] {
                 map.insert(subscription)
             }
         }
@@ -122,44 +104,51 @@ final public class Dispatcher {
     }
 
     public func subscribe<T: Action>(completion: @escaping (T) -> Void) -> DispatcherSubscription {
-        return subscribe(tag: T.tag, completion: { (action: T) -> Void in
+        subscribe(tag: T.tag) { (action: T) -> Void in
             completion(action)
-        })
+        }
     }
 
     public func subscribe<T: Action>(tag: String, completion: @escaping (T) -> Void) -> DispatcherSubscription {
-        return subscribe(tag: tag, completion: { object in
+        subscribe(tag: tag) { object in
             if let action = object as? T {
                 completion(action)
             } else {
                 fatalError("Casting to \(tag) failed")
             }
-        })
-    }
-
-    public func subscribe(tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
-        return subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
-    }
-
-    public func dispatch(_ action: Action, mode: Dispatcher.DispatchMode.UI) {
-        switch mode {
-        case .sync:
-            if DispatchQueue.isMain {
-                self.dispatch(action)
-            } else {
-                DispatchQueue.main.sync {
-                    self.dispatch(action)
-                }
-            }
-        case .async:
-            DispatchQueue.main.async {
-                self.dispatch(action)
-            }
         }
     }
 
-    private func dispatch(_ action: Action) {
-        assert(DispatchQueue.isMain)
+    public func subscribe(tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
+        subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
+    }
+
+    @available(*, deprecated, message: "Dont set mode. Use dispatch(_). In the near future all actions will be dispatched asynchronously")
+    public func dispatch(_ action: Action, mode: Dispatcher.DispatchMode.UI) {
+         switch mode {
+         case .sync:
+             if DispatchQueue.isMain {
+                 self.dispatchOnQueue(action)
+             } else {
+                 DispatchQueue.main.sync {
+                     self.dispatchOnQueue(action)
+                 }
+             }
+
+         case .async:
+             DispatchQueue.main.async {
+                 self.dispatchOnQueue(action)
+             }
+         }
+    }
+
+    public func dispatch(_ action: Action) {
+        DispatchQueue.main.async {
+            self.dispatchOnQueue(action)
+        }
+    }
+
+    private func dispatchOnQueue(_ action: Action) {
         internalQueue.sync {
             defer { dispatching = false }
             if dispatching {
@@ -183,9 +172,9 @@ final public class Dispatcher {
     }
 }
 
-public final class DispatcherSubscription: Comparable, Disposable {
+public final class DispatcherSubscription: Comparable {
+    internal let dispatcher: Dispatcher
 
-    private let dispatcher: Dispatcher
     public let id: Int
     private let priority: Int
     private let completion: (Action) -> Void
@@ -204,31 +193,27 @@ public final class DispatcherSubscription: Comparable, Disposable {
         self.completion = completion
     }
 
-    public func dispose() {
-        dispatcher.unregisterInternal(subscription: self)
-    }
-
     public func on(_ action: Action) {
         completion(action)
     }
 
     public static func == (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     public static func > (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
-        return lhs.priority > rhs.priority
+        lhs.priority > rhs.priority
     }
 
     public static func < (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
-        return lhs.priority < rhs.priority
+        lhs.priority < rhs.priority
     }
 
     public static func >= (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
-        return lhs.priority >= rhs.priority
+        lhs.priority >= rhs.priority
     }
 
     public static func <= (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {
-        return lhs.priority <= rhs.priority
+        lhs.priority <= rhs.priority
     }
 }

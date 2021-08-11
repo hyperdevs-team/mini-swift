@@ -1,19 +1,3 @@
-/*
- Copyright [2019] [BQ]
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
 import Foundation
 import RxSwift
 
@@ -25,20 +9,18 @@ extension Task {
 }
 
 extension ObservableType {
-
     /// Take the first element that matches the filter function.
     ///
     /// - Parameter fn: Filter closure.
     /// - Returns: The first element that matches the filter.
     public func filterOne(_ condition: @escaping (Element) -> Bool) -> Observable<Element> {
-        return filter {
+        filter {
             return condition($0)
         }.take(1)
     }
 }
 
 extension ObservableType where Self.Element: StateType {
-
     private func filterForLifetime<Type, T: TypedTask<Type>> (
         taskMap: @escaping ((Self.Element) -> T?),
         lifetime: Task.Lifetime) -> Observable<Element> {
@@ -46,10 +28,11 @@ extension ObservableType where Self.Element: StateType {
         case .once:
             return self
                 .filterOne { taskMap($0)?.isTerminal ?? true }
+
         case .forever(let ignoreOld):
             let date = Date()
             return self
-                .skipWhile {
+                .skip {
                     if ignoreOld {
                         if let task = taskMap($0) {
                             return task.started < date
@@ -71,12 +54,13 @@ extension ObservableType where Self.Element: StateType {
         case .once:
             return self
                 .filter { taskMap($0).hasValue(for: key) }
-                .filter { taskMap($0)[task: key].isTerminal }
+                .filter { taskMap($0).isTerminal(key: key) }
+
         case .forever:
             return self
-                .skipWhile { taskMap($0)[task: key].status == .idle || taskMap($0)[task: key].isTerminal }
+                .skip { taskMap($0).isIdle(key: key) || taskMap($0).isTerminal(key: key) }
                 .filter { taskMap($0).hasValue(for: key) }
-                .filter { taskMap($0)[task: key].isTerminal }
+                .filter { taskMap($0).isTerminal(key: key) }
                 .take(1)
         }
     }
@@ -87,7 +71,7 @@ extension ObservableType where Self.Element: StateType {
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
-            return self
+            self
                 .filterForLifetime(taskMap: taskMap, lifetime: lifetime)
                 .subscribe(onNext: { state in
                     if let task = taskMap(state) {
@@ -109,15 +93,17 @@ extension ObservableType where Self.Element: StateType {
         success: @escaping (Self.Element) -> Void = { _ in },
         error: @escaping (Self.Element) -> Void = { _ in })
         -> Disposable {
-            return self
+            self
                 .filterForKeyedLifetime(key: key, taskMap: taskMap, lifetime: lifetime)
                 .subscribe(onNext: { state in
-                    let task = taskMap(state)[task: key]
-                    if task.isSuccessful {
+                    switch taskMap(state)[task: key]?.status {
+                    case .success:
                         success(state)
-                    } else if task.isFailure {
+
+                    case .failure:
                         error(state)
-                    } else {
+
+                    default:
                         success(state)
                     }
                 })
@@ -125,7 +111,6 @@ extension ObservableType where Self.Element: StateType {
 }
 
 extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
-
     public static func dispatch<A: Action, T: Task> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
@@ -135,7 +120,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()
-                dispatcher.dispatch(action, mode: .sync)
+                dispatcher.dispatch(action)
                 let subscription = store.subscribe(
                     taskMap: taskMap,
                     lifetime: lifetime,
@@ -163,7 +148,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         -> Observable<Self.Element.State> {
             let observable: Observable<Self.Element.State> = Observable.create { observer in
                 let action = action()
-                dispatcher.dispatch(action, mode: .sync)
+                dispatcher.dispatch(action)
                 let subscription = store.subscribe(
                     key: key,
                     taskMap: taskMap,

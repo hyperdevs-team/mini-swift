@@ -3,51 +3,41 @@ import Foundation
 public typealias KeyedTask<K: Hashable> = [K: Task]
 
 extension KeyedTask where Value: Task {
-    public subscript(task key: Key) -> Value {
-        return self[unwrapping: key]
+    public subscript(task key: Key) -> Value? {
+        self[key]
     }
 
     public func hasValue(for key: Dictionary.Key) -> Bool {
-        return self.keys.contains(key)
+        self.keys.contains(key)
+    }
+
+    /// Returns true if the KeyedTask contains a task with given key and its running. If the key don't exists return false
+    public func isIdle(key: Key) -> Bool {
+        self[key]?.isIdle ?? false
     }
 
     /// Returns true if the KeyedTask contains a task with given key and its running. If the key don't exists return false
     public func isRunning(key: Key) -> Bool {
-        guard hasValue(for: key) else {
-            return false
-        }
-        return self[unwrapping: key].isRunning
+        self[key]?.isRunning ?? false
     }
 
     /// Returns true if the KeyedTask contains a task with given key and its recently succeded. If the key don't exists return false
     public func isRecentlySucceeded(key: Key) -> Bool {
-        guard hasValue(for: key) else {
-            return false
-        }
-        return self[unwrapping: key].isRecentlySucceeded
+        self[key]?.isRecentlySucceeded ?? false
     }
 
     /// Returns true if the KeyedTask contains a task with given key and its terminal. If the key don't exists return false
     public func isTerminal(key: Key) -> Bool {
-        guard hasValue(for: key) else {
-            return false
-        }
-        return self[unwrapping: key].isTerminal
+        self[key]?.isTerminal ?? false
     }
 
     /// Returns true if the KeyedTask contains a task with given key and its succesful. If the key don't exists return false
     public func isSuccessful(key: Key) -> Bool {
-        guard hasValue(for: key) else {
-            return false
-        }
-        return self[unwrapping: key].isSuccessful
+        self[key]?.isSuccessful ?? false
     }
 
     /// Returns true if the KeyedTask contains a task with given key and its failure. If the key don't exists return false
     public func isFailure(key: Key) -> Bool {
-        guard hasValue(for: key) else {
-            return false
-        }
-        return self[unwrapping: key].isFailure
+        self[key]?.isFailure ?? false
     }
 }

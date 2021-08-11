@@ -1,14 +1,22 @@
 disabled_rules:
+  - inclusive_language
   - todo
   - conditional_returns_on_newline
   - unused_optional_binding
-  - file_header
+  - unused_setter_value
 opt_in_rules: 
   #lint
   - prohibited_super_call
   - overridden_super_call
   - yoda_condition
+  - modifier_order
+  - anyobject_protocol
+  - unused_import
+  #- explicit_acl  
+  - cyclomatic_complexity
   #style
+  - sorted_imports
+  - duplicate_imports
   - unneeded_parentheses_in_closure_argument
   - operator_usage_whitespace
   - number_separator
@@ -16,19 +24,33 @@ opt_in_rules:
   - closure_end_indentation
   - attributes
   - file_header
+  - conditional_returns_on_newline
+  - implicit_return
+  - explicit_self
+  - multiline_function_chains
+  - switch_case_on_newline
+  - prefer_self_type_over_type_of_self
+  - vertical_whitespace_between_cases
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - vertical_parameter_alignment
+  - vertical_parameter_alignment_on_call
   #idiomatic
+  - redundant_type_annotation
   - redundant_nil_coalescing
   - nimble_operator
   - explicit_init
+  - empty_parentheses_with_trailing_closure
+  - prefer_zero_over_explicit_init
   #performance 
   - empty_count
   - contains_over_first_not_nil
   - empty_string
   - first_where
   - sorted_first_last
+  - flatmap_over_map_reduce
 included:
   - Sources
-excluded:
   - Tests
 closure_end_indentation:
   severity: error
@@ -36,34 +58,62 @@ force_cast:
   severity: error
 force_try:
   severity: error
+function_parameter_count:
+  warning: 6
+  error: 6
 function_body_length: 
-  warning: 60
-  error: 100
+  warning: 120
+  error: 200
 cyclomatic_complexity:
   warning: 60
   error: 60
 type_body_length:
-  warning: 400
-  error: 500 
+  warning: 1500
+  error: 1500
 line_length:
   warning: 250
   error: 400
+large_tuple:
+  warning: 3
+  error: 3 
 file_length:
-  warning: 700
-  error: 1200
+  warning: 2000
+  error: 2000
 type_name:
   min_length: 3
-  max_length: 40
+  max_length: 50
+  excluded:
+    - iPhone
+    - my
+    - BO
+    - bo
   severity: error
 identifier_name:
   min_length: 3
-  max_length: 40
-  severity: error
-  excluded:
-    - id
+  max_length: 45
+  excluded: 
     - i
+    - to
+    - x
+    - y
+    - z
+    - a
+    - b
+    - rx
+    - map
+    - app
+    - id
+    - URL
+    - GlobalAPIKey
+    - bo
+    - BO
+  severity: error
 attributes:
+  always_on_line_above:
+      - "@discardableResult"
+      - "@available"
   always_on_same_line:
+      - "@autoclosure"
       - "@IBOutlet"
       - "@IBAction"
       - "@NSManaged"

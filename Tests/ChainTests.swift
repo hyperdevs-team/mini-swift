@@ -1,10 +1,8 @@
-import XCTest
 @testable import Mini
+import XCTest
 
 final class ChainTests: XCTestCase {
-
     func test_forwarding_chain_forwards_action() {
-
         class TestAction: Action {
             var mutableProperty: Int
 
@@ -28,9 +26,8 @@ final class ChainTests: XCTestCase {
 
         XCTAssert(testAction.mutableProperty == 0)
 
-        let newAction = forwardingChain.proceed(testAction) as! TestAction
+        let newAction = forwardingChain.proceed(testAction) as? TestAction
 
-        XCTAssert(newAction.mutableProperty == 1)
-
+        XCTAssert(newAction?.mutableProperty == 1)
     }
 }

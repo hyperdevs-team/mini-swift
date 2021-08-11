@@ -1,5 +1,5 @@
-import XCTest
 @testable import Mini
+import XCTest
 
 class TaskTests: XCTestCase {
     let error = NSError(domain: "wawa", code: 69, userInfo: nil)
