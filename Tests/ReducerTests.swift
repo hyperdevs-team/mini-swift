@@ -154,7 +154,7 @@ final class ReducerTests: XCTestCase {
             .reducerGroup()
             .disposed(by: dBag)
         store
-            .map { $0.counter }
+            .map(\.counter)
             .sink { counter in
                 if counter == 1 {
                     expectation1.fulfill()
