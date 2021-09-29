@@ -9,7 +9,7 @@ public class Store<State: ObservableObject, StoreController: Cancellable>: Obser
 
     public let dispatcher: Dispatcher
     public var storeController: StoreController
-    @Published var state: State
+    @Published public var state: State
     
     public var reducerGroup: ReducerGroup {
         return ReducerGroup()
