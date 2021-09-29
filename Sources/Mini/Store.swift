@@ -9,11 +9,7 @@ public class Store<State: ObservableObject, StoreController: Cancellable>: Obser
 
     public let dispatcher: Dispatcher
     public var storeController: StoreController
-    public var state: State {
-        didSet {
-            objectWillChange.send()
-        }
-    }
+    @Published var state: State
     
     public var reducerGroup: ReducerGroup {
         return ReducerGroup()
