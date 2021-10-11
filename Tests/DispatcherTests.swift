@@ -23,6 +23,9 @@ final class DispatcherTests: XCTestCase {
 
     func test_add_remove_service() {
         class TestService: ServiceType {
+            func stateWasReplayed(state: StateType) {
+            }
+
             var id = UUID()
 
             var actions = [Action]()
@@ -66,5 +69,40 @@ final class DispatcherTests: XCTestCase {
         dispatcher.dispatch(OneTestAction(counter: 1))
 
         XCTAssert(service.actions.isEmpty == true)
+    }
+
+    func test_replay_state() {
+        class TestService: ServiceType {
+            func stateWasReplayed(state: StateType) {
+                self.expectation.fulfill()
+            }
+
+            var id = UUID()
+
+            private let expectation: XCTestExpectation
+
+            init(_ expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+
+            var perform: ServiceChain {
+                { _, _ -> Void in
+                }
+            }
+        }
+
+        let expectation = XCTestExpectation(description: "Service")
+
+        let dispatcher = Dispatcher()
+        let initialState = TestState()
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+
+        let service = TestService(expectation)
+
+        dispatcher.register(service: service)
+
+        store.replayOnce()
+
+        wait(for: [expectation], timeout: 5.0)
     }
 }

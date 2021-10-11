@@ -80,6 +80,8 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
 
     public func replayOnce() {
         objectWillChange.onNext(state)
+
+        dispatcher.stateWasReplayed(state: state)
     }
 
     public func reset() {

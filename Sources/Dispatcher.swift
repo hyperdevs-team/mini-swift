@@ -148,6 +148,15 @@ public final class Dispatcher {
         }
     }
 
+    internal func stateWasReplayed(state: StateType) {
+        internalQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.service.forEach {
+                $0.stateWasReplayed(state: state)
+            }
+        }
+    }
+
     private func dispatchOnQueue(_ action: Action) {
         internalQueue.sync {
             defer { dispatching = false }
