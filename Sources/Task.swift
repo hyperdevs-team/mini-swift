@@ -37,6 +37,7 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
     public let started: Date
     public let expiration: Expiration
     public let data: T?
+    public let tag: String?
     public let progress: Decimal?
     public let error: Error?
 
@@ -44,12 +45,14 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
                          started: Date = Date(),
                          expiration: Expiration = .immediately,
                          data: T? = nil,
+                         tag: String? = nil,
                          progress: Decimal? = nil,
                          error: Error? = nil) {
         self.status = status
         self.started = started
         self.expiration = expiration
         self.data = data
+        self.tag = tag
         self.progress = progress
         self.error = error
     }
@@ -78,22 +81,29 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
         status == .failure
     }
 
-    public static func requestRunning() -> Task {
-        Task(status: .running)
+    public static func requestRunning(tag: String? = nil) -> Task {
+        Task(status: .running, tag: tag)
     }
 
-    public static func requestSuccess(_ expiration: Task.Expiration = .immediately) -> Task {
-        Task(status: .success, expiration: expiration)
+    public static func requestSuccess(_ expiration: Task.Expiration = .immediately, tag: String? = nil) -> Task {
+        Task(status: .success, expiration: expiration, tag: tag)
     }
 
-    public static func requestFailure(_ error: Error) -> Task {
-        Task(status: .failure, error: error)
+    public static func requestFailure(_ error: Error, tag: String? = nil) -> Task {
+        Task(status: .failure, tag: tag, error: error)
     }
 
     // MARK: - CustomDebugStringConvertible
     public var debugDescription: String {
-        """
-        🚀 Task: status: \(status), started: \(started),
+        let tagPrint: String
+        if let tag = tag {
+            tagPrint = tag
+        } else {
+            tagPrint = "nil"
+        }
+
+        return """
+        🚀 Task: status: \(status), started: \(started), tag: \(tagPrint)
         data: \(String(describing: data)), progress: \(String(describing: progress)) error: \(String(describing: error))
         """
     }
