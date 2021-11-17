@@ -1,12 +1,12 @@
 /*
- Copyright [2019] [BQ]
-
+ Copyright [2021] [Hyperdevs]
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@
 import Foundation
 import Combine
 
-@available(iOS 13.0, *)
+ 
 public extension Publisher {
 
     func filterKey(_ keyPath: KeyPath<Output, Bool>) -> AnyPublisher<Output, Failure> {
@@ -52,7 +52,7 @@ public extension Publisher {
     }
 }
 
-@available(iOS 13.0, *)
+ 
 public extension Publisher where Self.Output: OptionalType {
     func filterNil() -> AnyPublisher<Self.Output.Wrapped, Self.Failure> {
         return self.flatMap { element -> AnyPublisher<Self.Output.Wrapped, Self.Failure> in
@@ -63,7 +63,7 @@ public extension Publisher where Self.Output: OptionalType {
     }
 }
 
-@available(iOS 13.0, *)
+ 
 public extension Publisher where Output: Hashable {
     func distinctUntilChanged() -> Publishers.Filter<Self> {
         var seen = Set<Output>()
