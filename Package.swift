@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Mini",
     platforms: [
-        .iOS(.v12),
+        .iOS("13.0"),
         .macOS(.v10_13),
         .tvOS(.v11),
     ],
