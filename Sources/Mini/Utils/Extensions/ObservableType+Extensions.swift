@@ -20,9 +20,8 @@ import Combine
  
 public extension Publisher {
 
-    func filterKey(_ keyPath: KeyPath<Output, Bool>) -> AnyPublisher<Output, Failure> {
+    func filterKey(_ keyPath: KeyPath<Output, Bool>) -> Publishers.Filter<Self> {
         filter(^keyPath)
-            .eraseToAnyPublisher()
     }
     
     func mapKeypath<T>(_ keyPath: KeyPath<Output, T>) -> Publishers.Map<Self, T> {

@@ -232,25 +232,15 @@ public final class DispatcherSubscription: Comparable, Cancellable {
     }
 }
 
-public class AtomicCounter {
+private class AtomicCounter {
 
-    private var mutex = pthread_mutex_t()
+    private var lock = os_unfair_lock_s()
     private var counter: Int = .zero
 
-    init() {
-        pthread_mutex_init(&mutex, nil)
-    }
-
-    deinit {
-        pthread_mutex_destroy(&mutex)
-    }
-
     func incrementAndGet() -> Int {
-        pthread_mutex_lock(&mutex)
-        defer {
-            pthread_mutex_unlock(&mutex)
-        }
+        os_unfair_lock_lock(&lock)
         counter += 1
+        os_unfair_lock_unlock(&lock)
         return counter
     }
 }

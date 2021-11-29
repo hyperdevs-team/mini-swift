@@ -20,4 +20,6 @@
  */
 import Foundation
 
-public protocol StateType { }
+public protocol StateType  { }
+
+public extension StateType where Self: ObservableObject { }
