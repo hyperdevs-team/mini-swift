@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -37,7 +37,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-nio.git", .upToNextMajor(from: "2.7.1")),
         // Development
-        .package(url: "https://github.com/Quick/Nimble", .branch("master")), // dev
+        .package(url: "https://github.com/Quick/Nimble", .upToNextMajor(from: "9.0.0")), // dev
         .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting", .branch("master")), // dev
         .package(url: "https://github.com/minuscorp/ModuleInterface", from: "0.0.1"), // dev
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
