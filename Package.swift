@@ -37,10 +37,10 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-nio.git", .upToNextMajor(from: "2.7.1")),
         // Development
-        .package(url: "https://github.com/Quick/Nimble", .branch("master")), // dev
+        .package(url: "https://github.com/Quick/Nimble", .branch("main")), // dev
         .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting", .branch("master")), // dev
         .package(url: "https://github.com/minuscorp/ModuleInterface", from: "0.0.1"), // dev
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.48.10"), // dev
         .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
         .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
         .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
