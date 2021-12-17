@@ -1,12 +1,12 @@
 /*
- Copyright [2019] [BQ]
-
+ Copyright [2021] [Hyperdevs]
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,22 +14,21 @@
  limitations under the License.
  */
 
+import Combine
 import Foundation
-import RxSwift
 
-public protocol StoreType {
+public protocol StoreType: ObservableObject {
     associatedtype State: StateType
-    associatedtype StoreController: Disposable
+    associatedtype StoreController: Cancellable
 
     var state: State { get set }
     var dispatcher: Dispatcher { get }
     var reducerGroup: ReducerGroup { get }
-
-    func replayOnce()
 }
 
 extension StoreType {
     /**
+
      Property responsible of reduce the `State` given a certain `Action` being triggered.
      ```
      public var reducerGroup: ReducerGroup {
@@ -51,88 +50,26 @@ extension StoreType {
     }
 }
 
-public class Store<State: StateType, StoreController: Disposable>: ObservableType, StoreType {
-    public typealias Element = State
+ 
+public class Store<State: StateType, StoreController: Cancellable>: StoreType {
 
     public typealias State = State
     public typealias StoreController = StoreController
 
-    public typealias ObjectWillChangePublisher = BehaviorSubject<State>
-
-    public var objectWillChange: ObjectWillChangePublisher
-
-    private var _initialState: State
     public let dispatcher: Dispatcher
     public var storeController: StoreController
-
-    private let queue = DispatchQueue(label: "atomic state")
-
-    private var _state: State
-
-    public var state: State {
-        get {
-            return _state
-        }
-        set {
-            queue.sync {
-                if !newValue.isEqual(to: _state) {
-                    _state = newValue
-                    objectWillChange.onNext(state)
-                }
-            }
-        }
-    }
-
-    public var initialState: State {
-        return _initialState
-    }
-
-    public init(_ state: State,
-                dispatcher: Dispatcher,
-                storeController: StoreController) {
-        _initialState = state
-        _state = state
-        self.dispatcher = dispatcher
-        objectWillChange = ObjectWillChangePublisher(value: state)
-        self.storeController = storeController
-        self.state = _initialState
-    }
-
+    @Published public var state: State
+    
     public var reducerGroup: ReducerGroup {
         return ReducerGroup()
     }
 
-    public func notify() {
-        replayOnce()
-    }
-
-    public func replayOnce() {
-        objectWillChange.onNext(state)
-    }
-
-    public func reset() {
-        state = initialState
-    }
-
-    public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Store.Element {
-        objectWillChange.subscribe(observer)
+    public init(state: State,
+                dispatcher: Dispatcher,
+                storeController: StoreController) {
+        self.dispatcher = dispatcher
+        self.state = state
+        self.storeController = storeController
     }
 }
 
-public extension Store {
-    func replaying() -> Observable<Store.State> {
-        startWith(state)
-    }
-}
-
-extension Store {
-    public func dispatch<A: Action>(_ action: @autoclosure @escaping () -> A) -> Observable<Store.State> {
-        let action = action()
-        dispatcher.dispatch(action, mode: .sync)
-        return objectWillChange.asObservable()
-    }
-
-    public func withStateChanges<T>(in stateComponent: KeyPath<Element, T>) -> Observable<T> {
-        map(stateComponent)
-    }
-}

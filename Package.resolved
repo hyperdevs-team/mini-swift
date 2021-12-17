@@ -77,8 +77,8 @@
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble",
         "state": {
-          "branch": "master",
-          "revision": "eea5843b34beb559dd51cf004953f75028e47add",
+          "branch": "main",
+          "revision": "ea662491f7f4b6ec72656674488bf830003eaaf5",
           "version": null
         }
       },
@@ -116,24 +116,6 @@
           "branch": null,
           "revision": "f75c9736733b489a3456b4f3a47cf13adb99f197",
           "version": "0.9.2"
-        }
-      },
-      {
-        "package": "RxOptional",
-        "repositoryURL": "https://github.com/RxSwiftCommunity/RxOptional",
-        "state": {
-          "branch": null,
-          "revision": "98a1895918e9ba9735a15207dd9c7120e9f51843",
-          "version": "4.1.0"
-        }
-      },
-      {
-        "package": "RxSwift",
-        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "b3e888b4972d9bc76495dd74d30a8c7fad4b9395",
-          "version": "5.0.1"
         }
       },
       {

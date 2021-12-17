@@ -1,12 +1,12 @@
 /*
- Copyright [2019] [BQ]
-
+ Copyright [2021] [Hyperdevs]
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,13 @@ extension Dictionary where Value: PromiseType, Key: Hashable {
     public func hasValue(for key: Dictionary.Key) -> Bool {
         return keys.contains(key)
     }
-
+    
+    //MARK: - TODO: Translate to Combine if needed
+    /*
     func notify<T: StoreType>(to store: T) -> Self {
         store.replayOnce()
         return self
-    }
+    }*/
 
     @discardableResult
     public func resolve(with other: [Key: Value]) -> Self {

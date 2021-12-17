@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Mini",
     platforms: [
-        .iOS(.v11),
+        .iOS("13.0"),
         .macOS(.v10_13),
         .tvOS(.v11),
     ],
@@ -35,14 +35,12 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
-        .package(url: "https://github.com/RxSwiftCommunity/RxOptional", .upToNextMajor(from: "4.1.0")),
         .package(url: "https://github.com/apple/swift-nio.git", .upToNextMajor(from: "2.7.1")),
         // Development
-        .package(url: "https://github.com/Quick/Nimble", .branch("master")), // dev
+        .package(url: "https://github.com/Quick/Nimble", .branch("main")), // dev
         .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting", .branch("master")), // dev
         .package(url: "https://github.com/minuscorp/ModuleInterface", from: "0.0.1"), // dev
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.35.8"), // dev
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.48.10"), // dev
         .package(url: "https://github.com/jpsim/SourceKitten", from: "0.26.0"), // dev
         .package(url: "https://github.com/shibapm/Rocket", from: "0.4.0"), // dev
         .package(url: "https://github.com/Realm/SwiftLint", from: "0.35.0"), // dev
@@ -56,7 +54,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Mini",
-            dependencies: ["RxSwift", "NIOConcurrencyHelpers", "RxOptional"]
+            dependencies: ["NIOConcurrencyHelpers"]
         ),
         .target(
             name: "LoggingService",
@@ -74,7 +72,7 @@ let package = Package(
             name: "MiniPromises",
             dependencies: ["Mini"]
         ),
-        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "RxSwift", "Nimble", "RxTest", "RxBlocking", "RxOptional"]), // dev
+        .testTarget(name: "MiniSwiftTests", dependencies: ["Mini", "MiniTasks", "MiniPromises", "TestMiddleware", "NIOConcurrencyHelpers", "Nimble"]), // dev
     ],
     swiftLanguageVersions: [.version("5")]
 )
