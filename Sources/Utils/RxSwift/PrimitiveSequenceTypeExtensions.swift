@@ -9,7 +9,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         -> Disposable where A.Payload == Element {
         let subscription = self.subscribe(
             onSuccess: { payload in
-                let successTask = TypedTask(status: .success(payload: payload), expiration: expiration, data: payload)
+                let successTask = TypedTask(status: .success(payload: payload), expiration: expiration)
 
                 // swiftlint:disable:next explicit_init
                 let action = A.init(task: successTask, payload: payload)
@@ -34,7 +34,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         -> Disposable where A.Payload == Element {
         let subscription = self.subscribe(
             onSuccess: { payload in
-                let successTask = TypedTask(status: .success(payload: payload), expiration: expiration, data: payload, tag: "\(key)")
+                let successTask = TypedTask(status: .success(payload: payload), expiration: expiration, tag: "\(key)")
 
                 // swiftlint:disable:next explicit_init
                 let action = A.init(task: successTask, payload: payload, key: key)
@@ -58,7 +58,7 @@ public extension PrimitiveSequenceType where Self: ObservableConvertibleType, Se
         Single.create { single in
             let subscription = self.subscribe(
                 onSuccess: { payload in
-                    let successTask = TypedTask(status: .success(payload: payload), expiration: expiration, data: payload)
+                    let successTask = TypedTask(status: .success(payload: payload), expiration: expiration)
 
                     // swiftlint:disable:next explicit_init
                     let action = A.init(task: successTask, payload: payload)
