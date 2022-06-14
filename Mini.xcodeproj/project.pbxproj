@@ -108,6 +108,10 @@
 		F26C3AF922537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFA22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFB22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
+		F27A3BA02857AAD600DADCE0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A3B9F2857AAD600DADCE0 /* None.swift */; };
+		F27A3BA12857AAD600DADCE0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A3B9F2857AAD600DADCE0 /* None.swift */; };
+		F27A3BA22857AAD600DADCE0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A3B9F2857AAD600DADCE0 /* None.swift */; };
+		F27A3BA32857AAD600DADCE0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A3B9F2857AAD600DADCE0 /* None.swift */; };
 		F2DF4A2B26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2C26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2D26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
@@ -185,6 +189,7 @@
 		F222D7692525361700672E7B /* KeyedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTask.swift; sourceTree = "<group>"; };
 		F222D7752525373B00672E7B /* KeyedTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTaskTests.swift; sourceTree = "<group>"; };
 		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
+		F27A3B9F2857AAD600DADCE0 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
 		F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDictionaryTests.swift; sourceTree = "<group>"; };
 		F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatcher+Rx.swift"; sourceTree = "<group>"; };
 		F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemandBuffer.swift; sourceTree = "<group>"; };
@@ -290,6 +295,7 @@
 				F222D4A725249B7D00672E7B /* Task.swift */,
 				F222D7692525361700672E7B /* KeyedTask.swift */,
 				F26C3AF722537A4600189D28 /* Mini.swift */,
+				F27A3B9F2857AAD600DADCE0 /* None.swift */,
 				E26053F12121880000D013B5 /* Mini.h */,
 				E26053F22121880000D013B5 /* Info.plist */,
 			);
@@ -698,6 +704,7 @@
 				F222D4CB25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76A2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4AF25249B7E00672E7B /* Dispatcher.swift in Sources */,
+				F27A3BA02857AAD600DADCE0 /* None.swift in Sources */,
 				F222D4BB25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B725249B7E00672E7B /* Middleware.swift in Sources */,
 				F222D4B325249B7E00672E7B /* Task.swift in Sources */,
@@ -740,6 +747,7 @@
 				F222D4CC25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76B2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B025249B7E00672E7B /* Dispatcher.swift in Sources */,
+				F27A3BA12857AAD600DADCE0 /* None.swift in Sources */,
 				F222D4BC25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B825249B7E00672E7B /* Middleware.swift in Sources */,
 				F222D4B425249B7E00672E7B /* Task.swift in Sources */,
@@ -782,6 +790,7 @@
 				F222D4CD25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76C2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B125249B7E00672E7B /* Dispatcher.swift in Sources */,
+				F27A3BA22857AAD600DADCE0 /* None.swift in Sources */,
 				F222D4BD25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B925249B7E00672E7B /* Middleware.swift in Sources */,
 				F222D4B525249B7E00672E7B /* Task.swift in Sources */,
@@ -824,6 +833,7 @@
 				F222D4CE25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76D2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B225249B7E00672E7B /* Dispatcher.swift in Sources */,
+				F27A3BA32857AAD600DADCE0 /* None.swift in Sources */,
 				F222D4BE25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4BA25249B7E00672E7B /* Middleware.swift in Sources */,
 				F222D4B625249B7E00672E7B /* Task.swift in Sources */,

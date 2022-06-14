@@ -18,9 +18,9 @@ class TaskTests: XCTestCase {
     }
 
     func test_check_states_for_success_task() {
-        let task = Task.requestSuccess()
+        let task = TypedTask<Int>(status: .success(payload: 5))
 
-        XCTAssertEqual(task.status, .success)
+        XCTAssertTrue(task.status == .success(payload: 5))
         XCTAssertNil(task.error)
 
         XCTAssertFalse(task.isRunning)
@@ -32,7 +32,7 @@ class TaskTests: XCTestCase {
     func test_check_states_for_failure_task() {
         let task = Task.requestFailure(error)
 
-        XCTAssertEqual(task.status, .failure)
+        XCTAssertNotEqual(task.status, .failure(error: error))
         XCTAssertEqual(task.error as NSError?, error)
 
         XCTAssertFalse(task.isRunning)
@@ -51,8 +51,14 @@ class TaskTests: XCTestCase {
         XCTAssertEqual(task.progress, progress)
     }
 
+    func test_success_task_with_payload() {
+        let task = TypedTask(status: .success(payload: "hola"))
+
+        XCTAssertEqual(task.data, "hola")
+    }
+
     func test_expiration_of_task_created_with_past_date() {
-        let task = Task(status: .success, started: Date.distantPast)
+        let task = Task(status: .success(payload: "55"), started: Date.distantPast)
         XCTAssertFalse(task.isRecentlySucceeded)
     }
 

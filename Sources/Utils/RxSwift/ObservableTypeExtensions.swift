@@ -48,7 +48,7 @@ extension ObservableType where Self.Element: StateType {
 
     private func filterForKeyedLifetime<K: Hashable> (
         key: K,
-        taskMap: @escaping ((Self.Element) -> KeyedTask<K>),
+        taskMap: @escaping ((Element) -> KeyedTask<K>),
         lifetime: Task.Lifetime) -> Observable<Element> {
         switch lifetime {
         case .once:
@@ -110,15 +110,15 @@ extension ObservableType where Self.Element: StateType {
     }
 }
 
-extension ObservableType where Element: StoreType & ObservableType, Self.Element.State == Self.Element.Element {
-    public static func dispatch<A: Action, T: Task> (
+extension ObservableType where Element: StoreType & ObservableType, Element.State == Element.Element {
+    public static func dispatch<A: Action, T: TypedTask<Element>> (
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
-        taskMap: @escaping (Self.Element.State) -> T?,
+        taskMap: @escaping (Element.State) -> T?,
         on store: Self.Element,
         lifetime: Task.Lifetime = .once)
-        -> Observable<Self.Element.State> {
-            let observable: Observable<Self.Element.State> = Observable.create { observer in
+        -> Observable<Element.State> {
+            let observable: Observable<Element.State> = Observable.create { observer in
                 let action = action()
                 dispatcher.dispatch(action)
                 let subscription = store.subscribe(
@@ -142,7 +142,7 @@ extension ObservableType where Element: StoreType & ObservableType, Self.Element
         using dispatcher: Dispatcher,
         factory action: @autoclosure @escaping () -> A,
         key: K,
-        taskMap: @escaping (Self.Element.State) -> KeyedTask<K>,
+        taskMap: @escaping (Element.State) -> KeyedTask<K>,
         on store: Self.Element,
         lifetime: Task.Lifetime = .once)
         -> Observable<Self.Element.State> {
