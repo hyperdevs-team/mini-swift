@@ -44,13 +44,13 @@ jobs:
         key: ${{ runner.os }}-cache-carthage-${{ hashFiles('**/Cartfile.resolved') }}
 
     - name: Rake ⚙️
-      run: rake
+      run: arch -arm64 rake
 
     - name: Run all tests ⚙️
-      run: rake tests
+      run: arch -arm64 rake tests
 
     - name: Validate Podfile ⚙️
-      run: rake validate_podfile
+      run: arch -arm64 rake validate_podfile
 
     - name: Danger 🚨
       run: bundle exec danger

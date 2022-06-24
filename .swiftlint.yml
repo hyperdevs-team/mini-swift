@@ -79,6 +79,11 @@ large_tuple:
 file_length:
   warning: 2000
   error: 2000
+nesting:
+  type_level:
+    warning: 2
+  function_level:
+    warning: 2  
 type_name:
   min_length: 3
   max_length: 50

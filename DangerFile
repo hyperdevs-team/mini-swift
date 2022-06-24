@@ -1,21 +1,6 @@
+require 'xcodeproj'
+
 # FUNCTION HELPERS
-def label_tests_summary(path:) 
-  json = File.read(path.to_s)
-  data = JSON.parse(json)
-  data["tests_summary_messages"].each { |message| 
-      if !message.empty?
-         message.insert(1, "**📢 [" + read_platform_from_buildreport_file(path: path) + "]**")
-      end
-  }
-  File.open(path.to_s,"w") do |f|
-     f.puts JSON.pretty_generate(data)
-  end 
-end 
-
-def read_platform_from_buildreport_file(path:)
-    path.basename.to_s.split('.').first
-end
-
 def read_platform_from_testreport_file(path:)
     path.dirname.to_s.split('/')[-2]
 end
@@ -24,11 +9,11 @@ end
 gitfiles = (git.modified_files + git.added_files).uniq
 output_dir = "./output"
 
-build_reports = []
+build_results = []
 test_reports = []
 if File.directory?(output_dir) 
   Find.find(output_dir) do |path|
-    build_reports << path if path =~ /.*\.build-report.json$/
+    build_results << path if path =~ /.*\.xcresult$/
     test_reports << path if path =~ /.*report.junit$/
   end
 else
@@ -36,26 +21,28 @@ else
 end
 
 # CHECK REPORTS:
-if build_reports.length != test_reports.length 
-  fail "Not all targets successfully completed the tests. (#{build_reports.length} builds vs #{test_reports.length} tests reports)"
-end
-fail "Not all targets could be compiled. Check if any flavor dont build. (We have #{build_reports.length} builds)" unless build_reports.length == 8
+fail "Not all targets could be compiled. Check if any flavor dont build. (We have #{build_results.length} builds)" unless build_results.length == 8
 
 #BASIC CHECKS:
 warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
 fail 'This PR does not have any assignees yet.' unless github.pr_json["assignee"]
 
 #BUILD PARSE:
-build_reports.each do |path|
-	path = Pathname(path)
-	label_tests_summary(path: path)
-	xcode_summary.report path.to_s
+build_results.each do |path|
+  path = Pathname(path)
+  xcode_summary.report path.to_s
 end
 
-#JUNIT PARSE:
 test_reports.each do |path|
-	path = Pathname(path)
+  path = Pathname(path)
+  test_report_name = read_platform_from_testreport_file(path: path)
+  junit.parse path.to_s
+  junit.report
 
+  all_test = junit.tests.map(&:attributes)
+  slowest_test = all_test.sort_by { |attributes| attributes[:time].to_f }.last
+  fail "**#{test_report_name}** don't report any test! Please check the log and see if the target are crashing or something" if all_test.empty?
+  message "⌛️ **[#{test_report_name}]** Slowest test: #{slowest_test[:name]} took #{'%.3f' % slowest_test[:time]} seconds" if all_test.any?
 end
 
 #SWIFTLINT

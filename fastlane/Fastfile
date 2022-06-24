@@ -21,17 +21,18 @@ platform :ios do
         clear_derived_data
 
         output_directory = File.expand_path("#{ENV['WORKSPACE']}/output")
-        ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "#{output_directory}/#{options[:name]}.build-report.json"
+        ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "#{output_directory}/#{options[:name]}/report.json"
 
         begin 
             scan_options = {}
             scan_options[:scheme] = options[:scheme]
             scan_options[:configuration] = options[:configuration]
-            scan_options[:disable_slide_to_type] = false
             scan_options[:disable_concurrent_testing] = true
             scan_options[:max_concurrent_simulators] = 1
-            scan_options[:buildlog_path] = "#{output_directory}/#{options[:name]}/build-log/"
-            scan_options[:output_directory] = "#{output_directory}/#{options[:name]}/test-report"
+            scan_options[:buildlog_path] = "#{output_directory}/#{options[:name]}"
+            scan_options[:output_directory] = "#{output_directory}/#{options[:name]}"
+            scan_options[:output_types] = "html,junit"
+            scan_options[:result_bundle] = true
             scan_options[:formatter] = "xcpretty-json-formatter"
             scan_options[:skip_slack] = true
             scan(scan_options)
