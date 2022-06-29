@@ -21,7 +21,7 @@ else
 end
 
 # CHECK REPORTS:
-fail "Not all targets could be compiled. Check if any flavor dont build. (We have #{build_results.length} builds)" unless build_results.length == 8
+fail "Not all targets could be compiled. Check if any flavor dont build. (We have #{build_results.length} builds)" unless build_results.length == 3
 
 #BASIC CHECKS:
 warn 'Big PR, try to keep changes smaller if you can 😜' if git.lines_of_code > 500
