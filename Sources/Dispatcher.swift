@@ -4,7 +4,7 @@ public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<Dispatche
 
 public final class Dispatcher {
     public struct DispatchMode {
-        // swiftlint:disable:next type_name nesting
+        // swiftlint:disable:next type_name
         public enum UI {
             case sync, async
         }
@@ -36,7 +36,7 @@ public final class Dispatcher {
 
     private func build() -> Chain {
         middleware.reduce(root) { (chain: Chain, middleware: Middleware) -> Chain in
-            return ForwardingChain { action in
+            ForwardingChain { action in
                 middleware.perform(action, chain)
             }
         }
@@ -181,7 +181,7 @@ public final class Dispatcher {
     }
 }
 
-public final class DispatcherSubscription: Comparable {
+public final class DispatcherSubscription: Comparable, Equatable, Hashable {
     internal let dispatcher: Dispatcher
 
     public let id: Int
@@ -204,6 +204,10 @@ public final class DispatcherSubscription: Comparable {
 
     public func on(_ action: Action) {
         completion(action)
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
     public static func == (lhs: DispatcherSubscription, rhs: DispatcherSubscription) -> Bool {

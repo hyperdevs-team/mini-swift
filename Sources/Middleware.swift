@@ -16,9 +16,7 @@ public final class ForwardingChain: Chain {
     private let next: Next
 
     public var proceed: Next {
-        { action in
-            return self.next(action)
-        }
+        { self.next($0) }
     }
 
     public init(next: @escaping Next) {

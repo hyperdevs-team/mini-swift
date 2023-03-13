@@ -48,6 +48,8 @@ jobs:
 
     - name: Run all tests ⚙️
       run: arch -arm64 rake tests
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Validate Podfile ⚙️
       run: arch -arm64 rake validate_podfile

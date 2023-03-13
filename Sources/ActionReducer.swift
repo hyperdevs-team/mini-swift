@@ -1,28 +1,28 @@
+import Combine
 import Foundation
-import RxSwift
 
-public class Reducer<A: Action>: Disposable {
+public class Reducer<A: Action>: Cancellable {
     public let action: A.Type
     public let dispatcher: Dispatcher
     public let reducer: (A) -> Void
 
-    private var disposable: Disposable!
+    private var cancellable: Cancellable!
 
     public init(of action: A.Type, on dispatcher: Dispatcher, reducer: @escaping (A) -> Void) {
         self.action = action
         self.dispatcher = dispatcher
         self.reducer = reducer
-        self.disposable = build()
+        self.cancellable = build()
     }
 
-    private func build() -> Disposable {
-        let disposable = dispatcher.subscribe(tag: action.tag) {
+    private func build() -> Cancellable {
+        let cancelable = dispatcher.subscribe(tag: action.tag) {
             self.reducer($0)
         }
-        return disposable
+        return cancelable
     }
 
-    public func dispose() {
-        disposable.dispose()
+    public func cancel() {
+        cancellable.cancel()
     }
 }

@@ -11,7 +11,6 @@ opt_in_rules:
   - yoda_condition
   - modifier_order
   - anyobject_protocol
-  - unused_import
   #- explicit_acl  
   - cyclomatic_complexity
   #style
@@ -26,7 +25,6 @@ opt_in_rules:
   - file_header
   - conditional_returns_on_newline
   - implicit_return
-  - explicit_self
   - multiline_function_chains
   - switch_case_on_newline
   - prefer_self_type_over_type_of_self
@@ -74,8 +72,8 @@ line_length:
   warning: 250
   error: 400
 large_tuple:
-  warning: 3
-  error: 3 
+  warning: 5
+  error: 5 
 file_length:
   warning: 2000
   error: 2000

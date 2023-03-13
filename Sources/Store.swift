@@ -1,9 +1,9 @@
+import Combine
 import Foundation
-import RxSwift
 
 public protocol StoreType {
     associatedtype State: StateType
-    associatedtype StoreController: Disposable
+    associatedtype StoreController: Cancellable
 
     var state: State { get set }
     var dispatcher: Dispatcher { get }
@@ -35,13 +35,12 @@ extension StoreType {
     }
 }
 
-public class Store<State: StateType, StoreController: Disposable>: ObservableType, StoreType {
-    public typealias Element = State
+public class Store<State: StateType, StoreController: Cancellable>: Publisher, StoreType {
+    public typealias Output = State
+    public typealias Failure = Never
     public typealias State = State
     public typealias StoreController = StoreController
-    public typealias ObjectWillChangePublisher = BehaviorSubject<State>
 
-    public var objectWillChange: ObjectWillChangePublisher
     public let dispatcher: Dispatcher
     public var storeController: StoreController
     public var state: State {
@@ -52,7 +51,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
             queue.sync {
                 if !newValue.isEqual(to: _state) {
                     _state = newValue
-                    objectWillChange.onNext(state)
+                    objectWillChange.send(state)
                 }
             }
         }
@@ -67,7 +66,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
         self._initialState = state
         self._state = state
         self.dispatcher = dispatcher
-        self.objectWillChange = ObjectWillChangePublisher(value: state)
+        self.objectWillChange = .init(state)
         self.storeController = storeController
         self.state = _initialState
     }
@@ -79,7 +78,7 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
     }
 
     public func replayOnce() {
-        objectWillChange.onNext(state)
+        objectWillChange.send(state)
 
         dispatcher.stateWasReplayed(state: state)
     }
@@ -88,10 +87,11 @@ public class Store<State: StateType, StoreController: Disposable>: ObservableTyp
         state = initialState
     }
 
-    public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Store.Element {
-        objectWillChange.subscribe(observer)
+    public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
+        objectWillChange.subscribe(subscriber)
     }
 
+    private var objectWillChange: CurrentValueSubject<State, Never>
     private let queue = DispatchQueue(label: "atomic state")
     private var _initialState: State
     private var _state: State

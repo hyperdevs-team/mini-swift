@@ -1,8 +1,8 @@
 import Foundation
 
-public typealias KeyedTask<K: Hashable> = [K: Task]
+public typealias KeyedTask<Key: Hashable, TaskPayload: Equatable, TaskError: Error> = [Key: Task<TaskPayload, TaskError>]
 
-extension KeyedTask where Value: Task {
+extension KeyedTask where Key: Hashable, Value: TaskType {
     public subscript(task key: Key) -> Value? {
         self[key]
     }

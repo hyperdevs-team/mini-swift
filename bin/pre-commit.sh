@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-LINT=$(which swiftlint)
+LINT=`mint which swiftlint`
 
 EXITSTATUS=0
 

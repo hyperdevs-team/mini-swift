@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,10 +14,6 @@
 		E281243B2122CC4C00E4F6D0 /* Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E28124322122CC4C00E4F6D0 /* Mini.framework */; };
 		E28124562122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E28124572122CCE300E4F6D0 /* Mini.h in Headers */ = {isa = PBXBuildFile; fileRef = E26053F12121880000D013B5 /* Mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F20396B125E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
-		F20396B225E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
-		F20396B325E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
-		F20396B425E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */; };
 		F222D4AF25249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
 		F222D4B025249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
 		F222D4B125249B7E00672E7B /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A625249B7D00672E7B /* Dispatcher.swift */; };
@@ -54,14 +50,6 @@
 		F222D4D025249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
 		F222D4D125249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
 		F222D4D225249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
-		F222D4ED25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */; };
-		F222D4EE25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */; };
-		F222D4EF25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */; };
-		F222D4F025249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */; };
-		F222D4F125249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */; };
-		F222D4F225249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */; };
-		F222D4F325249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */; };
-		F222D4F425249B9B00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */; };
 		F222D4F525249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4E125249B9A00672E7B /* DispatchQueueExtensions.swift */; };
 		F222D4F625249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4E125249B9A00672E7B /* DispatchQueueExtensions.swift */; };
 		F222D4F725249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4E125249B9A00672E7B /* DispatchQueueExtensions.swift */; };
@@ -108,21 +96,70 @@
 		F26C3AF922537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFA22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFB22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
+		F288761028649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
+		F288761128649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
+		F288761228649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
+		F288761328649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
+		F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
+		F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
+		F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
+		F288761828649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
+		F288DCC929BA8BF600FBFED1 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCC829BA8BF600FBFED1 /* None.swift */; };
+		F288DCCA29BA8BF600FBFED1 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCC829BA8BF600FBFED1 /* None.swift */; };
+		F288DCCB29BA8BF600FBFED1 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCC829BA8BF600FBFED1 /* None.swift */; };
+		F288DCCC29BA8BF600FBFED1 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCC829BA8BF600FBFED1 /* None.swift */; };
+		F288DCCD29BA906800FBFED1 /* PublishersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD824D286B7065005C024F /* PublishersTests.swift */; };
+		F288DCCF29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */; };
+		F288DCD029BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */; };
+		F288DCD129BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */; };
+		F288DCD229BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */; };
+		F288DCD429BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */; };
+		F288DCD529BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */; };
+		F288DCD629BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */; };
+		F288DCD729BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */; };
+		F288DCD929BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */; };
+		F288DCDA29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */; };
+		F288DCDB29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */; };
+		F288DCDC29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */; };
+		F297D269286A02E200323F24 /* KeyedPayloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D268286A02E200323F24 /* KeyedPayloadAction.swift */; };
+		F297D26A286A02E200323F24 /* KeyedPayloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D268286A02E200323F24 /* KeyedPayloadAction.swift */; };
+		F297D26B286A02E200323F24 /* KeyedPayloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D268286A02E200323F24 /* KeyedPayloadAction.swift */; };
+		F297D26C286A02E200323F24 /* KeyedPayloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D268286A02E200323F24 /* KeyedPayloadAction.swift */; };
+		F297D27E286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
+		F297D27F286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
+		F297D280286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
+		F297D281286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
+		F2AD8249286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
+		F2AD824A286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
+		F2AD824B286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
+		F2AD824C286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
+		F2AD8252286B7087005C024F /* PublishersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD824D286B7065005C024F /* PublishersTests.swift */; };
+		F2AD8254286B7088005C024F /* PublishersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD824D286B7065005C024F /* PublishersTests.swift */; };
+		F2C09DAC286B1490009C9C8E /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAB286B1490009C9C8E /* TestError.swift */; };
+		F2C09DAD286B1490009C9C8E /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAB286B1490009C9C8E /* TestError.swift */; };
+		F2C09DAE286B1490009C9C8E /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAB286B1490009C9C8E /* TestError.swift */; };
+		F2C09DB0286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
+		F2C09DB1286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
+		F2C09DB2286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
+		F2C09DB4286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
+		F2C09DB5286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
+		F2C09DB6286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
+		F2C09DB8286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
+		F2C09DB9286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
+		F2C09DBA286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
+		F2C09DBC286B2698009C9C8E /* TestStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBB286B2698009C9C8E /* TestStoreController.swift */; };
+		F2C09DBD286B2698009C9C8E /* TestStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBB286B2698009C9C8E /* TestStoreController.swift */; };
+		F2C09DBE286B2698009C9C8E /* TestStoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBB286B2698009C9C8E /* TestStoreController.swift */; };
+		F2C09DC0286B530D009C9C8E /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBF286B530D009C9C8E /* ActionTests.swift */; };
+		F2C09DC1286B530D009C9C8E /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBF286B530D009C9C8E /* ActionTests.swift */; };
+		F2C09DC2286B530D009C9C8E /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DBF286B530D009C9C8E /* ActionTests.swift */; };
+		F2C09DC4286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
+		F2C09DC5286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
+		F2C09DC6286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
+		F2C09DC7286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
 		F2DF4A2B26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2C26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2D26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
-		F2DF4A3226C2C31400C082CF /* Dispatcher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */; };
-		F2DF4A3326C2C31500C082CF /* Dispatcher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */; };
-		F2DF4A3426C2C31600C082CF /* Dispatcher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */; };
-		F2DF4A3526C2C31700C082CF /* Dispatcher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */; };
-		F2DF4A3A26C2DACC00C082CF /* DemandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */; };
-		F2DF4A3B26C2DACD00C082CF /* DemandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */; };
-		F2DF4A3C26C2DACE00C082CF /* DemandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */; };
-		F2DF4A3D26C2DACE00C082CF /* DemandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */; };
-		F2DF4A4026C2DBDC00C082CF /* Store+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */; };
-		F2DF4A4126C2DBDC00C082CF /* Store+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */; };
-		F2DF4A4226C2DBDC00C082CF /* Store+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */; };
-		F2DF4A4326C2DBDC00C082CF /* Store+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,7 +197,6 @@
 		E28124322122CC4C00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281243A2122CC4C00E4F6D0 /* Mini-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mini-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281244E2122CC5B00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxSwift.xcframework; path = Carthage/Build/RxSwift.xcframework; sourceTree = "<group>"; };
 		F222D4A625249B7D00672E7B /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		F222D4A725249B7D00672E7B /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F222D4A825249B7D00672E7B /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
@@ -170,8 +206,6 @@
 		F222D4AC25249B7D00672E7B /* ServiceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		F222D4AD25249B7D00672E7B /* StateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
 		F222D4AE25249B7D00672E7B /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableTypeExtensions.swift; sourceTree = "<group>"; };
-		F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveSequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		F222D4E125249B9A00672E7B /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
 		F222D4E325249B9A00672E7B /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		F222D4E425249B9A00672E7B /* PayloadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayloadAction.swift; sourceTree = "<group>"; };
@@ -185,10 +219,24 @@
 		F222D7692525361700672E7B /* KeyedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTask.swift; sourceTree = "<group>"; };
 		F222D7752525373B00672E7B /* KeyedTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTaskTests.swift; sourceTree = "<group>"; };
 		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
+		F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPublisherExtensions.swift; sourceTree = "<group>"; };
+		F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksTuple2.swift; sourceTree = "<group>"; };
+		F288DCC829BA8BF600FBFED1 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
+		F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksTuple4.swift; sourceTree = "<group>"; };
+		F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksTuple3.swift; sourceTree = "<group>"; };
+		F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksArray.swift; sourceTree = "<group>"; };
+		F297D268286A02E200323F24 /* KeyedPayloadAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedPayloadAction.swift; sourceTree = "<group>"; };
+		F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatcher+Combine.swift"; sourceTree = "<group>"; };
+		F2AD8248286B6AD9005C024F /* TaskExpiration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskExpiration.swift; sourceTree = "<group>"; };
+		F2AD824D286B7065005C024F /* PublishersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersTests.swift; sourceTree = "<group>"; };
+		F2C09DAB286B1490009C9C8E /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		F2C09DAF286B14B7009C9C8E /* TestActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestActions.swift; sourceTree = "<group>"; };
+		F2C09DB3286B1598009C9C8E /* TestServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServices.swift; sourceTree = "<group>"; };
+		F2C09DB7286B2672009C9C8E /* TestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestState.swift; sourceTree = "<group>"; };
+		F2C09DBB286B2698009C9C8E /* TestStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStoreController.swift; sourceTree = "<group>"; };
+		F2C09DBF286B530D009C9C8E /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
+		F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDictionaryTests.swift; sourceTree = "<group>"; };
-		F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatcher+Rx.swift"; sourceTree = "<group>"; };
-		F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemandBuffer.swift; sourceTree = "<group>"; };
-		F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+Combine.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +244,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20396B125E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +259,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20396B225E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +274,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20396B325E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +289,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20396B425E7C7D1002DBD08 /* RxSwift.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +300,6 @@
 			children = (
 				E26053F02121880000D013B5 /* Sources */,
 				E26053FB2121880000D013B5 /* Tests */,
-				E28124592122CD2500E4F6D0 /* Frameworks */,
 				E26053EF212187FF00D013B5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -278,20 +321,23 @@
 		E26053F02121880000D013B5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F222D4DC25249B9A00672E7B /* Utils */,
+				E26053F12121880000D013B5 /* Mini.h */,
+				E26053F22121880000D013B5 /* Info.plist */,
 				F222D4AB25249B7D00672E7B /* Action.swift */,
 				F222D4AA25249B7D00672E7B /* ActionReducer.swift */,
 				F222D4A625249B7D00672E7B /* Dispatcher.swift */,
+				F222D7692525361700672E7B /* KeyedTask.swift */,
 				F222D4A825249B7D00672E7B /* Middleware.swift */,
+				F26C3AF722537A4600189D28 /* Mini.swift */,
+				F288DCC829BA8BF600FBFED1 /* None.swift */,
 				F222D4A925249B7D00672E7B /* ReducerGroup.swift */,
 				F222D4AC25249B7D00672E7B /* ServiceType.swift */,
 				F222D4AD25249B7D00672E7B /* StateType.swift */,
 				F222D4AE25249B7D00672E7B /* Store.swift */,
 				F222D4A725249B7D00672E7B /* Task.swift */,
-				F222D7692525361700672E7B /* KeyedTask.swift */,
-				F26C3AF722537A4600189D28 /* Mini.swift */,
-				E26053F12121880000D013B5 /* Mini.h */,
-				E26053F22121880000D013B5 /* Info.plist */,
+				F2AD8248286B6AD9005C024F /* TaskExpiration.swift */,
+				F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */,
+				F222D4DC25249B9A00672E7B /* Utils */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -300,46 +346,31 @@
 			isa = PBXGroup;
 			children = (
 				E26053FE2121880000D013B5 /* Info.plist */,
+				F2C09DBF286B530D009C9C8E /* ActionTests.swift */,
 				F222D52025249BD900672E7B /* ChainTests.swift */,
 				F222D52525249BD900672E7B /* DictionaryExtensionsTests.swift */,
 				F222D52225249BD900672E7B /* DispatcherTests.swift */,
-				F222D52125249BD900672E7B /* ReducerTests.swift */,
-				F222D52325249BD900672E7B /* TaskTests.swift */,
 				F222D7752525373B00672E7B /* KeyedTaskTests.swift */,
+				F2AD824D286B7065005C024F /* PublishersTests.swift */,
+				F222D52125249BD900672E7B /* ReducerTests.swift */,
 				F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */,
+				F222D52325249BD900672E7B /* TaskTests.swift */,
+				F2C09DAA286B147F009C9C8E /* Helpers */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		E28124592122CD2500E4F6D0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F20396B025E7C7D1002DBD08 /* RxSwift.xcframework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F222D4DC25249B9A00672E7B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F2DF4A3E26C2DBCB00C082CF /* Combine */,
-				F222D4DD25249B9A00672E7B /* RxSwift */,
-				F222D4E025249B9A00672E7B /* Foundation */,
-				F222D4E425249B9A00672E7B /* PayloadAction.swift */,
+				F297D268286A02E200323F24 /* KeyedPayloadAction.swift */,
 				F222D4E525249B9A00672E7B /* OrderedSet.swift */,
+				F222D4E425249B9A00672E7B /* PayloadAction.swift */,
 				F222D4E625249B9A00672E7B /* SharedDictionary.swift */,
+				F2DF4A3E26C2DBCB00C082CF /* Combine */,
+				F222D4E025249B9A00672E7B /* Foundation */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		F222D4DD25249B9A00672E7B /* RxSwift */ = {
-			isa = PBXGroup;
-			children = (
-				F222D4DE25249B9A00672E7B /* ObservableTypeExtensions.swift */,
-				F222D4DF25249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift */,
-				F2DF4A2E26C2C29300C082CF /* Dispatcher+Rx.swift */,
-			);
-			path = RxSwift;
 			sourceTree = "<group>";
 		};
 		F222D4E025249B9A00672E7B /* Foundation */ = {
@@ -351,11 +382,27 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
+		F2C09DAA286B147F009C9C8E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F2C09DAF286B14B7009C9C8E /* TestActions.swift */,
+				F2C09DAB286B1490009C9C8E /* TestError.swift */,
+				F2C09DB3286B1598009C9C8E /* TestServices.swift */,
+				F2C09DB7286B2672009C9C8E /* TestState.swift */,
+				F2C09DBB286B2698009C9C8E /* TestStoreController.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		F2DF4A3E26C2DBCB00C082CF /* Combine */ = {
 			isa = PBXGroup;
 			children = (
-				F2DF4A3F26C2DBDC00C082CF /* Store+Combine.swift */,
-				F2DF4A3626C2DAC300C082CF /* DemandBuffer.swift */,
+				F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */,
+				F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */,
+				F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */,
+				F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */,
+				F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */,
+				F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -403,9 +450,9 @@
 			buildConfigurationList = E26054022121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOS" */;
 			buildPhases = (
 				E260540821218AF400D013B5 /* Swiftlint */,
+				E26053EB212187FF00D013B5 /* Headers */,
 				E26053E9212187FF00D013B5 /* Sources */,
 				E26053EA212187FF00D013B5 /* Frameworks */,
-				E26053EB212187FF00D013B5 /* Headers */,
 				E26053EC212187FF00D013B5 /* Resources */,
 			);
 			buildRules = (
@@ -440,9 +487,9 @@
 			buildConfigurationList = E28123EC2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOS" */;
 			buildPhases = (
 				E20BA60521389BE0005BA13B /* Swiftlint */,
+				E28123D42122C2CB00E4F6D0 /* Headers */,
 				E28123D22122C2CB00E4F6D0 /* Sources */,
 				E28123D32122C2CB00E4F6D0 /* Frameworks */,
-				E28123D42122C2CB00E4F6D0 /* Headers */,
 				E28123D52122C2CB00E4F6D0 /* Resources */,
 			);
 			buildRules = (
@@ -477,9 +524,9 @@
 			buildConfigurationList = E28124432122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOS" */;
 			buildPhases = (
 				E20BA60621389BF7005BA13B /* Swiftlint */,
+				E281242F2122CC4C00E4F6D0 /* Headers */,
 				E281242D2122CC4C00E4F6D0 /* Sources */,
 				E281242E2122CC4C00E4F6D0 /* Frameworks */,
-				E281242F2122CC4C00E4F6D0 /* Headers */,
 				E28124302122CC4C00E4F6D0 /* Resources */,
 			);
 			buildRules = (
@@ -513,9 +560,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E28124532122CC5C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-watchOS" */;
 			buildPhases = (
+				E281244B2122CC5B00E4F6D0 /* Headers */,
 				E28124492122CC5B00E4F6D0 /* Sources */,
 				E281244A2122CC5B00E4F6D0 /* Frameworks */,
-				E281244B2122CC5B00E4F6D0 /* Headers */,
 				E281244C2122CC5B00E4F6D0 /* Resources */,
 			);
 			buildRules = (
@@ -534,7 +581,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = S3BA;
 				TargetAttributes = {
 					E26053ED212187FF00D013B5 = {
@@ -646,6 +693,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E20BA60521389BE0005BA13B /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -656,10 +704,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\nswiftlint autocorrect\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
 		};
 		E20BA60621389BF7005BA13B /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -670,10 +719,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\nswiftlint autocorrect\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
 		};
 		E260540821218AF400D013B5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -684,7 +734,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\nswiftlint autocorrect\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run: brew install swiftlint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -693,26 +743,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2DF4A3A26C2DACC00C082CF /* DemandBuffer.swift in Sources */,
 				F222D50525249B9B00672E7B /* OrderedSet.swift in Sources */,
 				F222D4CB25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76A2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4AF25249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BB25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B725249B7E00672E7B /* Middleware.swift in Sources */,
+				F297D27E286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
+				F297D269286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B325249B7E00672E7B /* Task.swift in Sources */,
+				F288761028649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288DCC929BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4CF25249B7E00672E7B /* Store.swift in Sources */,
+				F288DCCF29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
+				F288DCD429BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */,
 				F222D4FD25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
-				F2DF4A4026C2DBDC00C082CF /* Store+Combine.swift in Sources */,
 				F222D4C325249B7E00672E7B /* Action.swift in Sources */,
-				F222D4ED25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */,
 				F222D4F525249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F222D4BF25249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AF822537A4600189D28 /* Mini.swift in Sources */,
+				F2AD8249286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F222D4C725249B7E00672E7B /* ServiceType.swift in Sources */,
 				F222D50125249B9B00672E7B /* PayloadAction.swift in Sources */,
-				F222D4F125249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */,
-				F2DF4A3226C2C31400C082CF /* Dispatcher+Rx.swift in Sources */,
+				F288DCD929BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
+				F2C09DC4286B57EA009C9C8E /* TaskStatus.swift in Sources */,
 				F222D50925249B9B00672E7B /* SharedDictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,11 +776,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C09DB0286B14B7009C9C8E /* TestActions.swift in Sources */,
+				F2C09DBC286B2698009C9C8E /* TestStoreController.swift in Sources */,
+				F2AD8252286B7087005C024F /* PublishersTests.swift in Sources */,
 				F222D52C25249BD900672E7B /* ReducerTests.swift in Sources */,
 				F222D53225249BD900672E7B /* TaskTests.swift in Sources */,
+				F2C09DB8286B2672009C9C8E /* TestState.swift in Sources */,
 				F222D52F25249BD900672E7B /* DispatcherTests.swift in Sources */,
+				F2C09DC0286B530D009C9C8E /* ActionTests.swift in Sources */,
 				F222D7762525373B00672E7B /* KeyedTaskTests.swift in Sources */,
+				F2C09DAC286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2B26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
+				F2C09DB4286B1598009C9C8E /* TestServices.swift in Sources */,
 				F222D53825249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52925249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -735,26 +797,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2DF4A3B26C2DACD00C082CF /* DemandBuffer.swift in Sources */,
 				F222D50625249B9B00672E7B /* OrderedSet.swift in Sources */,
 				F222D4CC25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76B2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B025249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BC25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B825249B7E00672E7B /* Middleware.swift in Sources */,
+				F297D27F286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
+				F297D26A286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B425249B7E00672E7B /* Task.swift in Sources */,
+				F288761128649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288DCCA29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D025249B7E00672E7B /* Store.swift in Sources */,
+				F288DCD029BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
+				F288DCD529BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */,
 				F222D4FE25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
-				F2DF4A4126C2DBDC00C082CF /* Store+Combine.swift in Sources */,
 				F222D4C425249B7E00672E7B /* Action.swift in Sources */,
-				F222D4EE25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */,
 				F222D4F625249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F222D4C025249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AF922537A4600189D28 /* Mini.swift in Sources */,
+				F2AD824A286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F222D4C825249B7E00672E7B /* ServiceType.swift in Sources */,
 				F222D50225249B9B00672E7B /* PayloadAction.swift in Sources */,
-				F222D4F225249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */,
-				F2DF4A3326C2C31500C082CF /* Dispatcher+Rx.swift in Sources */,
+				F288DCDA29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
+				F2C09DC5286B57EA009C9C8E /* TaskStatus.swift in Sources */,
 				F222D50A25249B9B00672E7B /* SharedDictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -763,11 +830,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C09DB1286B14B7009C9C8E /* TestActions.swift in Sources */,
+				F2C09DBD286B2698009C9C8E /* TestStoreController.swift in Sources */,
+				F288DCCD29BA906800FBFED1 /* PublishersTests.swift in Sources */,
 				F222D52D25249BD900672E7B /* ReducerTests.swift in Sources */,
 				F222D53325249BD900672E7B /* TaskTests.swift in Sources */,
+				F2C09DB9286B2672009C9C8E /* TestState.swift in Sources */,
 				F222D53025249BD900672E7B /* DispatcherTests.swift in Sources */,
+				F2C09DC1286B530D009C9C8E /* ActionTests.swift in Sources */,
 				F222D7772525373B00672E7B /* KeyedTaskTests.swift in Sources */,
+				F2C09DAD286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2C26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
+				F2C09DB5286B1598009C9C8E /* TestServices.swift in Sources */,
 				F222D53925249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52A25249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -777,26 +851,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2DF4A3C26C2DACE00C082CF /* DemandBuffer.swift in Sources */,
 				F222D50725249B9B00672E7B /* OrderedSet.swift in Sources */,
 				F222D4CD25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76C2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B125249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BD25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B925249B7E00672E7B /* Middleware.swift in Sources */,
+				F297D280286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
+				F297D26B286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B525249B7E00672E7B /* Task.swift in Sources */,
+				F288761228649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288DCCB29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D125249B7E00672E7B /* Store.swift in Sources */,
+				F288DCD129BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
+				F288DCD629BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */,
 				F222D4FF25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
-				F2DF4A4226C2DBDC00C082CF /* Store+Combine.swift in Sources */,
 				F222D4C525249B7E00672E7B /* Action.swift in Sources */,
-				F222D4EF25249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */,
 				F222D4F725249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F222D4C125249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AFA22537A4600189D28 /* Mini.swift in Sources */,
+				F2AD824B286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F222D4C925249B7E00672E7B /* ServiceType.swift in Sources */,
 				F222D50325249B9B00672E7B /* PayloadAction.swift in Sources */,
-				F222D4F325249B9A00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */,
-				F2DF4A3426C2C31600C082CF /* Dispatcher+Rx.swift in Sources */,
+				F288DCDB29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
+				F2C09DC6286B57EA009C9C8E /* TaskStatus.swift in Sources */,
 				F222D50B25249B9B00672E7B /* SharedDictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -805,11 +884,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C09DB2286B14B7009C9C8E /* TestActions.swift in Sources */,
+				F2C09DBE286B2698009C9C8E /* TestStoreController.swift in Sources */,
+				F2AD8254286B7088005C024F /* PublishersTests.swift in Sources */,
 				F222D52E25249BD900672E7B /* ReducerTests.swift in Sources */,
 				F222D53425249BD900672E7B /* TaskTests.swift in Sources */,
+				F2C09DBA286B2672009C9C8E /* TestState.swift in Sources */,
 				F222D53125249BD900672E7B /* DispatcherTests.swift in Sources */,
+				F2C09DC2286B530D009C9C8E /* ActionTests.swift in Sources */,
 				F222D7782525373B00672E7B /* KeyedTaskTests.swift in Sources */,
+				F2C09DAE286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2D26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
+				F2C09DB6286B1598009C9C8E /* TestServices.swift in Sources */,
 				F222D53A25249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52B25249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -819,26 +905,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2DF4A3D26C2DACE00C082CF /* DemandBuffer.swift in Sources */,
 				F222D50825249B9B00672E7B /* OrderedSet.swift in Sources */,
 				F222D4CE25249B7E00672E7B /* StateType.swift in Sources */,
 				F222D76D2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B225249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BE25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4BA25249B7E00672E7B /* Middleware.swift in Sources */,
+				F297D281286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F288761828649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
+				F297D26C286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B625249B7E00672E7B /* Task.swift in Sources */,
+				F288761328649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288DCCC29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D225249B7E00672E7B /* Store.swift in Sources */,
+				F288DCD229BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
+				F288DCD729BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift in Sources */,
 				F222D50025249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
-				F2DF4A4326C2DBDC00C082CF /* Store+Combine.swift in Sources */,
 				F222D4C625249B7E00672E7B /* Action.swift in Sources */,
-				F222D4F025249B9A00672E7B /* ObservableTypeExtensions.swift in Sources */,
 				F222D4F825249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F222D4C225249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AFB22537A4600189D28 /* Mini.swift in Sources */,
+				F2AD824C286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F222D4CA25249B7E00672E7B /* ServiceType.swift in Sources */,
 				F222D50425249B9B00672E7B /* PayloadAction.swift in Sources */,
-				F222D4F425249B9B00672E7B /* PrimitiveSequenceTypeExtensions.swift in Sources */,
-				F2DF4A3526C2C31700C082CF /* Dispatcher+Rx.swift in Sources */,
+				F288DCDC29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
+				F2C09DC7286B57EA009C9C8E /* TaskStatus.swift in Sources */,
 				F222D50C25249B9B00672E7B /* SharedDictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1007,10 +1098,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1038,10 +1126,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1064,16 +1149,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1090,16 +1171,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1115,14 +1192,12 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1146,14 +1221,12 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1177,16 +1250,13 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				DEAD_CODE_STRIPPING = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1204,16 +1274,13 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				DEAD_CODE_STRIPPING = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1233,10 +1300,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1265,10 +1329,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1293,16 +1354,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1321,16 +1378,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masmovil.MiniTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1352,10 +1405,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1383,10 +1433,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

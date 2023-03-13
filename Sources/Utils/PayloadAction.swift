@@ -1,40 +1,18 @@
 import Foundation
 
 public protocol PayloadAction {
-    associatedtype Payload
+    associatedtype TaskPayload: Equatable
+    associatedtype TaskError: Error
 
-    init(task: Task, payload: Payload?)
+    var task: Task<TaskPayload, TaskError> { get }
+
+    init(task: Task<TaskPayload, TaskError>)
 }
 
 public protocol CompletableAction: Action & PayloadAction { }
 
-public protocol EmptyAction: Action & PayloadAction where Payload == Swift.Never {
-    init(task: Task)
-}
+public protocol EmptyAction: Action & PayloadAction {
+    associatedtype TaskPayload = None
 
-public extension EmptyAction {
-    init(task: Task, payload: Payload?) {
-        fatalError("Never call this method from a EmptyAction")
-    }
-}
-
-public protocol KeyedPayloadAction {
-    associatedtype Payload
-    associatedtype Key: Hashable
-
-    init(task: Task, payload: Payload?, key: Key)
-}
-
-public protocol KeyedCompletableAction: Action & KeyedPayloadAction { }
-
-public protocol KeyedEmptyAction: Action & PayloadAction where Payload == Swift.Never {
-    associatedtype Key: Hashable
-
-    init(task: Task, key: Key)
-}
-
-public extension KeyedEmptyAction {
-    init(task: Task, payload: Payload?) {
-        fatalError("Never call this method from a EmptyAction")
-    }
+    init(task: EmptyTask<TaskError>)
 }

@@ -28,8 +28,6 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Foundation'
 
-  s.dependency('RxSwift', '~> 6')
-
   s.default_subspec = 'Core'
 
   s.module_name = 'Mini'

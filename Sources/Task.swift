@@ -1,60 +1,63 @@
 import Foundation
 
-public typealias Task = TypedTask<Any>
+public typealias EmptyTask<E: Error> = Task<None, E>
 
-public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
-    public enum Status {
-        case idle
-        case running
-        case success
-        case failure
-    }
+public protocol TaskType {
+    associatedtype Payload: Equatable
+    associatedtype Failure: Error
 
-    public enum Expiration {
-        case immediately
-        case short
-        case long
-        case custom(TimeInterval)
+    var isIdle: Bool { get }
+    var isRunning: Bool { get }
+    var isRecentlySucceeded: Bool { get }
+    var isTerminal: Bool { get }
+    var isSuccessful: Bool { get }
+    var isFailure: Bool { get }
 
-        public var value: TimeInterval {
-            switch self {
-            case .immediately:
-                return 0
+    var status: TaskStatus<Payload, Failure> { get }
+    var payload: Payload? { get }
+    var error: Failure? { get }
+}
 
-            case .short:
-                return 60
+public class Task<T: Equatable, E: Error>: TaskType, Equatable, CustomDebugStringConvertible {
+    public typealias Payload = T
+    public typealias Failure = E
 
-            case .long:
-                return 180
-
-            case .custom(let value):
-                return value
-            }
-        }
-    }
-
-    public let status: Status
+    public let status: TaskStatus<Payload, Failure>
     public let started: Date
-    public let expiration: Expiration
-    public let data: T?
+    public let expiration: TaskExpiration
     public let tag: String?
     public let progress: Decimal?
-    public let error: Error?
 
-    public required init(status: Status = .idle,
+    public required init(status: TaskStatus<Payload, Failure> = .idle,
                          started: Date = Date(),
-                         expiration: Expiration = .immediately,
-                         data: T? = nil,
+                         expiration: TaskExpiration = .immediately,
                          tag: String? = nil,
-                         progress: Decimal? = nil,
-                         error: Error? = nil) {
+                         progress: Decimal? = nil) {
         self.status = status
         self.started = started
         self.expiration = expiration
-        self.data = data
         self.tag = tag
         self.progress = progress
-        self.error = error
+    }
+
+    public var payload: Payload? {
+        switch status {
+        case .success(let payload):
+            return payload
+
+        default:
+            return nil
+        }
+    }
+
+    public var error: Failure? {
+        switch status {
+        case .failure(let error):
+            return error
+
+        default:
+            return nil
+        }
     }
 
     public var isIdle: Bool {
@@ -66,31 +69,59 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
     }
 
     public var isRecentlySucceeded: Bool {
-        status == .success && started.timeIntervalSinceNow + expiration.value >= 0
+        switch status {
+        case .success where started.timeIntervalSinceNow + expiration.value >= 0:
+            return true
+
+        default:
+            return false
+        }
     }
 
     public var isTerminal: Bool {
-        status == .success || status == .failure
+        switch status {
+        case .success, .failure:
+            return true
+
+        default:
+            return false
+        }
     }
 
     public var isSuccessful: Bool {
-        status == .success
+        switch status {
+        case .success:
+            return true
+
+        default:
+            return false
+        }
     }
 
     public var isFailure: Bool {
-        status == .failure
+        switch status {
+        case .failure:
+            return true
+
+        default:
+            return false
+        }
     }
 
-    public static func requestRunning(tag: String? = nil) -> Task {
-        Task(status: .running, tag: tag)
+    public static func requestIdle(tag: String? = nil) -> Self {
+        .init(status: .idle, tag: tag)
     }
 
-    public static func requestSuccess(_ expiration: Task.Expiration = .immediately, tag: String? = nil) -> Task {
-        Task(status: .success, expiration: expiration, tag: tag)
+    public static func requestRunning(tag: String? = nil) -> Self {
+        .init(status: .running, tag: tag)
     }
 
-    public static func requestFailure(_ error: Error, tag: String? = nil) -> Task {
-        Task(status: .failure, tag: tag, error: error)
+    public static func requestFailure(_ error: Failure, tag: String? = nil) -> Self {
+        .init(status: .failure(error: error), tag: tag)
+    }
+
+    public static func requestSuccess(_ payload: Payload, expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
+        .init(status: .success(payload: payload), expiration: expiration, tag: tag)
     }
 
     // MARK: - CustomDebugStringConvertible
@@ -104,13 +135,18 @@ public class TypedTask<T>: Equatable, CustomDebugStringConvertible {
 
         return """
         🚀 Task: status: \(status), started: \(started), tag: \(tagPrint)
-        data: \(String(describing: data)), progress: \(String(describing: progress)) error: \(String(describing: error))
+        payload: \(String(describing: payload)), progress: \(String(describing: progress)) error: \(String(describing: error))
         """
+    }
+
+    // MARK: Equatable
+    public static func == <T, E> (lhs: Task<T, E>, rhs: Task<T, E>) -> Bool {
+        lhs.status == rhs.status
     }
 }
 
-public func ==<T> (lhs: TypedTask<T>, rhs: TypedTask<T>) -> Bool {
-    lhs.status == rhs.status &&
-        lhs.started == rhs.started &&
-        lhs.progress == rhs.progress
+public extension Task where T == None {
+    static func requestSuccess(expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
+        .init(status: .success(payload: .none), expiration: expiration, tag: tag)
+    }
 }

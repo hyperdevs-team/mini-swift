@@ -1,19 +1,20 @@
+import Combine
 import Foundation
-import RxSwift
 
-public protocol Group: Disposable {
-    var disposeBag: CompositeDisposable { get }
+public protocol Group: Cancellable {
+    var cancellables: Set<AnyCancellable> { get }
 }
 
 public class ReducerGroup: Group {
-    public let disposeBag = CompositeDisposable()
+    public var cancellables = Set<AnyCancellable>()
 
-    public init(_ builder: () -> [Disposable]) {
+    public init(_ builder: () -> [Cancellable]) {
         let disposable = builder()
-        disposable.forEach { _ = disposeBag.insert($0) }
+        disposable.forEach { _ = cancellables.insert(AnyCancellable($0)) }
     }
 
-    public func dispose() {
-        disposeBag.dispose()
+    public func cancel() {
+        cancellables.removeAll()
+        cancellables = Set<AnyCancellable>()
     }
 }
