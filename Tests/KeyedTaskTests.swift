@@ -9,8 +9,16 @@ class KeyedTaskTests: XCTestCase {
          3: .requestIdle()]
     }
 
+    var emptyTasks: KeyedEmptyTask<Int, Error> {
+        [0: .requestRunning(),
+         1: .requestSuccess(),
+         2: .requestFailure(NSError(domain: "domain", code: 44, userInfo: nil)),
+         3: .requestIdle()]
+    }
+
     func test_subscript() {
         XCTAssertTrue(tasks[task: 1]?.payload == "hi")
+        XCTAssertEqual(emptyTasks[task: 1]?.isSuccessful, true)
         XCTAssertEqual(tasks[task: 4], nil)
     }
 
@@ -20,6 +28,12 @@ class KeyedTaskTests: XCTestCase {
         XCTAssertTrue(tasks.hasValue(for: 2))
         XCTAssertTrue(tasks.hasValue(for: 3))
         XCTAssertFalse(tasks.hasValue(for: 4))
+
+        XCTAssertTrue(emptyTasks.hasValue(for: 0))
+        XCTAssertTrue(emptyTasks.hasValue(for: 1))
+        XCTAssertTrue(emptyTasks.hasValue(for: 2))
+        XCTAssertTrue(emptyTasks.hasValue(for: 3))
+        XCTAssertFalse(emptyTasks.hasValue(for: 4))
     }
 
     func test_isIdle_inside_a_keyedtask() {

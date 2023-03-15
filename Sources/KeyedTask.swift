@@ -1,6 +1,7 @@
 import Foundation
 
 public typealias KeyedTask<Key: Hashable, TaskPayload: Equatable, TaskError: Error> = [Key: Task<TaskPayload, TaskError>]
+public typealias KeyedEmptyTask<Key: Hashable, TaskError: Error> = KeyedTask<Key, None, TaskError>
 
 extension KeyedTask where Key: Hashable, Value: TaskType {
     public subscript(task key: Key) -> Value? {
