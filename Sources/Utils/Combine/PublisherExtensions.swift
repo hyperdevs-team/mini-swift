@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public extension AnyPublisher where Failure: Error {
+public extension Publisher {
     func dispatch<A: CompletableAction>(action: A.Type,
                                         expiration: TaskExpiration = .immediately,
                                         on dispatcher: Dispatcher)
@@ -64,6 +64,24 @@ public extension AnyPublisher where Failure: Error {
                                   expiration: TaskExpiration = .immediately,
                                   on dispatcher: Dispatcher)
     -> Cancellable where A.TaskPayload == Output, A.TaskError == Failure, Output == None {
+        sink { completion in
+            switch completion {
+            case .failure(let error):
+                let action = A(task: .requestFailure(error))
+                dispatcher.dispatch(action)
+
+            case .finished:
+                let action = A(task: .requestSuccess(expiration: expiration))
+                dispatcher.dispatch(action)
+            }
+        } receiveValue: { _ in
+        }
+    }
+
+    func dispatch<A: EmptyAction>(action: A.Type,
+                                  expiration: TaskExpiration = .immediately,
+                                  on dispatcher: Dispatcher)
+    -> Cancellable where A.TaskPayload == None, A.TaskError == Failure, Output == Void {
         sink { completion in
             switch completion {
             case .failure(let error):

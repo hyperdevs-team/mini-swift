@@ -93,11 +93,9 @@ final class DispatcherTests: XCTestCase {
 
         // SEND!
         futureSuccess
-            .eraseToAnyPublisher()
             .dispatch(action: TestCompletableAction.self, on: dispatcher)
             .store(in: &cancellables)
         futureFailure
-            .eraseToAnyPublisher()
             .dispatch(action: TestCompletableAction.self, on: dispatcher)
             .store(in: &cancellables)
 
@@ -143,18 +141,16 @@ final class DispatcherTests: XCTestCase {
 
         // SEND!
         futureSuccess
-            .eraseToAnyPublisher()
             .dispatch(action: TestKeyedCompletableAction.self, key: expectedKey, on: dispatcher)
             .store(in: &cancellables)
         futureFailure
-            .eraseToAnyPublisher()
             .dispatch(action: TestKeyedCompletableAction.self, key: expectedKey, on: dispatcher)
             .store(in: &cancellables)
 
         waitForExpectations(timeout: 10)
     }
 
-    func test_send_emptyaction_to_dispatcher_from_future() {
+    func test_send_emptyaction_to_dispatcher_from_none_future() {
         let dispatcher = Dispatcher()
         let expectedError = TestError.berenjenaError
         var cancellables = Set<AnyCancellable>()
@@ -189,11 +185,53 @@ final class DispatcherTests: XCTestCase {
 
         // SEND!
         futureSuccess
-            .eraseToAnyPublisher()
             .dispatch(action: TestEmptyAction.self, on: dispatcher)
             .store(in: &cancellables)
         futureFailure
-            .eraseToAnyPublisher()
+            .dispatch(action: TestEmptyAction.self, on: dispatcher)
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func test_send_emptyaction_to_dispatcher_from_void_future() {
+        let dispatcher = Dispatcher()
+        let expectedError = TestError.berenjenaError
+        var cancellables = Set<AnyCancellable>()
+
+        let futureSuccess = Future<Void, TestError> { promise in
+            promise(.success(()))
+        }
+        let futureFailure = Future<Void, TestError> { promise in
+            promise(.failure(.berenjenaError))
+        }
+
+        // CHECK:
+        let expectationSuccess = expectation(description: "wait for action dispatched with task success")
+        let expectationFailure = expectation(description: "wait for action dispatched with task error")
+
+        dispatcher
+            .subscribe { (action: TestEmptyAction) in
+                switch action.task.status {
+                case .success:
+                    expectationSuccess.fulfill()
+
+                case .failure(let error):
+                    if error == expectedError {
+                        expectationFailure.fulfill()
+                    }
+
+                default:
+                    XCTFail("bad action received: \(action)")
+                }
+            }
+            .store(in: &cancellables)
+
+        // SEND!
+        futureSuccess
+            .dispatch(action: TestEmptyAction.self, on: dispatcher)
+            .store(in: &cancellables)
+        futureFailure
             .dispatch(action: TestEmptyAction.self, on: dispatcher)
             .store(in: &cancellables)
 
@@ -236,11 +274,9 @@ final class DispatcherTests: XCTestCase {
 
         // SEND!
         futureSuccess
-            .eraseToAnyPublisher()
             .dispatch(action: TestKeyedEmptyAction.self, key: expectedKey, on: dispatcher)
             .store(in: &cancellables)
         futureFailure
-            .eraseToAnyPublisher()
             .dispatch(action: TestKeyedEmptyAction.self, key: expectedKey, on: dispatcher)
             .store(in: &cancellables)
 

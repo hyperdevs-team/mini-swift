@@ -96,10 +96,10 @@
 		F26C3AF922537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFA22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
 		F26C3AFB22537A4600189D28 /* Mini.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C3AF722537A4600189D28 /* Mini.swift */; };
-		F288761028649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
-		F288761128649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
-		F288761228649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
-		F288761328649AFE0069790E /* AnyPublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */; };
+		F288761028649AFE0069790E /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* PublisherExtensions.swift */; };
+		F288761128649AFE0069790E /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* PublisherExtensions.swift */; };
+		F288761228649AFE0069790E /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* PublisherExtensions.swift */; };
+		F288761328649AFE0069790E /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288760F28649AFE0069790E /* PublisherExtensions.swift */; };
 		F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
 		F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
 		F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */; };
@@ -219,7 +219,7 @@
 		F222D7692525361700672E7B /* KeyedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTask.swift; sourceTree = "<group>"; };
 		F222D7752525373B00672E7B /* KeyedTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedTaskTests.swift; sourceTree = "<group>"; };
 		F26C3AF722537A4600189D28 /* Mini.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mini.swift; sourceTree = "<group>"; };
-		F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPublisherExtensions.swift; sourceTree = "<group>"; };
+		F288760F28649AFE0069790E /* PublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherExtensions.swift; sourceTree = "<group>"; };
 		F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksTuple2.swift; sourceTree = "<group>"; };
 		F288DCC829BA8BF600FBFED1 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
 		F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksTuple4.swift; sourceTree = "<group>"; };
@@ -397,7 +397,7 @@
 		F2DF4A3E26C2DBCB00C082CF /* Combine */ = {
 			isa = PBXGroup;
 			children = (
-				F288760F28649AFE0069790E /* AnyPublisherExtensions.swift */,
+				F288760F28649AFE0069790E /* PublisherExtensions.swift */,
 				F288761428649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift */,
 				F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */,
 				F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */,
@@ -753,7 +753,7 @@
 				F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D269286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B325249B7E00672E7B /* Task.swift in Sources */,
-				F288761028649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288761028649AFE0069790E /* PublisherExtensions.swift in Sources */,
 				F288DCC929BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4CF25249B7E00672E7B /* Store.swift in Sources */,
 				F288DCCF29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
@@ -807,7 +807,7 @@
 				F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26A286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B425249B7E00672E7B /* Task.swift in Sources */,
-				F288761128649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288761128649AFE0069790E /* PublisherExtensions.swift in Sources */,
 				F288DCCA29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D025249B7E00672E7B /* Store.swift in Sources */,
 				F288DCD029BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
@@ -861,7 +861,7 @@
 				F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26B286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B525249B7E00672E7B /* Task.swift in Sources */,
-				F288761228649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288761228649AFE0069790E /* PublisherExtensions.swift in Sources */,
 				F288DCCB29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D125249B7E00672E7B /* Store.swift in Sources */,
 				F288DCD129BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
@@ -915,7 +915,7 @@
 				F288761828649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26C286A02E200323F24 /* KeyedPayloadAction.swift in Sources */,
 				F222D4B625249B7E00672E7B /* Task.swift in Sources */,
-				F288761328649AFE0069790E /* AnyPublisherExtensions.swift in Sources */,
+				F288761328649AFE0069790E /* PublisherExtensions.swift in Sources */,
 				F288DCCC29BA8BF600FBFED1 /* None.swift in Sources */,
 				F222D4D225249B7E00672E7B /* Store.swift in Sources */,
 				F288DCD229BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift in Sources */,
