@@ -60,6 +60,25 @@ public extension Publisher {
         }
     }
 
+    func dispatch<A: KeyedEmptyAction>(action: A.Type,
+                                       expiration: TaskExpiration = .immediately,
+                                       key: A.Key,
+                                       on dispatcher: Dispatcher)
+    -> Cancellable where A.TaskPayload == None, A.TaskError == Failure, Output == Void {
+        sink { completion in
+            switch completion {
+            case .failure(let error):
+                let action = A(task: .requestFailure(error), key: key)
+                dispatcher.dispatch(action)
+
+            case .finished:
+                let action = A(task: .requestSuccess(expiration: expiration, tag: "\(key)"), key: key)
+                dispatcher.dispatch(action)
+            }
+        } receiveValue: { _ in
+        }
+    }
+
     func dispatch<A: EmptyAction>(action: A.Type,
                                   expiration: TaskExpiration = .immediately,
                                   on dispatcher: Dispatcher)
