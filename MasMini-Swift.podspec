@@ -33,10 +33,10 @@ Pod::Spec.new do |s|
   s.module_name = 'Mini'
 
   s.subspec('Core') do |ss|
-    ss.ios.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
+    ss.ios.source_files = ['Sources/*.swift', 'Sources/**/*.swift']
 
-    ss.osx.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
+    ss.osx.source_files = ['Sources/*.swift', 'Sources/**/*.swift']
 
-    ss.tvos.source_files = ['Sources/*.swift', 'Sources/Utils/**/*.swift']
+    ss.tvos.source_files = ['Sources/*.swift', 'Sources/**/*.swift']
   end
 end

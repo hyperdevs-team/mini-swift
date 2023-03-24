@@ -16,6 +16,7 @@ public protocol TaskType {
     var status: TaskStatus<Payload, Failure> { get }
     var payload: Payload? { get }
     var error: Failure? { get }
+    var tag: String? { get }
 }
 
 public class Task<T: Equatable, E: Error>: TaskType, Equatable, CustomDebugStringConvertible {

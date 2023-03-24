@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public extension Publisher where Failure == Never {
+public extension Publisher {
     func combineMiniTasks<T: TaskType>()
     -> Publishers.CombineMiniTasksArray<Self, [T.Payload], T.Failure>
     where Output == [T] {

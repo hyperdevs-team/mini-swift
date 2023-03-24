@@ -86,3 +86,19 @@ class TestKeyedEmptyAction: KeyedEmptyAction {
         return true
     }
 }
+
+class TestAttributedAction: AttributedAction {
+    typealias Attribute = String
+
+    let attribute: Attribute
+
+    required init(attribute: Attribute) {
+        self.attribute = attribute
+    }
+
+    func isEqual(to other: Action) -> Bool {
+        guard let action = other as? TestAttributedAction else { return false }
+        guard attribute == action.attribute else { return false }
+        return true
+    }
+}

@@ -2,7 +2,7 @@
 import XCTest
 
 final class ActionTests: XCTestCase {
-    func test_check_computed_vars() {
+    func test_actions() {
         let payloadTask = Task<String, TestError>.requestIdle()
         let emptyTask = EmptyTask<TestError>.requestRunning()
 
@@ -19,5 +19,8 @@ final class ActionTests: XCTestCase {
         let keyedEmptyAction = TestKeyedEmptyAction(task: emptyTask, key: "1")
         XCTAssertTrue(keyedEmptyAction.task == emptyTask)
         XCTAssertTrue(keyedEmptyAction.key == "1")
+
+        let attributedAction = TestAttributedAction(attribute: "asd")
+        XCTAssertEqual(attributedAction.attribute, "asd")
     }
 }
