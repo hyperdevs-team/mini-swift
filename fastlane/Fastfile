@@ -2,22 +2,20 @@ default_platform(:ios)
 
 platform :ios do
     before_all do
-    	ENV['WORKSPACE'] = workspace_path()
+        ENV['WORKSPACE'] = workspace_path()
     end
 
-	desc "Pass all test for main target"
-	lane :pass_tests do
-		test_scheme(scheme: "Mini-macOS", configuration: "Debug", name: "mac")
-		sh "curl -s https://codecov.io/bash | bash -s -- -F mac -J 'Mini'"
+    desc "Pass all test for main target"
+    lane :pass_tests do
+        test_scheme(scheme: "Mini-macOS", configuration: "Debug", name: "mac")
 
-		test_scheme(scheme: "Mini-tvOS", configuration: "Debug", name: "tv")
-		sh "curl -s https://codecov.io/bash | bash -s -- -F tv -J 'Mini'"
+        test_scheme(scheme: "Mini-tvOS", configuration: "Debug", name: "tv")
 
-		test_scheme(scheme: "Mini-iOS", configuration: "Debug", name: "iOS")
-		sh "curl -s https://codecov.io/bash | bash -s -- -F ios -J 'Mini'"
-	end
+        test_scheme(scheme: "Mini-iOS", configuration: "Debug", name: "iOS")
+    end
 
-  	private_lane :test_scheme do |options|
+    desc "Pass given scheme tests"
+    lane :test_scheme do |options|
         clear_derived_data
 
         output_directory = File.expand_path("#{ENV['WORKSPACE']}/output")
@@ -43,5 +41,5 @@ platform :ios do
 
     def workspace_path()
         File.expand_path("..")
-    end    	
+    end     
 end

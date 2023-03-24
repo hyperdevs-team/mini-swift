@@ -1,22 +1,18 @@
 name: "build-and-tests"
 on:
   pull_request:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  discard_runnings_workflows:
-    name: Discard running workflows
-    runs-on: ubuntu-20.04
-    steps:
-
-      - name: Cancel running workflows
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
   build:
     name: Check build & tests
     runs-on: apps-ci
-    needs: discard_runnings_workflows
     timeout-minutes: 120
     steps:
 
@@ -24,32 +20,59 @@ jobs:
       run: rm -rf .git/hooks
 
     - name: Checkout 🔎
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Cache for Gems 💎
-      uses: actions/cache@v2.1.6
+      uses: actions/cache@v3
       with:
         path: |
           .gems 
           ~/.bundle
         key: ${{ runner.os }}-cache-gems-${{ hashFiles('**/Gemfile.lock') }}
 
-    - name: Cache for Carthage 🚚
-      uses: actions/cache@v2.1.6
-      with:
-        path: |
-          Carthage
-        key: ${{ runner.os }}-cache-carthage-${{ hashFiles('**/Cartfile.resolved') }}
-
     - name: Rake ⚙️
       run: arch -arm64 rake
 
-    - name: Run all tests ⚙️
-      run: arch -arm64 rake tests
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: Run iOS tests ⚙️
+      run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-iOS configuration:Debug name:iOS
+
+    - name: Upload coverage for iOS to Codecov 📋
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        xcode: true
+        xcode_archive_path: ./output/iOS/Mini-iOS.xcresult
+        flags: ios
+        fail_ci_if_error: true
+        name: codecov-ios
+
+    - name: Run tvOS tests ⚙️
+      run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-tvOS configuration:Debug name:tv
+
+    - name: Upload coverage for tvOS to Codecov 📋
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        xcode: true
+        xcode_archive_path: ./output/tv/Mini-tvOS.xcresult
+        flags: tv
+        fail_ci_if_error: true
+        name: codecov-tv
+
+    - name: Run mac tests ⚙️
+      run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-macOS configuration:Debug name:mac
+
+    - name: Upload coverage for mac to Codecov 📋
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        xcode: true
+        xcode_archive_path: ./output/mac/Mini-macOS.xcresult
+        flags: mac
+        fail_ci_if_error: true
+        name: codecov-mac
 
     - name: Validate Podfile ⚙️
       run: arch -arm64 rake validate_podfile
@@ -61,7 +84,7 @@ jobs:
         DANGER_GITHUB_API_TOKEN: ${{ secrets.THORBOT_GITHUB_API_TOKEN }}
 
     - name: Save Output 📦
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: output
-        path: output
+        path: ${{ github.workspace }}/output
