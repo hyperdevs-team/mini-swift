@@ -1,4 +1,5 @@
 .gems
+output/
 
 # Created by https://www.gitignore.io/api/swift,xcode,carthage
 
