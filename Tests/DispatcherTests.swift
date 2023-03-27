@@ -150,6 +150,55 @@ final class DispatcherTests: XCTestCase {
         waitForExpectations(timeout: 10)
     }
 
+    func test_send_attributedcompletableaction_to_dispatcher_from_future() {
+        let dispatcher = Dispatcher()
+        let expectedPayload = "hi!"
+        let expectedError = TestError.berenjenaError
+        var cancellables = Set<AnyCancellable>()
+
+        let futureSuccess = Future<String, TestError> { promise in
+            promise(.success(expectedPayload))
+        }
+        let futureFailure = Future<String, TestError> { promise in
+            promise(.failure(.berenjenaError))
+        }
+
+        // CHECK:
+        let expectationSuccess = expectation(description: "wait for action dispatched with task success")
+        let expectationFailure = expectation(description: "wait for action dispatched with task error")
+
+        dispatcher
+            .subscribe { (action: TestAttributedCompletableAction) in
+                switch action.task.status {
+                case .success(let payload):
+                    if payload == expectedPayload {
+                        expectationSuccess.fulfill()
+                    }
+
+                case .failure(let error):
+                    if error == expectedError {
+                        expectationFailure.fulfill()
+                    }
+
+                default:
+                    XCTFail("bad action received: \(action)")
+                }
+
+                XCTAssertEqual(action.attribute, "hola")
+            }
+            .store(in: &cancellables)
+
+        // SEND!
+        futureSuccess
+            .dispatch(action: TestAttributedCompletableAction.self, attribute: "hola", on: dispatcher)
+            .store(in: &cancellables)
+        futureFailure
+            .dispatch(action: TestAttributedCompletableAction.self, attribute: "hola", on: dispatcher)
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 10)
+    }
+
     func test_send_emptyaction_to_dispatcher_from_none_future() {
         let dispatcher = Dispatcher()
         let expectedError = TestError.berenjenaError
@@ -323,6 +372,98 @@ final class DispatcherTests: XCTestCase {
             .store(in: &cancellables)
         futureFailure
             .dispatch(action: TestKeyedEmptyAction.self, key: expectedKey, on: dispatcher)
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func test_send_attributedemptyaction_to_dispatcher_from_none_future() {
+        let dispatcher = Dispatcher()
+        let expectedError = TestError.berenjenaError
+        var cancellables = Set<AnyCancellable>()
+
+        let futureSuccess = Future<None, TestError> { promise in
+            promise(.success(.none))
+        }
+        let futureFailure = Future<None, TestError> { promise in
+            promise(.failure(.berenjenaError))
+        }
+
+        // CHECK:
+        let expectationSuccess = expectation(description: "wait for action dispatched with task success")
+        let expectationFailure = expectation(description: "wait for action dispatched with task error")
+
+        dispatcher
+            .subscribe { (action: TestAttributedEmptyAction) in
+                switch action.task.status {
+                case .success:
+                    expectationSuccess.fulfill()
+
+                case .failure(let error):
+                    if error == expectedError {
+                        expectationFailure.fulfill()
+                    }
+
+                default:
+                    XCTFail("bad action received: \(action)")
+                }
+
+                XCTAssertEqual(action.attribute, "hola")
+            }
+            .store(in: &cancellables)
+
+        // SEND!
+        futureSuccess
+            .dispatch(action: TestAttributedEmptyAction.self, attribute: "hola", on: dispatcher)
+            .store(in: &cancellables)
+        futureFailure
+            .dispatch(action: TestAttributedEmptyAction.self, attribute: "hola", on: dispatcher)
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 10)
+    }
+
+    func test_send_attributedemptyaction_to_dispatcher_from_void_future() {
+        let dispatcher = Dispatcher()
+        let expectedError = TestError.berenjenaError
+        var cancellables = Set<AnyCancellable>()
+
+        let futureSuccess = Future<Void, TestError> { promise in
+            promise(.success(()))
+        }
+        let futureFailure = Future<Void, TestError> { promise in
+            promise(.failure(.berenjenaError))
+        }
+
+        // CHECK:
+        let expectationSuccess = expectation(description: "wait for action dispatched with task success")
+        let expectationFailure = expectation(description: "wait for action dispatched with task error")
+
+        dispatcher
+            .subscribe { (action: TestAttributedEmptyAction) in
+                switch action.task.status {
+                case .success:
+                    expectationSuccess.fulfill()
+
+                case .failure(let error):
+                    if error == expectedError {
+                        expectationFailure.fulfill()
+                    }
+
+                default:
+                    XCTFail("bad action received: \(action)")
+                }
+
+                XCTAssertEqual(action.attribute, "hola")
+            }
+            .store(in: &cancellables)
+
+        // SEND!
+        futureSuccess
+            .dispatch(action: TestAttributedEmptyAction.self, attribute: "hola", on: dispatcher)
+            .store(in: &cancellables)
+        futureFailure
+            .dispatch(action: TestAttributedEmptyAction.self, attribute: "hola", on: dispatcher)
             .store(in: &cancellables)
 
         waitForExpectations(timeout: 10)

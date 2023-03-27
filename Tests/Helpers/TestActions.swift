@@ -102,3 +102,44 @@ class TestAttributedAction: AttributedAction {
         return true
     }
 }
+
+class TestAttributedEmptyAction: AttributedEmptyAction {
+    typealias TaskError = TestError
+    typealias Attribute = String
+
+    let attribute: Attribute
+    let task: EmptyTask<TaskError>
+
+    required init(task: EmptyTask<TaskError>, attribute: Attribute) {
+        self.attribute = attribute
+        self.task = task
+    }
+
+    func isEqual(to other: Action) -> Bool {
+        guard let action = other as? TestAttributedEmptyAction else { return false }
+        guard attribute == action.attribute else { return false }
+        guard task == action.task else { return false }
+        return true
+    }
+}
+
+class TestAttributedCompletableAction: AttributedCompletableAction {
+    typealias TaskPayload = String
+    typealias TaskError = TestError
+    typealias Attribute = String
+
+    let attribute: Attribute
+    let task: Task<TaskPayload, TaskError>
+
+    required init(task: Task<TaskPayload, TaskError>, attribute: Attribute) {
+        self.attribute = attribute
+        self.task = task
+    }
+
+    func isEqual(to other: Action) -> Bool {
+        guard let action = other as? TestAttributedCompletableAction else { return false }
+        guard attribute == action.attribute else { return false }
+        guard task == action.task else { return false }
+        return true
+    }
+}
