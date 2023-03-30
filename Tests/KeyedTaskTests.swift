@@ -2,14 +2,14 @@
 import XCTest
 
 class KeyedTaskTests: XCTestCase {
-    var tasks: KeyedTask<Int, String, Error> {
+    var tasks: KeyedTask<Int, String, NSError> {
         [0: .requestRunning(),
          1: .requestSuccess("hi"),
          2: .requestFailure(NSError(domain: "domain", code: 44, userInfo: nil)),
          3: .requestIdle()]
     }
 
-    var emptyTasks: KeyedEmptyTask<Int, Error> {
+    var emptyTasks: KeyedEmptyTask<Int, NSError> {
         [0: .requestRunning(),
          1: .requestSuccess(),
          2: .requestFailure(NSError(domain: "domain", code: 44, userInfo: nil)),

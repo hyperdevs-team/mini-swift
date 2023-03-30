@@ -1,4 +1,4 @@
-public enum TaskStatus<Payload: Equatable, Failure: Error>: Equatable {
+public enum TaskStatus<Payload: Equatable, Failure: Error & Equatable>: Equatable {
     case idle
     case running
     case success(payload: Payload)
@@ -12,9 +12,8 @@ public enum TaskStatus<Payload: Equatable, Failure: Error>: Equatable {
         case (.success(let lhsSuccess), .success(let rhsSuccess)):
             return lhsSuccess == rhsSuccess
 
-        // All error must be treated as different.
-        case (.failure, .failure):
-            return false
+        case (.failure(let lhsFailure), .failure(let rhsFailure)):
+            return lhsFailure == rhsFailure
 
         default:
             return false

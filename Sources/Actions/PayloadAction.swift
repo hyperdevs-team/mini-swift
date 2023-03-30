@@ -2,7 +2,7 @@ import Foundation
 
 public protocol PayloadAction {
     associatedtype TaskPayload: Equatable
-    associatedtype TaskError: Error
+    associatedtype TaskError: Error & Equatable
 
     var task: Task<TaskPayload, TaskError> { get }
 

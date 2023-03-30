@@ -1,10 +1,10 @@
 import Foundation
 
-public typealias EmptyTask<E: Error> = Task<None, E>
+public typealias EmptyTask<E: Error & Equatable> = Task<None, E>
 
 public protocol TaskType {
     associatedtype Payload: Equatable
-    associatedtype Failure: Error
+    associatedtype Failure: Error & Equatable
 
     var isIdle: Bool { get }
     var isRunning: Bool { get }
@@ -19,7 +19,7 @@ public protocol TaskType {
     var tag: String? { get }
 }
 
-public class Task<T: Equatable, E: Error>: TaskType, Equatable, CustomDebugStringConvertible {
+public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, CustomDebugStringConvertible {
     public typealias Payload = T
     public typealias Failure = E
 

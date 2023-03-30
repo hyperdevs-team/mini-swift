@@ -10,7 +10,7 @@ public extension Publisher {
 }
 
 public extension Publishers {
-    struct CombineMiniTasksArray<Upstream: Publisher, TaskPayload: Equatable, TaskFailure: Error>: Publisher {
+    struct CombineMiniTasksArray<Upstream: Publisher, TaskPayload: Equatable, TaskFailure: Error & Equatable>: Publisher {
         public typealias Output = Task<TaskPayload, TaskFailure>
         public typealias Failure = Upstream.Failure
 

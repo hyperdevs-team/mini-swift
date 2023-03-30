@@ -2,7 +2,7 @@ import Foundation
 
 public protocol KeyedPayloadAction {
     associatedtype TaskPayload: Equatable
-    associatedtype TaskError: Error
+    associatedtype TaskError: Error & Equatable
     associatedtype Key: Hashable
 
     var task: Task<TaskPayload, TaskError> { get }

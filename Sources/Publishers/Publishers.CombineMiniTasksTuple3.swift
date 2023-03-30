@@ -34,7 +34,7 @@ public extension Publisher {
 public extension Publishers {
     /// Create a `Publisher` that connect an Upstream (Another publisher) that emits `Task` (Array or Tuples)
     /// The Output of this Publisher always is a combined `Task`
-    struct CombineMiniTasksTuple3<Upstream: Publisher, TaskPayload: TaskTuple3PayloadType, TaskFailure: Error>: Publisher {
+    struct CombineMiniTasksTuple3<Upstream: Publisher, TaskPayload: TaskTuple3PayloadType, TaskFailure: Error & Equatable>: Publisher {
         public typealias Output = Task<TaskPayload, TaskFailure>
         public typealias Failure = Upstream.Failure
 
