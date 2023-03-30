@@ -6,15 +6,11 @@ public enum TaskStatus<Payload: Equatable, Failure: Error>: Equatable {
 
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
-        case (.idle, .idle), (.running, .running):
+        case (.idle, .idle), (.running, .running), (.failure, .failure):
             return true
 
         case (.success(let lhsSuccess), .success(let rhsSuccess)):
             return lhsSuccess == rhsSuccess
-
-        // All error must be treated as different.
-        case (.failure, .failure):
-            return false
 
         default:
             return false
