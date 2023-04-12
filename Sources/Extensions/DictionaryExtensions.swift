@@ -7,11 +7,6 @@ public extension Dictionary {
         self[key, ifNotExistsSave: defaultValue()]
     }
 
-    @available(*, deprecated, renamed: "safeValue")
-    mutating func getOrPut(_ key: Key, defaultValue: () -> Value) -> Value {
-        self[key, ifNotExistsSave: defaultValue()]
-    }
-
     subscript (_ key: Key, ifNotExistsSave value: @autoclosure () -> Value) -> Value {
         mutating get {
             if let value = self[key] {

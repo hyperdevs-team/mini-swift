@@ -13,7 +13,7 @@ extension Store where State == TestState, StoreController == TestStoreController
     func reducerGroup(expectation: XCTestExpectation? = nil) -> ReducerGroup {
         ReducerGroup { [
             Reducer(of: TestAction.self, on: self.dispatcher) { action in
-                self.state = TestState(testTask: .requestSuccess(), counter: action.counter)
+                self.state = TestState(testTask: .success(), counter: action.counter)
                 expectation?.fulfill()
             }
         ]

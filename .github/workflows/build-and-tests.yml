@@ -39,7 +39,7 @@ jobs:
       run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-iOS configuration:Debug name:iOS
 
     - name: Upload coverage for iOS to Codecov 📋
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v3.1.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         xcode: true
@@ -53,7 +53,7 @@ jobs:
       run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-tvOS configuration:Debug name:tv
 
     - name: Upload coverage for tvOS to Codecov 📋
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v3.1.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         xcode: true
@@ -67,7 +67,7 @@ jobs:
       run: arch -arm64 bundle exec fastlane test_scheme scheme:Mini-macOS configuration:Debug name:mac
 
     - name: Upload coverage for mac to Codecov 📋
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v3.1.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         xcode: true

@@ -43,16 +43,16 @@ extension Publishers.EraseToEmptyTask {
         func receive(_ input: Upstream.Output) -> Subscribers.Demand {
             switch input.status {
             case .success:
-                return downstream.receive(.requestSuccess())
+                return downstream.receive(.success())
 
             case .idle:
-                return downstream.receive(.requestIdle())
+                return downstream.receive(.idle())
 
             case .running:
-                return downstream.receive(.requestRunning())
+                return downstream.receive(.running())
 
             case .failure(let error):
-                return downstream.receive(.requestFailure(error))
+                return downstream.receive(.failure(error))
             }
         }
 

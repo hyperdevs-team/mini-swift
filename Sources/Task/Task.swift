@@ -29,6 +29,8 @@ public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, Cust
     public let tag: String?
     public let progress: Decimal?
 
+    // TODO: This init should be private in the near future
+    @available(*, deprecated, message: "Use static methods instead .idle(), .running(), .success() or .failure()")
     public required init(status: TaskStatus<Payload, Failure> = .idle,
                          started: Date = Date(),
                          expiration: TaskExpiration = .immediately,
@@ -109,20 +111,64 @@ public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, Cust
         }
     }
 
+    @available(*, deprecated, renamed: "idle")
     public static func requestIdle(tag: String? = nil) -> Self {
-        .init(status: .idle, tag: tag)
+        .idle(tag: tag)
     }
 
+    @available(*, deprecated, renamed: "running")
     public static func requestRunning(tag: String? = nil) -> Self {
-        .init(status: .running, tag: tag)
+        .running(tag: tag)
     }
 
+    @available(*, deprecated, renamed: "failure")
     public static func requestFailure(_ error: Failure, tag: String? = nil) -> Self {
-        .init(status: .failure(error: error), tag: tag)
+        .failure(error, tag: tag)
     }
 
+    @available(*, deprecated, renamed: "success")
     public static func requestSuccess(_ payload: Payload, expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
-        .init(status: .success(payload: payload), expiration: expiration, tag: tag)
+        .success(payload, expiration: expiration, tag: tag)
+    }
+
+    public static func idle(started: Date = Date(),
+                            tag: String? = nil,
+                            progress: Decimal? = nil) -> Self {
+        .init(status: .idle,
+              started: started,
+              tag: tag,
+              progress: progress)
+    }
+
+    public static func running(started: Date = Date(),
+                               tag: String? = nil,
+                               progress: Decimal? = nil) -> Self {
+        .init(status: .running,
+              started: started,
+              tag: tag,
+              progress: progress)
+    }
+
+    public static func failure(_ error: Failure,
+                               started: Date = Date(),
+                               tag: String? = nil,
+                               progress: Decimal? = nil) -> Self {
+        .init(status: .failure(error: error),
+              started: started,
+              tag: tag,
+              progress: progress)
+    }
+
+    public static func success(_ payload: Payload,
+                               started: Date = Date(),
+                               expiration: TaskExpiration = .immediately,
+                               tag: String? = nil,
+                               progress: Decimal? = nil) -> Self {
+        .init(status: .success(payload: payload),
+              started: started,
+              expiration: expiration,
+              tag: tag,
+              progress: progress)
     }
 
     // MARK: - CustomDebugStringConvertible
@@ -147,7 +193,19 @@ public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, Cust
 }
 
 public extension Task where T == None {
+    static func success(started: Date = Date(),
+                        expiration: TaskExpiration = .immediately,
+                        tag: String? = nil,
+                        progress: Decimal? = nil) -> Self {
+        .init(status: .success(payload: .none),
+              started: started,
+              expiration: expiration,
+              tag: tag,
+              progress: progress)
+    }
+
+    @available(*, deprecated, renamed: "success")
     static func requestSuccess(expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
-        .init(status: .success(payload: .none), expiration: expiration, tag: tag)
+        .success(expiration: expiration, tag: tag)
     }
 }

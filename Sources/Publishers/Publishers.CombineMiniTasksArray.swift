@@ -46,20 +46,20 @@ extension Publishers.CombineMiniTasksArray {
             }
 
             if tasks.map({ $0.isRunning }).contains(true) {
-                return downstream.receive(.requestRunning())
+                return downstream.receive(.running())
             }
 
             if let failureTask = tasks.first(where: { $0.isFailure }), let failure = failureTask.error as? Output.Failure {
-                return downstream.receive(.requestFailure(failure))
+                return downstream.receive(.failure(failure))
             }
 
             if
                 !tasks.map({ $0.isSuccessful }).contains(false),
                 let payload = tasks.compactMap({ $0.payload }) as? TaskPayload {
-                return downstream.receive(.requestSuccess(payload))
+                return downstream.receive(.success(payload))
             }
 
-            return downstream.receive(.requestIdle())
+            return downstream.receive(.idle())
         }
 
         func receive(completion: Subscribers.Completion<Upstream.Failure>) {

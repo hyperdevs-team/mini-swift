@@ -10,11 +10,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error), key: key)
+                let action = A(task: .failure(error), key: key)
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration, tag: "\(key)"), key: key)
+                let action = A(task: .success(expiration: expiration, tag: "\(key)"), key: key)
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
@@ -29,11 +29,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error), key: key)
+                let action = A(task: .failure(error), key: key)
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration, tag: "\(key)"), key: key)
+                let action = A(task: .success(expiration: expiration, tag: "\(key)"), key: key)
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
@@ -47,11 +47,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error))
+                let action = A(task: .failure(error))
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration))
+                let action = A(task: .success(expiration: expiration))
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
@@ -65,11 +65,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error))
+                let action = A(task: .failure(error))
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration))
+                let action = A(task: .success(expiration: expiration))
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
@@ -84,11 +84,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error), attribute: attribute)
+                let action = A(task: .failure(error), attribute: attribute)
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration), attribute: attribute)
+                let action = A(task: .success(expiration: expiration), attribute: attribute)
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
@@ -103,11 +103,11 @@ public extension Publisher {
         sink { completion in
             switch completion {
             case .failure(let error):
-                let action = A(task: .requestFailure(error), attribute: attribute)
+                let action = A(task: .failure(error), attribute: attribute)
                 dispatcher.dispatch(action)
 
             case .finished:
-                let action = A(task: .requestSuccess(expiration: expiration), attribute: attribute)
+                let action = A(task: .success(expiration: expiration), attribute: attribute)
                 dispatcher.dispatch(action)
             }
         } receiveValue: { _ in
