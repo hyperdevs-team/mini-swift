@@ -66,7 +66,7 @@ extension Publishers.CombineMiniTasksTuple2 {
             }
 
             if tuple.0.isRunning || tuple.1.isRunning {
-                return downstream.receive(.requestRunning())
+                return downstream.receive(.running())
             }
 
             if
@@ -74,7 +74,7 @@ extension Publishers.CombineMiniTasksTuple2 {
                 let failure = tuple.0.error as? Output.Failure ??
                     tuple.1.error as? Output.Failure
             {
-                return downstream.receive(.requestFailure(failure))
+                return downstream.receive(.failure(failure))
             }
 
             if
@@ -83,10 +83,10 @@ extension Publishers.CombineMiniTasksTuple2 {
                 let payload2 = tuple.1.payload as? TaskPayload.T2Payload,
                 let payload = TaskTuple2Payload(payload1, payload2) as? TaskPayload
             {
-                return downstream.receive(.requestSuccess(payload))
+                return downstream.receive(.success(payload))
             }
 
-            return downstream.receive(.requestIdle())
+            return downstream.receive(.idle())
         }
 
         func receive(completion: Subscribers.Completion<Upstream.Failure>) {

@@ -3,12 +3,12 @@ import Combine
 import XCTest
 
 class PublishersTests: XCTestCase {
-    var taskSuccess1: Task<String, TestError> = .requestSuccess("hola")
-    var taskSuccess2: Task<String, TestError> = .requestSuccess("chau")
-    var taskFailure1: Task<String, TestError> = .requestFailure(.berenjenaError)
-    var taskFailure2: Task<String, TestError> = .requestFailure(.bigBerenjenaError)
-    var taskRunning1: Task<String, TestError> = .requestRunning()
-    var taskIdle1: Task<String, TestError> = .requestIdle()
+    var taskSuccess1: Task<String, TestError> = .success("hola")
+    var taskSuccess2: Task<String, TestError> = .success("chau")
+    var taskFailure1: Task<String, TestError> = .failure(.berenjenaError)
+    var taskFailure2: Task<String, TestError> = .failure(.bigBerenjenaError)
+    var taskRunning1: Task<String, TestError> = .running()
+    var taskIdle1: Task<String, TestError> = .idle()
 
     // Tuple2
 

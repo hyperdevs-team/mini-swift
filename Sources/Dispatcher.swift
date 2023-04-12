@@ -3,13 +3,6 @@ import Foundation
 public typealias SubscriptionMap = SharedDictionary<String, OrderedSet<DispatcherSubscription>?>
 
 public final class Dispatcher {
-    public struct DispatchMode {
-        // swiftlint:disable:next type_name
-        public enum UI {
-            case sync, async
-        }
-    }
-
     public var subscriptionCount: Int {
         subscriptionMap.innerDictionary.mapValues { set -> Int in
             guard let setValue = set else { return 0 }
@@ -121,25 +114,6 @@ public final class Dispatcher {
 
     public func subscribe(tag: String, completion: @escaping (Action) -> Void) -> DispatcherSubscription {
         subscribe(priority: Dispatcher.defaultPriority, tag: tag, completion: completion)
-    }
-
-    @available(*, deprecated, message: "Dont set mode. Use dispatch(_). In the near future all actions will be dispatched asynchronously")
-    public func dispatch(_ action: Action, mode: Dispatcher.DispatchMode.UI) {
-         switch mode {
-         case .sync:
-             if DispatchQueue.isMain {
-                 self.dispatchOnQueue(action)
-             } else {
-                 DispatchQueue.main.sync {
-                     self.dispatchOnQueue(action)
-                 }
-             }
-
-         case .async:
-             DispatchQueue.main.async {
-                 self.dispatchOnQueue(action)
-             }
-         }
     }
 
     public func dispatch(_ action: Action) {

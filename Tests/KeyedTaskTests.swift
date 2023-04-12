@@ -3,17 +3,17 @@ import XCTest
 
 class KeyedTaskTests: XCTestCase {
     var tasks: KeyedTask<Int, String, NSError> {
-        [0: .requestRunning(),
-         1: .requestSuccess("hi"),
-         2: .requestFailure(NSError(domain: "domain", code: 44, userInfo: nil)),
-         3: .requestIdle()]
+        [0: .running(),
+         1: .success("hi"),
+         2: .failure(NSError(domain: "domain", code: 44, userInfo: nil)),
+         3: .idle()]
     }
 
     var emptyTasks: KeyedEmptyTask<Int, NSError> {
-        [0: .requestRunning(),
+        [0: .running(),
          1: .requestSuccess(),
-         2: .requestFailure(NSError(domain: "domain", code: 44, userInfo: nil)),
-         3: .requestIdle()]
+         2: .failure(NSError(domain: "domain", code: 44, userInfo: nil)),
+         3: .idle()]
     }
 
     func test_subscript() {

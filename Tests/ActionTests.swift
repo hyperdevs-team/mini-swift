@@ -3,8 +3,8 @@ import XCTest
 
 final class ActionTests: XCTestCase {
     func test_actions() {
-        let payloadTask = Task<String, TestError>.requestIdle()
-        let emptyTask = EmptyTask<TestError>.requestRunning()
+        let payloadTask: Task<String, TestError> = .idle()
+        let emptyTask: EmptyTask<TestError> = .running()
 
         let emptyAction = TestEmptyAction(task: emptyTask)
         XCTAssertEqual(emptyAction.task, emptyTask)
