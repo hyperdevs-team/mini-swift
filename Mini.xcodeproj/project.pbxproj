@@ -26,10 +26,10 @@
 		F222D4B425249B7E00672E7B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A725249B7D00672E7B /* Task.swift */; };
 		F222D4B525249B7E00672E7B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A725249B7D00672E7B /* Task.swift */; };
 		F222D4B625249B7E00672E7B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A725249B7D00672E7B /* Task.swift */; };
-		F222D4B725249B7E00672E7B /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Middleware.swift */; };
-		F222D4B825249B7E00672E7B /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Middleware.swift */; };
-		F222D4B925249B7E00672E7B /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Middleware.swift */; };
-		F222D4BA25249B7E00672E7B /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Middleware.swift */; };
+		F222D4B725249B7E00672E7B /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Chain.swift */; };
+		F222D4B825249B7E00672E7B /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Chain.swift */; };
+		F222D4B925249B7E00672E7B /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Chain.swift */; };
+		F222D4BA25249B7E00672E7B /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A825249B7D00672E7B /* Chain.swift */; };
 		F222D4BB25249B7E00672E7B /* ReducerGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A925249B7D00672E7B /* ReducerGroup.swift */; };
 		F222D4BC25249B7E00672E7B /* ReducerGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A925249B7D00672E7B /* ReducerGroup.swift */; };
 		F222D4BD25249B7E00672E7B /* ReducerGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4A925249B7D00672E7B /* ReducerGroup.swift */; };
@@ -42,14 +42,14 @@
 		F222D4C425249B7E00672E7B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AB25249B7D00672E7B /* Action.swift */; };
 		F222D4C525249B7E00672E7B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AB25249B7D00672E7B /* Action.swift */; };
 		F222D4C625249B7E00672E7B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AB25249B7D00672E7B /* Action.swift */; };
-		F222D4C725249B7E00672E7B /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* ServiceType.swift */; };
-		F222D4C825249B7E00672E7B /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* ServiceType.swift */; };
-		F222D4C925249B7E00672E7B /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* ServiceType.swift */; };
-		F222D4CA25249B7E00672E7B /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* ServiceType.swift */; };
-		F222D4CB25249B7E00672E7B /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* StateType.swift */; };
-		F222D4CC25249B7E00672E7B /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* StateType.swift */; };
-		F222D4CD25249B7E00672E7B /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* StateType.swift */; };
-		F222D4CE25249B7E00672E7B /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* StateType.swift */; };
+		F222D4C725249B7E00672E7B /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* Interceptor.swift */; };
+		F222D4C825249B7E00672E7B /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* Interceptor.swift */; };
+		F222D4C925249B7E00672E7B /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* Interceptor.swift */; };
+		F222D4CA25249B7E00672E7B /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AC25249B7D00672E7B /* Interceptor.swift */; };
+		F222D4CB25249B7E00672E7B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* State.swift */; };
+		F222D4CC25249B7E00672E7B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* State.swift */; };
+		F222D4CD25249B7E00672E7B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* State.swift */; };
+		F222D4CE25249B7E00672E7B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AD25249B7D00672E7B /* State.swift */; };
 		F222D4CF25249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
 		F222D4D025249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
 		F222D4D125249B7E00672E7B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D4AE25249B7D00672E7B /* Store.swift */; };
@@ -153,9 +153,9 @@
 		F2C09DB0286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
 		F2C09DB1286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
 		F2C09DB2286B14B7009C9C8E /* TestActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DAF286B14B7009C9C8E /* TestActions.swift */; };
-		F2C09DB4286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
-		F2C09DB5286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
-		F2C09DB6286B1598009C9C8E /* TestServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestServices.swift */; };
+		F2C09DB4286B1598009C9C8E /* TestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestInterceptor.swift */; };
+		F2C09DB5286B1598009C9C8E /* TestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestInterceptor.swift */; };
+		F2C09DB6286B1598009C9C8E /* TestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB3286B1598009C9C8E /* TestInterceptor.swift */; };
 		F2C09DB8286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
 		F2C09DB9286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
 		F2C09DBA286B2672009C9C8E /* TestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DB7286B2672009C9C8E /* TestState.swift */; };
@@ -169,6 +169,14 @@
 		F2C09DC5286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
 		F2C09DC6286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
 		F2C09DC7286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
+		F2D0DA1829E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
+		F2D0DA1929E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
+		F2D0DA1A29E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
+		F2D0DA1B29E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
+		F2D0DA1D29E8473700A114EC /* EmptyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1C29E8473700A114EC /* EmptyTask.swift */; };
+		F2D0DA1E29E8473700A114EC /* EmptyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1C29E8473700A114EC /* EmptyTask.swift */; };
+		F2D0DA1F29E8473700A114EC /* EmptyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1C29E8473700A114EC /* EmptyTask.swift */; };
+		F2D0DA2029E8473700A114EC /* EmptyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1C29E8473700A114EC /* EmptyTask.swift */; };
 		F2DF4A2B26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2C26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
 		F2DF4A2D26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */; };
@@ -212,12 +220,12 @@
 		E281244E2122CC5B00E4F6D0 /* Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F222D4A625249B7D00672E7B /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		F222D4A725249B7D00672E7B /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		F222D4A825249B7D00672E7B /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
+		F222D4A825249B7D00672E7B /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
 		F222D4A925249B7D00672E7B /* ReducerGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReducerGroup.swift; sourceTree = "<group>"; };
 		F222D4AA25249B7D00672E7B /* ActionReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionReducer.swift; sourceTree = "<group>"; };
 		F222D4AB25249B7D00672E7B /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		F222D4AC25249B7D00672E7B /* ServiceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
-		F222D4AD25249B7D00672E7B /* StateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
+		F222D4AC25249B7D00672E7B /* Interceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		F222D4AD25249B7D00672E7B /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		F222D4AE25249B7D00672E7B /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		F222D4E125249B9A00672E7B /* DispatchQueueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtensions.swift; sourceTree = "<group>"; };
 		F222D4E325249B9A00672E7B /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
@@ -246,11 +254,13 @@
 		F2AD824D286B7065005C024F /* PublishersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersTests.swift; sourceTree = "<group>"; };
 		F2C09DAB286B1490009C9C8E /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		F2C09DAF286B14B7009C9C8E /* TestActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestActions.swift; sourceTree = "<group>"; };
-		F2C09DB3286B1598009C9C8E /* TestServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServices.swift; sourceTree = "<group>"; };
+		F2C09DB3286B1598009C9C8E /* TestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterceptor.swift; sourceTree = "<group>"; };
 		F2C09DB7286B2672009C9C8E /* TestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestState.swift; sourceTree = "<group>"; };
 		F2C09DBB286B2698009C9C8E /* TestStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStoreController.swift; sourceTree = "<group>"; };
 		F2C09DBF286B530D009C9C8E /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
 		F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
+		F2D0DA1729E8472900A114EC /* Taskable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taskable.swift; sourceTree = "<group>"; };
+		F2D0DA1C29E8473700A114EC /* EmptyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTask.swift; sourceTree = "<group>"; };
 		F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDictionaryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -340,14 +350,14 @@
 				E26053F22121880000D013B5 /* Info.plist */,
 				F222D4AA25249B7D00672E7B /* ActionReducer.swift */,
 				F222D4A625249B7D00672E7B /* Dispatcher.swift */,
-				F222D4A825249B7D00672E7B /* Middleware.swift */,
+				F222D4A825249B7D00672E7B /* Chain.swift */,
 				F26C3AF722537A4600189D28 /* Mini.swift */,
 				F288DCC829BA8BF600FBFED1 /* None.swift */,
 				F222D4E525249B9A00672E7B /* OrderedSet.swift */,
 				F222D4A925249B7D00672E7B /* ReducerGroup.swift */,
-				F222D4AC25249B7D00672E7B /* ServiceType.swift */,
+				F222D4AC25249B7D00672E7B /* Interceptor.swift */,
 				F222D4E625249B9A00672E7B /* SharedDictionary.swift */,
-				F222D4AD25249B7D00672E7B /* StateType.swift */,
+				F222D4AD25249B7D00672E7B /* State.swift */,
 				F222D4AE25249B7D00672E7B /* Store.swift */,
 				F227FD7F29CDB38D00F1E801 /* Actions */,
 				F2DF4A3E26C2DBCB00C082CF /* Publishers */,
@@ -398,7 +408,9 @@
 		F227FD8529CDB57400F1E801 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				F2D0DA1C29E8473700A114EC /* EmptyTask.swift */,
 				F222D4A725249B7D00672E7B /* Task.swift */,
+				F2D0DA1729E8472900A114EC /* Taskable.swift */,
 				F2AD8248286B6AD9005C024F /* TaskExpiration.swift */,
 				F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */,
 				F222D7692525361700672E7B /* KeyedTask.swift */,
@@ -411,7 +423,7 @@
 			children = (
 				F2C09DAF286B14B7009C9C8E /* TestActions.swift */,
 				F2C09DAB286B1490009C9C8E /* TestError.swift */,
-				F2C09DB3286B1598009C9C8E /* TestServices.swift */,
+				F2C09DB3286B1598009C9C8E /* TestInterceptor.swift */,
 				F2C09DB7286B2672009C9C8E /* TestState.swift */,
 				F2C09DBB286B2698009C9C8E /* TestStoreController.swift */,
 			);
@@ -770,11 +782,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F222D50525249B9B00672E7B /* OrderedSet.swift in Sources */,
-				F222D4CB25249B7E00672E7B /* StateType.swift in Sources */,
+				F222D4CB25249B7E00672E7B /* State.swift in Sources */,
 				F222D76A2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4AF25249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BB25249B7E00672E7B /* ReducerGroup.swift in Sources */,
-				F222D4B725249B7E00672E7B /* Middleware.swift in Sources */,
+				F222D4B725249B7E00672E7B /* Chain.swift in Sources */,
 				F297D27E286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
 				F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D269286A02E200323F24 /* KeyedAction.swift in Sources */,
@@ -788,10 +800,12 @@
 				F222D4FD25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
 				F222D4C325249B7E00672E7B /* Action.swift in Sources */,
 				F222D4F525249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
+				F2D0DA1D29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4BF25249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AF822537A4600189D28 /* Mini.swift in Sources */,
 				F2AD8249286B6AD9005C024F /* TaskExpiration.swift in Sources */,
-				F222D4C725249B7E00672E7B /* ServiceType.swift in Sources */,
+				F2D0DA1829E8472900A114EC /* Taskable.swift in Sources */,
+				F222D4C725249B7E00672E7B /* Interceptor.swift in Sources */,
 				3A20F7E229CCAC5500DDCF8D /* Publishers.EraseToEmptyTask.swift in Sources */,
 				F222D50125249B9B00672E7B /* PayloadAction.swift in Sources */,
 				F288DCD929BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
@@ -816,7 +830,7 @@
 				F222D7762525373B00672E7B /* KeyedTaskTests.swift in Sources */,
 				F2C09DAC286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2B26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
-				F2C09DB4286B1598009C9C8E /* TestServices.swift in Sources */,
+				F2C09DB4286B1598009C9C8E /* TestInterceptor.swift in Sources */,
 				F222D53825249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52925249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -827,11 +841,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F222D50625249B9B00672E7B /* OrderedSet.swift in Sources */,
-				F222D4CC25249B7E00672E7B /* StateType.swift in Sources */,
+				F222D4CC25249B7E00672E7B /* State.swift in Sources */,
 				F222D76B2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B025249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BC25249B7E00672E7B /* ReducerGroup.swift in Sources */,
-				F222D4B825249B7E00672E7B /* Middleware.swift in Sources */,
+				F222D4B825249B7E00672E7B /* Chain.swift in Sources */,
 				F297D27F286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
 				F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26A286A02E200323F24 /* KeyedAction.swift in Sources */,
@@ -845,10 +859,12 @@
 				F222D4FE25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
 				F222D4C425249B7E00672E7B /* Action.swift in Sources */,
 				F222D4F625249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
+				F2D0DA1E29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C025249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AF922537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824A286B6AD9005C024F /* TaskExpiration.swift in Sources */,
-				F222D4C825249B7E00672E7B /* ServiceType.swift in Sources */,
+				F2D0DA1929E8472900A114EC /* Taskable.swift in Sources */,
+				F222D4C825249B7E00672E7B /* Interceptor.swift in Sources */,
 				3A20F7E329CCAC5500DDCF8D /* Publishers.EraseToEmptyTask.swift in Sources */,
 				F222D50225249B9B00672E7B /* PayloadAction.swift in Sources */,
 				F288DCDA29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
@@ -873,7 +889,7 @@
 				F222D7772525373B00672E7B /* KeyedTaskTests.swift in Sources */,
 				F2C09DAD286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2C26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
-				F2C09DB5286B1598009C9C8E /* TestServices.swift in Sources */,
+				F2C09DB5286B1598009C9C8E /* TestInterceptor.swift in Sources */,
 				F222D53925249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52A25249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -884,11 +900,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F222D50725249B9B00672E7B /* OrderedSet.swift in Sources */,
-				F222D4CD25249B7E00672E7B /* StateType.swift in Sources */,
+				F222D4CD25249B7E00672E7B /* State.swift in Sources */,
 				F222D76C2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B125249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BD25249B7E00672E7B /* ReducerGroup.swift in Sources */,
-				F222D4B925249B7E00672E7B /* Middleware.swift in Sources */,
+				F222D4B925249B7E00672E7B /* Chain.swift in Sources */,
 				F297D280286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
 				F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26B286A02E200323F24 /* KeyedAction.swift in Sources */,
@@ -902,10 +918,12 @@
 				F222D4FF25249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
 				F222D4C525249B7E00672E7B /* Action.swift in Sources */,
 				F222D4F725249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
+				F2D0DA1F29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C125249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AFA22537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824B286B6AD9005C024F /* TaskExpiration.swift in Sources */,
-				F222D4C925249B7E00672E7B /* ServiceType.swift in Sources */,
+				F2D0DA1A29E8472900A114EC /* Taskable.swift in Sources */,
+				F222D4C925249B7E00672E7B /* Interceptor.swift in Sources */,
 				3A20F7E429CCAC5500DDCF8D /* Publishers.EraseToEmptyTask.swift in Sources */,
 				F222D50325249B9B00672E7B /* PayloadAction.swift in Sources */,
 				F288DCDB29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,
@@ -930,7 +948,7 @@
 				F222D7782525373B00672E7B /* KeyedTaskTests.swift in Sources */,
 				F2C09DAE286B1490009C9C8E /* TestError.swift in Sources */,
 				F2DF4A2D26C2B69A00C082CF /* SharedDictionaryTests.swift in Sources */,
-				F2C09DB6286B1598009C9C8E /* TestServices.swift in Sources */,
+				F2C09DB6286B1598009C9C8E /* TestInterceptor.swift in Sources */,
 				F222D53A25249BD900672E7B /* DictionaryExtensionsTests.swift in Sources */,
 				F222D52B25249BD900672E7B /* ChainTests.swift in Sources */,
 			);
@@ -941,11 +959,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F222D50825249B9B00672E7B /* OrderedSet.swift in Sources */,
-				F222D4CE25249B7E00672E7B /* StateType.swift in Sources */,
+				F222D4CE25249B7E00672E7B /* State.swift in Sources */,
 				F222D76D2525361700672E7B /* KeyedTask.swift in Sources */,
 				F222D4B225249B7E00672E7B /* Dispatcher.swift in Sources */,
 				F222D4BE25249B7E00672E7B /* ReducerGroup.swift in Sources */,
-				F222D4BA25249B7E00672E7B /* Middleware.swift in Sources */,
+				F222D4BA25249B7E00672E7B /* Chain.swift in Sources */,
 				F297D281286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
 				F288761828649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26C286A02E200323F24 /* KeyedAction.swift in Sources */,
@@ -959,10 +977,12 @@
 				F222D50025249B9B00672E7B /* DictionaryExtensions.swift in Sources */,
 				F222D4C625249B7E00672E7B /* Action.swift in Sources */,
 				F222D4F825249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
+				F2D0DA2029E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C225249B7E00672E7B /* ActionReducer.swift in Sources */,
 				F26C3AFB22537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824C286B6AD9005C024F /* TaskExpiration.swift in Sources */,
-				F222D4CA25249B7E00672E7B /* ServiceType.swift in Sources */,
+				F2D0DA1B29E8472900A114EC /* Taskable.swift in Sources */,
+				F222D4CA25249B7E00672E7B /* Interceptor.swift in Sources */,
 				3A20F7E529CCAC5500DDCF8D /* Publishers.EraseToEmptyTask.swift in Sources */,
 				F222D50425249B9B00672E7B /* PayloadAction.swift in Sources */,
 				F288DCDC29BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift in Sources */,

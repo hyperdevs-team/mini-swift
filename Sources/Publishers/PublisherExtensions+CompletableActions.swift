@@ -36,7 +36,7 @@ public extension Publisher {
                 break
             }
         } receiveValue: { payload in
-            let action = A(task: .success(payload, tag: "\(key)"), key: key)
+            let action = A(task: .success(payload, expiration: expiration, tag: "\(key)"), key: key)
             dispatcher.dispatch(action)
         }
     }

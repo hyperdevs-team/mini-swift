@@ -15,8 +15,7 @@ public final class Dispatcher {
 
     private let internalQueue = DispatchQueue(label: "MiniSwift", qos: .userInitiated)
     private var subscriptionMap = SubscriptionMap()
-    private var middleware = [Middleware]()
-    private var service = [ServiceType]()
+    private var interceptors = [Interceptor]()
     private let root: RootChain
     private var chain: Chain
     private var dispatching = false
@@ -27,40 +26,16 @@ public final class Dispatcher {
         chain = root
     }
 
-    private func build() -> Chain {
-        middleware.reduce(root) { (chain: Chain, middleware: Middleware) -> Chain in
-            ForwardingChain { action in
-                middleware.perform(action, chain)
-            }
+    public func register(interceptor: Interceptor) {
+        internalQueue.sync {
+            self.interceptors.append(interceptor)
         }
     }
 
-    public func add(middleware: Middleware) {
+    public func unregister(interceptor: Interceptor) {
         internalQueue.sync {
-            self.middleware.append(middleware)
-            self.chain = build()
-        }
-    }
-
-    public func remove(middleware: Middleware) {
-        internalQueue.sync {
-            if let index = self.middleware.firstIndex(where: { middleware.id == $0.id }) {
-                self.middleware.remove(at: index)
-            }
-            chain = build()
-        }
-    }
-
-    public func register(service: ServiceType) {
-        internalQueue.sync {
-            self.service.append(service)
-        }
-    }
-
-    public func unregister(service: ServiceType) {
-        internalQueue.sync {
-            if let index = self.service.firstIndex(where: { service.id == $0.id }) {
-                self.service.remove(at: index)
+            if let index = self.interceptors.firstIndex(where: { interceptor.id == $0.id }) {
+                self.interceptors.remove(at: index)
             }
         }
     }
@@ -122,10 +97,10 @@ public final class Dispatcher {
         }
     }
 
-    internal func stateWasReplayed(state: StateType) {
+    internal func stateWasReplayed(state: any State) {
         internalQueue.async { [weak self] in
             guard let self = self else { return }
-            self.service.forEach {
+            self.interceptors.forEach {
                 $0.stateWasReplayed(state: state)
             }
         }
@@ -141,7 +116,7 @@ public final class Dispatcher {
             _ = chain.proceed(action)
             internalQueue.async { [weak self] in
                 guard let self = self else { return }
-                self.service.forEach {
+                self.interceptors.forEach {
                     $0.perform(action, self.chain)
                 }
             }

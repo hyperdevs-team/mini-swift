@@ -66,7 +66,7 @@ final class ReducerTests: XCTestCase {
         XCTAssertTrue(store.state.counter == 3)
 
         store.reset()
-        XCTAssert(store.state.isEqual(to: initialState))
+        XCTAssertEqual(store.state, initialState)
     }
 
     func test_subscribe_state_changes() {

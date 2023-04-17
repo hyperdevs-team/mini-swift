@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 public extension Publisher {
-    func combineMiniTasks<T: TaskType>()
+    func combineMiniTasks<T: Taskable>()
     -> Publishers.CombineMiniTasksArray<Self, [T.Payload], T.Failure>
     where Output == [T] {
         Publishers.CombineMiniTasksArray(upstream: self)
@@ -41,7 +41,7 @@ extension Publishers.CombineMiniTasksArray {
         }
 
         func receive(_ input: Upstream.Output) -> Subscribers.Demand {
-            guard let tasks = input as? [any TaskType] else {
+            guard let tasks = input as? [any Taskable] else {
                 fatalError("Imposible!")
             }
 

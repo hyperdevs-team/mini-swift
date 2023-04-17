@@ -1,15 +1,9 @@
 import Foundation
 
-public typealias MiddlewareChain = (Action, Chain) -> Action
 public typealias Next = (Action) -> Action
 
 public protocol Chain {
     var proceed: Next { get }
-}
-
-public protocol Middleware {
-    var id: UUID { get }
-    var perform: MiddlewareChain { get }
 }
 
 public final class ForwardingChain: Chain {

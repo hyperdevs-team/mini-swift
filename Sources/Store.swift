@@ -1,16 +1,41 @@
 import Combine
 import Foundation
 
-public protocol StoreType {
-    associatedtype State: StateType
-    associatedtype StoreController: Cancellable
+public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
+    public typealias Output = StoreState
+    public typealias Failure = Never
+    public typealias StoreController = StoreController
 
-    var state: State { get set }
-    var dispatcher: Dispatcher { get }
-    var reducerGroup: ReducerGroup { get }
-}
+    public let dispatcher: Dispatcher
+    public var storeController: StoreController
+    public var state: StoreState {
+        get {
+            _state
+        }
+        set {
+            queue.sync {
+                if newValue != _state {
+                    _state = newValue
+                    objectWillChange.send(state)
+                }
+            }
+        }
+    }
+    public var initialState: StoreState {
+        _initialState
+    }
 
-extension StoreType {
+    public init(_ state: StoreState,
+                dispatcher: Dispatcher,
+                storeController: StoreController) {
+        self._initialState = state
+        self._state = state
+        self.dispatcher = dispatcher
+        self.objectWillChange = .init(state)
+        self.storeController = storeController
+        self.state = _initialState
+    }
+
     /**
      Property responsible of reduce the `State` given a certain `Action` being triggered.
      ```
@@ -33,49 +58,6 @@ extension StoreType {
             []
         }
     }
-}
-
-public class Store<State: StateType, StoreController: Cancellable>: Publisher, StoreType {
-    public typealias Output = State
-    public typealias Failure = Never
-    public typealias State = State
-    public typealias StoreController = StoreController
-
-    public let dispatcher: Dispatcher
-    public var storeController: StoreController
-    public var state: State {
-        get {
-            _state
-        }
-        set {
-            queue.sync {
-                if !newValue.isEqual(to: _state) {
-                    _state = newValue
-                    objectWillChange.send(state)
-                }
-            }
-        }
-    }
-    public var initialState: State {
-        _initialState
-    }
-
-    public init(_ state: State,
-                dispatcher: Dispatcher,
-                storeController: StoreController) {
-        self._initialState = state
-        self._state = state
-        self.dispatcher = dispatcher
-        self.objectWillChange = .init(state)
-        self.storeController = storeController
-        self.state = _initialState
-    }
-
-    public var reducerGroup: ReducerGroup {
-        ReducerGroup {
-            []
-        }
-    }
 
     public func replayOnce() {
         objectWillChange.send(state)
@@ -91,8 +73,8 @@ public class Store<State: StateType, StoreController: Cancellable>: Publisher, S
         objectWillChange.subscribe(subscriber)
     }
 
-    private var objectWillChange: CurrentValueSubject<State, Never>
+    private var objectWillChange: CurrentValueSubject<StoreState, Never>
     private let queue = DispatchQueue(label: "atomic state")
-    private var _initialState: State
-    private var _state: State
+    private var _initialState: StoreState
+    private var _state: StoreState
 }

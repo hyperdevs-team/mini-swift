@@ -7,12 +7,6 @@ class TestAction: Action {
     init(counter: Int) {
         self.counter = counter
     }
-
-    public func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestAction else { return false }
-        guard counter == action.counter else { return false }
-        return true
-    }
 }
 
 class TestCompletableAction: CompletableAction {
@@ -24,12 +18,6 @@ class TestCompletableAction: CompletableAction {
     required init(task: Task<TaskPayload, TaskError>) {
         self.task = task
     }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestCompletableAction else { return false }
-        guard task == action.task else { return false }
-        return true
-    }
 }
 
 class TestEmptyAction: EmptyAction {
@@ -39,12 +27,6 @@ class TestEmptyAction: EmptyAction {
 
     required init(task: EmptyTask<TaskError>) {
         self.task = task
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestEmptyAction else { return false }
-        guard task == action.task else { return false }
-        return true
     }
 }
 
@@ -60,12 +42,6 @@ class TestKeyedCompletableAction: KeyedCompletableAction {
         self.task = task
         self.key = key
     }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestKeyedCompletableAction else { return false }
-        guard task == action.task else { return false }
-        return true
-    }
 }
 
 class TestKeyedEmptyAction: KeyedEmptyAction {
@@ -79,12 +55,6 @@ class TestKeyedEmptyAction: KeyedEmptyAction {
         self.task = task
         self.key = key
     }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestKeyedEmptyAction else { return false }
-        guard task == action.task else { return false }
-        return true
-    }
 }
 
 class TestAttributedAction: AttributedAction {
@@ -94,12 +64,6 @@ class TestAttributedAction: AttributedAction {
 
     required init(attribute: Attribute) {
         self.attribute = attribute
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestAttributedAction else { return false }
-        guard attribute == action.attribute else { return false }
-        return true
     }
 }
 
@@ -114,13 +78,6 @@ class TestAttributedEmptyAction: AttributedEmptyAction {
         self.attribute = attribute
         self.task = task
     }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestAttributedEmptyAction else { return false }
-        guard attribute == action.attribute else { return false }
-        guard task == action.task else { return false }
-        return true
-    }
 }
 
 class TestAttributedCompletableAction: AttributedCompletableAction {
@@ -134,12 +91,5 @@ class TestAttributedCompletableAction: AttributedCompletableAction {
     required init(task: Task<TaskPayload, TaskError>, attribute: Attribute) {
         self.attribute = attribute
         self.task = task
-    }
-
-    func isEqual(to other: Action) -> Bool {
-        guard let action = other as? TestAttributedCompletableAction else { return false }
-        guard attribute == action.attribute else { return false }
-        guard task == action.task else { return false }
-        return true
     }
 }

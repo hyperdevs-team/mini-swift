@@ -2,7 +2,7 @@ import Combine
 
 public extension Publisher {
     func eraseToEmptyTask() -> Publishers.EraseToEmptyTask<Self, Output.Failure>
-    where Output: TaskType {
+    where Output: Taskable {
         Publishers.EraseToEmptyTask(upstream: self)
     }
 }
@@ -10,7 +10,7 @@ public extension Publisher {
 public extension Publishers {
     /// Create a `Publisher` that connect an Upstream (Another publisher) that type erases `Task`s to `EmptyTask`
     /// The Output of this `Publisher` always is a combined `EmptyTask`
-    struct EraseToEmptyTask<Upstream: Publisher, TaskFailure: Error>: Publisher where Upstream.Output: TaskType, Upstream.Output.Failure == TaskFailure {
+    struct EraseToEmptyTask<Upstream: Publisher, TaskFailure: Error>: Publisher where Upstream.Output: Taskable, Upstream.Output.Failure == TaskFailure {
         public typealias Output = EmptyTask<TaskFailure>
         public typealias Failure = Upstream.Failure
 

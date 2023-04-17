@@ -28,7 +28,7 @@ public struct TaskTuple4Payload<T1P: Equatable, T2P: Equatable, T3P: Equatable, 
 }
 
 public extension Publisher {
-    func combineMiniTasks<T1: TaskType, T2: TaskType, T3: TaskType, T4: TaskType>()
+    func combineMiniTasks<T1: Taskable, T2: Taskable, T3: Taskable, T4: Taskable>()
     -> Publishers.CombineMiniTasksTuple4<Self, TaskTuple4Payload<T1.Payload, T2.Payload, T3.Payload, T4.Payload>, T1.Failure>
     where Output == (T1, T2, T3, T4), T1.Failure == T2.Failure, T1.Failure == T3.Failure, T1.Failure == T4.Failure {
         Publishers.CombineMiniTasksTuple4(upstream: self)
@@ -69,7 +69,7 @@ extension Publishers.CombineMiniTasksTuple4 {
         }
 
         func receive(_ input: Upstream.Output) -> Subscribers.Demand {
-            guard let tuple = input as? (any TaskType, any TaskType, any TaskType, any TaskType) else {
+            guard let tuple = input as? (any Taskable, any Taskable, any Taskable, any Taskable) else {
                 fatalError("Imposible!")
             }
 

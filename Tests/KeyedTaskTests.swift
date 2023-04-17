@@ -17,9 +17,9 @@ class KeyedTaskTests: XCTestCase {
     }
 
     func test_subscript() {
-        XCTAssertTrue(tasks[task: 1]?.payload == "hi")
-        XCTAssertEqual(emptyTasks[task: 1]?.isSuccessful, true)
-        XCTAssertEqual(tasks[task: 4], nil)
+        XCTAssertTrue(tasks[task: 1].payload == "hi")
+        XCTAssertEqual(emptyTasks[task: 1].isSuccessful, true)
+        XCTAssertEqual(tasks[task: 4].isIdle, true)
     }
 
     func test_hasValue_inside_a_keyedtask() {

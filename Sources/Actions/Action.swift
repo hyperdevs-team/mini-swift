@@ -1,7 +1,6 @@
 import Foundation
 
 public protocol Action {
-    func isEqual(to other: Action) -> Bool
 }
 
 extension Action {

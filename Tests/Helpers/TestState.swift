@@ -1,7 +1,7 @@
 import Foundation
 import Mini
 
-struct TestState: StateType {
+struct TestState: State {
     public let testTask: Task<None, TestError>
     public let counter: Int
 
@@ -9,11 +9,5 @@ struct TestState: StateType {
                 counter: Int = 0) {
         self.testTask = testTask
         self.counter = counter
-    }
-
-    public func isEqual(to other: StateType) -> Bool {
-        guard let state = other as? TestState else { return false }
-        guard counter == state.counter else { return false }
-        return true
     }
 }

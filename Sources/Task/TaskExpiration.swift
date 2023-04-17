@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TaskExpiration {
+public enum TaskExpiration: Equatable {
     case immediately
     case short
     case long

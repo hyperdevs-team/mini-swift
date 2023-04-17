@@ -3,9 +3,10 @@ import Foundation
 public typealias KeyedTask<Key: Hashable, TaskPayload: Equatable, TaskError: Error & Equatable> = [Key: Task<TaskPayload, TaskError>]
 public typealias KeyedEmptyTask<Key: Hashable, TaskError: Error & Equatable> = KeyedTask<Key, None, TaskError>
 
-extension KeyedTask where Key: Hashable, Value: TaskType {
-    public subscript(task key: Key) -> Value? {
-        self[key]
+extension KeyedTask where Key: Hashable, Value: Taskable {
+    /// If exists retrieve the task for the given key, if not receive an idle task
+    public subscript(task key: Key) -> Value {
+        self[key] ?? .idle()
     }
 
     public func hasValue(for key: Dictionary.Key) -> Bool {

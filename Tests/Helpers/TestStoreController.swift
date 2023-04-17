@@ -9,7 +9,9 @@ class TestStoreController: Cancellable {
     }
 }
 
-extension Store where State == TestState, StoreController == TestStoreController {
+typealias TestStore = Store<TestState, TestStoreController>
+
+extension TestStore {
     func reducerGroup(expectation: XCTestExpectation? = nil) -> ReducerGroup {
         ReducerGroup { [
             Reducer(of: TestAction.self, on: self.dispatcher) { action in

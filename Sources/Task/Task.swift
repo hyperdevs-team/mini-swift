@@ -1,25 +1,6 @@
 import Foundation
 
-public typealias EmptyTask<E: Error & Equatable> = Task<None, E>
-
-public protocol TaskType {
-    associatedtype Payload: Equatable
-    associatedtype Failure: Error & Equatable
-
-    var isIdle: Bool { get }
-    var isRunning: Bool { get }
-    var isRecentlySucceeded: Bool { get }
-    var isTerminal: Bool { get }
-    var isSuccessful: Bool { get }
-    var isFailure: Bool { get }
-
-    var status: TaskStatus<Payload, Failure> { get }
-    var payload: Payload? { get }
-    var error: Failure? { get }
-    var tag: String? { get }
-}
-
-public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, CustomDebugStringConvertible {
+public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, CustomDebugStringConvertible {
     public typealias Payload = T
     public typealias Failure = E
 
@@ -29,13 +10,11 @@ public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, Cust
     public let tag: String?
     public let progress: Decimal?
 
-    // TODO: This init should be private in the near future
-    @available(*, deprecated, message: "Use static methods instead .idle(), .running(), .success() or .failure()")
-    public required init(status: TaskStatus<Payload, Failure> = .idle,
-                         started: Date = Date(),
-                         expiration: TaskExpiration = .immediately,
-                         tag: String? = nil,
-                         progress: Decimal? = nil) {
+    internal required init(status: TaskStatus<Payload, Failure> = .idle,
+                           started: Date = Date(),
+                           expiration: TaskExpiration = .immediately,
+                           tag: String? = nil,
+                           progress: Decimal? = nil) {
         self.status = status
         self.started = started
         self.expiration = expiration
@@ -111,59 +90,28 @@ public class Task<T: Equatable, E: Error & Equatable>: TaskType, Equatable, Cust
         }
     }
 
-    @available(*, deprecated, renamed: "idle")
-    public static func requestIdle(tag: String? = nil) -> Self {
-        .idle(tag: tag)
-    }
-
-    @available(*, deprecated, renamed: "running")
-    public static func requestRunning(tag: String? = nil) -> Self {
-        .running(tag: tag)
-    }
-
-    @available(*, deprecated, renamed: "failure")
-    public static func requestFailure(_ error: Failure, tag: String? = nil) -> Self {
-        .failure(error, tag: tag)
-    }
-
-    @available(*, deprecated, renamed: "success")
-    public static func requestSuccess(_ payload: Payload, expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
-        .success(payload, expiration: expiration, tag: tag)
-    }
-
-    public static func idle(started: Date = Date(),
-                            tag: String? = nil,
-                            progress: Decimal? = nil) -> Self {
+    public static func idle(started: Date, tag: String?, progress: Decimal?) -> Self {
         .init(status: .idle,
               started: started,
               tag: tag,
               progress: progress)
     }
 
-    public static func running(started: Date = Date(),
-                               tag: String? = nil,
-                               progress: Decimal? = nil) -> Self {
+    public static func running(started: Date, tag: String?, progress: Decimal?) -> Self {
         .init(status: .running,
               started: started,
               tag: tag,
               progress: progress)
     }
 
-    public static func failure(_ error: Failure,
-                               started: Date = Date(),
-                               tag: String? = nil,
-                               progress: Decimal? = nil) -> Self {
+    public static func failure(_ error: Failure, started: Date, tag: String?, progress: Decimal?) -> Self {
         .init(status: .failure(error: error),
               started: started,
               tag: tag,
               progress: progress)
     }
 
-    public static func success(_ payload: Payload,
-                               started: Date = Date(),
-                               expiration: TaskExpiration = .immediately,
-                               tag: String? = nil,
-                               progress: Decimal? = nil) -> Self {
+    public static func success(_ payload: Payload, started: Date, expiration: TaskExpiration, tag: String?, progress: Decimal?) -> Self {
         .init(status: .success(payload: payload),
               started: started,
               expiration: expiration,
@@ -202,10 +150,5 @@ public extension Task where T == None {
               expiration: expiration,
               tag: tag,
               progress: progress)
-    }
-
-    @available(*, deprecated, renamed: "success")
-    static func requestSuccess(expiration: TaskExpiration = .immediately, tag: String? = nil) -> Self {
-        .success(expiration: expiration, tag: tag)
     }
 }
