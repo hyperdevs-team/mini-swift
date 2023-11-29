@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MasMini-Swift'
-  s.version          = '3.1.0'
+  s.version          = '3.2.0'
   s.swift_version    = '5.0'
   s.summary          = 'The minimal expression of a Flux architecture in Swift.'
 
