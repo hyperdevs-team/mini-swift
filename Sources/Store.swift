@@ -16,7 +16,8 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
             queue.sync {
                 if newValue != _state {
                     _state = newValue
-                    objectWillChange.send(state)
+                    stateCurrentValueSubject.send(state)
+                    statePassthroughSubject.send(state)
                 }
             }
         }
@@ -31,7 +32,8 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         self._initialState = state
         self._state = state
         self.dispatcher = dispatcher
-        self.objectWillChange = .init(state)
+        self.stateCurrentValueSubject = .init(state)
+        self.statePassthroughSubject = .init()
         self.storeController = storeController
         self.state = _initialState
     }
@@ -59,8 +61,15 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         }
     }
 
+    /// Exposes a passthrough publisher for the Store. 
+    /// Doesn’t have an initial value or a buffer of the most recently-published state.
+    public lazy var passthrough: PassthroughStorePublisher = {
+        .init(statePassthroughSubject: statePassthroughSubject)
+    }()
+
     public func replayOnce() {
-        objectWillChange.send(state)
+        stateCurrentValueSubject.send(state)
+        statePassthroughSubject.send(state)
 
         dispatcher.stateWasReplayed(state: state)
     }
@@ -70,11 +79,29 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     }
 
     public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-        objectWillChange.subscribe(subscriber)
+        stateCurrentValueSubject.subscribe(subscriber)
     }
 
-    private var objectWillChange: CurrentValueSubject<StoreState, Never>
+    private var stateCurrentValueSubject: CurrentValueSubject<StoreState, Never>
+    private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
     private let queue = DispatchQueue(label: "atomic state")
     private var _initialState: StoreState
     private var _state: StoreState
+}
+
+public extension Store {
+    class PassthroughStorePublisher: Publisher {
+        public typealias Output = StoreState
+        public typealias Failure = Never
+
+        private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
+
+        internal init(statePassthroughSubject: PassthroughSubject<StoreState, Never>) {
+            self.statePassthroughSubject = statePassthroughSubject
+        }
+
+        public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
+            statePassthroughSubject.subscribe(subscriber)
+        }
+    }
 }

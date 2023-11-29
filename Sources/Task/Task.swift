@@ -135,7 +135,7 @@ public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, Cust
     }
 
     // MARK: Equatable
-    public static func == <T, E> (lhs: Task<T, E>, rhs: Task<T, E>) -> Bool {
+    public static func == (lhs: Task, rhs: Task) -> Bool {
         lhs.status == rhs.status
     }
 }
