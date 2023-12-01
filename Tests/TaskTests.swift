@@ -15,6 +15,7 @@ class TaskTests: XCTestCase {
         XCTAssertFalse(task.isTerminal)
         XCTAssertFalse(task.isSuccessful)
         XCTAssertFalse(task.isRecentlySucceeded)
+        XCTAssertFalse(task.isExpired)
     }
 
     func test_check_states_for_success_task() {
@@ -28,6 +29,7 @@ class TaskTests: XCTestCase {
         XCTAssertFalse(task.isFailure)
         XCTAssertTrue(task.isTerminal)
         XCTAssertTrue(task.isSuccessful)
+        XCTAssertFalse(task.isExpired)
     }
 
     func test_check_states_for_failure_task() {
@@ -42,6 +44,45 @@ class TaskTests: XCTestCase {
         XCTAssertTrue(task.isTerminal)
         XCTAssertFalse(task.isSuccessful)
         XCTAssertFalse(task.isRecentlySucceeded)
+        XCTAssertFalse(task.isExpired)
+    }
+
+    func test_check_expiration_for_custom() {
+        let expectation = expectation(description: "wait for async process")
+        expectation.expectedFulfillmentCount = 2
+
+        let task: Task<String, NSError> = .success("hola", expiration: .custom(3))
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertFalse(task.isExpired)
+            expectation.fulfill()
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            XCTAssertTrue(task.isExpired)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5)
+    }
+
+    func test_check_expiration_for_immediately() {
+        let expectation = expectation(description: "wait for async process")
+        expectation.expectedFulfillmentCount = 2
+
+        let task: Task<String, NSError> = .success("hola", expiration: .immediately)
+
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            XCTAssertFalse(task.isExpired)
+            expectation.fulfill()
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertTrue(task.isExpired)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 3)
     }
 
     func test_data_and_progress() {

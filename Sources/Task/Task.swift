@@ -50,6 +50,11 @@ public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, Cust
         status == .running
     }
 
+    public var isExpired: Bool {
+        let margin: TimeInterval = 0.1 // 100ms for suscriptions propagations
+        return started.timeIntervalSinceNow + expiration.value + margin < 0
+    }
+
     public var isRecentlySucceeded: Bool {
         switch status {
         case .success where started.timeIntervalSinceNow + expiration.value >= 0:

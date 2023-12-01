@@ -1,17 +1,17 @@
 import Combine
 
 public extension Publisher {
-    func eraseToEmptyTask() -> Publishers.EraseToEmptyTask<Self>
+    func removeExpired() -> Publishers.RemoveExpired<Self>
     where Output: Taskable {
-        Publishers.EraseToEmptyTask(upstream: self)
+        Publishers.RemoveExpired(upstream: self)
     }
 }
 
 public extension Publishers {
     /// Create a `Publisher` that connect an Upstream (Another publisher) that type erases `Task`s to `EmptyTask`
     /// The Output of this `Publisher` always is a combined `EmptyTask`
-    struct EraseToEmptyTask<Upstream: Publisher>: Publisher where Upstream.Output: Taskable {
-        public typealias Output = EmptyTask<Upstream.Output.Failure>
+    struct RemoveExpired<Upstream: Publisher>: Publisher where Upstream.Output: Taskable {
+        public typealias Output = Upstream.Output
         public typealias Failure = Upstream.Failure
 
         public let upstream: Upstream
@@ -26,9 +26,9 @@ public extension Publishers {
     }
 }
 
-extension Publishers.EraseToEmptyTask {
+extension Publishers.RemoveExpired {
     private struct Inner<Downstream: Subscriber>: Subscriber
-    where Downstream.Input == Output, Downstream.Failure == Upstream.Failure {
+    where Downstream.Input == Output, Downstream.Failure == Upstream.Failure, Output: Taskable {
         let combineIdentifier = CombineIdentifier()
         private let downstream: Downstream
 
@@ -41,19 +41,10 @@ extension Publishers.EraseToEmptyTask {
         }
 
         func receive(_ input: Upstream.Output) -> Subscribers.Demand {
-            switch input.status {
-            case .success:
-                return downstream.receive(.success())
-
-            case .idle:
-                return downstream.receive(.idle())
-
-            case .running:
-                return downstream.receive(.running())
-
-            case .failure(let error):
-                return downstream.receive(.failure(error))
+            if input.isExpired {
+                return .none
             }
+            return downstream.receive(input)
         }
 
         func receive(completion: Subscribers.Completion<Upstream.Failure>) {

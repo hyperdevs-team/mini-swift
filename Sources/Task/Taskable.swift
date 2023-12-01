@@ -6,6 +6,7 @@ public protocol Taskable {
 
     var isIdle: Bool { get }
     var isRunning: Bool { get }
+    var isExpired: Bool { get }
     var isRecentlySucceeded: Bool { get }
     var isTerminal: Bool { get }
     var isSuccessful: Bool { get }

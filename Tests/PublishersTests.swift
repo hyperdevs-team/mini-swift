@@ -3,9 +3,11 @@ import Combine
 import XCTest
 
 class PublishersTests: XCTestCase {
+    var taskSuccessExpired: Task<String, TestError> = .success("hola viejo", started: Date() - 1_000, expiration: .immediately)
     var taskSuccess1: Task<String, TestError> = .success("hola")
     var taskSuccess2: Task<String, TestError> = .success("chau")
     var taskFailure1: Task<String, TestError> = .failure(.berenjenaError)
+    var taskFailureExpired: Task<String, TestError> = .failure(.berenjenaError, started: Date() - 1_000)
     var taskFailure2: Task<String, TestError> = .failure(.bigBerenjenaError)
     var taskRunning1: Task<String, TestError> = .running()
     var taskIdle1: Task<String, TestError> = .idle()
@@ -288,6 +290,32 @@ class PublishersTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
+
+        waitForExpectations(timeout: 2)
+    }
+
+    // Remove Expired
+
+    func test_remove_expired() {
+        var cancellables = Set<AnyCancellable>()
+        let expectation = expectation(description: "wait for async process")
+
+        let subject = PassthroughSubject<Task<String, TestError>, Never>()
+
+        subject
+            .removeExpired() // Filter the 2 expired task
+            .removeDuplicates() // Pass only the first success task because the expired they never get here!
+            .sink { task in
+                XCTAssertFalse(task.isExpired)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        // Send 2 unexpired and 2 expired:
+        subject.send(taskSuccess1)
+        subject.send(taskSuccessExpired)
+        subject.send(taskFailureExpired)
+        subject.send(taskSuccess1)
 
         waitForExpectations(timeout: 2)
     }

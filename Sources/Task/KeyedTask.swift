@@ -23,6 +23,11 @@ extension KeyedTask where Key: Hashable, Value: Taskable {
         self[key]?.isRunning ?? false
     }
 
+    /// Returns true if the KeyedTask contains a task with given key and its expired. If the key don't exists return false
+    public func isExpired(key: Key) -> Bool {
+        self[key]?.isExpired ?? false
+    }
+
     /// Returns true if the KeyedTask contains a task with given key and its recently succeded. If the key don't exists return false
     public func isRecentlySucceeded(key: Key) -> Bool {
         self[key]?.isRecentlySucceeded ?? false
