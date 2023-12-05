@@ -141,6 +141,10 @@
 		F297D27F286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
 		F297D280286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
 		F297D281286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */; };
+		F297F4522B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */; };
+		F297F4532B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */; };
+		F297F4542B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */; };
+		F297F4552B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */ = {isa = PBXBuildFile; fileRef = F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */; };
 		F2AD8249286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
 		F2AD824A286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
 		F2AD824B286B6AD9005C024F /* TaskExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AD8248286B6AD9005C024F /* TaskExpiration.swift */; };
@@ -169,6 +173,10 @@
 		F2C09DC5286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
 		F2C09DC6286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
 		F2C09DC7286B57EA009C9C8E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */; };
+		F2CDC8852B1F4567004E1AFC /* Publishers.Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */; };
+		F2CDC8862B1F4567004E1AFC /* Publishers.Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */; };
+		F2CDC8872B1F4567004E1AFC /* Publishers.Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */; };
+		F2CDC8882B1F4567004E1AFC /* Publishers.Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */; };
 		F2D0DA1829E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
 		F2D0DA1929E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
 		F2D0DA1A29E8472900A114EC /* Taskable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0DA1729E8472900A114EC /* Taskable.swift */; };
@@ -250,6 +258,7 @@
 		F288DCD829BB942100FBFED1 /* Publishers.CombineMiniTasksArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.CombineMiniTasksArray.swift; sourceTree = "<group>"; };
 		F297D268286A02E200323F24 /* KeyedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedAction.swift; sourceTree = "<group>"; };
 		F297D27D286A0C6900323F24 /* Dispatcher+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatcher+Combine.swift"; sourceTree = "<group>"; };
+		F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.RemoveExpired.swift; sourceTree = "<group>"; };
 		F2AD8248286B6AD9005C024F /* TaskExpiration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskExpiration.swift; sourceTree = "<group>"; };
 		F2AD824D286B7065005C024F /* PublishersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersTests.swift; sourceTree = "<group>"; };
 		F2C09DAB286B1490009C9C8E /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
@@ -259,6 +268,7 @@
 		F2C09DBB286B2698009C9C8E /* TestStoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStoreController.swift; sourceTree = "<group>"; };
 		F2C09DBF286B530D009C9C8E /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
 		F2C09DC3286B57EA009C9C8E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
+		F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.Scope.swift; sourceTree = "<group>"; };
 		F2D0DA1729E8472900A114EC /* Taskable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taskable.swift; sourceTree = "<group>"; };
 		F2D0DA1C29E8473700A114EC /* EmptyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTask.swift; sourceTree = "<group>"; };
 		F2DF4A2A26C2B69A00C082CF /* SharedDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDictionaryTests.swift; sourceTree = "<group>"; };
@@ -441,6 +451,8 @@
 				F288DCD329BB922F00FBFED1 /* Publishers.CombineMiniTasksTuple3.swift */,
 				F288DCCE29BB922700FBFED1 /* Publishers.CombineMiniTasksTuple4.swift */,
 				3A20F7E129CCAC5500DDCF8D /* Publishers.EraseToEmptyTask.swift */,
+				F297F4512B1A313200B7B1FA /* Publishers.RemoveExpired.swift */,
+				F2CDC8842B1F4567004E1AFC /* Publishers.Scope.swift */,
 			);
 			path = Publishers;
 			sourceTree = "<group>";
@@ -788,6 +800,7 @@
 				F222D4BB25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B725249B7E00672E7B /* Chain.swift in Sources */,
 				F297D27E286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F2CDC8852B1F4567004E1AFC /* Publishers.Scope.swift in Sources */,
 				F288761528649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D269286A02E200323F24 /* KeyedAction.swift in Sources */,
 				F227FD8729CDEBAE00F1E801 /* PublisherExtensions+EmptyActions.swift in Sources */,
@@ -802,6 +815,7 @@
 				F222D4F525249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F2D0DA1D29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4BF25249B7E00672E7B /* ActionReducer.swift in Sources */,
+				F297F4522B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */,
 				F26C3AF822537A4600189D28 /* Mini.swift in Sources */,
 				F2AD8249286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F2D0DA1829E8472900A114EC /* Taskable.swift in Sources */,
@@ -847,6 +861,7 @@
 				F222D4BC25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B825249B7E00672E7B /* Chain.swift in Sources */,
 				F297D27F286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F2CDC8862B1F4567004E1AFC /* Publishers.Scope.swift in Sources */,
 				F288761628649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26A286A02E200323F24 /* KeyedAction.swift in Sources */,
 				F227FD8829CDEBAE00F1E801 /* PublisherExtensions+EmptyActions.swift in Sources */,
@@ -861,6 +876,7 @@
 				F222D4F625249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F2D0DA1E29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C025249B7E00672E7B /* ActionReducer.swift in Sources */,
+				F297F4532B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */,
 				F26C3AF922537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824A286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F2D0DA1929E8472900A114EC /* Taskable.swift in Sources */,
@@ -906,6 +922,7 @@
 				F222D4BD25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4B925249B7E00672E7B /* Chain.swift in Sources */,
 				F297D280286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F2CDC8872B1F4567004E1AFC /* Publishers.Scope.swift in Sources */,
 				F288761728649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26B286A02E200323F24 /* KeyedAction.swift in Sources */,
 				F227FD8929CDEBAE00F1E801 /* PublisherExtensions+EmptyActions.swift in Sources */,
@@ -920,6 +937,7 @@
 				F222D4F725249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F2D0DA1F29E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C125249B7E00672E7B /* ActionReducer.swift in Sources */,
+				F297F4542B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */,
 				F26C3AFA22537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824B286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F2D0DA1A29E8472900A114EC /* Taskable.swift in Sources */,
@@ -965,6 +983,7 @@
 				F222D4BE25249B7E00672E7B /* ReducerGroup.swift in Sources */,
 				F222D4BA25249B7E00672E7B /* Chain.swift in Sources */,
 				F297D281286A0C6900323F24 /* Dispatcher+Combine.swift in Sources */,
+				F2CDC8882B1F4567004E1AFC /* Publishers.Scope.swift in Sources */,
 				F288761828649B1C0069790E /* Publishers.CombineMiniTasksTuple2.swift in Sources */,
 				F297D26C286A02E200323F24 /* KeyedAction.swift in Sources */,
 				F227FD8A29CDEBAE00F1E801 /* PublisherExtensions+EmptyActions.swift in Sources */,
@@ -979,6 +998,7 @@
 				F222D4F825249B9B00672E7B /* DispatchQueueExtensions.swift in Sources */,
 				F2D0DA2029E8473700A114EC /* EmptyTask.swift in Sources */,
 				F222D4C225249B7E00672E7B /* ActionReducer.swift in Sources */,
+				F297F4552B1A313200B7B1FA /* Publishers.RemoveExpired.swift in Sources */,
 				F26C3AFB22537A4600189D28 /* Mini.swift in Sources */,
 				F2AD824C286B6AD9005C024F /* TaskExpiration.swift in Sources */,
 				F2D0DA1B29E8472900A114EC /* Taskable.swift in Sources */,

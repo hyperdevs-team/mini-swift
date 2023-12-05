@@ -15,7 +15,7 @@ extension TestStore {
     func reducerGroup(expectation: XCTestExpectation? = nil) -> ReducerGroup {
         ReducerGroup { [
             Reducer(of: TestAction.self, on: self.dispatcher) { action in
-                self.state = TestState(testTask: .success(), counter: action.counter)
+                self.state = TestState(testTask: .success(action.counter), counter: action.counter)
                 expectation?.fulfill()
             }
         ]

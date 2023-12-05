@@ -149,4 +149,33 @@ final class ReducerTests: XCTestCase {
 
         wait(for: [expectation1, expectation2], timeout: 5.0)
     }
+
+    func test_scope() {
+        var cancellables = Set<AnyCancellable>()
+        let dispatcher = Dispatcher()
+        let initialState = TestState()
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+        let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
+
+        store
+            .reducerGroup()
+            .store(in: &cancellables)
+
+        dispatcher.dispatch(TestAction(counter: 1))
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            store
+                .scope { $0.testTask }
+                .sink { task in
+                    XCTAssertEqual(task.payload, 2) // Only get 2 because we scope the suscription to task
+                                                    // on the state and receive non expired and unique values.
+                    expectation1.fulfill()
+                }
+                .store(in: &cancellables)
+
+            dispatcher.dispatch(TestAction(counter: 2))
+        }
+
+        wait(for: [expectation1], timeout: 5.0)
+    }
 }
