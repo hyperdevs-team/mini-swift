@@ -98,14 +98,12 @@ final class ReducerTests: XCTestCase {
         wait(for: [expectation1, expectation2], timeout: 5.0)
     }
 
-    func test_subscribe_unbuffered_state_changes() {
+    func test_subscribe_state_changes_without_initial_value() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
         let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
-        let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
-        let expectation2 = XCTestExpectation(description: "Subscription Emits 2")
-        expectation2.expectedFulfillmentCount = 2
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), emitsInitialValue: false)
+        let expectation = XCTestExpectation(description: "Subscription Emits")
 
         store
             .reducerGroup()
@@ -114,31 +112,15 @@ final class ReducerTests: XCTestCase {
         dispatcher.dispatch(TestAction(counter: 1))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // Subscribe delayed and get action with counter == 1 inmediatly because the normal
-            // behaviour of the store maintains a buffer of the most recently published state.
-            store
-                .map(\.counter)
-                .sink { counter in
-                    if counter == 1 {
-                        expectation1.fulfill()
-                    }
-                    if counter == 2 {
-                        expectation2.fulfill()
-                    }
-                }
-                .store(in: &cancellables)
-
-            // Subscribe through passthrough publisher and bypass the buffer from the store.
             // Only gets the action with counter == 2.
             store
-                .passthrough
                 .map(\.counter)
                 .sink { counter in
                     if counter == 1 {
                         XCTFail("counter == 1 should not be emmited because this is a stateless subscription")
                     }
                     if counter == 2 {
-                        expectation2.fulfill()
+                        expectation.fulfill()
                     }
                 }
                 .store(in: &cancellables)
@@ -147,7 +129,7 @@ final class ReducerTests: XCTestCase {
             dispatcher.dispatch(TestAction(counter: 2))
         }
 
-        wait(for: [expectation1, expectation2], timeout: 5.0)
+        wait(for: [expectation], timeout: 5.0)
     }
 
     func test_scope() {

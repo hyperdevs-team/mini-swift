@@ -9,33 +9,31 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     public let dispatcher: Dispatcher
     public var storeController: StoreController
     public var state: StoreState {
-        get {
-            _state
-        }
-        set {
+        didSet {
             queue.sync {
-                if newValue != _state {
-                    _state = newValue
-                    stateCurrentValueSubject.send(state)
-                    statePassthroughSubject.send(state)
+                if state != oldValue {
+                    if emitsInitialValue {
+                        stateCurrentValueSubject.send(state)
+                    } else {
+                        statePassthroughSubject.send(state)
+                    }
                 }
             }
         }
     }
-    public var initialState: StoreState {
-        _initialState
-    }
+    public var initialState: StoreState
 
     public init(_ state: StoreState,
                 dispatcher: Dispatcher,
-                storeController: StoreController) {
-        self._initialState = state
-        self._state = state
+                storeController: StoreController,
+                emitsInitialValue: Bool = true) {
+        self.initialState = state
         self.dispatcher = dispatcher
         self.stateCurrentValueSubject = .init(state)
         self.statePassthroughSubject = .init()
         self.storeController = storeController
-        self.state = _initialState
+        self.emitsInitialValue = emitsInitialValue
+        self.state = state
     }
 
     /**
@@ -61,15 +59,12 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         }
     }
 
-    /// Exposes a passthrough publisher for the Store. 
-    /// Doesn’t have an initial value or a buffer of the most recently-published state.
-    public lazy var passthrough: PassthroughStorePublisher = {
-        .init(statePassthroughSubject: statePassthroughSubject)
-    }()
-
     public func replayOnce() {
-        stateCurrentValueSubject.send(state)
-        statePassthroughSubject.send(state)
+        if emitsInitialValue {
+            stateCurrentValueSubject.send(state)
+        } else {
+            statePassthroughSubject.send(state)
+        }
 
         dispatcher.stateWasReplayed(state: state)
     }
@@ -79,29 +74,15 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     }
 
     public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-        stateCurrentValueSubject.subscribe(subscriber)
+        if emitsInitialValue {
+            stateCurrentValueSubject.subscribe(subscriber)
+        } else {
+            statePassthroughSubject.subscribe(subscriber)
+        }
     }
 
     private var stateCurrentValueSubject: CurrentValueSubject<StoreState, Never>
     private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
     private let queue = DispatchQueue(label: "atomic state")
-    private var _initialState: StoreState
-    private var _state: StoreState
-}
-
-public extension Store {
-    class PassthroughStorePublisher: Publisher {
-        public typealias Output = StoreState
-        public typealias Failure = Never
-
-        private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
-
-        internal init(statePassthroughSubject: PassthroughSubject<StoreState, Never>) {
-            self.statePassthroughSubject = statePassthroughSubject
-        }
-
-        public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-            statePassthroughSubject.subscribe(subscriber)
-        }
-    }
+    private let emitsInitialValue: Bool
 }
