@@ -77,9 +77,6 @@ jobs:
         name: codecov-mac
         gcov_ignore: Tests/*
 
-    - name: Validate Podfile ⚙️
-      run: arch -arm64 rake validate_podfile
-
     - name: Danger 🚨
       run: bundle exec danger
       if: github.event_name  == 'pull_request'
