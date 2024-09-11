@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -530,7 +530,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E26054022121880000D013B5 /* Build configuration list for PBXNativeTarget "Mini-iOS" */;
 			buildPhases = (
-				E260540821218AF400D013B5 /* Swiftlint */,
 				E26053EB212187FF00D013B5 /* Headers */,
 				E26053E9212187FF00D013B5 /* Sources */,
 				E26053EA212187FF00D013B5 /* Frameworks */,
@@ -567,7 +566,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E28123EC2122C2CB00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-macOS" */;
 			buildPhases = (
-				E20BA60521389BE0005BA13B /* Swiftlint */,
 				E28123D42122C2CB00E4F6D0 /* Headers */,
 				E28123D22122C2CB00E4F6D0 /* Sources */,
 				E28123D32122C2CB00E4F6D0 /* Frameworks */,
@@ -604,7 +602,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E28124432122CC4C00E4F6D0 /* Build configuration list for PBXNativeTarget "Mini-tvOS" */;
 			buildPhases = (
-				E20BA60621389BF7005BA13B /* Swiftlint */,
 				E281242F2122CC4C00E4F6D0 /* Headers */,
 				E281242D2122CC4C00E4F6D0 /* Sources */,
 				E281242E2122CC4C00E4F6D0 /* Frameworks */,
@@ -770,54 +767,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E20BA60521389BE0005BA13B /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
-		};
-		E20BA60621389BF7005BA13B /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
-		};
-		E260540821218AF400D013B5 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nmint run swiftlint --fix\nmint run swiftlint\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E26053E9212187FF00D013B5 /* Sources */ = {
