@@ -1,5 +1,7 @@
 import Foundation
 
+public let taskDefaultMargin: TimeInterval = 0.250
+
 public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, CustomDebugStringConvertible {
     public typealias Payload = T
     public typealias Failure = E
@@ -50,9 +52,8 @@ public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, Cust
         status == .running
     }
 
-    public var isExpired: Bool {
-        let margin: TimeInterval = 0.1 // 100ms for suscriptions propagations
-        return started.timeIntervalSinceNow + expiration.value + margin < 0
+    public func isExpired(margin: TimeInterval) -> Bool {
+        started.timeIntervalSinceNow + expiration.value + margin < 0
     }
 
     public var isRecentlySucceeded: Bool {

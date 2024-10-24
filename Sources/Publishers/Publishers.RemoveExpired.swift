@@ -1,9 +1,9 @@
 import Combine
 
 public extension Publisher {
-    func removeExpired() -> Publishers.RemoveExpired<Self>
+    func removeExpired(margin: TimeInterval = taskDefaultMargin) -> Publishers.RemoveExpired<Self>
     where Output: Taskable {
-        Publishers.RemoveExpired(upstream: self)
+        Publishers.RemoveExpired(upstream: self, margin: margin)
     }
 }
 
@@ -15,13 +15,15 @@ public extension Publishers {
         public typealias Failure = Upstream.Failure
 
         public let upstream: Upstream
+        private let margin: TimeInterval
 
-        public init(upstream: Upstream) {
+        public init(upstream: Upstream, margin: TimeInterval) {
             self.upstream = upstream
+            self.margin = margin
         }
 
         public func receive<S: Subscriber>(subscriber: S) where Upstream.Failure == S.Failure, Output == S.Input {
-            upstream.subscribe(Inner(downstream: subscriber))
+            upstream.subscribe(Inner(downstream: subscriber, margin: margin))
         }
     }
 }
@@ -31,9 +33,11 @@ extension Publishers.RemoveExpired {
     where Downstream.Input == Output, Downstream.Failure == Upstream.Failure, Output: Taskable {
         let combineIdentifier = CombineIdentifier()
         private let downstream: Downstream
+        private let margin: TimeInterval
 
-        fileprivate init(downstream: Downstream) {
+        fileprivate init(downstream: Downstream, margin: TimeInterval) {
             self.downstream = downstream
+            self.margin = margin
         }
 
         func receive(subscription: Subscription) {
@@ -41,7 +45,7 @@ extension Publishers.RemoveExpired {
         }
 
         func receive(_ input: Upstream.Output) -> Subscribers.Demand {
-            if input.isExpired {
+            if input.isExpired(margin: margin) {
                 return .none
             }
             return downstream.receive(input)

@@ -6,7 +6,7 @@ public protocol Taskable {
 
     var isIdle: Bool { get }
     var isRunning: Bool { get }
-    var isExpired: Bool { get }
+    func isExpired(margin: TimeInterval) -> Bool
     var isRecentlySucceeded: Bool { get }
     var isTerminal: Bool { get }
     var isSuccessful: Bool { get }
@@ -21,6 +21,12 @@ public protocol Taskable {
     static func running(started: Date, tag: String?, progress: Decimal?) -> Self
     static func failure(_ error: Failure, started: Date, tag: String?, progress: Decimal?) -> Self
     static func success(_ payload: Payload, started: Date, expiration: TaskExpiration, tag: String?, progress: Decimal?) -> Self
+}
+
+public extension Taskable {
+    var isExpired: Bool {
+        self.isExpired(margin: taskDefaultMargin)
+    }
 }
 
 public extension Taskable {
