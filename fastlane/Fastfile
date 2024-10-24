@@ -21,6 +21,13 @@ platform :ios do
         output_directory = File.expand_path("#{ENV['WORKSPACE']}/output")
         ENV['XCPRETTY_JSON_FILE_OUTPUT'] = "#{output_directory}/#{options[:name]}/report.json"
 
+        case options[:name]
+        when 'iOS'
+            devices = ['iPhone 16']
+        else
+            devices = nil
+        end
+
         begin 
             scan_options = {}
             scan_options[:scheme] = options[:scheme]
@@ -33,6 +40,7 @@ platform :ios do
             scan_options[:result_bundle] = true
             scan_options[:formatter] = "xcpretty-json-formatter"
             scan_options[:skip_slack] = true
+            scan_options[:devices] = devices
             scan(scan_options)
         rescue 
             UI.message 'Test are failed, check report!!!'
