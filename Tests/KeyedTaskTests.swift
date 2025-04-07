@@ -83,4 +83,12 @@ class KeyedTaskTests: XCTestCase {
         XCTAssertFalse(tasks.isFailure(key: 3))
         XCTAssertFalse(tasks.isFailure(key: 4))
     }
+
+    func test_isExpired_inside_a_keyedtask() {
+        XCTAssertFalse(tasks.isExpired(key: 0))
+        XCTAssertFalse(tasks.isExpired(key: 1))
+        XCTAssertFalse(tasks.isExpired(key: 2))
+        XCTAssertFalse(tasks.isExpired(key: 3))
+        XCTAssertFalse(tasks.isExpired(key: 4))
+    }
 }

@@ -4,6 +4,16 @@ import XCTest
 class TaskTests: XCTestCase {
     let error = NSError(domain: "wawa", code: 69, userInfo: nil)
 
+    func test_description() {
+        let task1: Task<Int, NSError> = .running()
+
+        XCTAssertEqual(task1.debugDescription, "\(task1)")
+
+        let task2: Task<Int, NSError> = .running(tag: "a")
+
+        XCTAssertEqual(task2.debugDescription, "\(task2)")
+    }
+
     func test_check_states_for_running_task() {
         let task: Task<Int, NSError> = .running()
 

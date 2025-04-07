@@ -21,11 +21,7 @@ let package = Package(
             dependencies: [],
             path: "Sources",
             exclude: [
-                "../bin",
                 "../_config.yml",
-                "../Dangerfile",
-                "../Gemfile",
-                "../Gemfile.lock",
                 "../Mintfile",
                 "../Rakefile",
             ]
