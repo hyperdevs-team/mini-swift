@@ -82,8 +82,7 @@ extension Publishers.CombineMiniTasksTuple4 {
                 let failure = tuple.0.error as? Output.Failure ??
                     tuple.1.error as? Output.Failure ??
                     tuple.2.error as? Output.Failure ??
-                    tuple.3.error as? Output.Failure
-            {
+                    tuple.3.error as? Output.Failure {
                 return downstream.receive(.failure(failure))
             }
 
@@ -93,8 +92,7 @@ extension Publishers.CombineMiniTasksTuple4 {
                 let payload2 = tuple.1.payload as? TaskPayload.T2Payload,
                 let payload3 = tuple.2.payload as? TaskPayload.T3Payload,
                 let payload4 = tuple.3.payload as? TaskPayload.T4Payload,
-                let payload = TaskTuple4Payload(payload1, payload2, payload3, payload4) as? TaskPayload
-            {
+                let payload = TaskTuple4Payload(payload1, payload2, payload3, payload4) as? TaskPayload {
                 return downstream.receive(.success(payload))
             }
 

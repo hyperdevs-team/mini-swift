@@ -9,8 +9,8 @@ final class DispatcherTests: XCTestCase {
 
         XCTAssert(dispatcher.subscriptionCount == 0)
 
-        dispatcher.subscribe { (_: TestAction) -> Void in }.store(in: &cancellables)
-        dispatcher.subscribe { (_: TestAction) -> Void in }.store(in: &cancellables)
+        dispatcher.subscribe { (_: TestAction) in }.store(in: &cancellables)
+        dispatcher.subscribe { (_: TestAction) in }.store(in: &cancellables)
 
         XCTAssert(dispatcher.subscriptionCount == 2)
 

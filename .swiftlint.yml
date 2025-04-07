@@ -10,7 +10,6 @@ opt_in_rules:
   - overridden_super_call
   - yoda_condition
   - modifier_order
-  - anyobject_protocol
   #- explicit_acl  
   - cyclomatic_complexity
   #style
@@ -90,7 +89,6 @@ type_name:
     - my
     - BO
     - bo
-  severity: error
 identifier_name:
   min_length: 3
   max_length: 45
@@ -110,7 +108,6 @@ identifier_name:
     - GlobalAPIKey
     - bo
     - BO
-  severity: error
 attributes:
   always_on_line_above:
       - "@discardableResult"

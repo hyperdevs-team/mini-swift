@@ -77,6 +77,24 @@ extension PublishersTests {
 
     // Tuple 3
 
+    func test_combining_tuple_of_3_with_3_success() {
+        var cancellables = Set<AnyCancellable>()
+        let expectation = expectation(description: "test_combining_tuple_of_3_with_3_success")
+        expectation.expectedFulfillmentCount = 1
+
+        Publishers
+            .CombineLatest3(Just(taskSuccess1), Just(taskSuccess2), Just(taskSuccess3))
+            .combineMiniTasks()
+            .sink { combinedTask in
+                XCTAssertTrue(combinedTask.isSuccessful)
+                XCTAssertEqual(combinedTask.payload, .init("hola", "chau", "adios"))
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 2)
+    }
+
     func test_combining_tuple_of_3_with_2_success_1_failure() {
         var cancellables = Set<AnyCancellable>()
         let expectation = expectation(description: "test_combining_tuple_of_3_with_2_success_1_failure")

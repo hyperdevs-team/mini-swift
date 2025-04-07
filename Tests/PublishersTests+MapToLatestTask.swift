@@ -19,7 +19,7 @@ extension PublishersTests {
 
         triggerSubject
             .mapToLatestTask { _ in
-                return internalSubject
+                internalSubject
                     .eraseToAnyPublisher()
             }
             .sink { task in
@@ -62,7 +62,7 @@ extension PublishersTests {
 
         Just(taskIdentifiableSuccess1) // Emits a task with an Id="uno"
             .mapToLatestTask { id in
-                return Just(self.taskSuccess(value: id)) // This task concats success with received value (id)
+                Just(self.taskSuccess(value: id)) // This task concats success with received value (id)
                     .eraseToAnyPublisher()
             }
             .sink { task in
@@ -84,7 +84,7 @@ extension PublishersTests {
 
         Just(taskIdentifiableSuccess1) // Emits a task with an Id="uno"
             .mapToLatestTask { _ in
-                return subject
+                subject
                     .eraseToAnyPublisher()
             }
             .sink { task in
@@ -108,7 +108,7 @@ extension PublishersTests {
 
         Just(taskIdentifiableFailure1)
             .mapToLatestTask { _ in
-                return subject
+                subject
                     .eraseToAnyPublisher()
             }
             .sink { task in
@@ -133,7 +133,7 @@ extension PublishersTests {
 
         Just(taskIdentifiableRunning1)
             .mapToLatestTask { _ in
-                return subject
+                subject
                     .eraseToAnyPublisher()
             }
             .sink { task in
@@ -158,7 +158,7 @@ extension PublishersTests {
 
         Just(taskIdentifiableIdle1)
             .mapToLatestTask { _ in
-                return subject
+                subject
                     .eraseToAnyPublisher()
             }
             .sink { task in

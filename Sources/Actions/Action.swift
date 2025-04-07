@@ -12,7 +12,7 @@ extension Action {
 
     /**
      Static method to retrieve the name of the action as a tag.action.
-     
+
      Calling this method in a static way return the Action name .Type cause it's not an instance.Action
      For this reason the String is split in two separated by a dot and returning the first part.
      */

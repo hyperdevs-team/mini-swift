@@ -23,7 +23,7 @@ class TestInterceptor: Interceptor {
     }
 
     var perform: InterceptorChain {
-        { action, _ -> Void in
+        { action, _ in
             self.actions.append(action)
             self.onPerfomAction?()
         }

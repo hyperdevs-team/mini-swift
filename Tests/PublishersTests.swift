@@ -15,6 +15,7 @@ class PublishersTests: XCTestCase {
     var taskSuccessExpired: Task<String, TestError> = .success("hola viejo", started: Date() - 1_000, expiration: .immediately)
     var taskSuccess1: Task<String, TestError> = .success("hola")
     var taskSuccess2: Task<String, TestError> = .success("chau")
+    var taskSuccess3: Task<String, TestError> = .success("adios")
     var taskFailure1: Task<String, TestError> = .failure(.berenjenaError)
     var taskFailureExpired: Task<String, TestError> = .failure(.berenjenaError, started: Date() - 1_000)
     var taskFailure2: Task<String, TestError> = .failure(.bigBerenjenaError)

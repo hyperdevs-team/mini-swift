@@ -72,7 +72,7 @@ public final class Dispatcher {
     }
 
     public func subscribe<T: Action>(completion: @escaping (T) -> Void) -> DispatcherSubscription {
-        subscribe(tag: T.tag) { (action: T) -> Void in
+        subscribe(tag: T.tag) { (action: T) in
             completion(action)
         }
     }

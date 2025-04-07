@@ -150,7 +150,7 @@ final class ReducerTests: XCTestCase {
                 .scope { $0.testTask }
                 .sink { task in
                     XCTAssertEqual(task.payload, 2) // Only get 2 because we scope the suscription to task
-                                                    // on the state and receive non expired and unique values.
+                    // on the state and receive non expired and unique values.
                     expectation1.fulfill()
                 }
                 .store(in: &cancellables)

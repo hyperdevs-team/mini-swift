@@ -1,0 +1,69 @@
+name: "pr-validator"
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  swiftlint:
+    name: Swiftlint
+    runs-on: apps-ci
+    timeout-minutes: 120
+    steps:
+
+    - name: Checkout 🔎
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Rake ⚙️
+      run: rake
+
+    - name: Swiftlint 👀
+      run: |
+        set -o pipefail && mint run swiftlint --strict \
+        | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 file=\1,line=\2,col=\3::\5/'
+
+  build:
+    name: Test
+    runs-on: apps-ci
+    timeout-minutes: 120
+    steps:
+
+    - name: Checkout 🔎
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Rake ⚙️
+      run: rake
+
+    - name: Run tests ⚙️
+      run: rake test
+
+    - name: Generate lcov file 📈
+      run: |
+        xcrun llvm-cov export \
+          -format="lcov" \
+          --ignore-filename-regex=".build|.test-bundle|Tests/" \
+          .build/debug/MiniPackageTests.xctest/Contents/MacOS/MiniPackageTests \
+          -instr-profile .build/debug/codecov/default.profdata \
+          > report.lcov
+
+    - name: Upload package tests coverage to Codecov 📋
+      uses: codecov/codecov-action@v3.1.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: report.lcov
+        flags: package
+        fail_ci_if_error: true
+        name: codecov-package
+        gcov_ignore: Tests/*
+
+    - name: Save Output 📦
+      uses: actions/upload-artifact@v4
+      with:
+        name: output
+        path: ${{ github.workspace }}/report.lcov
