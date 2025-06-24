@@ -42,24 +42,11 @@ final class DispatcherTests: XCTestCase {
         XCTAssert(interceptor.actions.isEmpty == true)
     }
 
-    func test_replay_state_with_initial_value() {
+    func test_replay_state() {
         let expectation = XCTestExpectation(description: "Replay state check")
         let dispatcher = Dispatcher()
         let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), emitsInitialValue: true)
-        let interceptor = TestInterceptor(onStateReplayed: { expectation.fulfill() })
-        dispatcher.register(interceptor: interceptor)
-
-        store.replayOnce()
-
-        wait(for: [expectation], timeout: 5.0)
-    }
-
-    func test_replay_state_without_initial_value() {
-        let expectation = XCTestExpectation(description: "Replay state check")
-        let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), emitsInitialValue: false)
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
         let interceptor = TestInterceptor(onStateReplayed: { expectation.fulfill() })
         dispatcher.register(interceptor: interceptor)
 

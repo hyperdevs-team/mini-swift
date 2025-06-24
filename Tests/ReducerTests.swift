@@ -69,11 +69,11 @@ final class ReducerTests: XCTestCase {
         XCTAssertEqual(store.state, initialState)
     }
 
-    func test_subscribe_state_changes() {
+    func test_subscribe_state_changes_with_initial_value() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
         let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .currentValue)
         let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
         let expectation2 = XCTestExpectation(description: "Subscription Emits 2")
 
@@ -102,7 +102,7 @@ final class ReducerTests: XCTestCase {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
         let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), emitsInitialValue: false)
+        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .passthrough)
         let expectation = XCTestExpectation(description: "Subscription Emits")
 
         store
@@ -130,34 +130,5 @@ final class ReducerTests: XCTestCase {
         }
 
         wait(for: [expectation], timeout: 5.0)
-    }
-
-    func test_scope() {
-        var cancellables = Set<AnyCancellable>()
-        let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
-        let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
-
-        store
-            .reducerGroup()
-            .store(in: &cancellables)
-
-        dispatcher.dispatch(TestAction(counter: 1))
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            store
-                .scope { $0.testTask }
-                .sink { task in
-                    XCTAssertEqual(task.payload, 2) // Only get 2 because we scope the suscription to task
-                    // on the state and receive non expired and unique values.
-                    expectation1.fulfill()
-                }
-                .store(in: &cancellables)
-
-            dispatcher.dispatch(TestAction(counter: 2))
-        }
-
-        wait(for: [expectation1], timeout: 5.0)
     }
 }

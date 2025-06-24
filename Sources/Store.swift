@@ -12,11 +12,8 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         didSet {
             queue.sync {
                 if state != oldValue {
-                    if emitsInitialValue {
-                        stateCurrentValueSubject.send(state)
-                    } else {
-                        statePassthroughSubject.send(state)
-                    }
+                    stateCurrentValueSubject.send(state)
+                    statePassthroughSubject.send(state)
                 }
             }
         }
@@ -26,14 +23,14 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     public init(_ state: StoreState,
                 dispatcher: Dispatcher,
                 storeController: StoreController,
-                emitsInitialValue: Bool = true) {
+                defaultPublisherMode: DefaultPublisherMode = .currentValue) {
         self.initialState = state
         self.dispatcher = dispatcher
         self.stateCurrentValueSubject = .init(state)
         self.statePassthroughSubject = .init()
         self.storeController = storeController
-        self.emitsInitialValue = emitsInitialValue
         self.state = state
+        self.defaultPublisherMode = defaultPublisherMode
     }
 
     /**
@@ -60,11 +57,8 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     }
 
     public func replayOnce() {
-        if emitsInitialValue {
-            stateCurrentValueSubject.send(state)
-        } else {
-            statePassthroughSubject.send(state)
-        }
+        stateCurrentValueSubject.send(state)
+        statePassthroughSubject.send(state)
 
         dispatcher.stateWasReplayed(state: state)
     }
@@ -73,16 +67,60 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         state = initialState
     }
 
-    public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-        if emitsInitialValue {
-            stateCurrentValueSubject.subscribe(subscriber)
-        } else {
-            statePassthroughSubject.subscribe(subscriber)
+    public func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, StoreState == S.Input {
+        publisher.receive(subscriber: subscriber)
+    }
+
+    public var publisher: StorePublisher {
+        switch defaultPublisherMode {
+        case .passthrough:
+            return passthroughPublisher
+
+        case .currentValue:
+            return currentValuePublisher
         }
+    }
+
+    public var passthroughPublisher: StorePublisher {
+        .init(subject: statePassthroughSubject)
+    }
+
+    public var currentValuePublisher: StorePublisher {
+        .init(subject: stateCurrentValueSubject)
+    }
+
+    /// Scope a task from the state and receive only new updated since subscription.
+    func scope<T: Taskable & Equatable>(_ transform: @escaping (StoreState) -> T) -> AnyPublisher<T, Failure> {
+        passthroughPublisher
+            .map(transform)
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
 
     private var stateCurrentValueSubject: CurrentValueSubject<StoreState, Never>
     private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
     private let queue = DispatchQueue(label: "atomic state")
-    private let emitsInitialValue: Bool
+    private let defaultPublisherMode: DefaultPublisherMode
+}
+
+public extension Store {
+    enum DefaultPublisherMode {
+        case passthrough
+        case currentValue
+    }
+
+    class StorePublisher: Publisher {
+        public typealias Output = StoreState
+        public typealias Failure = Never
+
+        private var subject: any Subject<StoreState, Never>
+
+        internal init(subject: any Subject<StoreState, Never>) {
+            self.subject = subject
+        }
+
+        public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
+            subject.subscribe(subscriber)
+        }
+    }
 }
