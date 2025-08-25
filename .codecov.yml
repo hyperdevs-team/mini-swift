@@ -1,7 +1,0 @@
-  
-coverage:
-  ignore:
-    - Templates
-    - Scripts
-    - Tests
-    - docs
