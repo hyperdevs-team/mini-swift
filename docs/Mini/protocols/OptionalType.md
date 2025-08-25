@@ -1,6 +1,0 @@
-**PROTOCOL**
-
-# `OptionalType`
-
-## Properties
-### `value`

@@ -1,18 +1,17 @@
-# Mini-Swift
+# MasMini-Swift
 The minimal expression of a Flux architecture in Swift.
 
 Mini is built with be a first class citizen in Swift applications: **macOS, iOS and tvOS** applications.
 With Mini, you can create a thread-safe application with a predictable unidirectional data flow, focusing on what really matters: build awesome applications.
 
-[![Release Version](https://img.shields.io/github/release/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases) 
-[![Release Date](https://img.shields.io/github/release-date/bq/mini-swift.svg)](https://github.com/bq/mini-swift/releases)
-[![Pod](https://img.shields.io/cocoapods/v/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-[![Platform](https://img.shields.io/cocoapods/p/Mini-Swift.svg?style=flat)](https://cocoapods.org/pods/Mini-Swift)
-[![GitHub](https://img.shields.io/github/license/bq/mini-swift.svg)](https://github.com/bq/mini-swift/blob/master/LICENSE)
+[![Release Version](https://img.shields.io/github/release/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/releases) 
+[![Release Date](https://img.shields.io/github/release-date/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/releases)
+[![Pod](https://img.shields.io/cocoapods/v/MasMini-Swift.svg?style=flat)](https://cocoapods.org/pods/MasMini-Swift)
+[![Platform](https://img.shields.io/cocoapods/p/MasMini-Swift.svg?style=flat)](https://cocoapods.org/pods/MasMini-Swift)
+[![GitHub](https://img.shields.io/github/license/masmovil/masmini-swift.svg)](https://github.com/masmovil/masmini-swift/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.org/bq/mini-swift.svg?branch=5.0)](https://travis-ci.org/bq/mini-swift)
-[![codecov](https://codecov.io/gh/bq/mini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/bq/mini-swift)
-[![Documentation](https://img.shields.io/badge/Documentation-passing-green.svg)](http://opensource.bq.com/mini-swift/docs/)
+[![Build Status](https://github.com/masmovil/masmini-swift/actions/workflows/build-and-tests.yml/badge.svg)](https://github.com/masmovil/masmini-swift/actions/workflows/build-and-tests.yml)
+[![codecov](https://codecov.io/gh/masmovil/masmini-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/masmovil/masmini-swift)
 
 ## Requirements
 
@@ -24,51 +23,30 @@ With Mini, you can create a thread-safe application with a predictable unidirect
 
 ## Installation
 
-### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+### [Carthage](https://github.com/Carthage/Carthage)
 
-- Create a `Package.swift` file.
-
-```swift
-// swift-tools-version:5.0
-
-import PackageDescription
-
-let package = Package(
-  name: "MiniSwiftProject",
-  dependencies: [
-    .package(url: "https://github.com/bq/mini-swift.git"),
-  ],
-  targets: [
-    .target(name: "MiniSwiftProject", dependencies: ["Mini" /*, "MiniPromises, MiniTasks"*/])
-  ]
-)
+- Add this to you `Cartfile`:
 ```
-- Mini comes with a bare implementation and two external utility packages in order to ease the usage of the library named `MiniTasks` and `MiniPromises`, both dependant on the `Mini` base or core package.
-
-```
-$ swift build
+github "masmovil/masmini-swift" 
 ```
 
 ### [Cocoapods](https://cocoapods.org/)
 
 - Add this to you `Podfile`:
-
 ```
-pod "Mini-Swift"
-# pod "Mini-Swift/MiniPromises"
-# pod "Mini-Swift/MiniTasks"
+pod "MasMini-Swift"
 ```
 
 - We also offer two subpecs for logging and testing:
 ```
-pod "Mini-Swift/Log"
-pod "Mini-Swift/Test"
+pod "MasMini-Swift/Log"
+pod "MasMini-Swift/Test"
 ```
 
 
 ## Usage
 
-- **MiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
+- **MasMiniSwift** is a library which aims the ease of the usage of a Flux oriented architecture for Swift applications. Due its Flux-based nature, it heavily relies on some of its concepts like **Store**, **State**, **Dispatcher**, **Action**, **Task** and **Reducer**.
 
 ![Architecture](https://i.imgur.com/DioR3i0.png)
 
@@ -76,51 +54,40 @@ pod "Mini-Swift/Test"
 
 - The minimal unit of the architecture is based on the idea of the **State**. **State** is, as its name says, the representation of a part of the application in a moment of time.
 
-- The **State** is a simple `struct` which is conformed of different **Promises** that holds the individual pieces of information that represents the current state, this can be implemented as follows.
+- The **State** is a simple `struct` which is conformed of different **Tasks** and different pieces of data that are potentially fulfilled by the execution of those tasks.
 
 - For example:
 
 ```swift
-// If you're using MiniPromises
-struct MyCoolState: StateType {
-    let cool: Promise<Bool>
-}
-
-// If you're using MiniTasks
-struct MyCoolState: StateType {
+struct MyCoolState: State {
     let cool: Bool?
-    let coolTask: AnyTask
+    let coolTask: Task
+
+    init(cool: Bool = nil,
+         coolTask: Task = Task()
+        ) {
+        self.cool = cool
+        self.coolTask = coolTask
+    }
+
+    // Conform to State protocol
+    func isEqual(to other: State) -> Bool {
+        guard let state = other as? MyCoolState else { return false }
+        return self.cool == state.cool && self.coolTask == state.coolState
+    }
 }
-```
-
-- The default inner state of a `Promise` is `idle`. On the other hand, the default inner state of a `Task` is `idle` as well. This means that no `Action` (see more below), has started any operation over that `Promise` or `Task`.
-
-- Both `Promise` and `Task` can hold any kind of aditional properties that the developer might encounter useful for its implementation, for example, hold a `Date` for cache usage:
-
-```swift
-let promise: Promise<Bool> = .idle()
-promise.date = Date()
-// Later on...
-let date: Date = promise.date
-
-let task: AnyTask = .idle()
-task.date = Date()
-// Later on...
-let date: Date = task.date
 ```
 
 - The core idea of a `State` is its [immutability](https://en.wikipedia.org/wiki/Immutable_object), so once created, no third-party objects are able to mutate it out of the control of the architecture flow.
 
-- As can be seen in the example, a `State` has a pair of  `Task` + `Result`  *usually* (that can be any object, if any), which is related with the execution of the `Task`. In the example above, `CoolTask` is responsible, through its `Reducer` to fulfill the `Action` with the `Task` result and furthermore, the new `State`.
-
-- Furthermore, the `Promise` object unifies the _Status_ + _Result_ tuple, so it can store both the status of an ongoing task and the associated payload produced by it.
+- As can be seen in the example, a `State`  has a pair of  `Task` + `Result`  *usually* (that can be any object, if any), which is related with the execution of the `Task`. In the example above, `CoolTask` is responsible, through its `Reducer` to fulfill the `Action` with the `Task` result and furthermore, the new `State`.
 
 ### Action
 
-- An `Action` is the piece of information that is being dispatched through the architecture. Any `struct` can conform to the `Action` protocol, with the only requirement of being unique its name per application.
+- An `Action` is the piece of information that is being dispatched through the architecture. Any `class` can conform to the `Action` protocol, with the only requirement of being unique its name per application.
 
 ```swift
-struct RequestContactsAccess: Action {
+class RequestContactsAccess: Action {
   // As simple as this is.
 }
 ```
@@ -130,35 +97,50 @@ struct RequestContactsAccess: Action {
     - A `CompletableAction` is a specialization of the `Action` protocol, which allows the user attach both a `Task` and some kind of object that gets fulfilled when the `Task` succeeds.
 
     ```swift
-    struct RequestContactsAccessResult: CompletableAction {
-      let promise: Promise<Bool>
+    class RequestContactsAccessResult: CompletableAction {
+
+      let requestContactsAccessTask: Task
+      let grantedAccess: Bool?
 
       typealias Payload = Bool
+
+      required init(task: Task, payload: Payload?) {
+          self.requestContactsAccessTask = task
+          self.grantedAccess = payload
+      }
     }
     ```
-    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Void`, this means it only has associated a `Promise<Void>`.
+    - An `EmptyAction` is a specialization of `CompletableAction` where the `Payload` is a `Swift.Never`, this means it only has associated a `Task`.
 
     ```swift
-    struct ActivateVoucherLoaded: EmptyAction {
-      let promise: Promise<Void>
+    class ActivateVoucherLoaded: EmptyAction {
+
+      let activateVoucherTask: Task
+
+      required init(task: Task) {
+          self.activateVoucherTask = task
+      }
     }
     ```
     - A `KeyedPayloadAction`, adds a `Key` (which is `Hashable`) to the `CompletableAction`. This is a special case where the same `Action` produces results that can be grouped together, tipically, under a `Dictionary` (i.e., an `Action` to search contacts, and grouped by their main phone number).
 
     ```swift
-    struct RequestContactLoadedAction: KeyedCompletableAction {
+    class RequestContactLoadedAction: KeyedCompletableAction {
 
       typealias Payload = CNContact
       typealias Key = String
 
-      let promise: [Key: Promise<Payload?>]
+      let requestContactTask: Task
+      let contact: CNContact?
+      let phoneNumber: String
+
+      required init(task: Task, payload: CNContact?, key: String) {
+          self.requestContactTask = task
+          self.contact = payload
+          self.phoneNumber = key
+      }
     }
     ```
-
-> We take the advantage of using `struct`, so all initializers are automatically synthesized.
-
-> Examples are done with `Promise`, but there're equivalent to be used with `Task`s.
-
 ### Store
 
 - A `Store` is the hub where decissions and side-efects are made through the ingoing and outgoing `Action`s. A `Store` is a generic class to inherit from and associate a `State` for it.
@@ -175,16 +157,11 @@ struct RequestContactsAccess: Action {
 extension Store where State == TestState, StoreController == TestStoreController {
 
     var reducerGroup: ReducerGroup {
-        return ReducerGroup(
-            // Using Promises
-            Reducer(of: OneTestAction.self, on: dispatcher) { action in
-                self.state = self.state.copy(testPromise: *.value(action.counter))
-            },
-            // Using Tasks
-            Reducer(of: OneTestAction.self, on: dispatcher) { action in
-                self.state = self.state.copy(data: *action.payload, dataTask: *action.task)
+        return ReducerGroup { [
+            Reducer(of: OneTestAction.self, on: self.dispatcher) { action in
+                self.state = self.state.copy(testTask: *.requestSuccess(), counter: *action.counter)
             }
-        )
+        ] }
     }
 }
 ```
@@ -196,7 +173,7 @@ extension Store where State == TestState, StoreController == TestStoreController
 - When working with `Store` instances, you may retain a strong reference of its `reducerGroup`, this is done using the `subscribe()`  method, which is a `Disposable` that can be used like below:
 
 ```swift
-let bag = DisposeBag()
+var bag = DisposeBag()
 let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
 store
     .subscribe()
@@ -214,206 +191,15 @@ dispatcher.dispatch(action, mode: .sync)
 
 - With one line, we can notify every `Store` which has defined a reducer for that type of `Action`.
 
-### Advanced usage
-
-- **Mini** is built over a request-response unidirectional flow. This is achieved using pair of `Action`, one for making the request of a change in a certain `State`, and another `Action` to mutate the `State` over the result of the operation being made.
-
-- This is much simplier to explain with a code example:
-
-#### Using Promises
-
-```swift
-// We define our state in first place:
-struct TestState: StateType {
-    // Our state is defined over the Promise of an Integer type.
-    let counter: Promise<Int>
-
-    init(counter: Promise<Int> = .idle()) {
-        self.counter = counter
-    }
-
-    public func isEqual(to other: StateType) -> Bool {
-        guard let state = other as? TestState else { return false }
-        guard counter == state.counter else { return false }
-        return true
-    }
-}
-
-// We define our actions, one of them represents the request of a change, the other one the response of that change requested.
-
-// This is the request
-struct SetCounterAction: Action {
-    let counter: Int
-}
-
-// This is the response
-struct SetCounterActionLoaded: Action {
-    let counter: Int
-}
-
-// As you can see, both seems to be the same, same parameters, initializer, etc. But next, we define our StoreController.
-
-// The StoreController define the side-effects that an Action might trigger.
-class TestStoreController: Disposable {
-    
-    let dispatcher: Dispatcher
-    
-    init(dispatcher: Dispatcher) {
-        self.dispatcher = dispatcher
-    }
-    
-    // This function dispatches (always in a async mode) the result of the operation, just giving out the number to the dispatcher.
-    func counter(_ number: Int) {
-        self.dispatcher.dispatch(SetCounterActionLoaded(counter: number), mode: .async)
-    }
-    
-    public func dispose() {
-        // NO-OP
-    }
-}
-
-// Last, but not least, the Store definition with the Reducers
-extension Store where State == TestState, StoreController == TestStoreController {
-
-    var reducerGroup: ReducerGroup {
-        ReducerGroup(
-            // We can use Promises:
-            // We set the state with a Promise as .pending, someone has to fill the requirement later on. This represents the Request.
-            Reducer(of: SetCounterAction.self, on: self.dispatcher) { action in
-                guard !self.state.counter.isOnProgress else { return }
-                self.state = TestState(counter: .pending())
-                self.storeController.counter(action.counter)
-            },
-            // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Promise and notify the store for the State change. This represents the Response.
-            Reducer(of: SetCounterActionLoaded.self, on: self.dispatcher) { action in
-                self.state.counter
-                    .fulfill(action.counter)
-                    .notify(to: self)
-            }
-        )
-    }
-}
-```
-
-#### Using Tasks
-
-```swift
-// We define our state in first place:
-struct TestState: StateType {
-    // Our state is defined over the Promise of an Integer type.
-    let counter: Int?
-    let counterTask: AnyTask
-
-    init(counter: Int = nil,
-         counterTask: AnyTask = .idle()) {
-        self.counter = counter
-        self.counterTask = counterTask
-    }
-
-    public func isEqual(to other: StateType) -> Bool {
-        guard let state = other as? TestState else { return false }
-        guard counter == state.counter else { return false }
-        guard counterTask == state.counterTask else { return false }
-        return true
-    }
-}
-
-// We define our actions, one of them represents the request of a change, the other one the response of that change requested.
-
-// This is the request
-struct SetCounterAction: Action {
-    let counter: Int
-}
-
-// This is the response
-struct SetCounterActionLoaded: Action {
-    let counter: Int
-    let counterTask: AnyTask
-}
-
-// As you can see, both seems to be the same, same parameters, initializer, etc. But next, we define our StoreController.
-
-// The StoreController define the side-effects that an Action might trigger.
-class TestStoreController: Disposable {
-    
-    let dispatcher: Dispatcher
-    
-    init(dispatcher: Dispatcher) {
-        self.dispatcher = dispatcher
-    }
-    
-    // This function dispatches (always in a async mode) the result of the operation, just giving out the number to the dispatcher.
-    func counter(_ number: Int) {
-        self.dispatcher.dispatch(
-            SetCounterActionLoaded(counter: number, 
-            counterTask: .success()
-            ),
-            mode: .async)
-    }
-    
-    public func dispose() {
-        // NO-OP
-    }
-}
-
-// Last, but not least, the Store definition with the Reducers
-extension Store where State == TestState, StoreController == TestStoreController {
-
-    var reducerGroup: ReducerGroup {
-        ReducerGroup(
-            // We can use Tasks:
-            // We set the state with a Task as .running, someone has to fill the requirement later on. This represents the Request.
-            Reducer(of: SetCounterAction.self, on: dispatcher) { action in
-                guard !self.state.counterTask.isRunning else { return }
-                self.state = TestState(counterTask: .running())
-                self.storeController.counter(action.counter)
-            },
-            // Next we receive the Action dispatched by the StoreController with a result, we must fulfill our Task and update the data associated with the execution of it on the State. This represents the Response.
-            Reducer(of: SetCounterActionLoaded.self, on: dispatcher) { action in
-                guard self.state.rawCounterTask.isRunning else { return }
-                self.state = TestState(counter: action.counter, counterTask: action.counterTask)
-            }
-        )
-    }
-}
-```
-
-## Documentation
-
-All the documentation available can be found **[here](http://github.com/bq/mini-swift/tree/master/docs)**
-
-## Maintainers
-
-* **[Jorge Revuelta](https://github.com/minuscorp)**
-* **[Francisco García Sierra](https://github.com/FrangSierra)**
-
 ## Authors & Collaborators
 
 * **[Edilberto Lopez Torregrosa](https://github.com/ediLT)**
 * **[Raúl Pedraza León](https://github.com/r-pedraza)**
+* **[Jorge Revuelta](https://github.com/minuscorp)**
+* **[Francisco García Sierra](https://github.com/FrangSierra)**
 * **[Pablo Orgaz](https://github.com/pabloogc)**
 * **[Sebastián Varela](https://github.com/sebastianvarela)**
 
-## Acknowledgements
-The work in this repository up to April 30th, 2021 was done by [bq](https://github.com/bq).
-Thanks for all the work!!
-
 ## License
-This project is licensed under the Apache Software License, Version 2.0.
-```
-   Copyright 2021 HyperDevs
-   
-   Copyright 2019 BQ
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-```
+Mini-Swift is available under the Apache 2.0. See the LICENSE file for more info.
