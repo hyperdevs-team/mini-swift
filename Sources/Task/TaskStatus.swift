@@ -1,4 +1,4 @@
-public enum TaskStatus<Payload: Equatable, Failure: Error & Equatable>: Equatable {
+public enum TaskStatus<Payload: Equatable, Failure: Error & Equatable>: Equatable, CustomDebugStringConvertible, CustomStringConvertible {
     case idle
     case running
     case success(payload: Payload)
@@ -18,5 +18,24 @@ public enum TaskStatus<Payload: Equatable, Failure: Error & Equatable>: Equatabl
         default:
             return false
         }
+    }
+
+    // MARK: - CustomStringConvertible
+    public var description: String {
+        switch self {
+        case .idle:
+            return "⚪️ idle"
+        case .running:
+            return "🌕 Running"
+        case .success(let payload):
+            return "🟢 Success - payload: \(payload)"
+        case .failure(let error):
+            return "🔴 Failure - error: \(error)"
+        }
+    }
+
+    // MARK: - CustomDebugStringConvertible
+    public var debugDescription: String {
+        description
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Taskable {
+public protocol Taskable: Equatable {
     associatedtype Payload: Equatable
     associatedtype Failure: Error & Equatable
 

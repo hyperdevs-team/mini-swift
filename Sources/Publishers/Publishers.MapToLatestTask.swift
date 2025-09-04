@@ -5,8 +5,8 @@ public extension Publisher {
         transform: @escaping ((Output.Payload.ID) -> (AnyPublisher<DownTask, Failure>))
     )
     -> AnyPublisher<DownTask, Failure>
-    where Output: Taskable & Equatable, Output.Payload: Identifiable,
-          DownTask: Taskable & Equatable, DownTask.Failure == Output.Failure {
+    where Output: Taskable, Output.Payload: Identifiable,
+          DownTask: Taskable, DownTask.Failure == Output.Failure {
         map { (task: Output) -> AnyPublisher<DownTask, Failure> in
             switch task.status {
             case .success(let payload):

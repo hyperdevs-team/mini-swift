@@ -14,7 +14,7 @@ public extension Publishers {
         public typealias Output = Upstream.Output
         public typealias Failure = Upstream.Failure
 
-        public let upstream: Upstream
+        private let upstream: Upstream
         private let margin: TimeInterval
 
         public init(upstream: Upstream, margin: TimeInterval) {

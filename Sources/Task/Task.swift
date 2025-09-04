@@ -2,7 +2,7 @@ import Foundation
 
 public let taskDefaultMargin: TimeInterval = 0.250
 
-public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, CustomDebugStringConvertible {
+public class Task<T: Equatable, E: Error & Equatable>: Taskable, CustomDebugStringConvertible, CustomStringConvertible {
     public typealias Payload = T
     public typealias Failure = E
 
@@ -125,19 +125,14 @@ public class Task<T: Equatable, E: Error & Equatable>: Taskable, Equatable, Cust
               progress: progress)
     }
 
+    // MARK: - CustomStringConvertible
+    public var description: String {
+        "[TASK] \(status) - started: \(started)"
+    }
+
     // MARK: - CustomDebugStringConvertible
     public var debugDescription: String {
-        let tagPrint: String
-        if let tag = tag {
-            tagPrint = tag
-        } else {
-            tagPrint = "nil"
-        }
-
-        return """
-        🚀 Task: status: \(status), started: \(started), tag: \(tagPrint)
-        payload: \(String(describing: payload)), progress: \(String(describing: progress)) error: \(String(describing: error))
-        """
+        "[TASK] \(status) - started: \(started) - expiration \(expiration)"
     }
 
     // MARK: Equatable

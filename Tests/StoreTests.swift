@@ -27,7 +27,7 @@ class StoreTests: XCTestCase {
         // THIS PASSES
         store.state = TestState(testTask: .success(1), counter: 1)
 
-        // THIS DOES NOT, had the same success value as the previous one
+        // THIS NOT PASS, had the same success value as the previous one
         store.state = TestState(testTask: .success(1), counter: 2)
 
         // THIS PASSES
