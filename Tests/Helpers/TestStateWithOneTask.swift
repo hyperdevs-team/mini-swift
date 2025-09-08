@@ -1,7 +1,7 @@
 import Foundation
 import Mini
 
-struct TestState: State {
+struct TestStateWithOneTask: State {
     public let testTask: Task<Int, TestError>
     public let counter: Int
 

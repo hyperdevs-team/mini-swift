@@ -45,8 +45,8 @@ final class DispatcherTests: XCTestCase {
     func test_replay_state() {
         let expectation = XCTestExpectation(description: "Replay state check")
         let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+        let initialState = TestStateWithOneTask()
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
         let interceptor = TestInterceptor(onStateReplayed: { expectation.fulfill() })
         dispatcher.register(interceptor: interceptor)
 
