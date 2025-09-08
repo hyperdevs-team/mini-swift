@@ -6,7 +6,7 @@ final class ReducerTests: XCTestCase {
     func test_dispatcher_triggers_action_in_reducer_group_reducer() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
+        let store = Store<TestStateWithOneTask, TestStoreController>(TestStateWithOneTask(), dispatcher: dispatcher, storeController: TestStoreController())
         let expectation = XCTestExpectation(description: "Reducer")
         store
             .reducerGroup(expectation: expectation)
@@ -22,7 +22,7 @@ final class ReducerTests: XCTestCase {
 
     func test_no_subscribe_to_store_produces_no_changes() {
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
+        let store = Store<TestStateWithOneTask, TestStoreController>(TestStateWithOneTask(), dispatcher: dispatcher, storeController: TestStoreController())
 
         XCTAssertTrue(store.state.counter == 0)
 
@@ -34,7 +34,7 @@ final class ReducerTests: XCTestCase {
     func test_subscribe_to_store_receive_actions() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
-        let store = Store<TestState, TestStoreController>(TestState(), dispatcher: dispatcher, storeController: TestStoreController())
+        let store = Store<TestStateWithOneTask, TestStoreController>(TestStateWithOneTask(), dispatcher: dispatcher, storeController: TestStoreController())
         let expectation = XCTestExpectation(description: "Reducer")
         store
             .reducerGroup(expectation: expectation)
@@ -51,8 +51,8 @@ final class ReducerTests: XCTestCase {
     func test_reset_state() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+        let initialState = TestStateWithOneTask()
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
         let expectation = XCTestExpectation(description: "Reducer")
         store
             .reducerGroup(expectation: expectation)
@@ -72,8 +72,8 @@ final class ReducerTests: XCTestCase {
     func test_subscribe_state_changes_with_initial_value() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .currentValue)
+        let initialState = TestStateWithOneTask()
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .currentValue)
         let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
         let expectation2 = XCTestExpectation(description: "Subscription Emits 2")
 
@@ -101,8 +101,8 @@ final class ReducerTests: XCTestCase {
     func test_subscribe_state_changes_without_initial_value() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .passthrough)
+        let initialState = TestStateWithOneTask()
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .passthrough)
         let expectation = XCTestExpectation(description: "Subscription Emits")
 
         store
