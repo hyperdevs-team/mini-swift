@@ -25,10 +25,13 @@ public enum TaskStatus<Payload: Equatable, Failure: Error & Equatable>: Equatabl
         switch self {
         case .idle:
             return "⚪️ idle"
+
         case .running:
             return "🌕 Running"
+
         case .success(let payload):
             return "🟢 Success - payload: \(payload)"
+
         case .failure(let error):
             return "🔴 Failure - error: \(error)"
         }
