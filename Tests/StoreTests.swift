@@ -8,11 +8,11 @@ class StoreTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Scope usage check")
         expectation.expectedFulfillmentCount = 2
         let dispatcher = Dispatcher()
-        let initialState = TestState()
-        let store = Store<TestState, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
+        let initialState = TestStateWithOneTask()
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
 
         // DISCARDED, SCOPE IS NOT ACTIVE YET
-        store.state = TestState(testTask: .success(5), counter: 1)
+        store.state = TestStateWithOneTask(testTask: .success(5), counter: 1)
 
         var counterValue = 0
         // SCOPING....
@@ -25,13 +25,13 @@ class StoreTests: XCTestCase {
             .store(in: &cancellables)
 
         // THIS PASSES
-        store.state = TestState(testTask: .success(1), counter: 1)
+        store.state = TestStateWithOneTask(testTask: .success(1), counter: 1)
 
         // THIS NOT PASS, had the same success value as the previous one
-        store.state = TestState(testTask: .success(1), counter: 2)
+        store.state = TestStateWithOneTask(testTask: .success(1), counter: 2)
 
         // THIS PASSES
-        store.state = TestState(testTask: .success(3), counter: 1)
+        store.state = TestStateWithOneTask(testTask: .success(3), counter: 1)
 
         wait(for: [expectation], timeout: 5.0)
 
