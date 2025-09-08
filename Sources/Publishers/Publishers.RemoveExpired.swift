@@ -1,10 +1,5 @@
 import Combine
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+import Foundation
 
 public extension Publisher {
     func removeExpired(margin: TimeInterval = taskDefaultMargin) -> Publishers.RemoveExpired<Self>
