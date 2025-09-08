@@ -69,11 +69,11 @@ final class ReducerTests: XCTestCase {
         XCTAssertEqual(store.state, initialState)
     }
 
-    func test_subscribe_state_changes_with_initial_value() {
+    func test_subscribe_state_changes() {
         var cancellables = Set<AnyCancellable>()
         let dispatcher = Dispatcher()
         let initialState = TestStateWithOneTask()
-        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .currentValue)
+        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController())
         let expectation1 = XCTestExpectation(description: "Subscription Emits 1")
         let expectation2 = XCTestExpectation(description: "Subscription Emits 2")
 
@@ -96,39 +96,5 @@ final class ReducerTests: XCTestCase {
         dispatcher.dispatch(TestAction(counter: 1))
         dispatcher.dispatch(TestAction(counter: 2))
         wait(for: [expectation1, expectation2], timeout: 5.0)
-    }
-
-    func test_subscribe_state_changes_without_initial_value() {
-        var cancellables = Set<AnyCancellable>()
-        let dispatcher = Dispatcher()
-        let initialState = TestStateWithOneTask()
-        let store = Store<TestStateWithOneTask, TestStoreController>(initialState, dispatcher: dispatcher, storeController: TestStoreController(), defaultPublisherMode: .passthrough)
-        let expectation = XCTestExpectation(description: "Subscription Emits")
-
-        store
-            .reducerGroup()
-            .store(in: &cancellables)
-
-        dispatcher.dispatch(TestAction(counter: 1))
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // Only gets the action with counter == 2.
-            store
-                .map(\.counter)
-                .sink { counter in
-                    if counter == 1 {
-                        XCTFail("counter == 1 should not be emmited because this is a stateless subscription")
-                    }
-                    if counter == 2 {
-                        expectation.fulfill()
-                    }
-                }
-                .store(in: &cancellables)
-
-            // Send action with counter == 2, this action should be caught by the two subscriptions
-            dispatcher.dispatch(TestAction(counter: 2))
-        }
-
-        wait(for: [expectation], timeout: 5.0)
     }
 }

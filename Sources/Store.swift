@@ -12,8 +12,7 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         didSet {
             queue.sync {
                 if state != oldValue {
-                    stateCurrentValueSubject.send(state)
-                    statePassthroughSubject.send(state)
+                    stateSubject.send(state)
                 }
             }
         }
@@ -22,15 +21,12 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
 
     public init(_ state: StoreState,
                 dispatcher: Dispatcher,
-                storeController: StoreController,
-                defaultPublisherMode: DefaultPublisherMode = .currentValue) {
+                storeController: StoreController) {
         self.initialState = state
         self.dispatcher = dispatcher
-        self.stateCurrentValueSubject = .init(state)
-        self.statePassthroughSubject = .init()
+        self.stateSubject = .init(state)
         self.storeController = storeController
         self.state = state
-        self.defaultPublisherMode = defaultPublisherMode
     }
 
     /**
@@ -57,8 +53,7 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
     }
 
     public func replayOnce() {
-        stateCurrentValueSubject.send(state)
-        statePassthroughSubject.send(state)
+        stateSubject.send(state)
 
         dispatcher.stateWasReplayed(state: state)
     }
@@ -71,56 +66,85 @@ public class Store<StoreState: State, StoreController: Cancellable>: Publisher {
         publisher.receive(subscriber: subscriber)
     }
 
-    public var publisher: StorePublisher {
-        switch defaultPublisherMode {
-        case .passthrough:
-            return passthroughPublisher
-
-        case .currentValue:
-            return currentValuePublisher
-        }
-    }
-
-    public var passthroughPublisher: StorePublisher {
-        .init(subject: statePassthroughSubject)
-    }
-
-    public var currentValuePublisher: StorePublisher {
-        .init(subject: stateCurrentValueSubject)
+    public var publisher: Publishers.StoreStatePublisher<StoreState> {
+        .init(upstream: stateSubject)
     }
 
     /// Scope a task from the state and receive only new updated since subscription.
-    public func scope<T: Taskable & Equatable>(_ transform: @escaping (StoreState) -> T) -> AnyPublisher<T, Failure> {
-        passthroughPublisher
-            .map(transform)
-            .removeDuplicates()
-            .eraseToAnyPublisher()
+    public func scope<T: Taskable>(_ transform: @escaping (StoreState) -> T) -> Publishers.StoreScopePublisher<T> {
+        Publishers.StoreScopePublisher(upstream: stateSubject.map(transform),
+                                       initialValue: transform(state))
     }
 
-    private var stateCurrentValueSubject: CurrentValueSubject<StoreState, Never>
-    private var statePassthroughSubject: PassthroughSubject<StoreState, Never>
+    private var stateSubject: CurrentValueSubject<StoreState, Never>
     private let queue = DispatchQueue(label: "atomic state")
-    private let defaultPublisherMode: DefaultPublisherMode
 }
 
-public extension Store {
-    enum DefaultPublisherMode {
-        case passthrough
-        case currentValue
-    }
-
-    class StorePublisher: Publisher {
+public extension Publishers {
+    class StoreStatePublisher<StoreState: State>: Publisher {
+        public typealias Upstream = any Subject<StoreState, Never>
         public typealias Output = StoreState
         public typealias Failure = Never
 
-        private var subject: any Subject<StoreState, Never>
+        private let upstream: Upstream
 
-        internal init(subject: any Subject<StoreState, Never>) {
-            self.subject = subject
+        internal init(upstream: Upstream) {
+            self.upstream = upstream
         }
 
         public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-            subject.subscribe(subscriber)
+            upstream.subscribe(subscriber)
+        }
+    }
+
+    struct StoreScopePublisher<StoreTask: Taskable>: Publisher {
+        public typealias Upstream = any Publisher<StoreTask, Never>
+        public typealias Output = StoreTask
+        public typealias Failure = Never
+
+        private let upstream: Upstream
+        private let initialValue: StoreTask
+
+        internal init(upstream: Upstream, initialValue: StoreTask) {
+            self.upstream = upstream
+            self.initialValue = initialValue
+        }
+
+        public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
+            upstream.subscribe(Inner(downstream: subscriber, initialValue: initialValue))
+        }
+    }
+}
+
+extension Publishers.StoreScopePublisher {
+    private class Inner<Downstream: Subscriber>: Subscriber
+    where Downstream.Input == Output, Downstream.Failure == Never, Output == StoreTask {
+        public typealias Input = Output
+        public typealias Failure = Never
+
+        let combineIdentifier = CombineIdentifier()
+        private let downstream: Downstream
+        private var lastValue: StoreTask
+
+        fileprivate init(downstream: Downstream, initialValue: StoreTask) {
+            self.downstream = downstream
+            self.lastValue = initialValue
+        }
+
+        func receive(subscription: Subscription) {
+            downstream.receive(subscription: subscription)
+        }
+
+        func receive(_ input: Output) -> Subscribers.Demand {
+            if input == lastValue {
+                return .none
+            }
+            self.lastValue = input
+            return downstream.receive(input)
+        }
+
+        func receive(completion: Subscribers.Completion<Failure>) {
+            downstream.receive(completion: completion)
         }
     }
 }
