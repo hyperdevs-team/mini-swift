@@ -7,11 +7,15 @@ class TaskTests: XCTestCase {
     func test_description() {
         let task1: Task<Int, NSError> = .running()
 
-        XCTAssertEqual(task1.debugDescription, "\(task1)")
+        XCTAssertEqual(task1.debugDescription, "\(String(reflecting: task1))")
+        XCTAssertEqual(task1.description, "\(String(describing: task1))")
+        XCTAssertEqual(task1.description, "\(task1)")
 
         let task2: Task<Int, NSError> = .running(tag: "a")
 
-        XCTAssertEqual(task2.debugDescription, "\(task2)")
+        XCTAssertEqual(task2.debugDescription, "\(String(reflecting: task2))")
+        XCTAssertEqual(task2.description, "\(String(describing: task2))")
+        XCTAssertEqual(task2.description, "\(task2)")
     }
 
     func test_check_states_for_running_task() {
