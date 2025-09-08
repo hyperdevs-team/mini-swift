@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 public extension Publisher {
     func removeExpired(margin: TimeInterval = taskDefaultMargin) -> Publishers.RemoveExpired<Self>
