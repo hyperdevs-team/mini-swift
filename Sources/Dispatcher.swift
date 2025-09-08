@@ -16,14 +16,12 @@ public final class Dispatcher {
     private let internalQueue = DispatchQueue(label: "MiniSwift", qos: .userInitiated)
     private var subscriptionMap = SubscriptionMap()
     private var interceptors = [Interceptor]()
-    private let root: RootChain
     private var chain: Chain
     private var dispatching = false
     private var subscriptionCounter = 0
 
     public init() {
-        root = RootChain(map: subscriptionMap)
-        chain = root
+        chain = RootChain(map: subscriptionMap)
     }
 
     public func register(interceptor: Interceptor) {

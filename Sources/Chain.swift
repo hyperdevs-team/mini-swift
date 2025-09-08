@@ -6,18 +6,6 @@ public protocol Chain {
     var proceed: Next { get }
 }
 
-public final class ForwardingChain: Chain {
-    private let next: Next
-
-    public var proceed: Next {
-        { self.next($0) }
-    }
-
-    public init(next: @escaping Next) {
-        self.next = next
-    }
-}
-
 public final class RootChain: Chain {
     private let map: SubscriptionMap
 
